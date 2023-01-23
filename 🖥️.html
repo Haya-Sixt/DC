@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="viewport" content= "width=device-width, user-scalable=no"> 
+</head>
+	
+<script>
+	
+// Globals
+var Vars = { 'base': document.location.href.match(/.*\//umg)[0], 
+	'🕯️': 0, '🕯️🕯️': false, 'sunset': 0, '☔': false }; 
+
+	
+(function(){
+
+// Head
+['🖥️','⏳'].forEach(function (e) { var link = document.createElement('link'); link.rel = 'stylesheet'; link.type = 'text/css'; link.href = Vars.base + 'Css/' + e + '.css'; document.head.appendChild(link); } ); 
+['jquery-3.5.0.min','canvasjs.min','🌡️','🗓️','🪵','📒','⚠️','⏱️','⏳'].forEach(function (e) { var script = document.createElement('script'); script.type = 'text/javascript'; script.src = Vars.base + 'Scripts/' + e + '.js'; document.head.appendChild(script); } ); 
+
+
+// Init
+window.onload = (event) => {
+
+	//webBrowser();
+
+	forecastInit();
+
+	logInit(); // !before calendar
+
+	calendarInit(); // trigger 📒, which has dependencies on both 🗓️, and 🪵
+
+	timerInit();
+
+	C2Init(); // ⚠️
+};
+	
+  
+function webBrowser() {
+	if (!Vars.base.startsWith('http:')) 
+		location.replace('http://localhost:8181/Documents/🖥️/🖥️.html');
+	//if (!String.prototype.replaceAll) 
+	//	String.prototype.replaceAll = (function (p,r) {return this.split(p).join(r)}); 
+	if (document.body.requestFullscreen) {
+		//alert ()
+		var el = document.documentElement,
+			rfs = el.requestFullscreen
+		      || el.webkitRequestFullScreen
+		      || el.mozRequestFullScreen
+		      || el.msRequestFullscreen
+		      ;
+	     rfs.call(el); 
+	     
+		//document.body.requestFullscreen(); // failed 
+		//alert ()
+	}
+	
+	//GM_notification('^+F', 'AutoHotkey')
+	
+	/*
+	<input type='button' id='btn'>
+	const button = document.getElementById('btn');  
+	button.addEventListener('click', () => {
+    	document.body.requestFullscreen();
+    });
+    button.onclick();
+    */
+}
+
+	
+})();
+
+</script>
+
+
+<body _onclick = "popup_dimention()">
+
+<div id="forecast">
+Forecast..</div> 
+
+<div id="calendar">
+Calendar..</div>
+
+<div id="today">
+Today..</div>
+
+<div id="date">
+Date..</div>
+
+<div id="hebMonthYear">
+hebMonthYear..</div>
+
+<div id="⏰">
+⏰..</div>
+
+<div id="🌡️">
+🌡️..</div>
+
+<div id="⏱️">
+⏱️..</div>
+
+<div id="time">
+Time..</div> 
+
+<div id="log">
+Log..</div>
+
+<div id="logProgress">
+LogProgress..</div>
+
+<div id="📒">
+📒..</div>
+
+</body>
+		
+</html>

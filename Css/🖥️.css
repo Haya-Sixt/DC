@@ -1,0 +1,116 @@
+
+/* 🏡 (A205U) */
+@media screen and (min-device-width: 500px) {
+
+.tableTimes, .timesName, #date, #⏰, #time { color:#fbf1ca; }
+.omer { font-size:12px; } 
+.timesName, .timesVal { font-size:1.6em; filter: grayscale(50%) brightness(50%);}
+.timesVal { color:#f9eea2; }
+.timesName { text-shadow: 5px 0px 5px #000, 0px 5px 5px #000, -5px 0px 5px #000, 0px -5px 5px #000; } 
+#time { font-size:9.9em; text-align:center; }
+#date { font-size:22px; white-space: nowrap; } 
+#hebMonthYear { font-size:20px; } 
+#🌡️ span { font-size:23px; } 
+#⏰ { font-size:23px; text-align:left; padding:0 0 0 3px; white-space: nowrap; }
+#log, #logProgress { color:#E6E6E6; direction:ltr; } 
+#log, #⏰:not(.markIconText) { border-radius: 20px; border: 1px solid #8B8B8B; textoverflow: ellipsis; overflow: hidden; }
+#log { font-size:20px; padding:5px 3px 0 3px; background-repeat: no-repeat; } 
+.logProgress { font-size:2em; text-shadow: 4px 4px 4px #000; padding:0px; 
+	border: 1px solid black; border-radius: 15px;
+	background: url(/Images/logProgress.jpg); background-color: #2986C8; 
+	background-repeat: no-repeat; display: flex; flex-wrap: no-wrap; }
+.logProgress div:first-child { flex: 100%; text-overflow: ellipsis; overflow: hidden; }
+.logProgress div:last-child { flex: 1px; white-space: nowrap; }
+#calendar { overflow: hidden; border-top: 15px solid black; } 
+#📒 { display: flex;flex-flow: row wrap;height: 100%; width: 100%; 
+	align-items: center;justify-content: center; align-content: center; padding-top: 10%; }
+#📒 > div { border-radius : 25px;margin: 1% 20% 0 20%;padding: 1% 2% 1% 2%; 
+	text-align: center;font-size: 16px; color: white; text-shadow: 2px 2px 4px #000, -2px -2px 14px #000; 
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); 
+	background-image: linear-gradient(to bottom right, rgba(250, 20, 80, 0.5), rgba(100, 100, 241, 0.7) ); } 
+#📒 > div::first-line { font-size: 17px; }
+#📒 > div > div:last-child { width: 97%; height: 1%; border-radius : 10px; border:1px solid black; } 
+.popup { border-radius: 15px; background-color: #20689b; direction: ltr; }  
+.markIconText > *:first-child { transform:scale(1.3); left:2%; }
+.markIconText > *:nth-child(2) { transform:scale(1.2); left:-6%; 
+	text-shadow: 5px 0px 5px #000, 0px 5px 5px #000, -5px 0px 5px #000, 0px -5px 5px #000, 0px 0px 40px #fff, 0px 0px 30px #2986C8; }
+.markIconText > * { position:relative; top:-1%; z-index:1000; font-size: 35px; color:#FFA90D; filter: grayscale(0%) brightness(100%); } 
+
+#time { top: -2%; left:0.8%; width: 46.5%; height: 36%; } /* 🗒: w/h needed, bg is black */
+#date { left:35%; top:35%; }
+#hebMonthYear { left:3%; top:35.2%; } 
+#forecast { width:36%; height:34%; left:43%; top:10%; } 
+#🌡️yesterday { background-image: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.0) ); }  
+#🌡️ { width:2%; height:33%; top:3%; left: 77.5% } 
+#🌡️ span { left:80%; } 
+#today { top:3%; left:82%; }
+#⏰ { top:45%; } 
+#⏰.markIconText { top:43%; left: 4.5%; }  
+#log, #⏰ { left:3%; width:17.3%; } 
+#log { top:54%; height:41.5%; } 
+#logProgress { left:20%; width:60%; height:0%; } 
+#calendar { top:41.5%; width:63%; left: 21%; height:53%; } 
+.popup { left: 50%; top: 50%; } 
+
+#⏱️{ display: none; }  
+
+}
+
+
+/* 📱 (RN10S) */
+@media screen and (max-device-width: 500px) {
+
+.tableTimes { color:#226CA2; }
+.omer { font-size:11px; } 
+.timesVal { color:#277EBC; } 
+.timesName, .timesVal { font-size:19px; white-space: nowrap; }
+.timesName, #date, #⏱️, #⏰ { color:#b4b4b4; }
+#date, #⏱️, #⏰ { font-size:21px; white-space: nowrap; }
+#⏰ { border-radius: 20px; border: 1px solid #141414; padding:0 6px 0 6px; }
+#hebMonthYear { font-size:18px; white-space: nowrap; } 
+#🌡️yesterday { background-image: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.0) ); }  
+#🌡️ span { font-size:20px; }  
+#calendar { border-top: 25px solid black; }
+
+#today, #date { top:6%; }
+#today, #calendar { left:2.5%; } 
+#date { right:2.5%; }
+#⏰ { top:11.5%; left:44%; }  
+#⏱️ { top:12%; right:2.5%; } 
+#hebMonthYear { top:9%; right:2.5%; }
+#forecast { width:72%; height:19%; top:20%; left:23%; } 
+#🌡️ { width:4%; height:17%; left:93%; top: 18% } 
+#🌡️ span { left: 10px; top: 2%; } 
+#calendar { width:95%; top:calc(38% - 1px); } 
+
+#log, #logProgress, #time, #📒, .popup { display: none; }  
+
+}
+
+
+body { direction:rtl; color:#A1A1A1;}
+body, #time, #🌡️ span, #calendar { background-color: black;}
+table {text-align:center;width:100%; height:1px}
+td {vertical-align:top;}
+.tdHead, .tdDay, .hdate, .dafYomi { font-size:15px;}
+.tdHead {border-radius: 10px; text-align:center;color:#fff;background-color:#20689b;font-weight: normal;} 
+.tdDay { text-decoration:none; }
+.tdCurrent { border-radius: 5px; border:1px solid #20679b;}
+.tdShabat {}
+#hebMonthYear, .ldate, .dafYomi { color:#b4b4b4; font-weight: 100 !important; }
+.hebdate, .ldate { margin-top:2px; } 
+.ldate { float: left; margin-left:5px; }
+.hebdate { float:right; margin-right:5px;}
+.parasha, .omer { float:right; color:#A27A25; font-weight:normal; margin:2px; padding:0; text-align:center; clear:both; }
+imo { font-size:22px; text-shadow: 3px 0px 5px #1E1E1E, 0px 3px 5px #1E1E1E, -3px 0px 5px #1E1E1E, 0px -3px 5px #1E1E1E, 0px 0px 30px #fff, 0px 0px 10px #fff;}
+.omer { white-space: nowrap; }
+.omer span{ filter: brightness(65%);} 
+.dafYomi { overflow: hidden; margin: 4% 0 0 0; } 
+#today { direction:ltr; } 
+.timesName, #date { font-weight:normal;text-align:right;white-space: nowrap;}
+.timesVal, #log, #logProgress { text-align:left; white-space: nowrap;}
+#🌡️yesterday { width:23%; top:-30px; backdrop-filter: grayscale(76%); }  
+#🌡️ span { color:#f9eea2; position : relative; white-space : nowrap; } 
+.errorBorder { border-radius: 10px; border:red 1px solid !important; } 
+
+#today, #log, #logProgress, #calendar, .dafYomi, #time, #date, #hebMonthYear, #⏱️, #⏰, #🌡️, #forecast, #🌡️yesterday, #📒, .popup { position:absolute;}

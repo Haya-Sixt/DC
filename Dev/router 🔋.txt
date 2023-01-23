@@ -1,0 +1,7 @@
+http://192.168.8.1/html/home.html
+
+
+<div class="qtip-content" id="qtip-5-content" aria-atomic="true"><b>29%</b></div>
+
+
+html body div#qtip-5.qtip.qtip-default.qtip-battery.qtip-pos-tr.qtip-focus div#qtip-5-content.qtip-content

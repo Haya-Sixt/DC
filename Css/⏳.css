@@ -1,0 +1,268 @@
+
+/* 🏡 (A205U) */
+@media screen and (min-device-width: 500px) {
+
+#⏳ { position: absolute; left:0; top:0; display: flex; flex-flow: column nowrap; height: 100%; width: 100%; align-items: center; } 
+.cdc_container ul.cdc_flip { height: 86px; }  
+}
+
+
+/* 📱 (RN10S) */
+@media screen and (max-device-width: 500px) {
+	
+#⏳ { display: none; }  
+	
+}
+
+
+.cdc_container { 
+    font: normal 11px "Helvetica Neue", Helvetica, sans-serif;
+    user-select: none;
+    color: #888;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, .3);
+    _text-align: center;
+    _position: absolute;
+    _left: 50%;
+    _top: 50%;
+    _margin: -35px 0 0 -53px; 
+    margin-top: auto; 
+}
+ 
+.cdc_container * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.cdc_container ul {
+    list-style: none;
+}
+
+.cdc_container .cdc_clearfix:before,
+.cdc_container .cdc_clearfix:after {
+    content: " ";
+    display: table;
+}
+
+.cdc_container .cdc_clearfix:after {
+    clear: both;
+}
+
+.cdc_container .cdc_clearfix {
+    *zoom: 1;
+}
+
+/* Skeleton */
+
+.cdc_container ul.cdc_flip {
+    position: relative;
+    float: left;
+    margin: 5px;
+    width: 70px;
+    font-size: 80px;
+    font-weight: bold;
+    line-height: 84px;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .7);
+}
+
+.cdc_container ul.cdc_flip li {
+    z-index: 1;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+
+}
+
+.cdc_container ul.cdc_flip li {
+    display: block;
+    height: 100%;
+    perspective: 200px;
+}
+
+.cdc_container ul.cdc_flip li div {
+    z-index: 1;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    overflow: hidden;
+}
+
+.cdc_container ul.cdc_flip li div .cdc_shadow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+.cdc_container ul.cdc_flip li div.cdc_up {
+    transform-origin: 50% 100%;
+    top: 0;
+}
+
+.cdc_container ul.cdc_flip li div.cdc_up:after {
+  content: "";
+  position:absolute;
+  top:44px;
+  left:0;
+  z-index: 5;
+    width: 100%;
+  height: 3px;
+  background-color: rgba(0,0,0,.4);
+}
+
+.cdc_container ul.cdc_flip li div.cdc_down {
+    transform-origin: 50% 0%;
+    bottom: 0;
+}
+
+.cdc_container ul.cdc_flip li div div.cdc_inn {
+    position: absolute;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 200%;
+    color: #ccc;
+    text-shadow: 0 1px 2px #000;
+    text-align: center;
+    background-color: #333;
+    border-radius: 6px;
+}
+
+.cdc_container ul.cdc_flip li div.cdc_up div.cdc_inn {
+    top: 0;
+}
+
+.cdc_container ul.cdc_flip li div.cdc_down div.cdc_inn {
+    bottom: 0;
+}
+
+/* PLAY */
+
+.cdc_container ul li.cdc_before {
+    z-index: 3;
+}
+
+.cdc_container ul li.cdc_active {
+    animation: cdc_asd .5s .5s linear both;
+    z-index: 2;
+}
+
+@keyframes cdc_asd {
+    0% {
+        z-index: 2;
+    }
+    5% {
+        z-index: 4;
+    }
+    100% {
+        z-index: 4;
+    }
+}
+
+.cdc_container ul li.cdc_active .cdc_down {
+    z-index: 2;
+    animation: cdc_turn .5s .5s linear both;
+}
+
+@keyframes cdc_turn {
+    0% {
+        transform: rotateX(90deg);
+    }
+    100% {
+        transform: rotateX(0deg);
+    }
+}
+
+.cdc_container ul li.cdc_before .cdc_up {
+    z-index: 2;
+    animation: cdc_turn2 .5s linear both;
+}
+
+@keyframes cdc_turn2 {
+    0% {
+        transform: rotateX(0deg);
+    }
+    100% {
+        transform: rotateX(-90deg);
+    }
+}
+
+/* SHADOW */
+
+.cdc_container ul li.cdc_before .cdc_up .cdc_shadow {
+    background: -moz-linear-gradient(top, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, .1)), color-stop(100%, rgba(0, 0, 0, 1)));
+    background: linear-gradient(top, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
+    background: -o-linear-gradient(top, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
+    background: -ms-linear-gradient(top, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
+    background: linear-gradient(to bottom, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
+    animation: cdc_show .5s linear both;
+}
+
+.cdc_container ul li.cdc_active .cdc_up .cdc_shadow {
+    background: -moz-linear-gradient(top, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, .1)), color-stop(100%, rgba(0, 0, 0, 1)));
+    background: linear-gradient(top, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
+    background: -o-linear-gradient(top, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
+    background: -ms-linear-gradient(top, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
+    background: linear-gradient(to bottom, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
+    animation: cdc_hide .5s .3s linear both;
+}
+
+/*DOWN*/
+
+.cdc_container ul li.cdc_before .cdc_down .cdc_shadow {
+    background: -moz-linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 1)), color-stop(100%, rgba(0, 0, 0, .1)));
+    background: linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
+    background: -o-linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
+    background: -ms-linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
+    animation: cdc_show .5s linear both;
+}
+
+.cdc_container ul li.cdc_active .cdc_down .cdc_shadow {
+    background: -moz-linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 1)), color-stop(100%, rgba(0, 0, 0, .1)));
+    background: linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
+    background: -o-linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
+    background: -ms-linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
+    animation: cdc_hide .5s .3s linear both;
+}
+
+@keyframes cdc_show {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes cdc_hide {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+
+/* Main */
+___body {
+    min-height: 100%;
+    background: rgb(150, 150, 150);
+    background: -moz-radial-gradient(center, ellipse cover, rgba(150, 150, 150, 1) 0%, rgba(89, 89, 89, 1) 100%);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(150, 150, 150, 1)), color-stop(100%, rgba(89, 89, 89, 1)));
+    background: -webkit-radial-gradient(center, ellipse cover, rgba(150, 150, 150, 1) 0%, rgba(89, 89, 89, 1) 100%);
+    background: -o-radial-gradient(center, ellipse cover, rgba(150, 150, 150, 1) 0%, rgba(89, 89, 89, 1) 100%);
+    background: -ms-radial-gradient(center, ellipse cover, rgba(150, 150, 150, 1) 0%, rgba(89, 89, 89, 1) 100%);
+    background: radial-gradient(ellipse at center, rgba(150, 150, 150, 1) 0%, rgba(89, 89, 89, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#969696', endColorstr = '#595959', GradientType = 1);
+}
