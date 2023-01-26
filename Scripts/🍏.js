@@ -12,14 +12,14 @@
         Import () {
             this.window.$app = document.querySelector('html').$app; // needed
         },
-        widgets: [],
+        Widgets: [],
         Widget: class Widget {
             constructor (id, init) {
                 this.id = id;
                 this.sid = `#${id}`;
                 this.init = init;
                 $('<div>').attr('id', id).html(`${id}...`).appendTo('body');
-                widgets[id] = this;
+                Widgets[id] = this;
             }
             Init () {
                 $(this.sid).text(`${this.id} Init...`);
@@ -36,7 +36,7 @@
         const s = event.target.readyState;
         if (s == "loading") webBrowser()
         else if (s == "interactive") Init ()
-        else widgets.forEach((w)=>w.Init());
+        else Widgets.forEach((w)=>w.Init());
     }
     
     function Init () {
