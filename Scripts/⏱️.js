@@ -7,10 +7,10 @@ function timerInit() {
 	addEventListener("#today", function() {
 		try {
 			
-		// Set Vars 
+		// Set $app.Vars 
 		var shm = $("#today td:contains(🌇)").next().text().split(':');
-		(Vars.sunset=new Date()).setHours(shm[0], shm[1], 0, 0);
-		Vars.sunset = parseInt(new Date(Vars.sunset).getTime()/1000);
+		($app.Vars.sunset=new Date()).setHours(shm[0], shm[1], 0, 0);
+		$app.Vars.sunset = parseInt(new Date($app.Vars.sunset).getTime()/1000);
 		
 		} catch(e) { $("#⏱️").text(e+'\n⏱️ #today'); }
 	}, false);
@@ -146,9 +146,9 @@ function scheduleUpdate() {
 		var bg = 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' version=\'1.1\'><text x=\'3%\' y=\'90%\' font-size=\'4em\'>', 
 			match = $("#calendar .tdCurrent").text().match(Schedule.c_match()),
 			c = '';
-		if ( Vars['🕯️🕯️'] == "true" )  c += '🕯️🕯️';
+		if ( $app.Vars['🕯️🕯️'] == "true" )  c += '🕯️🕯️';
 		if ( match )  c += match.join('');
-		if ( Vars['☔'] )  c += '☔️';
+		if ( $app.Vars['☔'] )  c += '☔️';
 		if ( c == '')  c += '🌴';
 		
 		$("#log").css('backgroundImage', bg + dx(c) + '</text></svg>")');

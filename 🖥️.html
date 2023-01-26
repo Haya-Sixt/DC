@@ -14,33 +14,20 @@
 (function(){
 
 // Init
-window.onload = (event) => {
-
-	//webBrowser();
-
-	forecastInit();
-
+window.onload = () => {
 	logInit(); // !before calendar
 
 	calendarInit(); // trigger 📒, which has dependencies on both 🗓️, and 🪵
 
 	timerInit();
-
-	C2Init(); // ⚠️
 };
-	
-  
 
-	
 })();
 
 </script>
 
 
 <body _onclick = "popup_dimention()">
-
-<div id="forecast">
-Forecast..</div> 
 
 <div id="calendar">
 Calendar..</div>
@@ -56,9 +43,6 @@ hebMonthYear..</div>
 
 <div id="⏰">
 ⏰..</div>
-
-<div id="🌡️">
-🌡️..</div>
 
 <div id="⏱️">
 ⏱️..</div>

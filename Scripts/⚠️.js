@@ -1,20 +1,24 @@
+// Import
+document.querySelector('html').$app.Import();
 
+(()=>{
 
+	window.addEventListener("load", Init);
 
-// Command and Control
-function C2Init(steps) {
+// C2: Command and Control
+function Init(steps) {
 
 	setInterval(function () {
 		var forcast = $("canvas.canvasjs-chart-canvas");
 		if ("157,190".indexOf(parseInt(forcast.height())) == -1
 		 || "360,332".indexOf(parseInt(forcast.width())) == -1) {
-			forecastInit();
+			$app.Widgets['forecast'].Init();
 			//popup_dimention();
 			}
 
 		var calendar = $("#calendar table");
 		if ("629,438".indexOf(parseInt(calendar.width())) == -1) {
-			calendarInit();
+			$app.Widgets['calendar'].Init();
 			//popup_dimention();
 			}
 
@@ -101,3 +105,4 @@ function popupAdd(html) {
 
 } 
 
+})();

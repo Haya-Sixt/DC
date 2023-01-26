@@ -7,17 +7,36 @@
             '🕯️': 0, 
             '🕯️🕯️': false, 
             'sunset': 0, 
-            '☔': false 
+            '☔': false
         },
         Import () {
             this.window.$app = document.querySelector('html').$app; // needed
+        },
+        widgets: [],
+        Widget: class Widget {
+            constructor (id, init) {
+                this.id = id;
+                this.sid = `#${id}`;
+                this.init = init;
+                $('<div>').attr('id', id).html(`${id}...`).appendTo('body');
+                widgets[id] = this;
+            }
+            Init () {
+                $(this.sid).text(`${this.id} Init...`);
+                this.init();
+            }
+            Reset (fn) {
+                $(this.sid).text(`${this.id} ${fn} failed.\nRebooting (40s)...`);
+                setTimeout(this.Init, 1000*40);
+            }
         }
     };
     
     function Load () {
         const s = event.target.readyState;
         if (s == "loading") webBrowser()
-        else if (s == "interactive") Init ();
+        else if (s == "interactive") Init ()
+        else widgets.forEach((w)=>w.Init());
     }
     
     function Init () {
@@ -59,4 +78,4 @@
     
     document.addEventListener("readystatechange", Load);
     
-    })();
+})();

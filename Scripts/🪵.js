@@ -64,8 +64,8 @@ function logUpdate(json) {
 	}
 	
 	// 🕯️🕯️
-	Vars['🕯️'] = shishi;
-	Vars['🕯️🕯️'] = data.shabbat;
+	$app.Vars['🕯️'] = shishi;
+	$app.Vars['🕯️🕯️'] = data.shabbat;
 	
 	
 	// 🔋
