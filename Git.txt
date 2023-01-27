@@ -1,0 +1,27 @@
+Dir="/storage/emulated/0/Documents"
+
+options=("clone" "status" "commit" "Quit")
+select opt in "${options[@]}"
+do
+  case $opt in
+  "clone")
+    cd $Dir 
+    git clone git@github.com:Haya-Sixt/Home.git
+    rm -r $Dir/Archive/🖥️
+    mv 🖥️ $Dir/Archive/🖥️
+    mv $Dir/Home $Dir/🖥️ 
+  ;;
+  "status")
+    cd $Dir/🖥️
+    git status
+  ;;
+  "commit")
+    cd $Dir/🖥️
+    git add .
+    git commit --all -m "default" 
+  ;;
+  "Quit")
+    break
+  ;;
+  *) echo "invalid option $REPLY";;
+esac done
