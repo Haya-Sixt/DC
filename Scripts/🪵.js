@@ -1,30 +1,25 @@
+// Import
+document.querySelector('html').$app.Import();
+
+(()=>{
+
+// Widget
+const wdgt = new $app.Widget('🪵');
 
 //
-function logInit() {
-	try {
-
-	$("#log").text("🪵 Init");
-
-	const url = "http://localhost:8181/Documents/MacroDroid/🖥️/📑/🪵.json";
-	$.get( url, function( data, s, xhr ) {
-		setTimeout(logInit, 1000*60*3);  
-		logUpdate(xhr.responseText);
+wdgt.Init() = ()=> {
+	const url = `${$app.Vars.base}📑/${wdgt.id}.json`;
+	$.get( url, 
+		(d, s, xhr)=> {
+		  wdgt.Restart (3);  
+		  wdgt.Update(xhr);
     })
-    .fail(function(jqXHR, textStatus) {
-		$("#log").text("logInit.get failed. \n🪵 Rebooting (40s)...");
-		$("#log").addClass("errorBorder");
-		setTimeout(logInit, 1000*40);
-    });
-    
-   } catch (e) { $("#log").text("logInit Exception: " + e); } 
+    .fail(()=> wdgt.Reset());
 }
 
 //
-function logUpdate(json) {
-	try {
-	
-	var data = $.parseJSON(json), 
-		log = data.log.split('∆'), result='', resultProgress = '',
+wdgt.Update(data) = ()=> {
+	let log = data.log.split('∆'), result='', resultProgress = '',
 		now = parseInt( new Date().getTime() / 1000 ),
 		forecast_clock = parseInt(new Date(data.forecast_clock).getTime()/1000),
 		shishi = 0; 
@@ -33,7 +28,7 @@ function logUpdate(json) {
 		var startedAt = log[i].substring(0,16), duration = 0, 
 			endsAt = startedAt = parseInt(new Date(startedAt).getTime()/1000);
 
-		if (now-startedAt > 6*60*60) continue;
+		if (now - startedAt > 6*60*60) continue;
 
 		log[i] = log[i].substring(11);
 		if (log[i].indexOf("[")!=-1) {
@@ -47,9 +42,9 @@ function logUpdate(json) {
 				endsAt += parseInt(duration.substring(0,duration.indexOf('m')))*60;
 			duration = endsAt - startedAt;
 
-			var log_id = 'log_' + (Math.floor(Math.random() * 100000));
-			resultProgress += '<div name="logProgress" startedAt="'+startedAt+'"' 
-				+ ' duration="'+duration+'" log_id="' + log_id + '">' 
+			var log_id = '🪵_' + (Math.floor(Math.random() * 100000));
+			resultProgress += '<div name="🪵Progress" startedAt="'+startedAt+'"' 
+				+ ' duration="'+duration+'" 🪵_id="' + log_id + '">' 
 				+ '<div>' + log[i] + '</div><div></div></div><div style="height:10px;" ></div>';
 
 			result += '<div id="' + log_id + '" style="display:none;" >' + log[i] + '</div>'; 
@@ -73,8 +68,8 @@ function logUpdate(json) {
 		result = '<div class="errorBorder">' + '....'.substring(0,4-data.battery.length) + data.battery + '% ⚠️🔋</div>' + result;
 			
 	// 🌡️
-	if (now-forecast_clock > 6*60*60) {
-		var h = ((now-forecast_clock) / -60);
+	if (now - forecast_clock > 6*60*60) {
+		var h = ((now - forecast_clock) / -60);
 		if (h<24) h='>24'
 		else h=h.toFixed(1);
 		result = '<div class="errorBorder">' + h + 'h   ⚠️🌡️</div>' + result;
@@ -84,16 +79,14 @@ function logUpdate(json) {
 	result = '<div>' + $('#⏱️').text() + '</div>' + result; 
 	
 	
-	$("#log").html(result).removeClass("errorBorder");
-	$("#logProgress").html(resultProgress).removeClass("errorBorder");
+	$("#🪵").html(result).removeClass("errorBorder");
+	$("#🪵Progress").html(resultProgress).removeClass("errorBorder");
 
 	if (resultProgress != '') {
 		clearInterval(i_logProgress);
 		i_logProgress = setInterval(logProgress, 1000*61);
 		logProgress();
-	}
-	
-	} catch (e) { $("#log").text("logUpdate Exception: " + e); } 
+	} 
 }
 
 
@@ -102,7 +95,7 @@ var i_logProgress = null;
 function logProgress() {
 	try {
 
-	var lp = $("#logProgress div[name=logProgress]");
+	var lp = $("#🪵Progress div[name=🪵Progress]");
 	var now = parseInt( new Date().getTime() / 1000 ); 
 	var topOffset=0;
 
@@ -130,18 +123,20 @@ function logProgress() {
 		}
 		if (percent==100) {
 			$(this).hide();
-			$('#'+$(this).attr('log_id')).show();
+			$('#'+$(this).attr('🪵_id')).show();
 		} 
 		else  {
 			$(this).css('backgroundSize',percent+'% 100%')
 				.children().last().text(h+' '+m);
-			$(this).addClass('logProgress');
-			$('#logProgress').css('top','calc(91% - '+ topOffset++ * 30 +'px)');
+			$(this).addClass('🪵Progress');
+			$('#🪵Progress').css('top','calc(91% - '+ topOffset++ * 30 +'px)');
 			
 			if (m=='3m' && h=='')
 				Countdown(400);
 		} 
 	});
 	
-	} catch (e) { $('#logProgress').text("logProgress Exception: " + e); } 
+	} catch (e) { $('#🪵Progress').text("🪵Progress Exception: " + e); } 
 } 
+
+})();

@@ -12,7 +12,7 @@ function Init(steps) {
 		var forcast = $("canvas.canvasjs-chart-canvas");
 		if ("157,190".indexOf(parseInt(forcast.height())) == -1
 		 || "360,332".indexOf(parseInt(forcast.width())) == -1) {
-			$app.Widgets['forecast'].Init();
+			$app.Widgets['🌡️'].Init();
 			//popup_dimention();
 			}
 
@@ -51,8 +51,8 @@ function popupInit() {
 
 function popup_dimention() {
 	popupAdd(new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' })
-		+':  🌡️ '+ parseInt($("#forecast").height())
-		+'X'+ parseInt($("#forecast").width())
+		+':  🌡️ '+ parseInt($("#🌡️").height())
+		+'X'+ parseInt($("#🌡️").width())
 		+',  🌡️(canvas) '+ parseInt($("canvas.canvasjs-chart-canvas").height())
 		+'X'+ parseInt($("canvas.canvasjs-chart-canvas").width())
 		+',  📆 '+ parseInt($("#calendar table").height())

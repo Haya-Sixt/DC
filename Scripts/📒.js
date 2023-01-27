@@ -57,7 +57,7 @@ function notesUpdate() {
 			if (m == 'בחודש') {
 				if ($('#calendar .tdCurrent .hebdate').text().indexOf(d) != -1)
 					// default is 🌇
-					startedAt = $app.Vars.sunset + parseHM(cond, 'תאריך_'+d+'_'+m,condC);
+					startedAt = $app.Vars['🌇'] + parseHM(cond, 'תאריך_'+d+'_'+m,condC);
 				else
 					continue; 
 			}
@@ -73,7 +73,7 @@ function notesUpdate() {
 		
 		// 🌇
 		if (condC.indexOf(',🌇,')!=-1) {
-			startedAt = $app.Vars.sunset + parseHM(cond,'🌇',condC);
+			startedAt = $app.Vars['🌇'] + parseHM(cond,'🌇',condC);
 		}
 		
 		if (!startedAt || startedAt>now) 

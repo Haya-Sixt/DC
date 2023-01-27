@@ -9,8 +9,8 @@ function timerInit() {
 			
 		// Set $app.Vars 
 		var shm = $("#today td:contains(🌇)").next().text().split(':');
-		($app.Vars.sunset=new Date()).setHours(shm[0], shm[1], 0, 0);
-		$app.Vars.sunset = parseInt(new Date($app.Vars.sunset).getTime()/1000);
+		($app.Vars['🌇']=new Date()).setHours(shm[0], shm[1], 0, 0);
+		$app.Vars['🌇'] = parseInt(new Date($app.Vars['🌇']).getTime()/1000);
 		
 		} catch(e) { $("#⏱️").text(e+'\n⏱️ #today'); }
 	}, false);
@@ -151,7 +151,7 @@ function scheduleUpdate() {
 		if ( $app.Vars['☔'] )  c += '☔️';
 		if ( c == '')  c += '🌴';
 		
-		$("#log").css('backgroundImage', bg + dx(c) + '</text></svg>")');
+		$("#🪵").css('backgroundImage', bg + dx(c) + '</text></svg>")');
 
 		} catch(e) { $("#⏰").text(e+'\n⏰ LogIcon'); }
 		
