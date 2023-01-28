@@ -1,73 +1,89 @@
+<!DOCTYPE html>
 <html>
 
 <head>
-	<meta name="viewport" content= "width=device-width, user-scalable=no">
-    <link href="../Css/🖥️.css" rel="stylesheet" type="text/css">
-	<script src="../Scripts/jquery-3.5.0.min.js"></script>
-	
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="viewport" content= "width=device-width, user-scalable=no">
+<script src="Scripts/__🍏.js" type='text/javascript'/>
+</head>
+
 <style></style>
 
 <script>
-	
-	
+	// App
+(function () {
 
-/*
-setTimeout(()=>{
-dispatchEvent(new Event('#today'));
-},2000);
-*/
+    const app = document.querySelector('html').$app = {
+        Vars : { 
+            'base': document.location.href.match(/.*\//umg)[0], 
+            '🕯️': 0, 
+            '🕯️🕯️': false, 
+            '🌇': 0, 
+            '☔': false
+        },
+        Import () {
+            this.window.$app = document.querySelector('html').$app; // needed
+        },
+        Widgets: [],
+        Widget: class Widget {
+            constructor (id) {
+                this.id = id;
+                this.sid = `#${id}`;
+                this.init = init;
+                this.update = update;
+                $('<div>').attr('id', id).html(`${id}...`).appendTo('body');
+                Widgets[id] = this;
+            }
+            _Init () {
+                try {
+                    $(this.sid).text(`${this.id} Init...`).removeClass("errorBorder");
+                    this.init();
+                } catch (e) { $(this.sid).text(`${this.id} Init: ${e}`).addClass("errorBorder"); } 
+            }
+            _Update (xhr) {
+                try {
+                    $(this.sid).text(`${this.id} Update...`).removeClass("errorBorder");
+                    this.Update($.parseJSON(xhr.responseText));
+                } catch (e) { $(this.sid).text(`${this.id} Update: ${e}`).addClass("errorBorder"); }
+            }
+            Restart (m) {
+                setTimeout(this._Init, 1000*60*m);
+            }
+            Reset (fn='get') {
+                $(this.sid).text(`${this.id} ${fn} failed.\nResetting (40s)...`);
+                setTimeout(this._Init, 1000*40);
+            }
+        }
+    };
 
+    app.Import ();
 
-$(document).ready(function() {
+	function Load () {
+        const s = event.target.readyState;
+        if (s == "loading") webBrowser()
+        else if (s == "interactive") Interactive ()
+        else Complete ();
+    }
+    
+    function webBrowser() {
+        return;
+		}
 
-try {
-let j =(j)=>`-${j}_`,
-Html =j('🖥️ 📸 📂 👌 ');
-alert(Html)
+    function Interactive () {
+        //['🖥️','⏳'].forEach((e)=> { const link = document.createElement('link'); link.rel = 'stylesheet'; link.type = 'text/css'; link.href = $app.Vars.base + 'Css/' + e + '.css'; document.head.appendChild(link); } ); 
+				//'🌡️','🗓️','🪵','📒','⚠️','⏱️','⏳'
+        ['jquery-3.5.0.min','canvasjs.min','🪵'].forEach((e)=> { const script = document.createElement('script'); script.type = 'text/javascript'; script.src = $app.Vars.base + 'Scripts/' + e + '.js'; document.head.appendChild(script); } ); 
+				
+    }
+		 function Complete () {
+			Widgets.forEach((w)=>w.Init())
+		 }
 
-
-
-/*
-alert( ")(-_ 🦦🚱 hgft".match(/\p{Extended_Pictographic}(?<!🌾|🐮)/umg) );
-
-alert( ")(-_ 🦦🚱 hgft".match(/\p{Extended_Pictographic}/umg) );
-
-
-	if (false );
-	else if (false ) ;
-	else alert();
-
-
-clearInterval("1h");
-alert ("1");
-addEventListener("#today", function(){
-//alert (this+"four")
-}, false);
-
-//alert(parseInt('6h5m'));
-//var Vars = { '🕯️': false }; 
-//var hm ='17:03'.split(':');
-//(sunset=new Date()).setHours(hm[0], hm[1], 0, 0);
-//alert (Vars['🕯️'] +sunset);
-//alert (new Date(new Date().getDate()+' 16:56').getTime() );
-//alert(data.notes);
-//var json = $.parseJSON(data);
-//alert(json.notes[1]);
-
-let text = "A45:56c\n"+
-"b14:56s";
-let pattern = /[0-2][0-9]:[0-5][0-9]/gm;
-text.match(pattern).forEach((m) => { 
-alert(m); 
-});
-*/
-
-}catch(e){alert(e);}
-
-});
-
-
-//var data = '{"battery":"65","night":"false","notes":[["שבת Shabbos ","⚒:גיהוץטלית🍲:מיחםחיישנים מטבח🛀:טישו לאמבטיהמברשת שיניים🛋:חלותשיאצ\'ואוזניותמסרקשלטים🕯🕯:אוכל לסופיאוכל ליאור מרפסתניידרמקולים🗒:מותר לשים גוש מרק קפוא, על חמגשית עם רוב יבש, שעל גבי מיחם מים.      https://hebrew.instarabbiapp.com/q/iXD88יום טוב שחל במוצʼש: כבר בשבת, מותר לחמם על הפלטה לצורך הערב. אין בפלטה משום איסור מכין משבת לחול, משום שאין בזה טרחה. הרב בוטבול    https://youtu.be/oc3qbakimwg?t=440מותר לרחוץ כל גופו בבויילר עם טיימר בראש השנה http://halachayomit.co.il/he/default.aspx?HalachaID=1996    שלום, ראשית כל, דבר שנאמר בפירוש בגמרא שאינו שווה לכל נפש וחכמים הגדירוהו לאיסור, קשה מאד להקל בו. ביום טוב אחד אין חובה לרחוץ כל גופו, שהרי בכל שבת הוא רגיל לרחוץ בערב שבת ותו לא. וביום טוב שני של גלויות מותר לרחוץ כל גופו כמו שכתב בחזון עובדיה יום טוב עמוד קנז. בברכת התורה, שנה טובה ומבורכת, הלכה יומיתמדרבנן יש צורך בקבלה של ממש באמירת מזמור שיר או ברכו, וזה עושה קבלה גמורה. לכן לקבל בפה לפרוש ממלאכה ודאי כדאי אפילו לפני מנחה אם חושש לאחר את השקיעה, ובקבלה גמורה לקים את הדין דרבנן, יעשה רק אחרי שמונה עשרה של מנחה, ואין בעיה בכך שעונה אמן וקדושה על חזרת הש”ץ.מותר לכסות צלחת בנייר כסף, ואין בזה הטמנה. בשתי שכבות נייר, יש כבר איסור.אם הכיסוי אינו נוגע במאכל, אין בזה הטמנה כלל. אפילו לא חלקית (שאוסר השוʼע, והרמʼא מתיר)חמגשית על חמגשית, צריך לראות שיש פחות מטפח הפסק בין המאכל לכיסוי, משום איסור אוהל ⛺. הטעם (נראה לי), שאין זה הכיסוי המיועד לחמגשית. לעומת זאת, כיסוי בנייר כסף, הוא כן יחשב כיסוי מיועד.לקפל חמגשית, שחציה יאהיל על חציה, אסור, משום תיקון מנא.מותר לשים שקית מים בחמין, ולנקב, אם מצטמק.הטעם להיתר לכסות צלחת:   ג. כתב הרʼן [2] יʼט עʼא בדפי הריʼף) ʼלשים כלי על תבשיל כדי לשומרו מן העכברים או כדי שלא יטנף בעפרורית, שרי. שאין זה כמטמין להחם, אלא כשומר וכנותן כיסוי על גבי הקדרהʼ. וכן נפסק בשוʼע [4] סי\' רנז סע\' ב). ובטעם ההיתר כתב המשנה ברורה (סʼק יד) ʼכיון שאינו מתכוון לזהʼ. ועל פי זה כתב בארחות שבת [12] סע\' עו) ʼמכסה הקדירה אינו נדון כהטמנה אף אם הוא נוגע באוכל, דעיקר מטרתו לשמור את האוכל מפני הלכלוךʼ. והוסיף (שם הערה קלד) להתיר להניח בתוך הקדרה בצמוד לאוכל נייר אלומיניום על פני התבשיל במטרה שהתבשיל לא יצטמק יתר על המידה, כיון שאין מטרתו בנתינת נייר האלומיניום לשמירת החום, אלא שלא יצאו האדים, ולא גרע מההיתר לכסות את האוכל עʼמ לשומרו מהלכלוךʼ. ועיʼש (סע\' עז ובהערה קלה) במשʼכ בנדון הנחת דבר מאכל על צלחת שעל גבי המיחם וכיסוי הצלחת במכסה [המותר], וכיסוי בשכבות נוספות של נייר אלומיניום [האסור].⚒ : לוח שנה להעביר את הטיימר ל ⏰Ewelink לציפורלכבות בויילר  פלטה מפסקי לד וכיורכיסוי מפסקי אורננסיםעריכת שולחןיין 💡 למרפסתמנורת קריאהכיסוי מנורת שבתלהנמיך רמקוליםלד מזגןלד זרועעכבררמקוליםנרות שבתמנחהשעון שבת:  מזגןמנורת קריאה + כיסויבדיקת תחזיתhttps://www.weather2day.co.il/jerusalemלוודא מצב שבת במיחם🎂 Holiday:ewelink למזגןשעון מעוררnotes-container RfDI4d-sKfxWediv.rymPhb:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(4) > div:nth-child(2)div.rymPhb:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(5)Remind Me<div role=ʼbuttonʼ class=ʼ--ʼ tabindex=ʼ0ʼ style=ʼuser-select: none;ʼ data-tooltip-text=ʼRemind meʼ aria-label=ʼRemind meʼ></div>/html/body/div[7]/div/div[2]/div[2]/div[2]/div[3]/html/body/div[7]/div/div[2]/div[2]/div[2]/div[3]html body div.notes-container  "],["🐠  (🕯️ ) [10m] ","🐠"],["🍲 (🕯️🕯️, 🌇 ) [10m] ","רמקולים 🔊<br>אוכל 🍲 לסופי"]],"log":"2022.04.15 16:55 🕯️🕯️∆2022.04.15 17:30 🚿  (🔺15°)   [55m]∆2022.04.15 14:08 🚿  (🔺15°)   [40m]∆2022.04.15 10:12 🔓"}';
+		document.addEventListener("readystatechange", Load);
+    
+	})();
 
 
 </script>

@@ -1,10 +1,5 @@
 
 //
-// Note: Remember! last time it seemed like the 'Yeshiva' 
-// 	is blocking us with 403 error, it fix itself, during shabbat.
-//
-
-//
 function calendarInit() {
 	try {
 		

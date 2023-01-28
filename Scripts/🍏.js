@@ -56,7 +56,8 @@
     
     function Head () {
         ['🖥️','⏳'].forEach((e)=> { const link = document.createElement('link'); link.rel = 'stylesheet'; link.type = 'text/css'; link.href = $app.Vars.base + 'Css/' + e + '.css'; document.head.appendChild(link); } ); 
-        ['jquery-3.5.0.min','canvasjs.min','🌡️','🗓️','🪵','📒','⚠️','⏱️','⏳'].forEach((e)=> { const script = document.createElement('script'); script.type = 'text/javascript'; script.src = $app.Vars.base + 'Scripts/' + e + '.js'; document.head.appendChild(script); } ); 
+        //['jquery-3.5.0.min','canvasjs.min','🌡️','🗓️','🪵','📒','⚠️','⏱️','⏳'].forEach((e)=> { const script = document.createElement('script'); script.type = 'text/javascript'; script.src = $app.Vars.base + 'Scripts/' + e + '.js'; document.head.appendChild(script); } ); 
+        ['jquery-3.5.0.min','canvasjs.min','🪵'].forEach((e)=> { const script = document.createElement('script'); script.type = 'text/javascript'; script.src = $app.Vars.base + 'Scripts/' + e + '.js'; document.head.appendChild(script); } ); 
     }
     
     function webBrowser() {
