@@ -22,7 +22,7 @@
                 this.repeat = {init: 0, update: 0};
                 this.dependency = '';
                 $('<div>').attr('id', id).html(`${id}...`).appendTo('body');
-                this.Widgets[id] = this;
+                app.Widgets[id] = this;
             }
             get Init () {
                 return ()=> { try {
