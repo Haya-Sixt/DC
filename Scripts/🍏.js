@@ -44,8 +44,6 @@
         }
     };
 
-    app.Import ();
-
     
     function Load () {
         const s = event.target.readyState;
