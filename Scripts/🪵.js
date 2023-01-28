@@ -5,20 +5,10 @@ document.querySelector('html').$app.Import();
 
 // Widget
 const wdgt = new $app.Widget('🪵');
+wdgt.repeat = { init: 3 };
 
 //
-wdgt.Init() = ()=> {
-	const url = `${$app.Vars.base}📑/${wdgt.id}.json`;
-	$.get( url, 
-		(d, s, xhr)=> {
-		  wdgt.Restart (3);  
-		  wdgt.Update(xhr);
-    })
-    .fail(()=> wdgt.Reset());
-}
-
-//
-wdgt.Update(data) = ()=> {
+wdgt.Update = (data)=> {
 	let log = data.log.split('∆'), result='', resultProgress = '',
 		now = parseInt( new Date().getTime() / 1000 ),
 		forecast_clock = parseInt(new Date(data.forecast_clock).getTime()/1000),

@@ -17,29 +17,46 @@
             constructor (id) {
                 this.id = id;
                 this.sid = `#${id}`;
-                this.init = init;
-                this.update = update;
+                this.init = null;
+                this.update = null;
+                this.repeat = {init: 0, update: 0};
+                this.dependency = '';
                 $('<div>').attr('id', id).html(`${id}...`).appendTo('body');
                 Widgets[id] = this;
             }
-            _Init () {
-                try {
+            get Init () {
+                return ()=> { try {
                     $(this.sid).text(`${this.id} Init...`).removeClass("errorBorder");
-                    this.init();
-                } catch (e) { $(this.sid).text(`${this.id} Init: ${e}`).addClass("errorBorder"); } 
+                    if (this.init) {
+                        this.init();
+                    }
+                    else {
+                        const url = `${$app.Vars.base}📑/${this.id}.json`;
+                        $.get( url, 
+                            (d, s, xhr)=> {
+                                this.repeat.init && setTimeout(this.Init, 1000*60*this.repeat.init);
+                                const d = $.parseJSON(xhr.responseText);
+                                this.Update(d);
+                        })
+                        .fail(()=> wdgt.Reset());
+                    }
+                } catch (e) { $(this.sid).text(`${this.id} Init: ${e}`).addClass("errorBorder"); } }
             }
-            _Update (xhr) {
-                try {
+            set Init (f) {
+                this.init = f;
+            }
+            get Update () {
+                return (d)=>{ try {
                     $(this.sid).text(`${this.id} Update...`).removeClass("errorBorder");
-                    this.Update($.parseJSON(xhr.responseText));
-                } catch (e) { $(this.sid).text(`${this.id} Update: ${e}`).addClass("errorBorder"); }
+                    this.update(d);
+                } catch (e) { $(this.sid).text(`${this.id} Update: ${e}`).addClass("errorBorder"); } }
             }
-            Restart (m) {
-                setTimeout(this._Init, 1000*60*m);
+            set Update (f) {
+                this.update = f;
             }
             Reset (fn='get') {
                 $(this.sid).text(`${this.id} ${fn} failed.\nResetting (40s)...`);
-                setTimeout(this._Init, 1000*40);
+                setTimeout(this.Init, 1000*40);
             }
         }
     };
@@ -49,7 +66,7 @@
         const s = event.target.readyState;
         if (s == "loading") webBrowser()
         else if (s == "interactive") Head ()
-        else Widgets.forEach((w)=>w.Init());
+        else $app.Widgets.forEach((w)=>w.Init());
     }
     
     function Head () {
