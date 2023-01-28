@@ -66,7 +66,7 @@
         const s = event.target.readyState;
         if (s == "loading") webBrowser()
         else if (s == "interactive") Head ()
-        else app.Widgets.forEach((w)=>w.Init());
+        else Object.entries(app.Widgets).forEach.forEach(([k,v])=>v.Init());
     }
     
     function Head () {
