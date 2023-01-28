@@ -35,8 +35,8 @@
                         $.get( url, 
                             (d, s, xhr)=> {
                                 this.repeat.init && setTimeout(this.Init, 1000*60*this.repeat.init);
-                                const d = $.parseJSON(xhr.responseText);
-                                this.Update(d);
+                                const data = $.parseJSON(xhr.responseText);
+                                this.Update(data);
                         })
                         .fail(()=> wdgt.Reset());
                     }
@@ -46,9 +46,9 @@
                 this.init = f;
             }
             get Update () {
-                return (d)=>{ try {
+                return (data)=>{ try {
                     $(this.sid).text(`${this.id} Update...`).removeClass("errorBorder");
-                    this.update(d);
+                    this.update(data);
                 } catch (e) { $(this.sid).text(`${this.id} Update: ${e}`).addClass("errorBorder"); } }
             }
             set Update (f) {
