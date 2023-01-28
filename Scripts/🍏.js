@@ -10,7 +10,7 @@
             '☔': false
         },
         Import () {
-            this.window.$app = document.querySelector('html').$app; // needed
+            window.$app = document.querySelector('html').$app; // needed
         },
         Widgets: [],
         Widget: class Widget {
@@ -22,7 +22,7 @@
                 this.repeat = {init: 0, update: 0};
                 this.dependency = '';
                 $('<div>').attr('id', id).html(`${id}...`).appendTo('body');
-                Widgets[id] = this;
+                this.Widgets[id] = this;
             }
             get Init () {
                 return ()=> { try {
