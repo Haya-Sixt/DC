@@ -35,8 +35,8 @@
                         $.get( url, 
                             (d, s, xhr)=> {
                                 this.repeat.init && setTimeout(this.Init, 1000*60*this.repeat.init);
-                                const data = $.parseJSON(xhr.responseText);
-                                this.Update(data);
+                                this.json = $.parseJSON(xhr.responseText);
+                                this.Update();
                         })
                         .fail(()=> wdgt.Reset());
                     }
@@ -46,9 +46,13 @@
                 this.init = f;
             }
             get Update () {
-                return (data)=>{ try {
+                return ()=>{ try {
                     $(this.sid).text(`${this.id} Update...`).removeClass("errorBorder");
-                    this.update(data);
+                    if (this.repeat.update) {
+                        clearInterval(this.repeat.i_update);
+                        this.repeat.i_update = setInterval(this.update, 1000*60*this.repeat.update);
+                    }
+                    this.update();
                 } catch (e) { $(this.sid).text(`${this.id} Update: ${e}`).addClass("errorBorder"); } }
             }
             set Update (f) {
@@ -71,6 +75,8 @@
     
     function Head () {
         ['🖥️','⏳'].forEach((e)=> { const link = document.createElement('link'); link.rel = 'stylesheet'; link.type = 'text/css'; link.href = app.Vars.base + 'Css/' + e + '.css'; document.head.appendChild(link); } ); 
+	    // 🪵 before 📆
+	    // 📆 trigger 📒, which has dependencies on both 🗓️, and 🪵
         //['jquery-3.5.0.min','canvasjs.min','🌡️','🗓️','🪵','📒','⚠️','⏱️','⏳'].forEach((e)=> { const script = document.createElement('script'); script.type = 'text/javascript'; script.src = $app.Vars.base + 'Scripts/' + e + '.js'; document.head.appendChild(script); } ); 
         ['jquery-3.5.0.min','canvasjs.min','🪵'].forEach((e)=> { const script = document.createElement('script'); script.type = 'text/javascript'; script.src = app.Vars.base + 'Scripts/' + e + '.js'; document.head.appendChild(script); } ); 
     }
