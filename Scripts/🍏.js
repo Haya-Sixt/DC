@@ -28,8 +28,16 @@
                 return ()=> { try {
                     $(this.sid).text(`${this.id} Init...`).removeClass("errorBorder");
                     if (this.init) {
-                        if (this.dependency) addEventListener('🖥️.' + this.dependency, this.init)
-                        else this.init();
+                        if (this.dependency) {
+                            addEventListener('🖥️.' + this.dependency, ()=> {
+                                this.init();
+                                this.Update();
+                            });
+                        }
+                        else {
+                            this.init();
+                            this.Update();
+                        }
                     }
                     else {
                         const url = `${$app.Vars.base}📑/${this.id}.json`;
