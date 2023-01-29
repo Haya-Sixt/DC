@@ -43,8 +43,6 @@ wdgt.Update = ()=> {
 	result = '<div>' + $('#⏱️').text() + '</div>' + result; 
 	
 	$(wdgt.sid).html(result);
-
-	dispatchEvent(new Event('🖥️.🪵'));
 }
 
 //

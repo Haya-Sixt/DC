@@ -57,11 +57,9 @@
             get Update () {
                 return ()=>{ try {
                     $(this.sid).removeClass("errorBorder");
-                    if (this.repeat.update) {
-                        clearInterval(this.repeat.i_update);
-                        this.repeat.i_update = setInterval(this.update, 1000*60*this.repeat.update);
-                    }
+                    this.repeat.update && setTimeout(this.Update, 1000*60*this.repeat.update);
                     this.update();
+                    dispatchEvent(new Event('🖥️.' + this.id));
                 } catch (e) { $(this.sid).text(`${this.id} Update: ${e}`).addClass("errorBorder"); } }
             }
             set Update (f) {
@@ -86,8 +84,8 @@
         ['🖥️','⏳'].forEach((e)=> { const link = document.createElement('link'); link.rel = 'stylesheet'; link.type = 'text/css'; link.href = app.Vars.base + 'Css/' + e + '.css'; document.head.appendChild(link); } ); 
 	    // 🪵 before 📆
 	    // 📆 trigger 📒, which has dependencies on both 🗓️, and 🪵
-        //['jquery-3.5.0.min','canvasjs.min','🌡️','🗓️','🪵','📒','⚠️','⏱️','⏳'].forEach((e)=> { const script = document.createElement('script'); script.type = 'text/javascript'; script.src = $app.Vars.base + 'Scripts/' + e + '.js'; document.head.appendChild(script); } ); 
-        ['jquery-3.5.0.min','canvasjs.min','🪵'].forEach((e)=> { const script = document.createElement('script'); script.type = 'text/javascript'; script.src = app.Vars.base + 'Scripts/' + e + '.js'; document.head.appendChild(script); } ); 
+                                                    //'📒','⏱️','⏳'
+        ['jquery-3.5.0.min','canvasjs.min','🍞','⚠️','🪵','🌡️','🗓️'].forEach((e)=> { const script = document.createElement('script'); script.type = 'text/javascript'; script.src = app.Vars.base + 'Scripts/' + e + '.js'; document.head.appendChild(script); } ); 
     }
     
     function webBrowser() {

@@ -1,9 +1,11 @@
+// Import
+document.querySelector('html').$app.Import();
+
+// 1.
+(()=>{
 
 //
 function calendarInit() {
-	try {
-		
-	$("#calendar").text("🗓️ Init");
 	
 	var year = new Intl.DateTimeFormat('he-u-ca-hebrew',{year:'numeric'}).format(new Date()),
 		month = monthHeb(new Date()),

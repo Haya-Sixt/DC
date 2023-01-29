@@ -96,7 +96,7 @@ td {vertical-align:top;}
 .tdHead {border-radius: 10px; text-align:center;color:#fff;background-color:#20689b;font-weight: normal;} 
 .tdDay { text-decoration:none; }
 .tdCurrent { border-radius: 5px; border:1px solid #20679b;}
-.tdShabat {}
+/*.tdShabat {}*/
 #hebMonthYear, .ldate, .dafYomi { color:#b4b4b4; font-weight: 100 !important; }
 .hebdate, .ldate { margin-top:2px; } 
 .ldate { float: left; margin-left:5px; }
