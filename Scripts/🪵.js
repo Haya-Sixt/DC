@@ -72,7 +72,7 @@ wdgt.Entries = function* (now) {
 
 	//
 	wdgt.Init = ()=> {
-		let result='', resultProgress='', now = parseInt( new Date().getTime() / 1000 );
+		let result=$('#🪵').html(), resultProgress='', now = parseInt( new Date().getTime() / 1000 );
 	
 		for (const e of $app.Widgets['🪵'].Entries(now)) {
 			if (e.log.indexOf("[")==-1) continue;
@@ -96,7 +96,7 @@ wdgt.Entries = function* (now) {
 			result += '<div id="' + log_id + '" style="display:none;" >' + e.log + '</div>'; 
 		};
 		
-		$('#🪵').html($('#🪵').html()+result);
+		if (resultProgress != '') $('#🪵').html(result);
 		$(wdgt.sid).html(resultProgress);
 	};
 
