@@ -28,7 +28,7 @@
                 return ()=> { try {
                     $(this.sid).text(`${this.id} Init...`).removeClass("errorBorder");
                     if (this.init) {
-                        if (this.dependency) addEventListener('🖥️.' + this.dependency)
+                        if (this.dependency) addEventListener('🖥️.' + this.dependency, this.init)
                         else this.init();
                     }
                     else {
