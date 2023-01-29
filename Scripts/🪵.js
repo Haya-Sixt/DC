@@ -14,14 +14,15 @@ wdgt.Update = ()=> {
 		forecast_clock = parseInt(new Date(wdgt.json.forecast_clock).getTime()/1000),
 		shishi = 0;
 	
-	wdgt.Entries(now).forEach((e)=> {
+	for (const x of wdgt.Entries(now)) {
+	//wdgt.Entries(now).forEach((e)=> {
 		if (e.log.indexOf("[")==-1)
 			result += '<div>' + e.log + '</div>';
 
 		// Set shishi
 		if ( e.log.substring(17).substring(0,4) == '🕯️ ' )
 			shishi = e.startedAt;
-	});
+	}//);
 	
 	// 🕯️🕯️
 	$app.Vars['🕯️'] = shishi;
