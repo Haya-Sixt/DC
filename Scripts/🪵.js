@@ -43,6 +43,8 @@ wdgt.Update = ()=> {
 	result = '<div>' + $('#⏱️').text() + '</div>' + result; 
 	
 	$(wdgt.sid).html(result);
+
+	dispatchEvent(new Event('🖥️.🪵'));
 }
 
 //
@@ -65,6 +67,7 @@ wdgt.Entries *= (now)=> {
 
 	// Widget
 	const wdgt = new $app.Widget('🪵Progress');
+	wdgt.dependency = '🪵';
 	wdgt.repeat = { update: 1 };
 
 	//
