@@ -48,7 +48,7 @@ wdgt.Update = ()=> {
 }
 
 //
-wdgt.Entries *= (now)=> {
+wdgt.Entries = (now)=> {
 	let log = wdgt.json.log.split('∆'); 
 	
 	for (var i=0; i<log.length; i++) {
