@@ -102,7 +102,7 @@ wdgt.Entries = function* (now) {
 
 	//
 	wdgt.Update = ()=> {
-		var lp = $(`${wdgt.sid} div[name="${wdgt.sid}"]`);
+		var lp = $(`${wdgt.sid} div[name="${wdgt.id}"]`);
 		var now = parseInt( new Date().getTime() / 1000 ); 
 		var topOffset=0;
 
