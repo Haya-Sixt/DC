@@ -14,15 +14,14 @@ wdgt.Update = ()=> {
 		forecast_clock = parseInt(new Date(wdgt.json.forecast_clock).getTime()/1000),
 		shishi = 0;
 	
-	for (const x of wdgt.Entries(now)) {
-	//wdgt.Entries(now).forEach((e)=> {
+	for (const e of wdgt.Entries(now)) { // 🗒: yield doesn't work with forEach because it's callback
 		if (e.log.indexOf("[")==-1)
 			result += '<div>' + e.log + '</div>';
 
 		// Set shishi
 		if ( e.log.substring(17).substring(0,4) == '🕯️ ' )
 			shishi = e.startedAt;
-	}//);
+	};
 	
 	// 🕯️🕯️
 	$app.Vars['🕯️'] = shishi;
@@ -75,7 +74,7 @@ wdgt.Entries = function* (now) {
 	wdgt.Init = ()=> {
 		let result='', resultProgress='', now = parseInt( new Date().getTime() / 1000 );
 	
-		$app.Widgets['🪵'].Entries(now).forEach((e)=> {
+		for (const e of $app.Widgets['🪵'].Entries(now)) {
 			if (e.log.indexOf("[")==-1) return;
 
 			let endsAt = e.startedAt, duration = 0;
@@ -95,7 +94,7 @@ wdgt.Entries = function* (now) {
 				+ '<div>' + e.log + '</div><div></div></div><div style="height:10px;" ></div>';
 
 			result += '<div id="' + log_id + '" style="display:none;" >' + e.log + '</div>'; 
-		});
+		};
 		
 		$('#🪵').html(result);
 		$(wdgt.sid).html(resultProgress);
