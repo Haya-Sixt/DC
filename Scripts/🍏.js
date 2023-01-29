@@ -26,7 +26,7 @@
             }
             get Init () {
                 return ()=> { try {
-                    $(this.sid).text(`${this.id} Init...`).removeClass("errorBorder");
+                    $(this.sid).removeClass("errorBorder");
                     if (this.init) {
                         if (this.dependency) {
                             addEventListener('🖥️.' + this.dependency, ()=> {
@@ -56,7 +56,7 @@
             }
             get Update () {
                 return ()=>{ try {
-                    $(this.sid).text(`${this.id} Update...`).removeClass("errorBorder");
+                    $(this.sid).removeClass("errorBorder");
                     if (this.repeat.update) {
                         clearInterval(this.repeat.i_update);
                         this.repeat.i_update = setInterval(this.update, 1000*60*this.repeat.update);
