@@ -48,14 +48,14 @@ wdgt.Update = ()=> {
 }
 
 //
-wdgt.Entries = (now)=> {
+wdgt.Entries = function* (now) {
 	let log = wdgt.json.log.split('∆'); 
 	
 	for (var i=0; i<log.length; i++) {
 		var startedAt = parseInt(new Date(log[i].substring(0,16)).getTime()/1000);
 
 		if (now - startedAt > 6*60*60) continue;
-		yield * 3;//{log: log[i].substring(11), startedAt: startedAt};
+		yield {log: log[i].substring(11), startedAt: startedAt};
 	}
 }
 
