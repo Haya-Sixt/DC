@@ -13,7 +13,7 @@
 #🏳️‍🌈 span { font-size:23px; } 
 #⏰ { font-size:23px; text-align:left; padding:0 0 0 3px; white-space: nowrap; }
 #🪵, #🪵Progress { color:#E6E6E6; direction:ltr; } 
-#🪵, #⏰:not(.markIconText) { border-radius: 20px; border: 1px solid #8B8B8B; textoverflow: ellipsis; overflow: hidden; }
+#🪵, #⏰:not(.markIconText) { border-radius: 20px; border: 1px solid #8B8B8B; text-overflow: ellipsis; overflow: hidden; }
 #🪵 { font-size:20px; padding:5px 3px 0 3px; background-repeat: no-repeat; } 
 .🪵Progress { font-size:2em; text-shadow: 4px 4px 4px #000; padding:0px; 
 	border: 1px solid black; border-radius: 15px;
@@ -89,7 +89,7 @@
 
 
 body { direction:rtl; color:#A1A1A1;}
-body, #time, #�️‍🌈 span, #calendar { background-color: black;}
+body, #time, #🏳️‍🌈 span, #calendar { background-color: black;}
 table {text-align:center;width:100%; height:1px}
 td {vertical-align:top;}
 .tdHead, .tdDay, .hdate, .dafYomi { font-size:15px;}
