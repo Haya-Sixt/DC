@@ -55,7 +55,7 @@ wdgt.Entries = function* (now) {
 		var startedAt = parseInt(new Date(log[i].substring(0,16)).getTime()/1000);
 
 		if (now - startedAt > 6*60*60) continue;
-		yield {log: log[i].substring(11), startedAt: startedAt};
+		yield * {log: log[i].substring(11), startedAt: startedAt};
 	}
 }
 
