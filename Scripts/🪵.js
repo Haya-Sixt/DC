@@ -71,7 +71,7 @@ wdgt.Entries *= (now)=> {
 	wdgt.Init = ()=> {
 		let result='', resultProgress='', now = parseInt( new Date().getTime() / 1000 );
 	
-		$app.Widget['🪵'].Entries(now).forEach((e)=> {
+		$app.Widgets['🪵'].Entries(now).forEach((e)=> {
 			if (e.log.indexOf("[")==-1) return;
 
 			let endsAt = e.startedAt, duration = 0;
