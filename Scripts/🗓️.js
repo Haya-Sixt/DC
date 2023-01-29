@@ -4,6 +4,35 @@ document.querySelector('html').$app.Import();
 // 1.
 (()=>{
 
+// Widget
+const wdgt = new $app.Widget('hebMonthYear');
+wdgt.repeat = { init: 3 };
+
+//
+wdgt.Update = ()=> {
+}
+
+})();
+
+
+// 2.
+(()=>{
+
+	// Widget
+	const wdgt = new $app.Widget('🪵Progress');
+	wdgt.dependency = 'hebMonthYear';
+	wdgt.repeat = { update: 1 };
+
+	//
+	wdgt.Init = ()=> {
+	}
+
+	})();
+
+
+
+
+
 //
 function calendarInit() {
 	
@@ -16,13 +45,6 @@ function calendarInit() {
 	calendarInitTablet(fn, fnNext);
 	
 	heb();
-	
-	
-   } catch (e) {
-   	$("#calendar").text("calendarInit failed:" + e + " \n🗓️ Rebooting (40s)...");
-   	$("#calendar").addClass("errorBorder");
-   	setTimeout(calendarInit, 1000*40);
-   } 
    
    
    function Next() {
