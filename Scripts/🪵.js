@@ -96,7 +96,7 @@ wdgt.Entries = function* (now) {
 			result += '<div id="' + log_id + '" style="display:none;" >' + e.log + '</div>'; 
 		};
 		
-		$('#🪵').html(result);
+		$('#🪵').html($('#🪵').html()+result);
 		$(wdgt.sid).html(resultProgress);
 	};
 
