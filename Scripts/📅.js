@@ -142,8 +142,9 @@ wdgt.Url = ()=> [
 ];
 
 function Next() {
-	var now = new Date(), monthNext = $app.Widgets['📅👈'].month;
-	while (month==monthNext) {
+	var now = new Date(), month, monthNext;
+	month = monthNext = $app.Widgets['📅👈'].month;
+	while (month == monthNext) {
 		now.setDate(now.getDate()+1); 
 		monthNext = $app.Widgets['📅👈'].Month(now);
 	}
