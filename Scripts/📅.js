@@ -24,7 +24,7 @@ const wdgt = new $app.Widget('📅👈');
 
 //
 wdgt.Init = ()=> {
-	wdgt.json = { 
+	wdgt.data = { 
 		year: new Intl.DateTimeFormat('he-u-ca-hebrew',{year:'numeric'}).format(new Date()),
 		month: wdgt.Month(new Date()) 
 	};
@@ -32,10 +32,10 @@ wdgt.Init = ()=> {
 	
 //
 wdgt.Update = ()=> {
-	var seven = !(wdgt.json.year % 7) ? 'שנת שמיטה' : 'שנה ' + String.fromCharCode((wdgt.json.year % 7) + 'א'.charCodeAt(0) - 1) + "'", 
-		leap = '' + ([0,3,6,8,11,14,17].includes(wdgt.json.year % 19) ? 'מעוברת' : 'פשוטה');
+	var seven = !(wdgt.data.year % 7) ? 'שנת שמיטה' : 'שנה ' + String.fromCharCode((wdgt.data.year % 7) + 'א'.charCodeAt(0) - 1) + "'", 
+		leap = '' + ([0,3,6,8,11,14,17].includes(wdgt.data.year % 19) ? 'מעוברת' : 'פשוטה');
 	
-	$(wdgt.sid).text( wdgt.json.month + '  ' + wdgt.json.year + '  ' + seven + '  ' + leap );
+	$(wdgt.sid).text( wdgt.data.month + '  ' + wdgt.data.year + '  ' + seven + '  ' + leap );
 };
 
 //
@@ -57,13 +57,13 @@ const wdgt = new $app.Widget('📆');
 wdgt.dependency = '📅👈';
 
 //
-wdgt.Url = ()=> `/times_${$app.Widgets['📅👈'].json.year}_${$app.Widgets['📅👈'].json.month}.htm`;
+wdgt.Url = ()=> `/times_${$app.Widgets['📅👈'].data.year}_${$app.Widgets['📅👈'].data.month}.htm`;
 
 //
 wdgt.Update = ()=> {
 	var times = "", ldate = new Date().toLocaleDateString('he-IL').replace('.','/').replace('.','/'),
-	trH = wdgt.json.substring(wdgt.json.indexOf("<td"),wdgt.json.indexOf("</tr")), 
-	trT = wdgt.json.substring(wdgt.json.indexOf(ldate));
+	trH = wdgt.data.substring(wdgt.data.indexOf("<td"),wdgt.data.indexOf("</tr")), 
+	trT = wdgt.data.substring(wdgt.data.indexOf(ldate));
 
 	trH = trH.replaceAll(' class="tdHead visible ','').replaceAll('type-date"','').replaceAll('type-time"','').replaceAll('type-limud"','').replaceAll('</td><td>','|').replaceAll('<td>','').replaceAll('</td>','').split('|'); 
 	trT = trT.substring(0, trT.indexOf("</tr")).replaceAll('</td><td>','|').replaceAll('</td>','').split('|');
@@ -137,7 +137,7 @@ wdgt.dependency = '📆';
 
 //
 wdgt.Url = ()=> [
-	`/${wdgt.id}_${$app.Widgets['📅👈'].json.year}_${$app.Widgets['📅👈'].json.month}.htm`,
+	`/${wdgt.id}_${$app.Widgets['📅👈'].data.year}_${$app.Widgets['📅👈'].data.month}.htm`,
 	`/${wdgt.id}_${Next().year}_${Next().month}.htm`
 ];
 
@@ -153,8 +153,8 @@ function Next() {
 
 //
 wdgt.Update = ()=> {
-	var tHTML1 = wdgt.json[0].replaceAll("tdCurrent",""),
-		tHTML2 = wdgt.json[1].replaceAll("tdCurrent","");
+	var tHTML1 = wdgt.data[0].replaceAll("tdCurrent",""),
+		tHTML2 = wdgt.data[1].replaceAll("tdCurrent","");
 			
 	// NOTE:  On month 'Eyar' the last row was all marked by ' tdUnused' (on all 7 td),
 	// 		so need to be removed also.

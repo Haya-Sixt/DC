@@ -27,7 +27,7 @@ wdgt.Update = ()=> {
 };
 
 function dataBuilder () {
-	$.each( wdgt.json.data, function( key, val) {
+	$.each( wdgt.data.data, function( key, val) {
 		axisY_max=val.max_temp>axisY_max?val.max_temp:axisY_max;
 		axisY_min=val.min_temp<axisY_min?val.min_temp:axisY_min;
 		
@@ -40,7 +40,7 @@ function dataBuilder () {
 	});
 	
 	$app.Vars['☔'] = false;
-	$.each( wdgt.json.data, function( key, val, i) {
+	$.each( wdgt.data.data, function( key, val, i) {
 		if (key==1 && val.pop) $app.Vars['☔'] = true;
 		
 		columnBuilder.push({
@@ -147,7 +147,7 @@ $( window ).resize(function() {
 
 	//
 	wdgt.Init = ()=> {
-		wdgt.json = parseFloat($app.Widgets['🌡️'].json.data[0].temp).toFixed(2);
+		wdgt.data = parseFloat($app.Widgets['🌡️'].data.data[0].temp).toFixed(2);
 	};
 
 	//
@@ -158,7 +158,7 @@ $( window ).resize(function() {
 			width = canvas.width(), height = canvas.height(), 
 			margin = 5, stops = GredientConverter.maxTemperature()/10, 
 			section = (height - margin*2)/10,
-			t = wdgt.json; 
+			t = wdgt.data; 
 		
 		for (var i=0; i < 10; i++) {
 			var grd = ctx.createLinearGradient(0, margin + section*i, 0, margin + section*(i+1) );

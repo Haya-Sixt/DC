@@ -39,20 +39,21 @@
                         }
                     }
                     else {
-                        const Get = (i=0)=> {
-                            let u = '.json';
+                        const Dataify = (d)=> d.startsWith('{') ? $.parseJSON(d) : d,
+                        Get = (i=0)=> {
+                            let u = '.data';
                             if (this.url instanceof Array) u = this.url[i]
                             else if (this.url) u = this.url;
                             $.get( `${$app.Vars.base}📑/${this.id}${u}` )
                             .done((d)=> { 
                                 try {
                                     if (this.url instanceof Array) {
-                                        if (!i) this.json = [];
-                                        this.json.push($.parseJSON(d));
+                                        if (!i) this.data = [];
+                                        this.data.push(Dataify(d));
                                         if (i < this.url.length - 1) return Get (i+1);
                                     }
                                     else {
-                                        this.json = $.parseJSON(d);
+                                        this.data = Dataify(d);
                                     }
                                     this.repeat.init && setTimeout(this.Init, 1000*60*this.repeat.init);
                                     this.Update();

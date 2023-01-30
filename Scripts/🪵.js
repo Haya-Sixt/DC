@@ -11,7 +11,7 @@ wdgt.repeat = { init: 3 };
 //
 wdgt.Update = ()=> {
 	let result='', now = parseInt( new Date().getTime() / 1000 ),
-		forecast_clock = parseInt(new Date(wdgt.json.forecast_clock).getTime()/1000),
+		forecast_clock = parseInt(new Date(wdgt.data.forecast_clock).getTime()/1000),
 		shishi = 0;
 	
 	for (const e of wdgt.Entries(now)) { // 🗒: yield doesn't work with forEach because it's callback
@@ -25,11 +25,11 @@ wdgt.Update = ()=> {
 	
 	// 🕯️🕯️
 	$app.Vars['🕯️'] = shishi;
-	$app.Vars['🕯️🕯️'] = wdgt.json.shabbat;
+	$app.Vars['🕯️🕯️'] = wdgt.data.shabbat;
 	
 	// 🔋
-	if (wdgt.json.battery!="100") 
-		result = '<div class="errorBorder">' + '....'.substring(0,4-wdgt.json.battery.length) + wdgt.json.battery + '% ⚠️🔋</div>' + result;
+	if (wdgt.data.battery!="100") 
+		result = '<div class="errorBorder">' + '....'.substring(0,4-wdgt.data.battery.length) + wdgt.data.battery + '% ⚠️🔋</div>' + result;
 			
 	// 🌡️
 	if (now - forecast_clock > 6*60*60) {
@@ -47,7 +47,7 @@ wdgt.Update = ()=> {
 
 //
 wdgt.Entries = function* (now) {
-	let log = wdgt.json.log.split('∆'); 
+	let log = wdgt.data.log.split('∆'); 
 	
 	for (var i=0; i<log.length; i++) {
 		var startedAt = parseInt(new Date(log[i].substring(0,16)).getTime()/1000);
