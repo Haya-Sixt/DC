@@ -61,7 +61,7 @@ wdgt.Url = ()=> `/times_${$app.Widgets['📅👈'].data.year}_${$app.Widgets['�
 
 //
 wdgt.Update = ()=> {
-	let times = "", ldate = new Date().toLocaleDateString('he-IL').replace('.','/').replace('.','/'),
+	let times = '', ldate = new Date().toLocaleDateString('he-IL').replace('.','/').replace('.','/'),
 		trH = wdgt.data.substring(wdgt.data.indexOf("<td"),wdgt.data.indexOf("</tr")), 
 		trT = wdgt.data.substring(wdgt.data.indexOf(ldate));
 	trH = trH.replaceAll(' class="tdHead visible ','').replaceAll('type-date"','').replaceAll('type-time"','').replaceAll('type-limud"','').replaceAll('</td><td>','|').replaceAll('<td>','').replaceAll('</td>','').split('|'); 
