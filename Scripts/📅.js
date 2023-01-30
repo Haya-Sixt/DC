@@ -55,7 +55,9 @@ wdgt.Month = (now)=> {
 // Times
 const wdgt = new $app.Widget('📆');
 wdgt.dependency = '📅👈';
-wdgt.url = `/times_${$app.Widgets['📅👈'].json.year}_${$app.Widgets['📅👈'].json.month}.htm`;
+
+//
+wdgt.Url = ()=> `/times_${$app.Widgets['📅👈'].json.year}_${$app.Widgets['📅👈'].json.month}.htm`;
 
 //
 wdgt.Update = ()=> {
@@ -132,7 +134,9 @@ function Mark() {
 // Calendar
 const wdgt = new $app.Widget('🗓️');
 wdgt.dependency = '📆';
-wdgt.url = [
+
+//
+wdgt.Url = ()=> [
 	`/${wdgt.id}_${$app.Widgets['📅👈'].json.year}_${$app.Widgets['📅👈'].json.month}.htm`,
 	`/${wdgt.id}_${Next().year}_${Next().month}.htm`
 ];

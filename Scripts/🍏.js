@@ -61,6 +61,7 @@
                             .fail(()=> this.Reset())
                         };
                         //
+                        if (this.Url) this.url = this.Url();
                         if (this.dependency) addEventListener('🖥️.' + this.dependency, Get ())
                         else Get ();
                     }
@@ -99,7 +100,7 @@
         ['🖥️','⏳'].forEach((e)=> { const link = document.createElement('link'); link.rel = 'stylesheet'; link.type = 'text/css'; link.href = app.Vars.base + 'Css/' + e + '.css'; document.head.appendChild(link); } ); 
 	    // 🪵 before 🗓️ ???
 	    // 🗓️ trigger 📒, which has dependencies on both 🗓️, and 🪵
-        ['jquery-3.5.0.min','canvasjs.min','🪵','🌡️','📅','📒','⏱️','🎉','⚠️'].forEach((e)=> { const script = document.createElement('script'); script.type = 'text/javascript'; script.src = app.Vars.base + 'Scripts/' + e + '.js'; document.head.appendChild(script); } ); 
+        ['🪵','🌡️','📅','📒','⏱️','🎉','⚠️'].forEach((e)=> { const script = document.createElement('script'); script.type = 'text/javascript'; script.src = app.Vars.base + 'Scripts/' + e + '.js'; document.head.appendChild(script); } ); 
     }
     
     function webBrowser() {
