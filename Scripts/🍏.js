@@ -17,8 +17,7 @@
             constructor (id) {
                 this.id = id;
                 this.sid = `#${id}`;
-                this.init = null;
-                this.update = null;
+                this.init = this.update = this.url = null;
                 this.repeat = {init: 0, update: 0};
                 this.dependency = '';
                 $('<div>').attr('id', id).html(`${id}...`).appendTo('body');
@@ -40,7 +39,7 @@
                         }
                     }
                     else {
-                        const url = `${$app.Vars.base}📑/${this.id}.json`;
+                        const url = `${$app.Vars.base}📑/${this.id}${ (this.url ? this.url : '.json') }`;
                         $.get( url, 
                             (d, s, xhr)=> {
                                 this.repeat.init && setTimeout(this.Init, 1000*60*this.repeat.init);

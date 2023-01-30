@@ -9,7 +9,7 @@
 .timesName { text-shadow: 5px 0px 5px #000, 0px 5px 5px #000, -5px 0px 5px #000, 0px -5px 5px #000; } 
 #time { font-size:9.9em; text-align:center; }
 #date { font-size:22px; white-space: nowrap; } 
-#hebMonthYear { font-size:20px; } 
+#📅 { font-size:20px; } 
 #🏳️‍🌈 span { font-size:23px; } 
 #⏰ { font-size:23px; text-align:left; padding:0 0 0 3px; white-space: nowrap; }
 #🪵, #🪵Progress { color:#E6E6E6; direction:ltr; } 
@@ -38,7 +38,7 @@
 
 #time { top: -2%; left:0.8%; width: 46.5%; height: 36%; } /* 🗒: w/h needed, bg is black */
 #date { left:35%; top:35%; }
-#hebMonthYear { left:3%; top:35.2%; } 
+#📅 { left:3%; top:35.2%; } 
 #🌡️ { width:36%; height:34%; left:43%; top:10%; } 
 #🌡️:last-child { background-image: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.0) ); }  
 #🏳️‍🌈 { width:2%; height:33%; top:3%; left: 77.5% } 
@@ -67,7 +67,7 @@
 .timesName, #date, #⏱️, #⏰ { color:#b4b4b4; }
 #date, #⏱️, #⏰ { font-size:21px; white-space: nowrap; }
 #⏰ { border-radius: 20px; border: 1px solid #141414; padding:0 6px 0 6px; }
-#hebMonthYear { font-size:18px; white-space: nowrap; } 
+#📅 { font-size:18px; white-space: nowrap; } 
 #🌡️:last-child { background-image: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.0) ); }  
 #🏳️‍🌈 span { font-size:20px; }  
 #calendar { border-top: 25px solid black; }
@@ -77,7 +77,7 @@
 #date { right:2.5%; }
 #⏰ { top:11.5%; left:44%; }  
 #⏱️ { top:12%; right:2.5%; } 
-#hebMonthYear { top:9%; right:2.5%; }
+#📅 { top:9%; right:2.5%; }
 #🌡️ { width:72%; height:19%; top:20%; left:23%; } 
 #🏳️‍🌈 { width:4%; height:17%; left:93%; top: 18% } 
 #🏳️‍🌈 span { left: 10px; top: 2%; } 
@@ -97,7 +97,7 @@ td {vertical-align:top;}
 .tdDay { text-decoration:none; }
 .tdCurrent { border-radius: 5px; border:1px solid #20679b;}
 /*.tdShabat {}*/
-#hebMonthYear, .ldate, .dafYomi { color:#b4b4b4; font-weight: 100 !important; }
+#📅, .ldate, .dafYomi { color:#b4b4b4; font-weight: 100 !important; }
 .hebdate, .ldate { margin-top:2px; } 
 .ldate { float: left; margin-left:5px; }
 .hebdate { float:right; margin-right:5px;}
@@ -113,4 +113,4 @@ imo { font-size:22px; text-shadow: 3px 0px 5px #1E1E1E, 0px 3px 5px #1E1E1E, -3p
 #🏳️‍🌈 span { color:#f9eea2; position : relative; white-space : nowrap; } 
 .errorBorder { border-radius: 10px; border:red 1px solid !important; } 
 
-#today, #🪵, #🪵Progress, #calendar, .dafYomi, #time, #date, #hebMonthYear, #⏱️, #⏰, #🏳️‍🌈, #🌡️, #🌡️:last-child, #📒, .popup { position:absolute;}
+#today, #🪵, #🪵Progress, #calendar, .dafYomi, #time, #date, #📅, #⏱️, #⏰, #🏳️‍🌈, #🌡️, #🌡️:last-child, #📒, .popup { position:absolute;}

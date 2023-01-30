@@ -4,13 +4,32 @@ document.querySelector('html').$app.Import();
 // 1.
 (()=>{
 
-// Widget
-const wdgt = new $app.Widget('hebMonthYear');
-wdgt.repeat = { init: 3 };
+// Full Date
+const wdgt = new $app.Widget('📅');
 
 //
+wdgt.Init = ()=> {
+	this.json = { 
+		year: new Intl.DateTimeFormat('he-u-ca-hebrew',{year:'numeric'}).format(new Date()),
+		month: this.Month(new Date()) 
+	};
+};
+	
+//
 wdgt.Update = ()=> {
-}
+	var seven = !(this.json.year % 7) ? 'שנת שמיטה' : 'שנה ' + String.fromCharCode((this.json.year % 7) + 'א'.charCodeAt(0) - 1) + "'", 
+		leap = '' + ([0,3,6,8,11,14,17].includes(this.json.year % 19) ? 'מעוברת' : 'פשוטה');
+	
+	$(wdgt.sid).text( this.json.month + '  ' + this.json.year + '  ' + seven + '  ' + leap );
+};
+
+//
+wdgt.Month = (now)=> {
+	let m = new Intl.DateTimeFormat('he-u-ca-hebrew',{month:'long'}).format(now);
+	if (m.includes('כסלו')) m = 'כסליו';
+	if (m.includes('אדר ')) m = m.slice(0, m.length-1) + "'";
+	return m;
+	};
 
 })();
 
@@ -18,82 +37,51 @@ wdgt.Update = ()=> {
 // 2.
 (()=>{
 
-	// Widget
-	const wdgt = new $app.Widget('🪵Progress');
-	wdgt.dependency = 'hebMonthYear';
-	wdgt.repeat = { update: 1 };
-
-	//
-	wdgt.Init = ()=> {
-	}
-
-	})();
-
-
-
-
+// Times
+const wdgt = new $app.Widget('📆');
+wdgt.dependency = '📅';
+wdgt.url = `/times_${$app.Widgets['📅'].json.year}_${$app.Widgets['📅'].json.month}.htm`;
 
 //
-function calendarInit() {
-	
-	var year = new Intl.DateTimeFormat('he-u-ca-hebrew',{year:'numeric'}).format(new Date()),
-		month = monthHeb(new Date()),
-		fn = year + '_' + month + '.htm',
-		fnNext = Next().year + '_' + Next().month + '.htm';
+wdgt.Update = ()=> {
+};
 
-	calendarInitTimes(fn);
-	calendarInitTablet(fn, fnNext);
-	
-	heb();
-   
-   
-   function Next() {
-		var now = new Date(), monthNext = month;
-		while (month==monthNext) {
-		  now.setDate(now.getDate()+1); 
-		  monthNext = monthHeb(now);
-		}
-		yearNext = new Intl.DateTimeFormat('he-u-ca-hebrew',{year:'numeric'}).format(now);
-		return {"month":monthNext,"year":yearNext};
-	}
-	
-	function monthHeb (now) {
-		let m = new Intl.DateTimeFormat('he-u-ca-hebrew',{month:'long'}).format(now);
-		if (m.includes('כסלו')) m = 'כסליו';
-		if (m.includes('אדר ')) m = m.slice(0, m.length-1) + "'";
-		return m;
-	}
-	
-	function heb() {
-		var seven = !(year % 7) ? 'שנת שמיטה' : 'שנה ' + String.fromCharCode((year % 7) + 'א'.charCodeAt(0) - 1) + "'", 
-			leap = '' + ([0,3,6,8,11,14,17].includes(year % 19) ? 'מעוברת' : 'פשוטה');
+})();
 
-		$("#hebMonthYear").text( month + '  ' + year + '  ' + seven + '  ' + leap );
-	}
-}
+
+// 3. 
+(()=>{
+
+// Calendar
+const wdgt = new $app.Widget('📆');
+wdgt.dependency = '📅';
+wdgt.url = [
+	`/${wdgt.id}_${$app.Widgets['📅'].json.year}_${$app.Widgets['📅'].json.month}.htm`,
+	`/${wdgt.id}_${Next().year}_${Next().month}.htm`
+];
 
 //
-function calendarInitTimes(fn) {
-	try {
-		
-	$("#today").text("🗓️ Init Times");
+wdgt.Init = ()=> {
+	this.json.fnNext = Next().year + '_' + Next().month + '.htm';
+};
 
-	const url = "http://localhost:8181/Documents/MacroDroid/🖥️/📑/times/times_"+fn;
-	$.get( url, function( data, s, xhr ) {
-		calendarUpdateTimes(xhr.responseText);
-    })
-    .fail(function(jqXHR, textStatus) {
-		$("#today").text("calendarInitTimes.get failed. \n🗓️ Rebooting (40s)...");
-		$("#today").addClass("errorBorder");
-		setTimeout(calendarInitTimes, 1000*40);
-    });
-    
-   } catch (e) {
-   	$("#today").text("calendarInitTimes failed:" + e + " \n🗓️ Rebooting (40s)...");
-   	$("#today").addClass("errorBorder");
-   	setTimeout(calendarInitTimes, 1000*40);
-   } 
+//
+wdgt.Update = ()=> {
+};
+
+function Next() {
+	var now = new Date(), monthNext = $app.Widgets['📅'].month;
+	while (month==monthNext) {
+		now.setDate(now.getDate()+1); 
+		monthNext = $app.Widgets['📅'].Month(now);
+	}
+	yearNext = new Intl.DateTimeFormat('he-u-ca-hebrew',{year:'numeric'}).format(now);
+	return {"month":monthNext,"year":yearNext};
 }
+
+})();
+
+
 
 
 //

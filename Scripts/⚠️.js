@@ -3,7 +3,7 @@ document.querySelector('html').$app.Import();
 
 (()=>{
 
-	window.addEventListener("load", Init);
+window.addEventListener("load", Init);
 
 // C2: Command and Control
 function Init(steps) {

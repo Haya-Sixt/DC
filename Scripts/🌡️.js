@@ -4,7 +4,7 @@ document.querySelector('html').$app.Import();
 // 1.
 (()=>{
 
-// Widget
+// Forecast
 const wdgt = new $app.Widget('🌡️');
 
 let chart, images, rangeBuilder, columnBuilder, axisY_max, axisY_min;
@@ -24,7 +24,7 @@ wdgt.Update = ()=> {
 	render();
     
   addImages();
-}
+};
 
 function dataBuilder () {
 	$.each( wdgt.json.data, function( key, val) {
@@ -141,14 +141,14 @@ $( window ).resize(function() {
 // 2.
 (()=>{
 
-	// Widget
+	// Temperature
 	const wdgt = new $app.Widget('🏳️‍🌈');
 	wdgt.dependency = '🌡️';
 
 	//
 	wdgt.Init = ()=> {
 		wdgt.json = parseFloat($app.Widgets['🌡️'].json.data[0].temp).toFixed(2);
-	}
+	};
 
 	//
 	wdgt.Update = ()=> {
@@ -178,7 +178,7 @@ $( window ).resize(function() {
 		$("<span>")
 			.html(parseInt(t)+'°')
 			.appendTo(wdgt.sid);
-	}
+	};
 	
 	function Mark(lineWidth,strokeStyle) {
 		var y =  margin + (height - margin*2) - (t / GredientConverter.maxTemperature() * (height - margin*2) );

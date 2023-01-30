@@ -4,7 +4,7 @@ document.querySelector('html').$app.Import();
 // 1.
 (()=>{
 
-// Widget
+// Log
 const wdgt = new $app.Widget('🪵');
 wdgt.repeat = { init: 3 };
 
@@ -43,7 +43,7 @@ wdgt.Update = ()=> {
 	result = '<div>' + $('#⏱️').text() + '</div>' + result; 
 	
 	$(wdgt.sid).html(result);
-}
+};
 
 //
 wdgt.Entries = function* (now) {
@@ -55,7 +55,7 @@ wdgt.Entries = function* (now) {
 		if (now - startedAt > 6*60*60) continue;
 		yield {log: log[i].substring(11), startedAt: startedAt};
 	}
-}
+};
 
 })();
 
@@ -63,7 +63,7 @@ wdgt.Entries = function* (now) {
 // 2.
 (()=>{
 
-	// Widget
+	// Progress Bar
 	const wdgt = new $app.Widget('🪵Progress');
 	wdgt.dependency = '🪵';
 	wdgt.repeat = { update: 1 };
@@ -141,6 +141,6 @@ wdgt.Entries = function* (now) {
 					Countdown(400);
 			} 
 		});
-	} 
+	};
 
 })();
