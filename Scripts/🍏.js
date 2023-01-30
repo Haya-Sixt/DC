@@ -56,9 +56,9 @@
                                     }
                                     this.repeat.init && setTimeout(this.Init, 1000*60*this.repeat.init);
                                     this.Update();
-                                } catch (e) { wdgt.Reset(e) }
+                                } catch (e) { this.Reset(e) }
                             })
-                            .fail(()=> wdgt.Reset())
+                            .fail(()=> this.Reset())
                         };
                         //
                         if (this.dependency) addEventListener('🖥️.' + this.dependency, Get ())
