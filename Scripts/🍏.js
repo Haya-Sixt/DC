@@ -49,11 +49,11 @@
                                 try {
                                     if (this.url instanceof Array) {
                                         if (!i) this.data = [];
-                                        this.data.push(Dataify(u, d));
+                                        this.data.push(d);
                                         if (i < this.url.length - 1) return Get (i+1);
                                     }
                                     else {
-                                        this.data = Dataify(u, d);
+                                        this.data = d;
                                     }
                                     this.repeat.init && setTimeout(this.Init, 1000*60*this.repeat.init);
                                     this.Update();
