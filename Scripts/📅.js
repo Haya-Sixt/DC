@@ -4,8 +4,23 @@ document.querySelector('html').$app.Import();
 // 1.
 (()=>{
 
-// Full Date
-const wdgt = new $app.Widget('📅');
+// Date Loazi
+const wdgt = new $app.Widget('📅👉');
+
+//
+wdgt.Init = ()=> {
+	var date = new Date().toLocaleDateString('he-IL', { weekday: 'short', day: '2-digit', month: '2-digit' }).replace("יום ","").replace('.','/'); 
+	$(wdgt.sid).text(date);
+};
+
+})();
+
+
+// 2.
+(()=>{
+
+// Date Hebrew
+const wdgt = new $app.Widget('📅👈');
 
 //
 wdgt.Init = ()=> {
@@ -34,13 +49,13 @@ wdgt.Month = (now)=> {
 })();
 
 
-// 2.
+// 3.
 (()=>{
 
 // Times
 const wdgt = new $app.Widget('📆');
-wdgt.dependency = '📅';
-wdgt.url = `/times_${$app.Widgets['📅'].json.year}_${$app.Widgets['📅'].json.month}.htm`;
+wdgt.dependency = '📅👈';
+wdgt.url = `/times_${$app.Widgets['📅👈'].json.year}_${$app.Widgets['📅👈'].json.month}.htm`;
 
 //
 wdgt.Update = ()=> {
@@ -72,25 +87,29 @@ wdgt.Update = ()=> {
 	times = "<table>"+times+"</table>";
 	$(wdgt.sid).html(times);
 
-
+	// 🌇
+	var shm = $(wdgt.sid + " td:contains(🌇)").next().text().split(':');
+		($app.Vars['🌇']=new Date()).setHours(shm[0], shm[1], 0, 0);
+		$app.Vars['🌇'] = parseInt(new Date($app.Vars['🌇']).getTime()/1000);
+	
 	// Mark Current Zman
 	setInterval(Mark, 1000*60*3); 
 	Mark();
 };
 
 function td(emoji) {
-	times += '<tr><td class="timesName">'+emoji+'</td><td class="timesVal">'+trT[i]+'</td></tr>';
+	times += '<tr><td class="📆name">'+emoji+'</td><td class="📆val">'+trT[i]+'</td></tr>';
 }
 
 function tdDafYomi() {
-	times += '<tr><td class="timesName"></td><td class="timesVal"><div class="dafYomi">'+trT[i]+'</div></td></tr>';
+	times += '<tr><td class="📆name"></td><td class="📆val"><div class="dafYomi">'+trT[i]+'</div></td></tr>';
 }
 
 function Mark() {
 	var time = parseInt( new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' }).replace(':','') ); 
 	var firstMark = null;
 
-	$(wdgt.sid + " td.timesVal").each(function( index ) {
+	$(wdgt.sid + " td.📆val").each(function( index ) {
 		var val = parseInt( $( this ).text().replace(':','') );
 		if ( time <= val && !firstMark) {
 			firstMark = $( this ).parent();
@@ -107,22 +126,22 @@ function Mark() {
 })();
 
 
-// 3. 
+// 4. 
 (()=>{
 
 // Calendar
 const wdgt = new $app.Widget('🗓️');
 wdgt.dependency = '📆';
 wdgt.url = [
-	`/${wdgt.id}_${$app.Widgets['📅'].json.year}_${$app.Widgets['📅'].json.month}.htm`,
+	`/${wdgt.id}_${$app.Widgets['📅👈'].json.year}_${$app.Widgets['📅👈'].json.month}.htm`,
 	`/${wdgt.id}_${Next().year}_${Next().month}.htm`
 ];
 
 function Next() {
-	var now = new Date(), monthNext = $app.Widgets['📅'].month;
+	var now = new Date(), monthNext = $app.Widgets['📅👈'].month;
 	while (month==monthNext) {
 		now.setDate(now.getDate()+1); 
-		monthNext = $app.Widgets['📅'].Month(now);
+		monthNext = $app.Widgets['📅👈'].Month(now);
 	}
 	yearNext = new Intl.DateTimeFormat('he-u-ca-hebrew',{year:'numeric'}).format(now);
 	return {"month":monthNext,"year":yearNext};

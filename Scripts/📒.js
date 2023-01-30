@@ -1,45 +1,22 @@
 
-var jNotes;
+// Import
+document.querySelector('html').$app.Import();
 
-// 🗒: called by event (⏱️,🗓️)
-function notesInit() {
-	try {
-		 	
-	var url = "http://localhost:8181/Documents/MacroDroid/🖥️/📑/📒.json";
+// 
+(()=>{
 
-    $.get(url, function( o, s, xhr ) {
-    	try {
-	
-		jNotes = $.parseJSON(xhr.responseText).notes;
-	
-		clearInterval(i_notesUpdate);
-		i_notesUpdate = setInterval(notesUpdate, 1000*60*3);
-		notesUpdate();
-	 
-		} catch(e) { $("#📒").text(e+'\n📒 notesInit.get'); } 
-		
-	}).fail(function(jqXHR, textStatus) {
-		$("#📒").text('📒 notesInit.fail');
-	});
-	
-	
-	} catch (e) {
-		$("#📒").text(e+'\n📒 Rebooting (40s)...');
-		setTimeout(notesInit, 1000*40);
-	}  
-}
+// Notes
+const wdgt = new $app.Widget('📒');
+wdgt.repeat = { update: 3 };
+wdgt.dependency = '🗓️';
 
-
-var i_notesUpdate = null;
-
-function notesUpdate() {
-	try {
-		
+//
+wdgt.Update = ()=> { 
 	var result = '',
 		now = parseInt( new Date().getTime() / 1000 );
 	
-	for (var i=0; i<jNotes.length; i++) {
-		var cmd = jNotes[i][1].substring( jNotes[i][1].indexOf('📒')+1 ).replaceAll(' ',''),
+	for (var i=0; i<wdgt.json.length; i++) {
+		var cmd = wdgt.json[i][1].substring( wdgt.json[i][1].indexOf('📒')+1 ).replaceAll(' ',''),
 			cond = cmd.substring( cmd.indexOf('(')+1, cmd.indexOf(')') ),
 			duration = parseHM(cmd.substring( cmd.indexOf("[")+1, cmd.indexOf("]") )),
 			condC = ','+cond.replaceAll('+',',').replaceAll('-',',')+',',
@@ -88,59 +65,47 @@ function notesUpdate() {
 			
 		//
 		result += '<div name="note" startedAt="'+startedAt+'" duration="'+duration+'" >' 
-			+ jNotes[i][0]+'<br>'+jNotes[i][1].substring(0,jNotes[i][1].indexOf('📒')).replaceAll('<br>','  ') 
+			+ wdgt.json[i][0]+'<br>'+wdgt.json[i][1].substring(0,wdgt.json[i][1].indexOf('📒')).replaceAll('<br>','  ') 
 			+ '<div style="background-image: linear-gradient(to right, rgba(250, 20, 80, 0.6) 0%, rgba(100, 100, 241, 0.6) 0% );"></div></div>';
 	}
 	
-	$("#📒").html(result);
+	$(wdgt.sid).html(result);
 	
-	if (result != '') {
-		clearInterval(i_notesProgress);
-		i_notesProgress = setInterval(notesProgress, 1000*61);
-		notesProgress();
-	}
-	
-	
-	function parseHM(cond, find, condC) {
-		var t=0;
-		if ( find ) {
-			if ( (indx=condC.indexOf(','+find+',')) == -1) return 0;
-			// 🗒: emoji are 2 for the substring, but are 1 for the length
-			cond = cond.substring( indx ) + ',';
-			cond = cond.substring(0, cond.indexOf(',') );
-			if ((indx=cond.indexOf('+')) != -1)
-				cond=cond.substring(indx)
-			else if ((indx=cond.indexOf('-')) != -1)
-				cond=cond.substring(indx)
-			else return 0;
+	Progress();
+};
 
-			t = parseHM( cond );
-			return t;
-			
-		} else {
-			if (cond.indexOf('h')!=-1) {
-				var h = cond.substring(0,cond.indexOf('h')+1);
-				t += parseInt(h)*60*60;
-				cond = cond.replace(h,''); 
-			}
-			if (cond.indexOf('m')!=-1) 
-				t += parseInt(cond)*60;
-			return t;
+function parseHM(cond, find, condC) {
+	var t=0;
+	if ( find ) {
+		if ( (indx=condC.indexOf(','+find+',')) == -1) return 0;
+		// 🗒: emoji are 2 for the substring, but are 1 for the length
+		cond = cond.substring( indx ) + ',';
+		cond = cond.substring(0, cond.indexOf(',') );
+		if ((indx=cond.indexOf('+')) != -1)
+			cond=cond.substring(indx)
+		else if ((indx=cond.indexOf('-')) != -1)
+			cond=cond.substring(indx)
+		else return 0;
+
+		t = parseHM( cond );
+		return t;
+		
+	} else {
+		if (cond.indexOf('h')!=-1) {
+			var h = cond.substring(0,cond.indexOf('h')+1);
+			t += parseInt(h)*60*60;
+			cond = cond.replace(h,''); 
 		}
+		if (cond.indexOf('m')!=-1) 
+			t += parseInt(cond)*60;
+		return t;
 	}
-	
-	
-	} catch (e) { $("#📒").text("notesUpdate Exception: " + e); } 
 }
-
-
-
-var i_notesProgress = null;
 
 function notesProgress() {
 	try {
 
-	var notes = $("#📒 > div[name=note]");
+	var notes = $(wdgt.sid + " > div[name=note]");
 	var now = parseInt( new Date().getTime() / 1000 ); 
 
 	notes.each(function() {
@@ -160,6 +125,10 @@ function notesProgress() {
 		bi = bi.replace(cut, percent+'%');
 		noteP.css('background-image', bi);
 	});
+
+	notes.length > 0 && setTimeout(Progress, 1000*61);
 	
-	} catch (e) { $('#📒').text("notesProgress Exception: " + e); } 
+	} catch (e) { $(wdgt.sid).text(`${wdgt.id} Progress: ${e}`); } 
 } 
+
+})();

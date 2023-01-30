@@ -91,7 +91,6 @@ function Play() {
 	} catch(e) { alert('⏳ Play error:\n' + e); }
 }
 
-
 function Stop(force) {
 	if (!force && parseInt(n_s)!=0 ) 
 		return;
@@ -102,7 +101,6 @@ function Stop(force) {
 	if (!force) 
 		setTimeout(()=>$("#⏳ .cdc_container").hide('slow'), 3000);
 }
-
 
 function Timefy(n) {
 	var n_s = ('' + n);
@@ -125,3 +123,74 @@ return {Init};
 
 })();
 
+
+//
+class Popup {
+
+	static Dimention() {
+		Add(new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' })
+			+':  🌡️ '+ parseInt($("#🌡️").height())
+			+'X'+ parseInt($("#🌡️").width())
+			+',  🌡️(canvas) '+ parseInt($("canvas.canvasjs-chart-canvas").height())
+			+'X'+ parseInt($("canvas.canvasjs-chart-canvas").width())
+			+',  🗓️ '+ parseInt($("#🗓️ table").height())
+			+'X'+ parseInt($("#🗓️ table").width())
+			//+', body: '+ parseInt($("body").width())
+			//+', doc: '+ parseInt($(document).width())
+		);
+	}
+	
+	static Add(html) {
+		$("<div>")
+			.attr("name","popup")
+			.attr("class","popup")
+			//.attr("style","")
+			.html(html)
+			.appendTo("body")
+			.css({
+						//'position' : 'absolute',
+						//'left' : '50%',
+						//'top' : '50%',
+						'margin-left' : function() {return -$(this).outerWidth()/2},
+						'margin-top' : function() {
+					var height=10;
+					$(".popup").each(function() {
+						height += $(this).innerHeight() + 10;
+					});
+					return -height; 
+				}
+			});
+		}
+	/*
+	function popupInit() {
+		//setTimeout (popup_dimention, 1000*10);
+		//setTimeout (popup_dimention, 1000*60*4);
+	
+		//popupAdd("1 ניסיון");
+		//popupAdd("2 ניסיון");
+		//popupAdd("3 ניסיון");
+		//popupAdd("4 ניסיון 4 ניסיון 4 ניסיון 4 ניסיון");
+			
+		//popupUpdate();
+		//setInterval(popupUpdate, 1000*60);
+	}
+	
+	function popupUpdate() {
+		popupRemove( 1 );
+	} 
+	
+	function popupRemove(o) {
+		var height=10;
+		$(".popup").each(function(index) {
+	//$(this).text(index + '' + o) ;
+			if (index == o) 
+				$(this).remove()
+			else {
+				height += $(this).innerHeight() + 10;
+				$(this).css({ 'margin-top' : function() {return -height;} });
+			} 
+		});
+	} 
+	*/
+	
+}

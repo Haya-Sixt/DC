@@ -3,8 +3,6 @@ document.querySelector('html').$app.Import();
 
 (()=>{
 
-window.addEventListener("load", Init);
-
 // C2: Command and Control
 function Init(steps) {
 
@@ -18,7 +16,7 @@ function Init(steps) {
 
 		var calendar = $("#🗓️ table");
 		if ("629,438".indexOf(parseInt(calendar.width())) == -1) {
-			$app.Widgets['calendar'].Reset ('⚠️');
+			$app.Widgets['🗓️'].Reset ('⚠️');
 			//Popup.Dimention();
 			}
 
@@ -31,5 +29,7 @@ function Init(steps) {
 	
 	//body.onclick = popup_dimention; // doesn't work 
 }
+
+window.addEventListener("load", Init);
 
 })();

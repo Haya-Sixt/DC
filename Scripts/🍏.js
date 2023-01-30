@@ -6,7 +6,7 @@
             'base': document.location.href.match(/.*\//umg)[0], 
             '🕯️': 0, 
             '🕯️🕯️': false, 
-            '🌇': 0, 
+            '🌇': 0, // used by 📒 (set by 📆)
             '☔': false
         },
         Import () {
@@ -73,7 +73,7 @@
                 return ()=>{ try {
                     $(this.sid).removeClass("errorBorder");
                     this.repeat.update && setTimeout(this.Update, 1000*60*this.repeat.update);
-                    this.update();
+                    this.update && this.update();
                     dispatchEvent(new Event('🖥️.' + this.id));
                 } catch (e) { $(this.sid).text(`${this.id} Update: ${e}`).addClass("errorBorder"); } }
             }
@@ -97,16 +97,15 @@
     
     function Head () {
         ['🖥️','⏳'].forEach((e)=> { const link = document.createElement('link'); link.rel = 'stylesheet'; link.type = 'text/css'; link.href = app.Vars.base + 'Css/' + e + '.css'; document.head.appendChild(link); } ); 
-	    // 🪵 before 🗓️
+	    // 🪵 before 🗓️ ???
 	    // 🗓️ trigger 📒, which has dependencies on both 🗓️, and 🪵
-                                                    //'📒','⏱️','⏳'
-        ['jquery-3.5.0.min','canvasjs.min','🍞','⚠️','🪵','🌡️','🗓️'].forEach((e)=> { const script = document.createElement('script'); script.type = 'text/javascript'; script.src = app.Vars.base + 'Scripts/' + e + '.js'; document.head.appendChild(script); } ); 
+        ['jquery-3.5.0.min','canvasjs.min','🪵','🌡️','📅','📒','⏱️','🎉','⚠️'].forEach((e)=> { const script = document.createElement('script'); script.type = 'text/javascript'; script.src = app.Vars.base + 'Scripts/' + e + '.js'; document.head.appendChild(script); } ); 
     }
     
     function webBrowser() {
         return;
         if (!app.Vars.base.startsWith('http:')) 
-            location.replace('http://localhost:8181/Documents/🖥️/🖥️.html');
+            location.replace('http://localhost:8181/Documents/Apps/🖥️/DC/index.html');
         //if (!String.prototype.replaceAll) 
         //	String.prototype.replaceAll = (function (p,r) {return this.split(p).join(r)}); 
         if (document.body.requestFullscreen) {

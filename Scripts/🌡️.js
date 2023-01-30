@@ -201,6 +201,35 @@ $( window ).resize(function() {
 })();
 
 
+//
+class GredientConverter {
+
+	// 🗒: array length should be % 10 = 1
+	static colors() { return ["0800FF","0614FF","0429FF","023DFF",	//navi to blue
+			"0051FF","0072FF","0093FF","00B5FF","00D6FF",	//blue to Turquoise 
+			"00F7FF","00F7FF","00F7FF","00FBBB",	//Turquoise to spring green  
+			"00FF77",/*"12FF5F",*/"24FF47","35FF30",/*"47FF18",*/	//Spring Green To green
+			"59FF00","75F900","90F300","ACEE00","C7E800","E3E200","E3E200",	//Green to yellow
+			"FEDC00","FEDC00","FCC201","FAA802","F78E02",	//yellow to orange
+			"F57403","F75904","F93E06","FA2307",	//orange to red
+			"FC0808","FC0840","FC0878","FC08B0","FC08B0",	//red to pink
+			"FC08E8","D508EF","AD08F5","8608FC","8608FC","8608FC"]; }	//pink to purple 
+ 
+	static maxTemperature() { return this.colors().length; }
+
+	static toTemperature(t) {
+		return this.toColor(t,0,this.maxTemperature());
+	}
+
+	static toColor(n,from,to) {
+		n=n<from?from:n;
+		n=n>to?to:n;
+		// find relative color in colors range
+		var color = parseInt( (n-from) / (to-from) * (this.colors().length) );
+		return "#" + this.colors()[color];
+	}  
+}
+
 
 //
 // 🗒: called inside canvasjs (hacked)
