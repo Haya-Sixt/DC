@@ -71,7 +71,7 @@ wdgt.Update = ()=> {
 	
 	$(wdgt.sid).html(result);
 	
-	Progress();
+	Progress ();
 };
 
 function parseHM(cond, find, condC) {
@@ -102,7 +102,7 @@ function parseHM(cond, find, condC) {
 	}
 }
 
-function notesProgress() {
+function Progress () {
 	try {
 
 	var notes = $(wdgt.sid + " > div[name=note]");
