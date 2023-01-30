@@ -56,14 +56,16 @@ wdgt.Month = (now)=> {
 const wdgt = new $app.Widget('📆');
 wdgt.dependency = '📅👈';
 
+let times = "";
+
 //
 wdgt.Url = ()=> `/times_${$app.Widgets['📅👈'].data.year}_${$app.Widgets['📅👈'].data.month}.htm`;
 
 //
 wdgt.Update = ()=> {
-	var times = "", ldate = new Date().toLocaleDateString('he-IL').replace('.','/').replace('.','/'),
-	trH = wdgt.data.substring(wdgt.data.indexOf("<td"),wdgt.data.indexOf("</tr")), 
-	trT = wdgt.data.substring(wdgt.data.indexOf(ldate));
+	var ldate = new Date().toLocaleDateString('he-IL').replace('.','/').replace('.','/'),
+		trH = wdgt.data.substring(wdgt.data.indexOf("<td"),wdgt.data.indexOf("</tr")), 
+		trT = wdgt.data.substring(wdgt.data.indexOf(ldate));
 
 	trH = trH.replaceAll(' class="tdHead visible ','').replaceAll('type-date"','').replaceAll('type-time"','').replaceAll('type-limud"','').replaceAll('</td><td>','|').replaceAll('<td>','').replaceAll('</td>','').split('|'); 
 	trT = trT.substring(0, trT.indexOf("</tr")).replaceAll('</td><td>','|').replaceAll('</td>','').split('|');
@@ -111,7 +113,7 @@ function Mark() {
 	var time = parseInt( new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' }).replace(':','') ); 
 	var firstMark = null;
 
-	$(wdgt.sid + " td.📆val").each(function( index ) {
+	$(wdgt.sid + " td.📆val").each(()=> {
 		var val = parseInt( $( this ).text().replace(':','') );
 		if ( time <= val && !firstMark) {
 			firstMark = $( this ).parent();
