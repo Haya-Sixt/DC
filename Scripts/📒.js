@@ -15,8 +15,8 @@ wdgt.Update = ()=> {
 	var result = '',
 		now = parseInt( new Date().getTime() / 1000 );
 	
-	for (var i=0; i<wdgt.data.length; i++) {
-		var cmd = wdgt.data[i][1].substring( wdgt.data[i][1].indexOf('📒')+1 ).replaceAll(' ',''),
+	for (var i=0; i<wdgt.data.notes.length; i++) {
+		var cmd = wdgt.data.notes[i][1].substring( wdgt.data.notes[i][1].indexOf('📒')+1 ).replaceAll(' ',''),
 			cond = cmd.substring( cmd.indexOf('(')+1, cmd.indexOf(')') ),
 			duration = parseHM(cmd.substring( cmd.indexOf("[")+1, cmd.indexOf("]") )),
 			condC = ','+cond.replaceAll('+',',').replaceAll('-',',')+',',
@@ -65,7 +65,7 @@ wdgt.Update = ()=> {
 			
 		//
 		result += '<div name="note" startedAt="'+startedAt+'" duration="'+duration+'" >' 
-			+ wdgt.data[i][0]+'<br>'+wdgt.data[i][1].substring(0,wdgt.data[i][1].indexOf('📒')).replaceAll('<br>','  ') 
+			+ wdgt.data.notes[i][0]+'<br>'+wdgt.data.notes[i][1].substring(0,wdgt.data.notes[i][1].indexOf('📒')).replaceAll('<br>','  ') 
 			+ '<div style="background-image: linear-gradient(to right, rgba(250, 20, 80, 0.6) 0%, rgba(100, 100, 241, 0.6) 0% );"></div></div>';
 	}
 	
