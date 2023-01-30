@@ -73,11 +73,11 @@ function render() {
 			indexLabelFontSize: 20,
 			indexLabelFontColor: "#E6E6E6",
 			lineThickness: 12, 
-			dP: rangeBuilder
+			dataPoints: rangeBuilder
 			}, {
 			type: "rangeColumn",
 			color: "#1187DC",
-			dP: columnBuilder
+			dataPoints: columnBuilder
 		}]
 	}); 
 
@@ -85,15 +85,15 @@ function render() {
 }
 	 
 function addImages() {
-	for(var i = 0; i < chart.data[0].dP.length; i++) {
-		var nm = "", ic=chart.data[0].dP[i].icon;
+	for(var i = 0; i < chart.data[0].dataPoints.length; i++) {
+		var nm = "", ic=chart.data[0].dataPoints[i].icon;
 
 		images.push($("<img>").attr("src", $app.Vars.base + "Images/weatherbit/"+ic+".png").attr("title",ic));
 
 		if (ic.substring(0,1)=="a") nm="cloudy"
 		else if (ic.substring(0,1)=="c") nm="sunny"
 		else nm="rainy";
-		chart.data[0].dP[i].name = nm;
+		chart.data[0].dataPoints[i].name = nm;
 
 		images[i].attr("class", nm)
 			.appendTo($(wdgt.sid));
@@ -102,7 +102,7 @@ function addImages() {
 }
 	 
 function positionImage(image, index) {
-	var x = chart.axisX[0].convertValueToPixel(chart.data[0].dP[index].x);
+	var x = chart.axisX[0].convertValueToPixel(chart.data[0].dataPoints[index].x);
 
 	image.width("40px")
 		.css({ "left": x - 20 + "px",
@@ -121,13 +121,13 @@ $( window ).resize(function() {
 	var cloudy = 0, rainy = 0, sunny = 0;    
 	var iC = 0;
 	if (!chart) return;
-	for(var i=0;i<chart.data[0].dP.length;i++) {
-		iC = chart.axisX[0].convertValueToPixel(chart.data[0].dP[i].x) - 20;
-		if(chart.data[0].dP[i].name == "cloudy") {					
+	for(var i=0;i<chart.data[0].dataPoints.length;i++) {
+		iC = chart.axisX[0].convertValueToPixel(chart.data[0].dataPoints[i].x) - 20;
+		if(chart.data[0].dataPoints[i].name == "cloudy") {					
 			$(".cloudy").eq(cloudy++).css({ "left": iC});
-		} else if(chart.data[0].dP[i].name == "rainy") {
+		} else if(chart.data[0].dataPoints[i].name == "rainy") {
 			$(".rainy").eq(rainy++).css({ "left": iC});  
-		} else if(chart.data[0].dP[i].name == "sunny") {
+		} else if(chart.data[0].dataPoints[i].name == "sunny") {
 			$(".sunny").eq(sunny++).css({ "left": iC});  
 		}                
 	}
@@ -242,9 +242,9 @@ function strokeStyleGredient (b,d,r,up) {
 		r[g] && r[g].newLineDashArray && b.setLineDash(r[g].newLineDashArray);
 		b.bezierCurveTo(d[f + 1].x, d[f + 1].y, d[f + 2].x, d[f + 2].y, d[f + 3].x, d[f + 3].y);
 		
-		var dP = chart.data[0].dP;
-		var n1 = dP[g].y[up];
-		var n2 = dP[g+1].y[up];
+		var dataPoints = chart.data[0].dataPoints;
+		var n1 = dataPoints[g].y[up];
+		var n2 = dataPoints[g+1].y[up];
 
 		var gradient = b.createLinearGradient(d[f].x, d[f].y, d[f+3].x, d[f+3].y);
 		gradient.addColorStop(0, GredientConverter.toTemperature(n1));
