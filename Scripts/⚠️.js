@@ -32,4 +32,4 @@ function Init(steps) {
 
 window.addEventListener("load", Init);
 
-})();
+});
