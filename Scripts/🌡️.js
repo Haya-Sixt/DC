@@ -47,7 +47,7 @@ function dataBuilder () {
 }
 
 function render() {
-	chart = new CanvasJS.Chart(wdgt.id, {
+	chart = wdgt.data.chart = new CanvasJS.Chart(wdgt.id, {
 		axisY: {
 			minimum: axisY_min-1,
 			maximum: axisY_max+3,
@@ -242,7 +242,7 @@ function strokeStyleGredient (b,d,r,up) {
 		r[g] && r[g].newLineDashArray && b.setLineDash(r[g].newLineDashArray);
 		b.bezierCurveTo(d[f + 1].x, d[f + 1].y, d[f + 2].x, d[f + 2].y, d[f + 3].x, d[f + 3].y);
 		
-		var dataPoints = chart.data[0].dataPoints;
+		var dataPoints = $app.Widgets['🌡️'].data.chart.data[0].dataPoints;
 		var n1 = dataPoints[g].y[up];
 		var n2 = dataPoints[g+1].y[up];
 
