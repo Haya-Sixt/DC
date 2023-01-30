@@ -24,18 +24,18 @@ const wdgt = new $app.Widget('📅👈');
 
 //
 wdgt.Init = ()=> {
-	this.json = { 
+	wdgt.json = { 
 		year: new Intl.DateTimeFormat('he-u-ca-hebrew',{year:'numeric'}).format(new Date()),
-		month: this.Month(new Date()) 
+		month: wdgt.Month(new Date()) 
 	};
 };
 	
 //
 wdgt.Update = ()=> {
-	var seven = !(this.json.year % 7) ? 'שנת שמיטה' : 'שנה ' + String.fromCharCode((this.json.year % 7) + 'א'.charCodeAt(0) - 1) + "'", 
-		leap = '' + ([0,3,6,8,11,14,17].includes(this.json.year % 19) ? 'מעוברת' : 'פשוטה');
+	var seven = !(wdgt.json.year % 7) ? 'שנת שמיטה' : 'שנה ' + String.fromCharCode((wdgt.json.year % 7) + 'א'.charCodeAt(0) - 1) + "'", 
+		leap = '' + ([0,3,6,8,11,14,17].includes(wdgt.json.year % 19) ? 'מעוברת' : 'פשוטה');
 	
-	$(wdgt.sid).text( this.json.month + '  ' + this.json.year + '  ' + seven + '  ' + leap );
+	$(wdgt.sid).text( wdgt.json.month + '  ' + wdgt.json.year + '  ' + seven + '  ' + leap );
 };
 
 //
