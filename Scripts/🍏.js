@@ -39,8 +39,7 @@
                         }
                     }
                     else {
-                        const Dataify = (u, d)=> { return u.endsWith('.json') ? $.parseJSON(d) : d },
-                        Get = (i=0)=> {
+                        const Get = (i=0)=> {
                             let u = '.json';
                             if (this.url instanceof Array) u = this.url[i]
                             else if (this.url) u = this.url;
