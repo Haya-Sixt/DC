@@ -39,14 +39,30 @@
                         }
                     }
                     else {
-                        const url = `${$app.Vars.base}📑/${this.id}${ (this.url ? this.url : '.json') }`;
-                        $.get( url, 
-                            (d, s, xhr)=> {
-                                this.repeat.init && setTimeout(this.Init, 1000*60*this.repeat.init);
-                                this.json = $.parseJSON(xhr.responseText);
-                                this.Update();
-                        })
-                        .fail(()=> wdgt.Reset());
+                        const Get = (i=0)=> {
+                            let u = '.json';
+                            if (this.url instanceof Array) u = this.url[i]
+                            else if (this.url) u = this.url;
+                            $.get( `${$app.Vars.base}📑/${this.id}${u}` )
+                            .done((d)=> { 
+                                try {
+                                    if (this.url instanceof Array) {
+                                        if (!i) this.json = [];
+                                        this.json.push($.parseJSON(d));
+                                        if (i < this.url.length - 1) return Get (i+1);
+                                    }
+                                    else {
+                                        this.json = $.parseJSON(d);
+                                    }
+                                    this.repeat.init && setTimeout(this.Init, 1000*60*this.repeat.init);
+                                    this.Update();
+                                } catch (e) { wdgt.Reset(e) }
+                            })
+                            .fail(()=> wdgt.Reset())
+                        };
+                        //
+                        if (this.dependency) addEventListener('🖥️.' + this.dependency, Get ())
+                        else Get ();
                     }
                 } catch (e) { $(this.sid).text(`${this.id} Init: ${e}`).addClass("errorBorder"); } }
             }
@@ -81,8 +97,8 @@
     
     function Head () {
         ['🖥️','⏳'].forEach((e)=> { const link = document.createElement('link'); link.rel = 'stylesheet'; link.type = 'text/css'; link.href = app.Vars.base + 'Css/' + e + '.css'; document.head.appendChild(link); } ); 
-	    // 🪵 before 📆
-	    // 📆 trigger 📒, which has dependencies on both 🗓️, and 🪵
+	    // 🪵 before 🗓️
+	    // 🗓️ trigger 📒, which has dependencies on both 🗓️, and 🪵
                                                     //'📒','⏱️','⏳'
         ['jquery-3.5.0.min','canvasjs.min','🍞','⚠️','🪵','🌡️','🗓️'].forEach((e)=> { const script = document.createElement('script'); script.type = 'text/javascript'; script.src = app.Vars.base + 'Scripts/' + e + '.js'; document.head.appendChild(script); } ); 
     }

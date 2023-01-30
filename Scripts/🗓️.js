@@ -44,91 +44,13 @@ wdgt.url = `/times_${$app.Widgets['📅'].json.year}_${$app.Widgets['📅'].json
 
 //
 wdgt.Update = ()=> {
-};
-
-})();
-
-
-// 3. 
-(()=>{
-
-// Calendar
-const wdgt = new $app.Widget('📆');
-wdgt.dependency = '📅';
-wdgt.url = [
-	`/${wdgt.id}_${$app.Widgets['📅'].json.year}_${$app.Widgets['📅'].json.month}.htm`,
-	`/${wdgt.id}_${Next().year}_${Next().month}.htm`
-];
-
-//
-wdgt.Init = ()=> {
-	this.json.fnNext = Next().year + '_' + Next().month + '.htm';
-};
-
-//
-wdgt.Update = ()=> {
-};
-
-function Next() {
-	var now = new Date(), monthNext = $app.Widgets['📅'].month;
-	while (month==monthNext) {
-		now.setDate(now.getDate()+1); 
-		monthNext = $app.Widgets['📅'].Month(now);
-	}
-	yearNext = new Intl.DateTimeFormat('he-u-ca-hebrew',{year:'numeric'}).format(now);
-	return {"month":monthNext,"year":yearNext};
-}
-
-})();
-
-
-
-
-//
-function calendarInitTablet(fn, fnNext) {
-	try {
-		
-	$("#calendar").text("🗓️ Init Tablet");
-
-	const url = "http://localhost:8181/Documents/MacroDroid/🖥️/📑/🗓️/🗓️_";
-	$.get( url+fn, function( data, s, xhr ) {
-
-		$.get( url+fnNext, function( data, s, xhrNext ) {
-			calendarUpdateTablet(xhr.responseText, xhrNext.responseText);
-		})
-	    .fail(function(jqXHR, textStatus) {
-			$("#calendar").text("calendarInitTablet.getNext failed. \n🗓️ Rebooting (40s)...");
-			$("#calendar").addClass("errorBorder");
-			setTimeout(calendarInitTablet, 1000*40);
-	    }); 
-    })
-    .fail(function(jqXHR, textStatus) {
-		$("#calendar").text("calendarInitTablet.get failed. \n🗓️ Rebooting (40s)...");
-		$("#calendar").addClass("errorBorder");
-		setTimeout(calendarInitTablet, 1000*40);
-    });
-    
-   } catch (e) {
-   	$("#calendar").text("calendarInitTablet failed:" + e + " \n🗓️ Rebooting (40s)...");
-   	$("#calendar").addClass("errorBorder");
-   	setTimeout(calendarInitTablet, 1000*40);
-   } 
-}
-
-
-//
-function calendarUpdateTimes(data) {
-	try {
-		
-	if ($("#today table").length) return; 
-	
 	var times = "", ldate = new Date().toLocaleDateString('he-IL').replace('.','/').replace('.','/'),
-		trH = data.substring(data.indexOf("<td"),data.indexOf("</tr")), 
-		trT = data.substring(data.indexOf(ldate));
+	trH = wdgt.json.substring(wdgt.json.indexOf("<td"),wdgt.json.indexOf("</tr")), 
+	trT = wdgt.json.substring(wdgt.json.indexOf(ldate));
 
 	trH = trH.replaceAll(' class="tdHead visible ','').replaceAll('type-date"','').replaceAll('type-time"','').replaceAll('type-limud"','').replaceAll('</td><td>','|').replaceAll('<td>','').replaceAll('</td>','').split('|'); 
 	trT = trT.substring(0, trT.indexOf("</tr")).replaceAll('</td><td>','|').replaceAll('</td>','').split('|');
-		 
+		
 	for (var i=0; i<trH.length; i++) {
 		switch (trH[i]) {
 		case "עלות השחר": td("🏙️"); break;
@@ -146,60 +68,70 @@ function calendarUpdateTimes(data) {
 		case "דף יומי בבלי": tdDafYomi(); break;
 		}
 	}
-	
-	times = "<table>"+times+"</table>";
-	$("#today").html(times);
-	
-	
-	// Mark Current Zman
-	setInterval(todayMark, 1000*60*3); 
-	todayMark(); 
-	
-	dispatchEvent(new Event('#today'));
-	
-	$("#today").removeClass("errorBorder");
-		
-	} catch(e) {
-		$("#today").text("calendarUpdateTimes failed:" + e + " \n🗓️ Rebooting (40s)...");
-		$("#today").addClass("errorBorder");
-		setTimeout(calendarInitTimes, 1000*40);
-	} 
-	
-	
-	function td(emoji) {
-		times += '<tr><td class="timesName">'+emoji+'</td><td class="timesVal">'+trT[i]+'</td></tr>';
-	}
-	
-	function tdDafYomi() {
-		times += '<tr><td class="timesName"></td><td class="timesVal"><div class="dafYomi">'+trT[i]+'</div></td></tr>';
-	}
-	
-	function todayMark() {
-		var time = parseInt( new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' }).replace(':','') ); 
-		var firstMark = null;
-	
-		$("#today td.timesVal").each(function( index ) {
-			var val = parseInt( $( this ).text().replace(':','') );
-			if ( time <= val && !firstMark) {
-				firstMark = $( this ).parent();
-				if (val-time <= 3) Countdown((val-time)*100);
-			} else {
-				$( this ).parent().removeClass('markIconText');
-			}
-		});
-		if (firstMark ) {
-			firstMark.addClass('markIconText'); 
-		}
-	}  
-} 
 
+	times = "<table>"+times+"</table>";
+	$(wdgt.sid).html(times);
+
+
+	// Mark Current Zman
+	setInterval(Mark, 1000*60*3); 
+	Mark();
+};
+
+function td(emoji) {
+	times += '<tr><td class="timesName">'+emoji+'</td><td class="timesVal">'+trT[i]+'</td></tr>';
+}
+
+function tdDafYomi() {
+	times += '<tr><td class="timesName"></td><td class="timesVal"><div class="dafYomi">'+trT[i]+'</div></td></tr>';
+}
+
+function Mark() {
+	var time = parseInt( new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' }).replace(':','') ); 
+	var firstMark = null;
+
+	$(wdgt.sid + " td.timesVal").each(function( index ) {
+		var val = parseInt( $( this ).text().replace(':','') );
+		if ( time <= val && !firstMark) {
+			firstMark = $( this ).parent();
+			if (val-time <= 3) Countdown((val-time)*100);
+		} else {
+			$( this ).parent().removeClass('markIconText');
+		}
+	});
+	if (firstMark ) {
+		firstMark.addClass('markIconText'); 
+	}
+}  
+
+})();
+
+
+// 3. 
+(()=>{
+
+// Calendar
+const wdgt = new $app.Widget('🗓️');
+wdgt.dependency = '📆';
+wdgt.url = [
+	`/${wdgt.id}_${$app.Widgets['📅'].json.year}_${$app.Widgets['📅'].json.month}.htm`,
+	`/${wdgt.id}_${Next().year}_${Next().month}.htm`
+];
+
+function Next() {
+	var now = new Date(), monthNext = $app.Widgets['📅'].month;
+	while (month==monthNext) {
+		now.setDate(now.getDate()+1); 
+		monthNext = $app.Widgets['📅'].Month(now);
+	}
+	yearNext = new Intl.DateTimeFormat('he-u-ca-hebrew',{year:'numeric'}).format(now);
+	return {"month":monthNext,"year":yearNext};
+}
 
 //
-function calendarUpdateTablet(data, dataNext) {
-	try {
-	
-	var tHTML1 = data.replaceAll("tdCurrent",""),
-		tHTML2 = dataNext.replaceAll("tdCurrent","");
+wdgt.Update = ()=> {
+	var tHTML1 = wdgt.json[0].replaceAll("tdCurrent",""),
+		tHTML2 = wdgt.json[1].replaceAll("tdCurrent","");
 			
 	// NOTE:  On month 'Eyar' the last row was all marked by ' tdUnused' (on all 7 td),
 	// 		so need to be removed also.
@@ -316,11 +248,11 @@ function calendarUpdateTablet(data, dataNext) {
 	}
 	tHTML4 = "<table>" + tHTML4 + "</table>";
 	
-	// 🗓️ 
-	$("#calendar").html(tHTML4);
+	// 
+	$(wdgt.sid).html(tHTML4);
 	
 	// current 
-	$('#calendar .tdDay').each(function() {
+	$(wdgt.sid + ' .tdDay').each(function() {
 		if ($(this).html().indexOf(current)!=-1) {
 			$(this).addClass('tdCurrent');
 			return false;
@@ -328,44 +260,34 @@ function calendarUpdateTablet(data, dataNext) {
 	});
 	
 	// omer 
-	$('#calendar span[name=omer]').parent().addClass('omer');
+	$(wdgt.sid + ' span[name=omer]').parent().addClass('omer');
 	
 	// daf yomi
-	$('#today .dafYomi').width($('#calendar .tdCurrent').width())
-		.appendTo('#calendar .tdCurrent');  // 🗒: '.detach()' not needed
+	$('#📆 .dafYomi').width($(wdgt.sid + ' .tdCurrent').width())
+		.appendTo(wdgt.sid + ' .tdCurrent');  // 🗒: '.detach()' not needed
 	$( window ).resize(function() {
-		$('#calendar .dafYomi').width($('#calendar .tdCurrent').width());
+		$(wdgt.sid + ' .dafYomi').width($(wdgt.sid + ' .tdCurrent').width());
 	});
-	
-	
-	dispatchEvent(new Event('#calendar'));
-	
-	$("#calendar").removeClass("errorBorder");
-		
-	} catch(e) {
-		$("#calendar").text("calendarUpdateTablet failed:" + e + " \n🗓️ Rebooting (40s)...");
-		$("#calendar").addClass("errorBorder");
-		setTimeout(calendarInitTablet, 1000*40);
+};
+
+function hebDay() {
+	var d = parseInt(new Intl.DateTimeFormat('he-u-ca-hebrew',{day:'numeric'}).format(new Date()) ), hd="";
+	if (d>=30) {
+			hd="ל";
+			d-=30;
+	} else if (d>=20) {
+			hd="כ";
+			d-=20;
+	} else if (d>=10) {
+			hd="י";
+			d-=10;
 	} 
-	
-	
-	function hebDay() {
-		var d = parseInt(new Intl.DateTimeFormat('he-u-ca-hebrew',{day:'numeric'}).format(new Date()) ), hd="";
-		if (d>=30) {
-		    hd="ל";
-		    d-=30;
-		} else if (d>=20) {
-		    hd="כ";
-		    d-=20;
-		} else if (d>=10) {
-		    hd="י";
-		    d-=10;
-		} 
-		hd+=d?String.fromCharCode(d + 'א'.charCodeAt(0) - 1):'';
-		if (hd=='יה') hd='טו'
-		else if (hd=='יו') hd='טז';
-		if (hd.length>1) hd = hd.slice(0, 1) + '"' + hd.slice(1)
-		else hd += "'";
-		return '<span class="hebdate">' + hd; 
-	}
+	hd+=d?String.fromCharCode(d + 'א'.charCodeAt(0) - 1):'';
+	if (hd=='יה') hd='טו'
+	else if (hd=='יו') hd='טז';
+	if (hd.length>1) hd = hd.slice(0, 1) + '"' + hd.slice(1)
+	else hd += "'";
+	return '<span class="hebdate">' + hd; 
 }
+
+})();

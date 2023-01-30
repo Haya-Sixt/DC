@@ -55,7 +55,7 @@ function notesUpdate() {
 				
 			// every month
 			if (m == 'בחודש') {
-				if ($('#calendar .tdCurrent .hebdate').text().indexOf(d) != -1)
+				if ($('#🗓️ .tdCurrent .hebdate').text().indexOf(d) != -1)
 					// default is 🌇
 					startedAt = $app.Vars['🌇'] + parseHM(cond, 'תאריך_'+d+'_'+m,condC);
 				else

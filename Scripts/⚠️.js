@@ -16,7 +16,7 @@ function Init(steps) {
 			//Popup.Dimention();
 			}
 
-		var calendar = $("#calendar table");
+		var calendar = $("#🗓️ table");
 		if ("629,438".indexOf(parseInt(calendar.width())) == -1) {
 			$app.Widgets['calendar'].Reset ('⚠️');
 			//Popup.Dimention();

@@ -41,8 +41,8 @@ class Popup {
 			+'X'+ parseInt($("#🌡️").width())
 			+',  🌡️(canvas) '+ parseInt($("canvas.canvasjs-chart-canvas").height())
 			+'X'+ parseInt($("canvas.canvasjs-chart-canvas").width())
-			+',  📆 '+ parseInt($("#calendar table").height())
-			+'X'+ parseInt($("#calendar table").width())
+			+',  🗓️ '+ parseInt($("#🗓️ table").height())
+			+'X'+ parseInt($("#🗓️ table").width())
 			//+', body: '+ parseInt($("body").width())
 			//+', doc: '+ parseInt($(document).width())
 		);

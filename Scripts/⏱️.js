@@ -3,21 +3,21 @@
 function timerInit() {
 	try {
 
-	// #today
-	addEventListener("#today", function() {
+	// #📆
+	addEventListener("#📆", function() {
 		try {
 			
 		// Set $app.Vars 
-		var shm = $("#today td:contains(🌇)").next().text().split(':');
+		var shm = $("#📆 td:contains(🌇)").next().text().split(':');
 		($app.Vars['🌇']=new Date()).setHours(shm[0], shm[1], 0, 0);
 		$app.Vars['🌇'] = parseInt(new Date($app.Vars['🌇']).getTime()/1000);
 		
-		} catch(e) { $("#⏱️").text(e+'\n⏱️ #today'); }
+		} catch(e) { $("#⏱️").text(e+'\n⏱️ #📆'); }
 	}, false);
 	
 	
-	// #calendar 
-	addEventListener("#calendar", function() {
+	// #🗓️ 
+	addEventListener("#🗓️", function() {
 		try {
 			
 		// ⏰
@@ -26,7 +26,7 @@ function timerInit() {
 		// 📒
 		notesInit ();
 			
-		} catch(e) { $("#⏱️").text(e+'\n⏱️ #calendar'); }
+		} catch(e) { $("#⏱️").text(e+'\n⏱️ #🗓️'); }
 	}, false);
 	
 
@@ -83,7 +83,7 @@ function scheduleUpdate() {
 			
 		var time = parseInt( new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' }).replace(':','') ), 
 			firstMark = null,
-			match = $('#calendar .tdCurrent').text().match(/[0-2][0-9]:[0-5][0-9]/gm);
+			match = $('#🗓️ .tdCurrent').text().match(/[0-2][0-9]:[0-5][0-9]/gm);
 		
 		match && match.forEach((m) => { 
 			var val = parseInt( m.replace(':','') );
@@ -111,7 +111,7 @@ function scheduleUpdate() {
 			
 		var days=0, d="", c=false;
 		
-		$("#calendar .tdDay").each(function () {
+		$("#🗓️ .tdDay").each(function () {
 			
 			if ( $(this).hasClass('tdCurrent') ) {
 				c = '' + $(this).text().match(Schedule.c_match());
@@ -144,7 +144,7 @@ function scheduleUpdate() {
 		try {
 			
 		var bg = 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' version=\'1.1\'><text x=\'3%\' y=\'90%\' font-size=\'4em\'>', 
-			match = $("#calendar .tdCurrent").text().match(Schedule.c_match()),
+			match = $("#🗓️ .tdCurrent").text().match(Schedule.c_match()),
 			c = '';
 		if ( $app.Vars['🕯️🕯️'] == "true" )  c += '🕯️🕯️';
 		if ( match )  c += match.join('');
