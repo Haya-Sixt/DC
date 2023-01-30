@@ -139,45 +139,45 @@ $( window ).resize(function() {
 // 2.
 (()=>{
 
-	// Temperature
-	const wdgt = new $app.Widget('🏳️‍🌈');
-	wdgt.dependency = '🌡️';
+// Temperature
+const wdgt = new $app.Widget('🏳️‍🌈');
+wdgt.dependency = '🌡️';
 
-	//
-	wdgt.Init = ()=> {
-		wdgt.data = parseFloat($app.Widgets['🌡️'].data.data[0].temp).toFixed(2);
-	};
+//
+wdgt.Init = ()=> {
+	wdgt.data = parseFloat($app.Widgets['🌡️'].data.data[0].temp).toFixed(2);
+};
 
-	//
-	wdgt.Update = ()=> {
-		let canvas = $(wdgt.sid).html("<canvas width='100%' height='100%'></canvas>"),
-			c = canvas.children().attr('width',canvas.width()).attr('height',canvas.height()),
-			ctx = c[0].getContext("2d"),
-			width = canvas.width(), height = canvas.height(), 
-			margin = 5, stops = GredientConverter.maxTemperature()/10, 
-			section = (height - margin*2)/10,
-			t = wdgt.data; 
+//
+wdgt.Update = ()=> {
+	let canvas = $(wdgt.sid).html("<canvas width='100%' height='100%'></canvas>"),
+		c = canvas.children().attr('width',canvas.width()).attr('height',canvas.height()),
+		ctx = c[0].getContext("2d"),
+		width = canvas.width(), height = canvas.height(), 
+		margin = 5, stops = GredientConverter.maxTemperature()/10, 
+		section = (height - margin*2)/10,
+		t = wdgt.data; 
+	
+	for (var i=0; i < 10; i++) {
+		var grd = ctx.createLinearGradient(0, margin + section*i, 0, margin + section*(i+1) );
+		for (var j=0; j <= stops; j++) {
+			grd.addColorStop(j/stops, GredientConverter.toTemperature((10-i)*stops-j-1));
+		} 
+		ctx.fillStyle = grd; 
+		ctx.fillRect(margin, margin+(section*i), width-(margin*2), section );
+	}
+
+	// mark the current temperature 
+	t=t<0?0:t;
+	t=t>GredientConverter.maxTemperature()?GredientConverter.maxTemperature():t;
+	Mark ("5","#AAA");
+	Mark ("3","#FFF");
+
+	$("<span>")
+		.html(parseInt(t)+'°')
+		.appendTo(wdgt.sid);
+	
 		
-		for (var i=0; i < 10; i++) {
-			var grd = ctx.createLinearGradient(0, margin + section*i, 0, margin + section*(i+1) );
-			for (var j=0; j <= stops; j++) {
-				grd.addColorStop(j/stops, GredientConverter.toTemperature((10-i)*stops-j-1));
-			} 
-			ctx.fillStyle = grd; 
-			ctx.fillRect(margin, margin+(section*i), width-(margin*2), section );
-		}
-	
-		// mark the current temperature 
-		t=t<0?0:t;
-		t=t>GredientConverter.maxTemperature()?GredientConverter.maxTemperature():t;
-		Mark ("5","#AAA");
-		Mark ("3","#FFF");
-	
-		$("<span>")
-			.html(parseInt(t)+'°')
-			.appendTo(wdgt.sid);
-	};
-	
 	function Mark(lineWidth,strokeStyle) {
 		var y =  margin + (height - margin*2) - (t / GredientConverter.maxTemperature() * (height - margin*2) );
 		var curve = margin/1.5;
@@ -195,6 +195,7 @@ $( window ).resize(function() {
 		ctx.quadraticCurveTo(curve, y-margin, margin, y-margin);
 		ctx.stroke();
 	}
+};
 
 })();
 
