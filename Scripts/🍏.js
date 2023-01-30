@@ -61,9 +61,14 @@
                             .fail(()=> this.Reset())
                         };
                         //
-                        if (this.Url) this.url = this.Url();
-                        if (this.dependency) addEventListener('🖥️.' + this.dependency, Get ())
-                        else Get ();
+                        if (this.dependency) addEventListener('🖥️.' + this.dependency, ()=> {
+                            if (this.Url) this.url = this.Url();
+                            Get ();
+                        })
+                        else {
+                            if (this.Url) this.url = this.Url();
+                            Get ();
+                        }
                     }
                 } catch (e) { $(this.sid).text(`${this.id} Init: ${e}`).addClass("errorBorder"); } }
             }
