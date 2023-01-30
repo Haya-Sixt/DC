@@ -56,17 +56,14 @@ wdgt.Month = (now)=> {
 const wdgt = new $app.Widget('📆');
 wdgt.dependency = '📅👈';
 
-let times = "";
-
 //
 wdgt.Url = ()=> `/times_${$app.Widgets['📅👈'].data.year}_${$app.Widgets['📅👈'].data.month}.htm`;
 
 //
 wdgt.Update = ()=> {
-	var ldate = new Date().toLocaleDateString('he-IL').replace('.','/').replace('.','/'),
+	let times = "", ldate = new Date().toLocaleDateString('he-IL').replace('.','/').replace('.','/'),
 		trH = wdgt.data.substring(wdgt.data.indexOf("<td"),wdgt.data.indexOf("</tr")), 
 		trT = wdgt.data.substring(wdgt.data.indexOf(ldate));
-
 	trH = trH.replaceAll(' class="tdHead visible ','').replaceAll('type-date"','').replaceAll('type-time"','').replaceAll('type-limud"','').replaceAll('</td><td>','|').replaceAll('<td>','').replaceAll('</td>','').split('|'); 
 	trT = trT.substring(0, trT.indexOf("</tr")).replaceAll('</td><td>','|').replaceAll('</td>','').split('|');
 		
@@ -99,15 +96,16 @@ wdgt.Update = ()=> {
 	// Mark Current Zman
 	setInterval(Mark, 1000*60*3); 
 	Mark();
+
+
+	function td(emoji) {
+		times += '<tr><td class="📆name">'+emoji+'</td><td class="📆val">'+trT[i]+'</td></tr>';
+	}
+
+	function tdDafYomi() {
+		times += '<tr><td class="📆name"></td><td class="📆val"><div class="dafYomi">'+trT[i]+'</div></td></tr>';
+	}
 };
-
-function td(emoji) {
-	times += '<tr><td class="📆name">'+emoji+'</td><td class="📆val">'+trT[i]+'</td></tr>';
-}
-
-function tdDafYomi() {
-	times += '<tr><td class="📆name"></td><td class="📆val"><div class="dafYomi">'+trT[i]+'</div></td></tr>';
-}
 
 function Mark() {
 	var time = parseInt( new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' }).replace(':','') ); 
