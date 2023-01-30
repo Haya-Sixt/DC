@@ -39,9 +39,9 @@
                         }
                     }
                     else {
-                        const Dataify = (d)=> d.startsWith('{') ? $.parseJSON(d) : d,
+                        const Dataify = (u, d)=> u.endsWith('.json') ? $.parseJSON(d) : d,
                         Get = (i=0)=> {
-                            let u = '.data';
+                            let u = '.json';
                             if (this.url instanceof Array) u = this.url[i]
                             else if (this.url) u = this.url;
                             $.get( `${$app.Vars.base}📑/${this.id}${u}` )
@@ -49,11 +49,11 @@
                                 try {
                                     if (this.url instanceof Array) {
                                         if (!i) this.data = [];
-                                        this.data.push(Dataify(d));
+                                        this.data.push(Dataify(u, d));
                                         if (i < this.url.length - 1) return Get (i+1);
                                     }
                                     else {
-                                        this.data = Dataify(d);
+                                        this.data = Dataify(u, d);
                                     }
                                     this.repeat.init && setTimeout(this.Init, 1000*60*this.repeat.init);
                                     this.Update();
