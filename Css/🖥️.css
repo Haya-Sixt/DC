@@ -17,8 +17,8 @@
 #🪵 { font-size:20px; padding:5px 3px 0 3px; background-repeat: no-repeat; } 
 .🪵Progress { font-size:2em; text-shadow: 4px 4px 4px #000; padding:0px; 
 	border: 1px solid black; border-radius: 15px;
-	background: url(/Images/🪵Progress.jpg); background-color: #2986C8; 
-	background-repeat: no-repeat; display: flex; flex-wrap: no-wrap; }
+	background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><rect width="32" height="32px" style="fill:rgb(255, 254, 252);"/></svg>'); 
+	background-color: #2986C8; background-repeat: no-repeat; display: flex; flex-wrap: no-wrap; }
 .🪵Progress div:first-child { flex: 100%; text-overflow: ellipsis; overflow: hidden; }
 .🪵Progress div:last-child { flex: 1px; white-space: nowrap; }
 #🗓️ { overflow: hidden; border-top: 15px solid black; } 
