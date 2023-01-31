@@ -49,7 +49,7 @@
                         }
                     }
                     else {
-                        const Get = (i=0)=> {
+                        const Get = (ev, i=0)=> {
                             let u = '.json';
                             if (!i && this.Url) this.url = this.Url();
                             if (this.url instanceof Array) u = this.url[i]
@@ -60,7 +60,7 @@
                                     if (this.url instanceof Array) {
                                         if (!i) this.data = [];
                                         this.data.push(d);
-                                        if (i < this.url.length - 1) return Get (i+1);
+                                        if (i < this.url.length - 1) return Get (null, i+1);
                                     }
                                     else {
                                         this.data = d;
