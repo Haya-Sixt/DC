@@ -88,14 +88,14 @@
 }
 
 
-body { direction:rtl; color:#A1A1A1;}
-body, #⌚, #💈 span, #🗓️ { background-color: black;}
-table {text-align:center;width:100%; height:1px}
+body { direction:rtl; color:#A1A1A1; font-family:sans-serif;}
+body, #⌚, #💈 span, #🗓️ { background-color:black;}
+table {text-align:center; width:100%; height:1px}
 td {vertical-align:top;}
 .tdHead, .tdDay, .hdate, .dafYomi { font-size:15px;}
-.tdHead {border-radius: 10px; text-align:center;color:#fff;background-color:#20689b;font-weight: normal;} 
+.tdHead {border-radius:10px; text-align:center; color:#fff;background-color:#20689b;font-weight: normal;} 
 .tdDay { text-decoration:none; }
-.tdCurrent { border-radius: 5px; border:1px solid #20679b;}
+.tdCurrent { border-radius:5px; border:1px solid #20679b;}
 /*.tdShabat {}*/
 #📅👈, .ldate, .dafYomi { color:#b4b4b4; font-weight: 100 !important; }
 .hebdate, .ldate { margin-top:2px; } 
