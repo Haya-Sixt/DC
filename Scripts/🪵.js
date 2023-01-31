@@ -134,7 +134,7 @@ wdgt.Entries = function* (now) {
 			else  {
 				$(this).css('backgroundSize',percent+'% 100%')
 					.children().last().text(h+' '+m);
-				$(this).addClass($(wdgt.id));
+				$(this).addClass(wdgt.id);
 				$(wdgt.sid).css('top','calc(91% - '+ topOffset++ * 30 +'px)');
 				
 				if (m=='3m' && h=='')
