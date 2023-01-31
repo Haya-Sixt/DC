@@ -7,6 +7,7 @@ document.querySelector('html').$app.Import();
 // Log
 const wdgt = new $app.Widget('🪵');
 wdgt.repeat = { init: 3 };
+wdgt.dependency = '📆';
 
 //
 wdgt.Update = ()=> {
