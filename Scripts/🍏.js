@@ -2,8 +2,12 @@
 (function () {
 
     const app = document.querySelector('html').$app = {
+        Constants : {
+            Status : { Done: 'done' },
+            Name: '🖥️',
+            Host: document.location.href.match(/.*\//umg)[0]
+        },
         Vars : { 
-            'base': document.location.href.match(/.*\//umg)[0], 
             '🕯️': 0, 
             '🕯️🕯️': false, 
             '🌇': 0, // used by 📒 (set by 📆)
@@ -26,27 +30,31 @@
             }
             get Init () {
                 return ()=> { try {
-                    const Url = ()=> { if (this.Url) this.url = this.Url() },
-                        Dependency = ()=> this.dependency && app.Widgets[this.dependency].status != 'done';
+                    const Dependency = ()=> this.dependency && 
+                        this.status != app.Constants.Status.Done && // 🗒: potential 🐛 - add multiple listeners when this.init fails 
+                        app.Widgets[this.dependency].status != app.Constants.Status.Done;
                     $(this.sid).removeClass("errorBorder");
                     if (this.init) {
                         if (Dependency ()) {
-                            addEventListener('🖥️.' + this.dependency, ()=> {
+                            addEventListener(`${app.Constants.Name}.${this.dependency}`, ()=> {
                                 this.init();
+                                this.repeat.init && setTimeout(this.Init, 1000*60*this.repeat.init);
                                 this.Update();
-                            });
+                            }, {once: true});
                         }
                         else {
                             this.init();
+                            this.repeat.init && setTimeout(this.Init, 1000*60*this.repeat.init);
                             this.Update();
                         }
                     }
                     else {
                         const Get = (i=0)=> {
                             let u = '.json';
+                            if (!i && this.Url) this.url = this.Url();
                             if (this.url instanceof Array) u = this.url[i]
                             else if (this.url) u = this.url;
-                            $.get( `${$app.Vars.base}📑/${this.id}${u}` )
+                            $.get( `${$app.Constants.Host}📑/${this.id}${u}` )
                             .done((d)=> { 
                                 try {
                                     if (this.url instanceof Array) {
@@ -64,14 +72,8 @@
                             .fail(()=> this.Reset())
                         };
                         //
-                        if (Dependency ()) addEventListener('🖥️.' + this.dependency, ()=> {
-                            Url ();
-                            Get ();
-                        })
-                        else {
-                            Url ();
-                            Get ();
-                        }
+                        if (Dependency ()) addEventListener(`${app.Constants.Name}.${this.dependency}`, Get, {once: true})
+                        else Get ();
                     }
                 } catch (e) { $(this.sid).text(`${this.id} Init: ${e}`).addClass("errorBorder"); } }
             }
@@ -83,8 +85,8 @@
                     $(this.sid).removeClass("errorBorder");
                     this.repeat.update && setTimeout(this.Update, 1000*60*this.repeat.update);
                     this.update && this.update();
-                    dispatchEvent(new Event('🖥️.' + this.id));
-                    this.status = 'done';
+                    this.status != app.Constants.Status.Done && dispatchEvent(new Event('🖥️.' + this.id));
+                    this.status = app.Constants.Status.Done;
                 } catch (e) { $(this.sid).text(`${this.id} Update: ${e}`).addClass("errorBorder"); } }
             }
             set Update (f) {
@@ -106,13 +108,13 @@
     }
     
     function Head () {
-        ['🖥️','⏳'].forEach((e)=> { const link = document.createElement('link'); link.rel = 'stylesheet'; link.type = 'text/css'; link.href = app.Vars.base + 'Css/' + e + '.css'; document.head.appendChild(link); } ); 
-        ['🪵','🌡️','📅','📒','⏱️','🎉','⚠️'].forEach((e)=> { const script = document.createElement('script'); script.type = 'text/javascript'; script.src = app.Vars.base + 'Scripts/' + e + '.js'; document.head.appendChild(script); } ); 
+        [app.Constants.Name,'⏳'].forEach((e)=> { const link = document.createElement('link'); link.rel = 'stylesheet'; link.type = 'text/css'; link.href = app.Constants.Host + 'Css/' + e + '.css'; document.head.appendChild(link); } ); 
+        ['🪵','🌡️','📅','📒','⏱️','🎉','⚠️'].forEach((e)=> { const script = document.createElement('script'); script.type = 'text/javascript'; script.src = app.Constants.Host + 'Scripts/' + e + '.js'; document.head.appendChild(script); } ); 
     }
     
     function webBrowser() {
         return;
-        if (!app.Vars.base.startsWith('http:')) 
+        if (!app.Constants.Host.startsWith('http:')) 
             location.replace('http://localhost:8181/Documents/Apps/🖥️/DC/index.html');
         //if (!String.prototype.replaceAll) 
         //	String.prototype.replaceAll = (function (p,r) {return this.split(p).join(r)}); 

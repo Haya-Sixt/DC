@@ -88,7 +88,7 @@ function addImages() {
 	for(var i = 0; i < chart.data[0].dataPoints.length; i++) {
 		var nm = "", ic=chart.data[0].dataPoints[i].icon;
 
-		images.push($("<img>").attr("src", $app.Vars.base + "Images/weatherbit/"+ic+".png").attr("title",ic));
+		images.push($("<img>").attr("src", $app.Constants.Host + "Images/weatherbit/"+ic+".png").attr("title",ic));
 
 		if (ic.substring(0,1)=="a") nm="cloudy"
 		else if (ic.substring(0,1)=="c") nm="sunny"
