@@ -3,10 +3,10 @@
 
     const app = document.querySelector('html').$app = {
         Constants : {
-            Status : { Done: 'done', Dev: 'dev' },
+            Status : { Done: 'done' },
             Name: '🖥️',
             Host: location.href.match(/.*\//umg)[0],
-            Mode: location.hash
+            Mode: location.hash.replace('#','')
         },
         Vars : { 
             '🕯️': 0, 
