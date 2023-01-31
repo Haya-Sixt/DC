@@ -140,7 +140,7 @@ $( window ).resize(function() {
 (()=>{
 
 // Temperature
-const wdgt = new $app.Widget('🏳️‍🌈');
+const wdgt = new $app.Widget('💈');
 wdgt.dependency = '🌡️';
 
 //
