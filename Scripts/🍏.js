@@ -6,7 +6,7 @@
             Status : { Done: 'done', Dev: 'dev' },
             Name: '🖥️',
             Host: location.href.match(/.*\//umg)[0],
-            Mode: location.hash == Status.Dev ? Status.Dev : ''
+            Mode: location.hash == app.Status.Dev ? app.Status.Dev : ''
         },
         Vars : { 
             '🕯️': 0, 
