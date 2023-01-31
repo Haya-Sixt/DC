@@ -3,9 +3,10 @@
 
     const app = document.querySelector('html').$app = {
         Constants : {
-            Status : { Done: 'done' },
+            Status : { Done: 'done', Dev: 'dev' },
             Name: '🖥️',
-            Host: document.location.href.match(/.*\//umg)[0]
+            Host: location.href.match(/.*\//umg)[0],
+            Mode: location.hash == Status.Dev ? Status.Dev : ''
         },
         Vars : { 
             '🕯️': 0, 
@@ -50,7 +51,7 @@
                     }
                     else {
                         const Get = (ev, i=0)=> {
-                            let u = '.json';
+                            let u = `${ (app.Constants.Mode == app.Constants.Status.Dev) && '.dev' }.json`;
                             if (!i && this.Url) this.url = this.Url();
                             if (this.url instanceof Array) u = this.url[i]
                             else if (this.url) u = this.url;
