@@ -51,7 +51,7 @@
                     }
                     else {
                         const Get = (ev, i=0)=> {
-                            let u = `${ (app.Constants.Mode == app.Constants.Status.Dev) && '.dev' }.json`;
+                            let u = `${app.Constants.Mode}.json`;
                             if (!i && this.Url) this.url = this.Url();
                             if (this.url instanceof Array) u = this.url[i]
                             else if (this.url) u = this.url;
