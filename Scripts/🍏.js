@@ -19,15 +19,18 @@
                 this.sid = `#${id}`;
                 this.init = this.update = this.url = null;
                 this.repeat = {init: 0, update: 0};
-                this.dependency = '';
+                this.dependency = this.status = '';
+
                 $('<div>').attr('id', id).html(`${id}...`).appendTo('body');
                 app.Widgets[id] = this;
             }
             get Init () {
                 return ()=> { try {
+                    const Url = ()=> { if (this.Url) this.url = this.Url() },
+                        Dependency = ()=> this.dependency && app.Widgets[this.dependency].status != 'done';
                     $(this.sid).removeClass("errorBorder");
                     if (this.init) {
-                        if (this.dependency) {
+                        if (Dependency ()) {
                             addEventListener('🖥️.' + this.dependency, ()=> {
                                 this.init();
                                 this.Update();
@@ -61,12 +64,12 @@
                             .fail(()=> this.Reset())
                         };
                         //
-                        if (this.dependency) addEventListener('🖥️.' + this.dependency, ()=> {
-                            if (this.Url) this.url = this.Url();
+                        if (Dependency ()) addEventListener('🖥️.' + this.dependency, ()=> {
+                            Url ();
                             Get ();
                         })
                         else {
-                            if (this.Url) this.url = this.Url();
+                            Url ();
                             Get ();
                         }
                     }
@@ -81,6 +84,7 @@
                     this.repeat.update && setTimeout(this.Update, 1000*60*this.repeat.update);
                     this.update && this.update();
                     dispatchEvent(new Event('🖥️.' + this.id));
+                    this.status = 'done';
                 } catch (e) { $(this.sid).text(`${this.id} Update: ${e}`).addClass("errorBorder"); } }
             }
             set Update (f) {
