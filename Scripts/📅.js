@@ -303,20 +303,20 @@ wdgt.Update = ()=> {
 
 //
 function Mark() {
-	var time = parseInt( new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' }).replace(':','') ); 
-	var firstMark = null;
+	var now = parseInt( new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' }).replace(':','') ); 
+	var first = null;
 
-	$(wdgt.sid + " td.📆val").each(()=> {
-		var val = parseInt( $( this ).text().replace(':','') );
-		if ( time <= val && !firstMark) {
-			firstMark = $( this ).parent();
-			if (val-time <= 3) Countdown((val-time)*100);
+	$(wdgt.sid + " td.📆val").each((i, t)=> {
+		var v = parseInt( $(t).text().replace(':','') );
+		if ( now <= v && !first) {
+			first = $(t).parent();
+			if (v - now <= 3) Countdown((v - now)*100);
 		} else {
-			$( this ).parent().removeClass('markIconText');
+			$(t).parent().removeClass('markIconText');
 		}
 	});
-	if (firstMark ) {
-		firstMark.addClass('markIconText'); 
+	if (first ) {
+		first.addClass('markIconText'); 
 	}
 }  
 
