@@ -1,0 +1,31 @@
+
+-------server--------
+sudo rclone serve http --addr :8181 /storage/emulated/0/
+ps -ef | grep rclone
+kill {pid}
+
+---------pull----------
+sh /storage/emulated/0/Documents/Apps/MacroDroid/🖥️/scripts/🐈‍⬛.sh 🖥️/DC
+
+--------commit---------
+apps="/storage/emulated/0/Documents/Apps"
+app="🖥️"
+repo="DC"
+options=("status" "commit" "Quit")
+select opt in "${options[@]}"
+do
+  case $opt in
+  "status")
+    cd $apps/$app/$repo
+    git status
+  ;;
+  "commit")
+    cd $apps/$app/$repo
+    git add .
+    git commit --all -m "🐈‍⬛📱" 
+  ;;
+  "Quit")
+    break
+  ;;
+  *) echo "invalid option $REPLY";;
+esac done

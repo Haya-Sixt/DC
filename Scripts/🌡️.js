@@ -16,14 +16,17 @@ let chart, images = [], rangeBuilder = [], columnBuilder = [], axisY_max = -100,
 //
 wdgt.Update = ()=> {
 	
-	dataBuilder();
+	Normalize ();
 
-	render();
-    
-  addImages();
+	Render ();
+	
+	Images ();
+	
+	Yesterday ();
 };
 
-function dataBuilder () {
+//
+function Normalize () {
 	$.each( wdgt.data.data, function( key, val) {
 		axisY_max=val.max_temp>axisY_max?val.max_temp:axisY_max;
 		axisY_min=val.min_temp<axisY_min?val.min_temp:axisY_min;
@@ -46,7 +49,8 @@ function dataBuilder () {
 	});
 }
 
-function render() {
+//
+function Render() {
 	chart = wdgt.data.chart = new CanvasJS.Chart(wdgt.id, {
 		axisY: {
 			minimum: axisY_min-1,
@@ -83,8 +87,9 @@ function render() {
 
 	chart.render();
 }
-	 
-function addImages() {
+
+//
+function Images() {
 	for(var i = 0; i < chart.data[0].dataPoints.length; i++) {
 		var nm = "", ic=chart.data[0].dataPoints[i].icon;
 
@@ -97,41 +102,41 @@ function addImages() {
 
 		images[i].attr("class", nm)
 			.appendTo($(wdgt.sid));
-		positionImage(images[i], i);
+		Position(images[i], i);
+	}
+	//
+	$( window ).resize(function() {
+		var cloudy = 0, rainy = 0, sunny = 0;
+		if (!chart) return;
+		for(var i=0;i<chart.data[0].dataPoints.length;i++) {
+			const iC = chart.axisX[0].convertValueToPixel(chart.data[0].dataPoints[i].x) - 20;
+			if(chart.data[0].dataPoints[i].name == "cloudy") {					
+				$(".cloudy").eq(cloudy++).css({ "left": iC});
+			} else if(chart.data[0].dataPoints[i].name == "rainy") {
+				$(".rainy").eq(rainy++).css({ "left": iC});  
+			} else if(chart.data[0].dataPoints[i].name == "sunny") {
+				$(".sunny").eq(sunny++).css({ "left": iC});  
+			}                
+		}
+	}); 
+	
+	//
+	function Position(image, index) {
+		var x = chart.axisX[0].convertValueToPixel(chart.data[0].dataPoints[index].x);
+		image.width("40px")
+			.css({ "left": x - 20 + "px",
+			"position": "absolute","top":"-30px"});
 	}
 }
-	 
-function positionImage(image, index) {
-	var x = chart.axisX[0].convertValueToPixel(chart.data[0].dataPoints[index].x);
 
-	image.width("40px")
-		.css({ "left": x - 20 + "px",
-		"position": "absolute","top":"-30px"});
-
-	// yesterday dimmer
-	index || 
-		$("<div>")
+// Dimmer
+function Yesterday () {
+	const x = chart.axisX[0].convertValueToPixel(chart.data[0].dataPoints[0].x);
+	$("<div>")
 		.height($(wdgt.sid).height() * 1.5)
 		.css({ "left": x - 24 + "px" })
 		.appendTo($(wdgt.sid));
 }
-	 
-
-$( window ).resize(function() {
-	var cloudy = 0, rainy = 0, sunny = 0;    
-	var iC = 0;
-	if (!chart) return;
-	for(var i=0;i<chart.data[0].dataPoints.length;i++) {
-		iC = chart.axisX[0].convertValueToPixel(chart.data[0].dataPoints[i].x) - 20;
-		if(chart.data[0].dataPoints[i].name == "cloudy") {					
-			$(".cloudy").eq(cloudy++).css({ "left": iC});
-		} else if(chart.data[0].dataPoints[i].name == "rainy") {
-			$(".rainy").eq(rainy++).css({ "left": iC});  
-		} else if(chart.data[0].dataPoints[i].name == "sunny") {
-			$(".sunny").eq(sunny++).css({ "left": iC});  
-		}                
-	}
-});
 
 })();
 
