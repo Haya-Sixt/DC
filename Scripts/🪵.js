@@ -7,7 +7,7 @@ document.querySelector('html').$app.Import();
 // Log
 const wdgt = new $app.Widget('🪵');
 wdgt.repeat = { init: 3 };
-wdgt.dependency = '📆';
+wdgt.dependency = ['🗓️','⏱️'];
 
 //
 wdgt.Update = ()=> {
@@ -44,7 +44,34 @@ wdgt.Update = ()=> {
 	result = '<div>' + $('#⏱️').text() + '</div>' + result; 
 	
 	$(wdgt.sid).html(result);
+
+	Background ();
 };
+
+//
+function Background() {
+	try {		
+	var bg = 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' version=\'1.1\'><text x=\'3%\' y=\'90%\' font-size=\'4em\'>', 
+		match = $("#🗓️ .tdCurrent").text().match(Schedule.c_match()),
+		c = '';
+	if ( $app.Vars['🕯️🕯️'] == "true" )  c += '🕯️🕯️';
+	if ( match )  c += match.join('');
+	if ( $app.Vars['☔'] )  c += '☔️';
+	if ( c == '')  c += '🌴';
+	
+	$(wdgt.sid).css('backgroundImage', bg + dx(c) + '</text></svg>")');
+
+	} catch(e) { $(wdgt.sid).text(`${e}\n${wdgt.id} Background`); }
+	
+	//
+	function dx() {
+		let r = '';
+		c.match(Schedule.c_match()).forEach((m) => {
+			r += '<tspan dx=\'-0.' + (m == '🕯️' ? 45 : 20) + 'em\'>' + m + '</tspan>';
+		});
+		return r;
+	}
+}
 
 //
 wdgt.Entries = function* (now) {
@@ -66,7 +93,7 @@ wdgt.Entries = function* (now) {
 
 	// Progress Bar
 	const wdgt = new $app.Widget('🪵Progress');
-	wdgt.dependency = '🪵';
+	wdgt.dependency = ['🪵'];
 	wdgt.repeat = { update: 1 };
 
 	//

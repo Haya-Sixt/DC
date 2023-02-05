@@ -22,60 +22,60 @@
             constructor (id) {
                 this.id = id;
                 this.sid = `#${id}`;
-                this.init = this.update = this.url = null;
+                this.init = this.update = this.url = this.dependency = null;
                 this.repeat = {init: 0, update: 0};
-                this.dependency = this.status = '';
+                this.status = '';
 
                 $('<div>').attr('id', id).html(`${id}...`).appendTo('body');
                 app.Widgets[id] = this;
             }
             get Init () {
-                return ()=> { try {
-                    const Dependency = ()=> this.dependency && 
-                        this.status != app.Constants.Status.Done && // 🗒: potential 🐛 - add multiple listeners when this.init fails 
-                        app.Widgets[this.dependency].status != app.Constants.Status.Done;
-                    $(this.sid).removeClass("errorBorder");
-                    if (this.init) {
-                        if (Dependency ()) {
-                            addEventListener(`${app.Constants.Name}.${this.dependency}`, ()=> {
-                                this.init();
-                                this.repeat.init && setTimeout(this.Init, 1000*60*this.repeat.init);
-                                this.Update();
-                            }, {once: true});
-                        }
-                        else {
-                            this.init();
+                return ()=> { 
+                try {
+                const ResolveDependency = ()=> {
+                    if (!this.dependency || 
+                        this.status == app.Constants.Status.Done) // 🗒: potential 🐛 - add multiple listeners when this.init fails 
+                        return true;
+                    this.dependency.forEach(d=> removeEventListener(`${app.Constants.Name}.${d}`, this.Init));
+                    const f = this.dependency.filter(d=> app.Widgets[d].status != app.Constants.Status.Done);
+                    if (f.length) {
+                        f.forEach(d=> addEventListener(`${app.Constants.Name}.${d}`, this.Init, {once: true}));
+                        return false;
+                    }
+                    else return true;
+                },
+                Get = (ev, i=0)=> {
+                    let u = `${app.Constants.Mode}.json`;
+                    if (!i && this.url) this.url = this.url(); // 🗒: Url is a function (and not just a var), to be evaluated after the dependency!
+                    if (this.url instanceof Array) u = this.url[i]
+                    else if (this.url) u = this.url;
+                    $.get( `${$app.Constants.Host}📑/${this.id}${u}` )
+                    .done((d)=> { 
+                        try {
+                            if (this.url instanceof Array) {
+                                if (!i) this.data = [];
+                                this.data.push(d);
+                                if (i < this.url.length - 1) return Get (null, i+1);
+                            }
+                            else {
+                                this.data = d;
+                            }
                             this.repeat.init && setTimeout(this.Init, 1000*60*this.repeat.init);
                             this.Update();
-                        }
-                    }
-                    else {
-                        const Get = (ev, i=0)=> {
-                            let u = `${app.Constants.Mode}.json`;
-                            if (!i && this.Url) this.url = this.Url();
-                            if (this.url instanceof Array) u = this.url[i]
-                            else if (this.url) u = this.url;
-                            $.get( `${$app.Constants.Host}📑/${this.id}${u}` )
-                            .done((d)=> { 
-                                try {
-                                    if (this.url instanceof Array) {
-                                        if (!i) this.data = [];
-                                        this.data.push(d);
-                                        if (i < this.url.length - 1) return Get (null, i+1);
-                                    }
-                                    else {
-                                        this.data = d;
-                                    }
-                                    this.repeat.init && setTimeout(this.Init, 1000*60*this.repeat.init);
-                                    this.Update();
-                                } catch (e) { this.Reset(e) }
-                            })
-                            .fail(()=> this.Reset())
-                        };
-                        //
-                        if (Dependency ()) addEventListener(`${app.Constants.Name}.${this.dependency}`, Get, {once: true})
-                        else Get ();
-                    }
+                        } catch (e) { this.Reset(e) }
+                    })
+                    .fail(()=> this.Reset())
+                };
+                //
+                $(this.sid).removeClass("errorBorder");
+                if (ResolveDependency ())
+                    return;
+                else if (this.init) {
+                    this.init();
+                    this.repeat.init && setTimeout(this.Init, 1000*60*this.repeat.init);
+                    this.Update();
+                }
+                else Get ();
                 } catch (e) { $(this.sid).text(`${this.id} Init: ${e}`).addClass("errorBorder"); } }
             }
             set Init (f) {

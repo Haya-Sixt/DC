@@ -8,7 +8,7 @@ document.querySelector('html').$app.Import();
 // Notes
 const wdgt = new $app.Widget('📒');
 wdgt.repeat = { update: 3 };
-wdgt.dependency = '⏱️';
+wdgt.dependency = ['📆','🪵'];
 
 //
 wdgt.Update = ()=> { 

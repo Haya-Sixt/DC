@@ -146,7 +146,7 @@ function Yesterday () {
 
 // Temperature
 const wdgt = new $app.Widget('💈');
-wdgt.dependency = '🌡️';
+wdgt.dependency = ['🌡️'];
 
 //
 wdgt.Init = ()=> {
