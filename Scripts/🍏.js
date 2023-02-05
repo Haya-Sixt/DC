@@ -68,9 +68,8 @@
                 };
                 //
                 $(this.sid).removeClass("errorBorder");
-                if (ResolveDependency ())
-                    return;
-                else if (this.init) {
+                if (!ResolveDependency ()) return;
+                if (this.init) {
                     this.init();
                     this.repeat.init && setTimeout(this.Init, 1000*60*this.repeat.init);
                     this.Update();
