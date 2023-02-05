@@ -85,8 +85,10 @@
                     $(this.sid).removeClass("errorBorder");
                     this.repeat.update && setTimeout(this.Update, 1000*60*this.repeat.update);
                     this.update && this.update();
-                    this.status != app.Constants.Status.Done && dispatchEvent(new Event('🖥️.' + this.id));
-                    this.status = app.Constants.Status.Done;
+                    if (this.status != app.Constants.Status.Done) {
+                        this.status = app.Constants.Status.Done;
+                        dispatchEvent(new Event('🖥️.' + this.id));
+                    }
                 } catch (e) { $(this.sid).text(`${this.id} Update: ${e}`).addClass("errorBorder"); } }
             }
             set Update (f) {
