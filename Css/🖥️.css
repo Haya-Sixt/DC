@@ -122,6 +122,6 @@ imo { font-size:22px; text-shadow: 3px 0px 5px #1E1E1E, 0px 3px 5px #1E1E1E, -3p
 #📅👉, #📅👈 {z-index: 6}
 #⌚, #💈 {z-index: 5}
 #📆, .dafYomi {z-index: 4}
-#🗓️ {z-index: 3}
-#🪵, #⏱️, #⏰ {z-index: 2}
+#🪵, #⏱️, #⏰ {z-index: 3}
+#🗓️ {z-index: 2}
 #🌡️ {z-index: 1}
