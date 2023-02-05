@@ -23,6 +23,7 @@ do
     cd $apps/$app/$repo
     git add .
     git commit --all -m "🐈‍⬛📱" 
+    git push
   ;;
   "Quit")
     break
