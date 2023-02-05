@@ -43,13 +43,9 @@ wdgt.dependency = ['🗓️'];
 //
 wdgt.Init = ()=> {
 	Current() || Next() || $(wdgt.sid).text('');
-	
-	LogIcon();
 };
 
 function Current() {
-	try {
-		
 	var time = parseInt( new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' }).replace(':','') ), 
 		firstMark = null,
 		match = $('#🗓️ .tdCurrent').text().match(/[0-2][0-9]:[0-5][0-9]/gm);
@@ -68,14 +64,10 @@ function Current() {
 	
 	$(wdgt.sid).removeClass("markIconText"); 
 	
-	} catch(e) { $(wdgt.sid).text(`${e}\n${wdgt.id} Current`); }
-	
 	return false;
 }
 
 function Next() {
-	try {
-		
 	var days=0, d="", c=false;
 	
 	$("#🗓️ .tdDay").each(function () {
@@ -101,8 +93,6 @@ function Next() {
 	});
 	
 	return !days;
-	
-	} catch(e) { $(wdgt.sid).text(`${e}\n${wdgt.id} Next`); }
 }
 
 })();

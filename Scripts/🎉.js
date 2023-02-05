@@ -42,10 +42,8 @@ function Init(n) {
 	
 	Stop(true);
 	
-	if ($("#⏳").length==0)
-		$("<div>").attr("id","⏳").appendTo("body").html('<div class="cdc_container"></div>')
-	else 
-		$("#⏳ .cdc_container").html("");
+	if ($("#⏳").length!=0) $("#⏳").remove();
+	$("<div>").attr("id","⏳").appendTo("body").html('<div class="cdc_container"></div>');
 		
 	var html = '', n_s_before = n_s;
 	Play(); 
