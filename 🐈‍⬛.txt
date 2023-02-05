@@ -1,5 +1,5 @@
 
--------server--------
+-------httpserver------
 sudo rclone serve http --addr :8181 /storage/emulated/0/
 ps -ef | grep rclone
 kill {pid}
@@ -30,3 +30,4 @@ do
   ;;
   *) echo "invalid option $REPLY";;
 esac done
+exit

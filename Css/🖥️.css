@@ -113,4 +113,15 @@ imo { font-size:22px; text-shadow: 3px 0px 5px #1E1E1E, 0px 3px 5px #1E1E1E, -3p
 #💈 span { color:#f9eea2; position : relative; white-space : nowrap; } 
 .errorBorder { border-radius: 10px; border:red 1px solid !important; } 
 
-#📆, #🪵, #🪵Progress, #🗓️, .dafYomi, #⌚, #📅👉, #📅👈, #⏱️, #⏰, #💈, #🌡️, #🌡️>:last-child, #📒, .popup { position:absolute;}
+#📆, #🪵, #🪵Progress, #🗓️, .dafYomi, #⌚, #📅👉, #📅👈, 
+#⏱️, #⏰, #💈, #🌡️, #🌡️>:last-child, #📒, .popup { position:absolute;}
+
+.popup {z-index: 9}
+#📒 {z-index: 8}
+#🪵Progress {z-index: 7}
+#📅👉, #📅👈 {z-index: 6}
+#⌚, #💈 {z-index: 5}
+#📆, .dafYomi {z-index: 4}
+#🗓️ {z-index: 3}
+#🪵, #⏱️, #⏰ {z-index: 2}
+#🌡️ {z-index: 1}
