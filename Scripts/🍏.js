@@ -45,7 +45,7 @@
                     else return true;
                 },
                 Get = (ev, i=0)=> {
-                    const DB = `${['🌡️','📒','🪵'].some(j=> j==this.id) && !i && '../'}📑/`;
+                    const DB = `${['🌡️','📒','🪵'].some(j=> j==this.id) && !i && app.Constants.Mode=='' && '../'}📑/`;
                     let u = `${app.Constants.Mode}.json`;
                     if (!i && this.url) this.url = this.url(); // 🗒: Url is a function (and not just a var), to be evaluated after the dependency!
                     if (this.url instanceof Array) u = this.url[i]
