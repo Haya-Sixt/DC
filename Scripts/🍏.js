@@ -45,11 +45,12 @@
                     else return true;
                 },
                 Get = (ev, i=0)=> {
+                    const DB = `${['🌡️','📒','🪵'].some(j=> j==this.id) && !i && '../'}📑/`;
                     let u = `${app.Constants.Mode}.json`;
                     if (!i && this.url) this.url = this.url(); // 🗒: Url is a function (and not just a var), to be evaluated after the dependency!
                     if (this.url instanceof Array) u = this.url[i]
                     else if (this.url) u = this.url;
-                    $.get( `${$app.Constants.Host}📑/${this.id}${u}` )
+                    $.get( `${$app.Constants.Host}${DB}${this.id}${u}` )
                     .done((d)=> { 
                         try {
                             if (this.url instanceof Array) {
