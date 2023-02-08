@@ -46,13 +46,13 @@ wdgt.Init = ()=> {
 };
 
 function Current() {
-	var time = parseInt( new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' }).replace(':','') ), 
+	var now = parseInt( new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' }).replace(':','') ), 
 		firstMark = null,
 		match = $('#🗓️ .tdCurrent').text().match(/[0-2][0-9]:[0-5][0-9]/gm);
 	
 	match && match.forEach((m) => { 
 		var val = parseInt( m.replace(':','') );
-		if ( time <= val && !firstMark) 
+		if ( now <= val && !firstMark) 
 			firstMark = m;
 	});
 	
@@ -85,7 +85,7 @@ function Next() {
 				else d = (days+1) + " ימים ל "; 
 				$(wdgt.sid).text( d + m );
 				days =0;
-				return false;
+				return false; // 🗒: break '$.each' (but not 'forEach')
 			}
 			
 			days++;
@@ -99,7 +99,7 @@ function Next() {
 
 
 //
-// - used also in 🪵
+// 🗒: used also in 🪵
 class Schedule {
 	static c_match () { return /\p{Extended_Pictographic}(?<!🌾|🐮)/umg; } 
 }
