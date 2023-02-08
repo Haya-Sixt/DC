@@ -94,7 +94,7 @@ wdgt.Entries = function* (now) {
 	// Progress Bar
 	const wdgt = new $app.Widget('🪵Progress');
 	wdgt.dependency = ['🪵'];
-	wdgt.repeat = { update: 1 };
+	wdgt.repeat = { init: 3, update: 1 };
 
 	//
 	wdgt.Init = ()=> {
