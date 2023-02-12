@@ -45,18 +45,17 @@
                     else return true;
                 },
                 DB = `${['🌡️','📒','🪵'].some(j=> j==this.id) && app.Constants.Mode=='' ? '../' : ''}📑/`,
-                Get = (ev, i=0)=> {
+                Get = (url, i=0)=> {
                     let u = `${app.Constants.Mode}.json`;
-                    if (!i && this.url) this.url = this.url(); // 🗒: Url is a function (and not just a var), to be evaluated after the dependency!
-                    if (this.url instanceof Array) u = this.url[i]
-                    else if (this.url) u = this.url;
+                    if (url instanceof Array) u = url[i]
+                    else if (url) u = url;
                     $.get( `${$app.Constants.Host}${DB}${this.id}${u}` )
                     .done((d)=> { 
                         try {
-                            if (this.url instanceof Array) {
+                            if (url instanceof Array) {
                                 if (!i) this.data = [];
                                 this.data.push(d);
-                                if (i < this.url.length - 1) return Get (null, i+1);
+                                if (i < url.length - 1) return Get (url, i+1);
                             }
                             else {
                                 this.data = d;
@@ -75,7 +74,7 @@
                     this.repeat.init && setTimeout(this.Init, 1000*60*this.repeat.init);
                     this.Update();
                 }
-                else Get ();
+                else Get (this.url && this.url()); // 🗒: Url is a function (and not just a var), to be evaluated after Dependencies
                 } catch (e) { $(this.sid).text(`${this.id} Init: ${e}`).addClass("errorBorder"); } }
             }
             set Init (f) {

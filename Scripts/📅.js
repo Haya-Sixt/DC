@@ -65,7 +65,7 @@ wdgt.Month = (now)=> {
 	//
 	function Next() {
 		var now = new Date(), month, monthNext;
-		month = monthNext = $app.Widgets['📅👈'].month;
+		month = monthNext = $app.Widgets['📅👈'].data.month;
 		while (month == monthNext) {
 			now.setDate(now.getDate()+1); 
 			monthNext = $app.Widgets['📅👈'].Month(now);
