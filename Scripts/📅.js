@@ -168,11 +168,13 @@ wdgt.Month = (now)=> {
 			.replaceAll("שבת שירה",j("🎤"))
 			.replaceAll("ראש השנה לאילנות",j("🌱"))
 			.replaceAll("שבת שקלים",j("💰"))
+			.replaceAll("שבת זכור",j("🛀"))
 			.replaceAll("פורים",j("🥸"))
 			.replaceAll("שושן פורים",j("🥸"))
 			.replaceAll(" קטן","")
 			.replaceAll("תענית אסתר",j("🚱"))
 			.replaceAll("שבת פרה",j("🐮"))
+			.replaceAll("שבת ויקהל",j("👨‍👩‍👧‍👦"))
 			.replaceAll("פסח",j("🍪"))
 			.replaceAll("שביעי של פסח",j("🌊"));
 			
