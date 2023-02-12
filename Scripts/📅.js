@@ -144,8 +144,8 @@ wdgt.Month = (now)=> {
 			.replaceAll("שבועות",j("📜"))
 			.replaceAll('צום י"ז בתמוז',j("🚱"))
 			.replaceAll("נדחה",j("🦥"))
-			.replaceAll("שבת חזון","חזון")
-			.replaceAll("תשעה באב",j("🚱"))
+			.replaceAll("שבת חזון",j("חזון"))
+		  .replaceAll("תשעה באב",j("🚱"))
 			.replaceAll("חמשה עשר באב",j("💕"))
 			.replaceAll("א' דסליחות לעדות המזרח",j("🙇"))
 			.replaceAll("א' דסליחות לאשכנזים",j("🙇🏻"))
@@ -170,11 +170,11 @@ wdgt.Month = (now)=> {
 			.replaceAll("שבת שקלים",j("💰"))
 			.replaceAll("שבת זכור",j("🛀"))
 			.replaceAll("פורים",j("🥸"))
-			.replaceAll("שושן פורים",j("🥸"))
+			.replaceAll("שושן ","")
 			.replaceAll(" קטן","")
 			.replaceAll("תענית אסתר",j("🚱"))
 			.replaceAll("שבת פרה",j("🐮"))
-			.replaceAll("שבת ויקהל",j("👨‍👩‍👧‍👦"))
+			.replaceAll("שבת החודש",j("החודש"))
 			.replaceAll("פסח",j("🍪"))
 			.replaceAll("שביעי של פסח",j("🌊"));
 			
@@ -200,7 +200,7 @@ wdgt.Month = (now)=> {
 		$(wdgt.sid).html(tHTML4);
 		
 		// current 
-		$(wdgt.sid + ' .tdDay').each(function() {
+		$(wdgt.sid + ' .tdDay').each(()=> {
 			if ($(this).html().indexOf(current)!=-1) {
 				$(this).addClass('tdCurrent');
 				return false;
