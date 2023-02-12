@@ -200,9 +200,9 @@ wdgt.Month = (now)=> {
 		$(wdgt.sid).html(tHTML4);
 		
 		// current 
-		$(wdgt.sid + ' .tdDay').each(()=> {
-			if ($(this).html().indexOf(current)!=-1) {
-				$(this).addClass('tdCurrent');
+		$(wdgt.sid + ' .tdDay').each((i, t)=> {
+			if ($(t).html().indexOf(current)!=-1) {
+				$(t).addClass('tdCurrent');
 				return false;
 			}
 		});
