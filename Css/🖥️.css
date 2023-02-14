@@ -96,7 +96,6 @@ td {vertical-align:top;}
 .tdHead {border-radius:10px; text-align:center; color:#fff;background-color:#20689b;font-weight: normal;} 
 .tdDay { text-decoration:none; }
 .tdCurrent { border-radius:5px; border:1px solid #20679b;
-  background-color: #323232; background-size: 6px 9px; background-repeat: repeat; 
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAASAgMAAAASx9efAAAADFBMVEUyMjI3Nzc7Ozs8PDyX7EujAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAK0lEQVQImWOQcmBgqL/AwLD/AQSD2CAxFMC4hIGB/S8DA/c/CAaxQWIIAAAI+Av1YBUTwQAAAABJRU5ErkJggg=="); } 
 /*.tdShabat {}*/
 #📅👈, .ldate, .dafYomi { color:#b4b4b4; font-weight: 100 !important; }
