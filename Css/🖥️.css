@@ -7,7 +7,8 @@
 .📆name, .📆val { font-size:1.6em; filter: grayscale(50%) brightness(50%);}
 .📆val { color:#f9eea2; }
 .📆name { text-shadow: 5px 0px 5px #000, 0px 5px 5px #000, -5px 0px 5px #000, 0px -5px 5px #000; } 
-#⌚ { font-size:9.9em; text-align:center; }
+#⌚ { font-size:9.9em; text-align:center; 
+	animation-name: breathing; animation-duration: 6s; animation-iteration-count: infinite; } 
 #📅👉 { font-size:22px; white-space: nowrap; } 
 #📅👈 { font-size:20px; } 
 #💈 span { font-size:23px; } 
@@ -52,7 +53,9 @@
 #🗓️ { top:41.5%; width:63%; left: 21%; height:53%; } 
 .popup { left: 50%; top: 50%; } 
 
-#⏱️{ display: none; }  
+#⏱️{ display: none; } 
+
+@keyframes breathing { 0% {color:#ffffffd6;} 50% {color:#ffffff75;} 100% {color:#ffffffd6;} } 
 
 }
 
