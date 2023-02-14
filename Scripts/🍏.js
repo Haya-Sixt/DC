@@ -102,6 +102,7 @@
                 if (e.stack) {
                     const a = e.stack.split('\n'); 
                     e = a.filter((s, i)=> i < 2 || i == a.length - 1).join('\n').replaceAll(location.origin, '').replaceAll('<anonymous>', '').replaceAll('/DC/Scripts/', '');
+                    e = decodeURIComponent(decodeURIComponent(e));
                 }
                 $(this.sid).text(`${this.id} ${t}: ${e}`).addClass("errorBorder");
             }
