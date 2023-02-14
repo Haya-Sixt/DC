@@ -75,7 +75,7 @@
                     this.Update();
                 }
                 else Get (this.url && this.url()); // 🗒: Url is a function (and not just a var), to be evaluated after Dependencies
-                } catch (e) { $(this.sid).text(`${this.id} Init: ${e}`).addClass("errorBorder"); } }
+                } catch (e) { this.Error(e, 'Init') } }
             }
             set Init (f) {
                 this.init = f;
@@ -89,14 +89,21 @@
                         this.status = app.Constants.Status.Done;
                         dispatchEvent(new Event('🖥️.' + this.id));
                     }
-                } catch (e) { $(this.sid).text(`${this.id} Update: ${e}`).addClass("errorBorder"); } }
+                } catch (e) { this.Error(e, 'Update') } }
             }
             set Update (f) {
                 this.update = f;
             }
-            Reset (fn='get') {
-                $(this.sid).text(`${this.id} ${fn} failed.\nResetting (40s)...`);
+            Reset (e='get') {
+                this.Error(e, 'failed.\nResetting (40s)...');
                 setTimeout(this.Init, 1000*40);
+            }
+            Error (e, t) {
+                if (e.stack) {
+                    const a = e.stack.split('\n'); 
+                    e = a.filter((s, i)=> i < 2 || i == a.length - 1).join('\n').replaceAll(location.origin, '').replaceAll('<anonymous>', '').replaceAll('/DC/Scripts/', '');
+                }
+                $(this.sid).text(`${this.id} ${t}: ${e}`).addClass("errorBorder");
             }
         }
     };

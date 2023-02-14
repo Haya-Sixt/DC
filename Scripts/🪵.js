@@ -61,7 +61,7 @@ function Background() {
 	
 	$(wdgt.sid).css('backgroundImage', bg + dx(c) + '</text></svg>")');
 
-	} catch(e) { $(wdgt.sid).text(`${e}\n${wdgt.id} Background`); }
+	} catch(e) { wdgt.Error(e, 'Background') }
 	
 	//
 	function dx() {

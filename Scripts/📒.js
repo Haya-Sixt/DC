@@ -128,7 +128,7 @@ function Progress () {
 
 	notes.length > 0 && setTimeout(Progress, 1000*61);
 	
-	} catch (e) { $(wdgt.sid).text(`${wdgt.id} Progress: ${e}`); } 
+	} catch (e) { wdgt.Error(e, 'Progress') } 
 } 
 
 })();

@@ -35,7 +35,6 @@ var n_s, i_Play;
 //
 function Init(n) {
 	try {
-		
 	n = parseInt(n);
 	if (n <= 0) return;
 	n_s = ('' + n);
@@ -59,14 +58,12 @@ function Init(n) {
 	 
 	i_Play = setInterval(Play, 1000); 
 	
-	
-	} catch(e) { alert('⏳ Init error:\n' + e); }
+	} catch(e) { console.log('⏳ Init:\n' + e); }
 }
 
 //
 function Play() {
 	try {
-	
 	var minus1 = Timefy(parseInt(n_s)-1);
 	
 	if (minus1.length < n_s.length) 
@@ -86,7 +83,7 @@ function Play() {
 	
 	Stop();
 	
-	} catch(e) { alert('⏳ Play error:\n' + e); }
+	} catch(e) { console.log('⏳ Play:\n' + e); }
 }
 
 function Stop(force) {
