@@ -116,7 +116,7 @@ imo { font-size:22px; text-shadow: 3px 0px 5px #1E1E1E, 0px 3px 5px #1E1E1E, -3p
 .📆name, #📅👉 { font-weight:normal;text-align:right;white-space: nowrap;}
 .📆val, #🪵, #🪵Progress { text-align:left; white-space: nowrap;} 
 #🌡️>:last-child { top:-30px; background-image: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)50%, rgba(0, 0, 0, 0.0)50%); } 
-#🌡️>:last-child .tdCurrent { filter: opacity(0.4); height: 100%; width: 50%; } 
+#🌡️>:last-child .tdCurrent { filter: opacity(0.3); height: 100%; width: 50%; } 
 #💈 span { color:#f9eea2; position : relative; white-space : nowrap; } 
 .errorBorder { border-radius: 10px; border:red 1px solid !important; } 
 
