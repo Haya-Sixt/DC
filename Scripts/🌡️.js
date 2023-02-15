@@ -22,7 +22,7 @@ wdgt.Update = ()=> {
 	
 	Images ();
 	
-	Yesterday ();
+	Today ();
 };
 
 //
@@ -130,9 +130,10 @@ function Images() {
 }
 
 // Dimmer
-function Yesterday () {
+function Today () {
 	const x = chart.axisX[0].convertValueToPixel(chart.data[0].dataPoints[0].x);
 	$("<div>")
+		.html('<div class="tdCurrent"></div>')
 		.height($(wdgt.sid).height() * 1.5)
 		.css({ "left": x - 24 + "px" })
 		.appendTo($(wdgt.sid));

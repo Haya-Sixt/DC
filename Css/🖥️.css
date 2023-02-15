@@ -42,7 +42,7 @@
 #📅👉 { left:35%; top:35%; }
 #📅👈 { left:3%; top:35.2%; } 
 #🌡️ { width:36%; height:34%; left:43%; top:10%; } 
-#🌡️>:last-child { background-image: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.0) ); }  
+#🌡️>:last-child { width:39%; } 
 #💈 { width:2%; height:33%; top:3%; left: 77.5% } 
 #💈 span { left:80%; } 
 #📆 { top:3%; left:82%; }
@@ -73,7 +73,6 @@
 #📅👉, #⏱️, #⏰ { font-size:21px; white-space: nowrap; }
 #⏰ { border-radius: 20px; border: 1px solid #141414; padding:0 6px 0 6px; }
 #📅👈 { font-size:18px; white-space: nowrap; } 
-#🌡️>:last-child { background-image: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.0) ); }  
 #💈 span { font-size:20px; }  
 #🗓️ { border-top: 25px solid black; }
 
@@ -84,6 +83,7 @@
 #⏱️ { top:12%; right:2.5%; } 
 #📅👈 { top:9%; right:2.5%; }
 #🌡️ { width:72%; height:19%; top:20%; left:23%; } 
+#🌡️>:last-child { width:38.5%; } 
 #💈 { width:4%; height:17%; left:93%; top: 18% } 
 #💈 span { left: 10px; top: 2%; } 
 #🗓️ { width:95%; top:calc(38% - 1px); } 
@@ -114,8 +114,9 @@ imo { font-size:22px; text-shadow: 3px 0px 5px #1E1E1E, 0px 3px 5px #1E1E1E, -3p
 .dafYomi { overflow: hidden; margin: 4% 0 0 0; } 
 #📆 { direction:ltr; } 
 .📆name, #📅👉 { font-weight:normal;text-align:right;white-space: nowrap;}
-.📆val, #🪵, #🪵Progress { text-align:left; white-space: nowrap;}
-#🌡️>:last-child { width:23%; top:-30px; backdrop-filter: grayscale(76%); }  
+.📆val, #🪵, #🪵Progress { text-align:left; white-space: nowrap;} 
+#🌡️>:last-child { top:-30px; background-image: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)50%, rgba(0, 0, 0, 0.0)50%); } 
+#🌡️>:last-child .tdCurrent { filter: opacity(0.4); height: 100%; width: 50%; } 
 #💈 span { color:#f9eea2; position : relative; white-space : nowrap; } 
 .errorBorder { border-radius: 10px; border:red 1px solid !important; } 
 
