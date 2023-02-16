@@ -78,6 +78,7 @@ function Render() {
 			fillOpacity: 0.0,
 			indexLabelFontSize: 20,
 			indexLabelFontColor: "#f9eea2",
+			indexLabelFontFamily: "sans-serif",
 			lineThickness: 12, 
 			indexLabelFormatter: f,
 			dataPoints: rangeBuilder

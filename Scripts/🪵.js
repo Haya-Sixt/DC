@@ -114,12 +114,11 @@ wdgt.Entries = function* (now) {
 				endsAt += parseInt(duration.substring(0,duration.indexOf('m')))*60;
 			duration = endsAt - e.startedAt;
 
-			var log_id = '🪵_' + (Math.floor(Math.random() * 100000));
-			resultProgress += '<div name="🪵Progress" startedAt="'+e.startedAt+'"' 
-				+ ' duration="'+duration+'" 🪵_id="' + log_id + '">' 
-				+ '<div>' + e.log + '</div><div></div></div><div style="height:10px;" ></div>';
+			var log_id = `🪵_${(Math.floor(Math.random() * 100000))}`;
+			resultProgress += `<div name="🪵Progress" startedAt="${e.startedAt}" duration="${duration}" 🪵_id="${log_id}">
+				<div>${e.log}</div><div></div></div><div style="height:10px;" ></div>`;
 
-			result += '<div id="' + log_id + '" style="display:none;" >' + e.log + '</div>'; 
+			result += `<div id="${log_id}" ${(now < endsAt) && 'style="display:none;"'} >${e.log}</div>`; 
 		};
 		
 		if (resultProgress != '') $('#🪵').html(result);

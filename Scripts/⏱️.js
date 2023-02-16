@@ -21,13 +21,18 @@ wdgt.Init = ()=> {
 
 // Time
 const wdgt = new $app.Widget('⌚');
-wdgt.repeat = { init: 1 };
+wdgt.repeat = { update: 1 };
 
 //
 wdgt.Init = ()=> {
-	const time = new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' }); 
-	$(wdgt.sid).text(time);
+	// colon 
+	$("<div>").appendTo($(wdgt.sid));
 };
+
+wdgt.Update = ()=> {
+	const time = new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' }); 
+	document.querySelector(wdgt.sid).firstChild.textContent = time;
+}
 
 })();
 
