@@ -111,7 +111,7 @@ td {vertical-align:top;}
 .ldate { float: left; margin-left:5px; }
 .hebdate { float:right; margin-right:5px;}
 .parasha, .omer { float:right; color:var(--🖥️-c-te-1); font-weight:normal; margin:2px; padding:0; text-align:center; clear:both; }
-imo { font-size:22px; text-shadow: 3px 0px 5px var(--🖥️-c-b-3), 0px 3px 5px var(--🖥️-c-b-3), -3px 0px 5px var(--🖥️-c-b-3), 0px -3px 5px var(--🖥️-c-b-3), 0px 0px 30px var(--🖥️-c-b-1), 0px 0px 10px var(--🖥️-c-b-1);}
+imo { font-size:22px; text-shadow: 3px 0px 5px var(--🖥️-c-b-3), 0px 3px 5px var(--🖥️-c-b-3), -3px 0px 5px var(--🖥️-c-b-3), 0px -3px 5px var(--🖥️-c-b-3), 0px 0px 30px var(--🖥️-c-t-1), 0px 0px 10px var(--🖥️-c-t-1);}
 .omer { white-space: nowrap; }
 .omer span{ filter: brightness(65%);} 
 .dafYomi { overflow: hidden; margin: 4% 0 0 0; } 
@@ -143,7 +143,7 @@ imo { font-size:22px; text-shadow: 3px 0px 5px var(--🖥️-c-b-3), 0px 3px 5px
 --🖥️-c-b-2: #141414; /*⏰border*/
 --🖥️-c-b-3: #1E1E1E; /*imo text-shadow*/
 /* main text of main bg */
---🖥️-c-t-1: #FFFFFF; /*tdHead, 📒 > div text*/
+--🖥️-c-t-1: #FFFFFF; /*tdHead, 📒 > div text; imo glowing */
 --🖥️-c-t-2: #8B8B8B; /*🪵, ⏰:not(.markIconText)*/
 --🖥️-c-t-3: #A1A1A1; /*body text*/
 --🖥️-c-t-4: #b4b4b4; /*📅👈, ⏰ Text*/
