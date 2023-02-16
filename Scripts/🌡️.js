@@ -51,7 +51,7 @@ function Normalize () {
 
 //
 function Render() {
-	const f = (e)=> { if (e.dataPoint.x === 1) return e.dataPoint.y[e.index] + "°"; };  
+	const f = (e)=> e.dataPoint.x == 1 ? e.dataPoint.y[e.index] + "°" : '';  
 
 	chart = wdgt.data.chart = new CanvasJS.Chart(wdgt.id, {
 		axisY: {
@@ -77,7 +77,7 @@ function Render() {
 			type: "rangeSplineArea",
 			fillOpacity: 0.0,
 			indexLabelFontSize: 20,
-			indexLabelFontColor: "#E6E6E6",
+			indexLabelFontColor: "#f9eea2",
 			lineThickness: 12, 
 			indexLabelFormatter: f,
 			dataPoints: rangeBuilder
