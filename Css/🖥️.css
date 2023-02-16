@@ -29,11 +29,11 @@
 	align-items: center;justify-content: center; align-content: center; padding-top: 10%; 
 	animation-name: 📒; animation-duration: 12s; animation-iteration-count: infinite; } 
 #📒 > div { border-radius : 25px;margin: 1% 20% 0 20%;padding: 1% 2% 1% 2%; 
-	text-align: center;font-size: 16px; color: var(--🖥️-c-b-1); text-shadow: 2px 2px 4px var(--🖥️-c-b-1), -2px -2px 14px var(--🖥️-c-b-1); 
-	box-shadow: 0 4px 8px 0 var(--🖥️-c-b-1)33, 0 6px 20px 0 var(--🖥️-c-b-1)30; 
-	background-image: linear-gradient(to bottom right, var(--🖥️-c-be-1)80, var(--🖥️-c-be-2)b3 ); } 
+	text-align: center;font-size: 16px; color: var(--🖥️-c-t-1); text-shadow: 2px 2px 4px var(--🖥️-c-b-1), -2px -2px 14px var(--🖥️-c-b-1); 
+	box-shadow: 0 4px 8px 0 rgba(var(--🖥️-c-b-1_rgb), 0.2), 0 6px 20px 0 rgba(var(--🖥️-c-b-1_rgb), 0.188); 
+	background-image: linear-gradient(to bottom right, var(--🖥️-c-be-1), var(--🖥️-c-be-2) ); } 
 #📒 > div::first-line { font-size: 17px; }
-#📒 > div > div:last-child { width: 97%; height: 0.25em; border-radius : 0.25em; border:0.1em solid var(--🖥️-c-b-1)b3; } 
+#📒 > div > div:last-child { width: 97%; height: 0.25em; border-radius : 0.25em; border:0.1em solid rgba(var(--🖥️-c-b-1_rgb), 0.702); } 
 .popup { border-radius: 15px; background-color: var(--🖥️-c-bs-1); direction: ltr; }  
 .markIconText > *:first-child { transform:scale(1.3); left:2%; }
 .markIconText > *:nth-child(2) { transform:scale(1.2); left:-6%; 
@@ -58,7 +58,7 @@
 
 #⏱️{ display: none; } 
 
-@keyframes ⌚ { 0% {color:var(--🖥️-c-ts-1)d6;} 50% {color:var(--🖥️-c-td-1)75;} 100% {color:var(--🖥️-c-ts-1)d6;} } 
+@keyframes ⌚ { 0% {color: rgba(var(--🖥️-c-ts-1_rgb), 0.839);} 50% {color: rgba(var(--🖥️-c-td-1_rgb), 0.459);} 100% {color: rgba(var(--🖥️-c-ts-1_rgb), 0.839);} } 
 @keyframes ⌚colon { 0% {backdrop-filter: brightness(0.7);} 50% {backdrop-filter: brightness(0);} 100% {backdrop-filter: brightness(0.7);} }  
 @keyframes 📒 { 0% {backdrop-filter: unset;} 50% {backdrop-filter: grayscale(50%);} 100% {backdrop-filter: unset;} } 
 
@@ -101,7 +101,7 @@ body, #⌚, #💈 span, #🗓️ { background-color:var(--🖥️-c-b-1);}
 table {text-align:center; width:100%; height:1px}
 td {vertical-align:top;}
 .tdHead, .tdDay, .hdate, .dafYomi { font-size:15px;}
-.tdHead {border-radius:10px; text-align:center; color:var(--🖥️-c-b-1);background-color:var(--🖥️-c-bs-1);font-weight: normal;} 
+.tdHead {border-radius:10px; text-align:center; color:var(--🖥️-c-t-1);background-color:var(--🖥️-c-bs-1);font-weight: normal;} 
 .tdDay { text-decoration:none; }
 .tdCurrent { border-radius:5px; border:1px solid var(--🖥️-c-bs-1);
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAASAgMAAAASx9efAAAADFBMVEUyMjI3Nzc7Ozs8PDyX7EujAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAK0lEQVQImWOQcmBgqL/AwLD/AQSD2CAxFMC4hIGB/S8DA/c/CAaxQWIIAAAI+Av1YBUTwQAAAABJRU5ErkJggg=="); } 
@@ -118,7 +118,7 @@ imo { font-size:22px; text-shadow: 3px 0px 5px var(--🖥️-c-b-3), 0px 3px 5px
 #📆 { direction:ltr; } 
 .📆name, #📅👉 { font-weight:normal;text-align:right;white-space: nowrap;}
 .📆val, #🪵, #🪵Progress { text-align:left; white-space: nowrap;} 
-#🌡️>:last-child { top:-30px; background-image: linear-gradient(to right, var(--🖥️-c-b-1), var(--🖥️-c-b-1)cc, var(--🖥️-c-b-1)cc, var(--🖥️-c-b-1)cc, var(--🖥️-c-b-1)b3, var(--🖥️-c-b-1)b3, var(--🖥️-c-b-1)b3, var(--🖥️-c-b-1)cc 50%, var(--🖥️-c-b-1)00 50%); } 
+#🌡️>:last-child { top:-30px; background-image: linear-gradient(to right, var(--🖥️-c-b-1), rgba(var(--🖥️-c-b-1_rgb), 0.8), rgba(var(--🖥️-c-b-1_rgb), 0.8), rgba(var(--🖥️-c-b-1_rgb), 0.8), rgba(var(--🖥️-c-b-1_rgb), 0.702), rgba(var(--🖥️-c-b-1_rgb), 0.702), rgba(var(--🖥️-c-b-1_rgb), 0.702), rgba(var(--🖥️-c-b-1_rgb), 0.8) 50%, rgba(var(--🖥️-c-b-1_rgb), 0) 50%); } 
 #🌡️>:last-child .tdCurrent { filter: invert(0.5) opacity(0.4); height: 100%; width: 50%; } 
 #💈 span { color:var(--🖥️-c-ts-2); position : relative; white-space : nowrap; } 
 .errorBorder { border-radius: 10px; border: var(--🖥️-c-be-3) 1px solid !important; } 
@@ -136,9 +136,10 @@ imo { font-size:22px; text-shadow: 3px 0px 5px var(--🖥️-c-b-3), 0px 3px 5px
 #🗓️ {z-index: 2}
 #🌡️ {z-index: 1}
 
-html {
+:root {
 /* main bg */
 --🖥️-c-b-1: #000000;
+--🖥️-c-b-1_rgb: 0, 0, 0;
 --🖥️-c-b-2: #141414; /*⏰border*/
 --🖥️-c-b-3: #1E1E1E; /*imo text-shadow*/
 /* main text of main bg */
@@ -148,9 +149,11 @@ html {
 --🖥️-c-t-4: #b4b4b4; /*📅👈, ⏰ Text*/
 /* soft text of main bg */
 --🖥️-c-ts-1: #fbf1ca; /*.📆name, #📅👉, #⏰, #⌚ text*/
+--🖥️-c-ts-1_rgb: 251, 241, 202;
 --🖥️-c-ts-2: #f9eea2; /*.📆val, 💈 span text*/
 /* dark text of main bg */
 --🖥️-c-td-1: #277EBC; /*⌚, .📆val(📱) text*/
+--🖥️-c-td-1_rgb: 39, 127, 190;
 /* emphasize text of main bg */
 --🖥️-c-te-1: #A27A25; /*Parash, omer*/
 --🖥️-c-te-2: #FFA90D; /*markIconText text*/
@@ -160,7 +163,7 @@ html {
 /* main text of soft bg */
 --🖥️-c-tbs-1: #E6E6E6; /*🪵+Progress Text*/
 /* emphasize bg */
---🖥️-c-be-1: #fa1450; /*📒 > div bg-gragient-start*/
---🖥️-c-be-2: #6464f1; /*📒 > div bg-gragient-end*/
+--🖥️-c-be-1: #fa145080; /*📒 > div bg-gragient-start*/
+--🖥️-c-be-2: #6464f1b3; /*📒 > div bg-gragient-end*/
 --🖥️-c-be-3: #ff0000; /*error*/
 }
