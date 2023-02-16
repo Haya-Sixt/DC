@@ -51,6 +51,8 @@ function Normalize () {
 
 //
 function Render() {
+	const f = (e)=> { if (e.dataPoint.x === 1) return e.dataPoint.y[e.index] + "°"; };  
+
 	chart = wdgt.data.chart = new CanvasJS.Chart(wdgt.id, {
 		axisY: {
 			minimum: axisY_min-1,
@@ -77,6 +79,7 @@ function Render() {
 			indexLabelFontSize: 20,
 			indexLabelFontColor: "#E6E6E6",
 			lineThickness: 12, 
+			indexLabelFormatter: f,
 			dataPoints: rangeBuilder
 			}, {
 			type: "rangeColumn",

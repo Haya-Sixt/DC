@@ -142,9 +142,9 @@ wdgt.Month = (now)=> {
 			.replaceAll("ערב חג הפסח","")
 			.replaceAll("חג ה","")
 			.replaceAll("שבועות",j("📜"))
-			.replaceAll('צום י"ז בתמוז',j("🚱"))
+			.replaceAll("צום י\"ז בתמוז",j("🚱"))
 			.replaceAll("נדחה",j("🦥"))
-			.replaceAll("שבת חזון",j("חזון"))
+			.replaceAll("שבת חזון",j("🕶️"))
 		  .replaceAll("תשעה באב",j("🚱"))
 			.replaceAll("חמשה עשר באב",j("💕"))
 			.replaceAll("א' דסליחות לעדות המזרח",j("🙇"))
@@ -174,7 +174,7 @@ wdgt.Month = (now)=> {
 			.replaceAll(" קטן","")
 			.replaceAll("תענית אסתר",j("🚱"))
 			.replaceAll("שבת פרה",j("🐮"))
-			.replaceAll("שבת החודש",j("החודש"))
+			.replaceAll("שבת החודש",j("👑"))
 			.replaceAll("פסח",j("🍪"))
 			.replaceAll("שביעי של פסח",j("🌊"));
 			
