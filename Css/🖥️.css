@@ -140,17 +140,17 @@ imo { font-size:22px; text-shadow: 3px 0px 5px var(--🖥️-c-b-3), 0px 3px 5px
 /* main bg */
 --🖥️-c-b-1: #000000;
 --🖥️-c-b-1_rgb: 0, 0, 0;
---🖥️-c-b-2: #141414; /*⏰border*/
+--🖥️-c-b-2: #141414; /*⏰(📱) border*/
 --🖥️-c-b-3: #1E1E1E; /*imo text-shadow*/
 /* main text of main bg */
 --🖥️-c-t-1: #FFFFFF; /*tdHead, 📒 > div text; imo glowing */
---🖥️-c-t-2: #8B8B8B; /*🪵, ⏰:not(.markIconText)*/
+--🖥️-c-t-2: #8B8B8B; /*🪵, ⏰:not(.markIconText) border, 🌡️xy text*/
 --🖥️-c-t-3: #A1A1A1; /*body text*/
 --🖥️-c-t-4: #b4b4b4; /*📅👈, ⏰ Text*/
 /* soft text of main bg */
 --🖥️-c-ts-1: #fbf1ca; /*.📆name, #📅👉, #⏰ text*/
 --🖥️-c-ts-1_rgb: 251, 241, 202; /*⌚ text*/
---🖥️-c-ts-2: #f9eea2; /*.📆val, 💈 span text*/
+--🖥️-c-ts-2: #f9eea2; /*.📆val, 💈 span, 🌡️° text*/
 --🖥️-c-ts-2_rgb: 249, 238, 162; /*⌚ text*/
 /* dark text of main bg */
 --🖥️-c-td-1: #277EBC; /*.📆val(📱) text*/

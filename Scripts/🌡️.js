@@ -51,7 +51,8 @@ function Normalize () {
 
 //
 function Render() {
-	const f = (e)=> e.dataPoint.x == 1 ? e.dataPoint.y[e.index] + "°" : '';  
+	const f = (e)=> e.dataPoint.x == 1 ? e.dataPoint.y[e.index] + "°" : '',
+	css = getComputedStyle($('html')[0]).getPropertyValue;
 
 	chart = wdgt.data.chart = new CanvasJS.Chart(wdgt.id, {
 		axisY: {
@@ -67,7 +68,7 @@ function Render() {
 			tickLength: 0,
 			lineThickness: 0,
 			labelFontSize: 20,
-			labelFontColor: "gray", 
+			labelFontColor: css('--🖥️-c-t-2'), 
 			labelPlacement:"outside"
 		},
 		theme: "dark1",
@@ -77,14 +78,14 @@ function Render() {
 			type: "rangeSplineArea",
 			fillOpacity: 0.0,
 			indexLabelFontSize: 20,
-			indexLabelFontColor: "#f9eea2",
+			indexLabelFontColor: css('--🖥️-c-ts-2'),
 			indexLabelFontFamily: "sans-serif",
 			lineThickness: 12, 
 			indexLabelFormatter: f,
 			dataPoints: rangeBuilder
 			}, {
 			type: "rangeColumn",
-			color: "#1187DC",
+			color: "#1187DC", // 🗒: Hard-coded rain color (therefore not in css)
 			dataPoints: columnBuilder
 		}]
 	}); 
