@@ -52,7 +52,7 @@ function Normalize () {
 //
 function Render() {
 	const f = (e)=> e.dataPoint.x == 1 ? e.dataPoint.y[e.index] + "°" : '',
-	css = getComputedStyle($('html')[0]).getPropertyValue;
+	        css = (v)=> getComputedStyle($('html')[0]).getPropertyValue(v).trim(); // 🗒: Promise is needed
 
 	chart = wdgt.data.chart = new CanvasJS.Chart(wdgt.id, {
 		axisY: {
