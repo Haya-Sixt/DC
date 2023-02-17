@@ -26,7 +26,7 @@
                 this.repeat = {init: 0, update: 0};
                 this.status = '';
 
-                $('<div>').attr('id', id).html(`${id}...`).appendTo('body'); // 🗒: ⌚ must have this #text node.
+                $('<div>').attr('id', id).addClass('wdgt').html(`${id}...`).appendTo('body'); // 🗒: ⌚ must have this #text node.
                 app.Widgets[id] = this;
             }
             get Init () {

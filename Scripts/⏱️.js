@@ -9,8 +9,12 @@ const wdgt = new $app.Widget('⏱️');
 
 //
 wdgt.Init = ()=> {
-	const time = new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
-	$(wdgt.sid).text(`${time} ${wdgt.id}`);
+	wdgt.data = new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
+}
+
+//
+wdgt.Update = ()=> {
+	$(wdgt.sid).text(`${wdgt.data} ${wdgt.id}`);
 };
 
 })();
@@ -42,11 +46,14 @@ wdgt.Update = ()=> {
 
 // Schedule
 const wdgt = new $app.Widget('⏰');
-wdgt.repeat = { init: 10 };
+wdgt.repeat = { update: 10 };
 wdgt.dependency = ['🗓️'];
 
 //
-wdgt.Init = ()=> {
+wdgt.Init = ()=> {}
+
+//
+wdgt.Update = ()=> {
 	Current() || Next() || $(wdgt.sid).text('');
 };
 

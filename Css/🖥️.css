@@ -2,7 +2,7 @@
 /* 🏡 (A205U) */
 @media screen and (min-device-width: 500px) {
 
-/*.tableTimes, */.📆name, #📅👉, #⏰, #⌚ { color:var(--🖥️-c-ts-1); }
+.📆name, #📅👉, #⏰, #⌚ { color:var(--🖥️-c-ts-1); }
 .omer { font-size:12px; } 
 .📆name, .📆val { font-size:1.6em; filter: grayscale(50%) brightness(50%);}
 .📆val { color:var(--🖥️-c-ts-2); }
@@ -11,10 +11,10 @@
 	animation-name: ⌚; animation-duration: 12s; animation-iteration-count: infinite; } 
 #⌚ :last-child { position: relative; width: 6%; height: 65%; left: -47%; top: -83%; 
 	animation-name: ⌚colon; animation-duration: 2s; animation-timing-function: ease; animation-iteration-count: infinite; } 
-#📅👉 { font-size:22px; white-space: nowrap; } 
+#📅👉 { font-size:22px; } 
 #📅👈 { font-size:20px; } 
 #💈 span { font-size:23px; } 
-#⏰ { font-size:23px; text-align:left; padding:0 0 0 3px; white-space: nowrap; }
+#⏰ { font-size:23px; text-align:left; padding:0 0 0 3px; }
 #🪵, #🪵Progress { color:var(--🖥️-c-tbs-1); direction:ltr; } 
 #🪵, #⏰:not(.markIconText) { border-radius: 20px; border: 1px solid var(--🖥️-c-t-2); text-overflow: ellipsis; overflow: hidden; }
 #🪵 { font-size:20px; padding:5px 3px 0 3px; background-repeat: no-repeat; } 
@@ -71,11 +71,11 @@
 /*.tableTimes { color:#226CA2; }*/
 .omer { font-size:11px; } 
 .📆val { color:var(--🖥️-c-td-1); } 
-.📆name, .📆val { font-size:19px; white-space: nowrap; }
+.📆name, .📆val { font-size:19px; }
 .📆name, #📅👉, #⏱️, #⏰ { color:var(--🖥️-c-t-4); }
-#📅👉, #⏱️, #⏰ { font-size:21px; white-space: nowrap; }
+#📅👉, #⏱️, #⏰ { font-size:21px; }
 #⏰ { border-radius: 20px; border: 1px solid var(--🖥️-c-b-2); padding:0 6px 0 6px; }
-#📅👈 { font-size:18px; white-space: nowrap; } 
+#📅👈 { font-size:18px; } 
 #💈 span { font-size:20px; }  
 #🗓️ { border-top: 25px solid var(--🖥️-c-b-1); }
 
@@ -112,19 +112,19 @@ td {vertical-align:top;}
 .hebdate { float:right; margin-right:5px;}
 .parasha, .omer { float:right; color:var(--🖥️-c-te-1); font-weight:normal; margin:2px; padding:0; text-align:center; clear:both; }
 imo { font-size:22px; text-shadow: 3px 0px 5px var(--🖥️-c-b-3), 0px 3px 5px var(--🖥️-c-b-3), -3px 0px 5px var(--🖥️-c-b-3), 0px -3px 5px var(--🖥️-c-b-3), 0px 0px 30px var(--🖥️-c-t-1), 0px 0px 10px var(--🖥️-c-t-1);}
-.omer { white-space: nowrap; }
+.📆name, .📆val, .omer { white-space: nowrap; }
 .omer span{ filter: brightness(65%);} 
-.dafYomi { overflow: hidden; margin: 4% 0 0 0; } 
 #📆 { direction:ltr; } 
-.📆name, #📅👉 { font-weight:normal;text-align:right;white-space: nowrap;}
-.📆val, #🪵, #🪵Progress { text-align:left; white-space: nowrap;} 
+.📆name, #📅👉 { text-align:right;}
+.📆val, #🪵, #🪵Progress { text-align:left; } 
+.dafYomi { overflow: hidden; margin: 4% 0 0 0; } 
 #🌡️>:last-child { top:-30px; background-image: linear-gradient(to right, var(--🖥️-c-b-1), rgba(var(--🖥️-c-b-1_rgb), 0.8), rgba(var(--🖥️-c-b-1_rgb), 0.8), rgba(var(--🖥️-c-b-1_rgb), 0.8), rgba(var(--🖥️-c-b-1_rgb), 0.702), rgba(var(--🖥️-c-b-1_rgb), 0.702), rgba(var(--🖥️-c-b-1_rgb), 0.702), rgba(var(--🖥️-c-b-1_rgb), 0.8) 50%, rgba(var(--🖥️-c-b-1_rgb), 0) 50%); } 
 #🌡️>:last-child .tdCurrent { filter: invert(0.5) opacity(0.4); height: 100%; width: 50%; } 
 #💈 span { color:var(--🖥️-c-ts-2); position : relative; white-space : nowrap; } 
 .errorBorder { border-radius: 10px; border: var(--🖥️-c-be-3) 1px solid !important; } 
+.wdgt { white-space: nowrap; }
 
-#📆, #🪵, #🪵Progress, #🗓️, .dafYomi, #⌚, #📅👉, #📅👈, 
-#⏱️, #⏰, #💈, #🌡️, #🌡️>:last-child, #📒, .popup { position:absolute;}
+.wdgt, .dafYomi, #🌡️>:last-child, .popup { position:absolute;}
 
 .popup {z-index: 9}
 #📒 {z-index: 8}
