@@ -33,20 +33,20 @@
                     if (!this.dependency || 
                         this.status == app.Constants.Status.Done) // 🗒: potential 🐛 - add multiple listeners when this.init fails 
                         return true;
-                    this.dependency.forEach(d=> removeEventListener(`${app.Constants.Name}.${d}`, this.Init));
+                    this.dependency.forEach(d=> removeEventListener(`${app.Constants.Name}.W.${d}`, this.Init));
                     const f = this.dependency.filter(d=> app.Widgets[d].status != app.Constants.Status.Done);
                     if (f.length) {
-                        f.forEach(d=> addEventListener(`${app.Constants.Name}.${d}`, this.Init, {once: true}));
+                        f.forEach(d=> addEventListener(`${app.Constants.Name}.W.${d}`, this.Init, {once: true}));
                         return false;
                     }
                     else return true;
                 },
-                DB = `${['🌡️','📒','🪵'].some(j=> j==this.id) && app.Constants.Mode=='' ? '../' : ''}📑/`,
+                DB = (u) => `${u.endsWith('json') && app.Constants.Mode=='' ? '../' : ''}📑/`,
                 Get = (url, i=0)=> {
                     let u = `${app.Constants.Mode}.json`;
                     if (url instanceof Array) u = url[i]
                     else if (url) u = url;
-                    $.get( `${$app.Constants.Host}${DB}${this.id}${u}` )
+                    $.get( `${$app.Constants.Host}${DB(u)}${this.id}${u}` )
                     .done((d)=> { 
                         try {
                             if (url instanceof Array) {
@@ -84,7 +84,7 @@
                     this.update && this.update();
                     if (this.status != app.Constants.Status.Done) {
                         this.status = app.Constants.Status.Done;
-                        dispatchEvent(new Event('🖥️.' + this.id));
+                        dispatchEvent(new Event(`${app.Constants.Name}.W.${this.id}`));
                     }
                 } catch (e) { this.Error(e, 'Update') } }
             }
@@ -109,11 +109,30 @@
     
     function Load () {
         const s = event.target.readyState;
-        if (s == "interactive") Head ()
+        if (s == "loading") Init ()
+        //else if (s == "interactive") ...
         else if (s == "complete") Object.entries(app.Widgets).forEach((w)=>w[1].Init());
     }
 
-    function Head () {
+    function Init () {
+        Observers ();
+        Resources ();
+    }
+
+    function Observers () {
+        app.Vars = new Proxy(app.Vars, {
+            get: function(target, prop) {
+                return Reflect.get(target, prop);
+            },
+            set: function(target, prop, value) {
+                target[`_${prop}`] = app.Constants.Status.Done;
+                dispatchEvent(new Event(`${app.Constants.Name}.V.${prop}`));
+                return Reflect.set(target, prop, value);
+            }
+        });
+    }
+
+    function Resources () {
         [app.Constants.Name,'⏳'].forEach((e)=> { const link = document.createElement('link'); link.rel = 'stylesheet'; link.type = 'text/css'; link.href = app.Constants.Host + 'Css/' + e + '.css'; document.head.appendChild(link); } ); 
         ['🎉','📅','🌡️','🪵','⏱️','📒','⚠️'].forEach((e)=> { const script = document.createElement('script'); script.type = 'text/javascript'; script.src = app.Constants.Host + 'Scripts/' + e + '.js'; document.head.appendChild(script); } ); 
     }
@@ -121,3 +140,14 @@
     //
     document.addEventListener("readystatechange", Load);
 })();
+
+//
+class Helpers {
+	static Emoji (endsWith = null, exclude = '🌾') { 
+        if (exclude) exclude = `(?<!${exclude})`;
+        return new RegExp(`\\p{Extended_Pictographic}${exclude}.${endsWith}`,'ugm');
+    }
+    static Css (v) {
+        return getComputedStyle($('html')[0]).getPropertyValue(decodeURIComponent(v)).trim();
+    }
+}

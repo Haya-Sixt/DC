@@ -85,11 +85,11 @@ function Next() {
 	$("#🗓️ .tdDay").each((i, t)=> {
 		
 		if ( $(t).hasClass('tdCurrent') ) {
-			c = '' + $(t).text().match(Schedule.c_match());
+			c = '' + $(t).text().match(Helpers.Emoji());
 			
 		}
 		else if (c) {
-			let m = $(t).text().match(Schedule.c_match());
+			let m = $(t).text().match(Helpers.Emoji());
 			if (m) m = m.reduce((s,e)=>s + (c.includes(e) ? '' : e), '');
 			if (m && m!='') {
 				if (days == 0) d = 'מחר '
@@ -108,10 +108,3 @@ function Next() {
 }
 
 })();
-
-
-//
-// 🗒: used also in 🪵
-class Schedule {
-	static c_match () { return /\p{Extended_Pictographic}(?<!🌾|🐮)/umg; } 
-}

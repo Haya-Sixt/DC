@@ -52,7 +52,7 @@ wdgt.Update = ()=> {
 function Background() {
 	try {		
 	var bg = 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' version=\'1.1\'><text x=\'3%\' y=\'90%\' font-size=\'4em\'>', 
-		match = $("#🗓️ .tdCurrent").text().match(Schedule.c_match()),
+		match = $("#🗓️ .tdCurrent").text().match(Helpers.Emoji()),
 		c = '';
 	if ( $app.Vars['🕯️🕯️'] == "true" )  c += '🕯️🕯️';
 	if ( match )  c += match.join('');
@@ -66,7 +66,7 @@ function Background() {
 	//
 	function dx() {
 		let r = '';
-		c.match(Schedule.c_match()).forEach((m) => {
+		c.match(Helpers.Emoji()).forEach((m) => {
 			r += '<tspan dx=\'-0.' + (m == '🕯️' ? 45 : 20) + 'em\'>' + m + '</tspan>';
 		});
 		return r;
@@ -176,7 +176,7 @@ wdgt.Entries = function* (now) {
 			$(t).addClass(wdgt.id);
 			const c = $(t).css('background-image'), 
 				v = c.slice(c.indexOf('var') + 4, c.indexOf(')')),
-				c2 = c.replace(v, getComputedStyle($('html')[0]).getPropertyValue(decodeURIComponent(v)).trim());
+				c2 = c.replace(v, Helpers.Css(v));
 			$(t).css('background-image', c2)
 		}
 	};

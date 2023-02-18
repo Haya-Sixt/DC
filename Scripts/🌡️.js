@@ -51,8 +51,7 @@ function Normalize () {
 
 //
 function Render() {
-	const f = (e)=> e.dataPoint.x == 1 ? e.dataPoint.y[e.index] + "°" : '',
-	        css = (v)=> getComputedStyle($('html')[0]).getPropertyValue(v).trim(); // 🗒: Promise is needed
+	const f = (e)=> e.dataPoint.x == 1 ? e.dataPoint.y[e.index] + "°" : '';
 
 	chart = wdgt.data.chart = new CanvasJS.Chart(wdgt.id, {
 		axisY: {
@@ -68,7 +67,7 @@ function Render() {
 			tickLength: 0,
 			lineThickness: 0,
 			labelFontSize: 20,
-			labelFontColor: css('--🖥️-c-t-2'), 
+			labelFontColor: Helpers.Css('--🖥️-c-t-2'), 
 			labelPlacement:"outside"
 		},
 		theme: "dark1",
@@ -78,7 +77,7 @@ function Render() {
 			type: "rangeSplineArea",
 			fillOpacity: 0.0,
 			indexLabelFontSize: 20,
-			indexLabelFontColor: css('--🖥️-c-ts-2'),
+			indexLabelFontColor: Helpers.Css('--🖥️-c-ts-2'),
 			indexLabelFontFamily: "sans-serif",
 			lineThickness: 12, 
 			indexLabelFormatter: f,
