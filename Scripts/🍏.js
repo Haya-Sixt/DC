@@ -14,9 +14,6 @@
             '🌇': 0, // used by 📒 (set by 📆)
             '☔': false
         },
-        Import () {
-            window.$app = document.querySelector('html').$app; // needed
-        },
         Widgets: [],
         Widget: class Widget {
             constructor (id) {
@@ -112,48 +109,15 @@
     
     function Load () {
         const s = event.target.readyState;
-        if (s == "loading") webBrowser()
-        else if (s == "interactive") Head ()
-        else Object.entries(app.Widgets).forEach((w)=>w[1].Init());
+        if (s == "interactive") Head ()
+        else if (s == "complete") Object.entries(app.Widgets).forEach((w)=>w[1].Init());
     }
-    
+
     function Head () {
         [app.Constants.Name,'⏳'].forEach((e)=> { const link = document.createElement('link'); link.rel = 'stylesheet'; link.type = 'text/css'; link.href = app.Constants.Host + 'Css/' + e + '.css'; document.head.appendChild(link); } ); 
         ['🎉','📅','🌡️','🪵','⏱️','📒','⚠️'].forEach((e)=> { const script = document.createElement('script'); script.type = 'text/javascript'; script.src = app.Constants.Host + 'Scripts/' + e + '.js'; document.head.appendChild(script); } ); 
     }
-    
-    function webBrowser() {
-        return;
-        if (!app.Constants.Host.startsWith('http:')) 
-            location.replace('http://localhost:8181/Documents/Apps/🖥️/DC/index.html');
-        //if (!String.prototype.replaceAll) 
-        //	String.prototype.replaceAll = (function (p,r) {return this.split(p).join(r)}); 
-        if (document.body.requestFullscreen) {
-            //alert ()
-            var el = document.documentElement,
-                rfs = el.requestFullscreen
-                  || el.webkitRequestFullScreen
-                  || el.mozRequestFullScreen
-                  || el.msRequestFullscreen
-                  ;
-             rfs.call(el); 
-             
-            //document.body.requestFullscreen(); // failed 
-            //alert ()
-        }
-        
-        //GM_notification('^+F', 'AutoHotkey')
-        
-        /*
-        <input type='button' id='btn'>
-        const button = document.getElementById('btn');  
-        button.addEventListener('click', () => {
-            document.body.requestFullscreen();
-        });
-        button.onclick();
-        */
-    }
-    
+
+    //
     document.addEventListener("readystatechange", Load);
-    
 })();

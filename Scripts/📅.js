@@ -1,5 +1,5 @@
-// Import
-document.querySelector('html').$app.Import();
+// Common
+const $app = document.querySelector('html').$app;
 
 // 1.
 (()=>{
@@ -76,24 +76,24 @@ wdgt.Month = (now)=> {
 	
 	//
 	wdgt.Update = ()=> {
-		var tHTML1 = wdgt.data[0].replaceAll("tdCurrent",""),
-			tHTML2 = wdgt.data[1].replaceAll("tdCurrent","");
+		var t1 = wdgt.data[0].replaceAll("tdCurrent",""),
+			t2 = wdgt.data[1].replaceAll("tdCurrent","");
 				
 		// NOTE:  On month 'Eyar' the last row was all marked by ' tdUnused' (on all 7 td),
 		// 		so need to be removed also.
-		if (tHTML1.substring(tHTML1.lastIndexOf("<tr")).indexOf(" tdUsed") ==-1) 
+		if (t1.substring(t1.lastIndexOf("<tr")).indexOf(" tdUsed") ==-1) 
 			// remove empty row
-			tHTML1 = tHTML1.substring(0,tHTML1.lastIndexOf("<tr"));
+			t1 = t1.substring(0,t1.lastIndexOf("<tr"));
 	
 		// remove header of next month
-		tHTML2 = (tHTML2 = tHTML2.substring( tHTML2.indexOf("<tr")+3)).substring( tHTML2.indexOf("<tr"));
+		t2 = (t2 = t2.substring( t2.indexOf("<tr")+3)).substring( t2.indexOf("<tr"));
 		// remove empty row
-		tHTML2 = tHTML2.substring(0,tHTML2.lastIndexOf("<tr"));
+		t2 = t2.substring(0,t2.lastIndexOf("<tr"));
 		
 		// merge two months
-		var r1last = tHTML1.substring(tHTML1.lastIndexOf("<tr"));
-		var r2first = tHTML2.substring(0,tHTML2.indexOf("</tr>")+5);
-		var u=0,rU = tHTML2.substring(0,tHTML2.indexOf("<td "));
+		var r1last = t1.substring(t1.lastIndexOf("<tr"));
+		var r2first = t2.substring(0,t2.indexOf("</tr>")+5);
+		var u=0, rU = t2.substring(0,t2.indexOf("<td "));
 		for (var i=0; i<7; i++) {
 			var td1 = r1last.substring(r1last.indexOf("<td "), r1last.indexOf("</td>")+5);
 			r1last = r1last.replace(td1,"");
@@ -107,97 +107,97 @@ wdgt.Month = (now)=> {
 			}
 		}
 		if (u) {
-			tHTML1 = tHTML1.substring(0,tHTML1.lastIndexOf("<tr"))
+			t1 = t1.substring(0,t1.lastIndexOf("<tr"))
 				+ rU + "</tr>";
-	
-			tHTML2 = tHTML2.substring( tHTML2.indexOf("</tr>")+5);
+			t2 = t2.substring( t2.indexOf("</tr>")+5);
 		}
-		let j = (j)=>`<imo>${j}</imo>`,
-			tHTML = (tHTML1+tHTML2)
-			.replaceAll("כניסת ","").replaceAll("צאת ","")
-			.replaceAll("שבת:","")
-			.replaceAll("החג:","")
-			.replaceAll("הצום:","")
-			.replaceAll("דראש","ראש")
-			.replaceAll("ערב ראש חודש","")
-			.replaceAll("א' ראש חודש",j("🌒"))
-			.replaceAll("א' דר\"ח",j("🌒")) // (חנוכה)
-			.replaceAll("ב' ראש חודש",j("🌘"))
-			.replaceAll("ב' דר\"ח",j("🌘")) // (חנוכה)
-			.replaceAll("ראש חודש",j("🌑"))
-			.replaceAll(" לעומר","<span name='omer'>🌾</span>")
-			.replaceAll("יום הזכרון לשואה ולגבורה",j("🏴‍☠️"))
-			.replaceAll("יום הזכרון",j("🪖"))
-			.replaceAll("יום העצמאות",j("🇮🇱"))
-			.replaceAll(" מוקדם",j("🐇"))
-			.replaceAll("תענית שני",j("🚱"))
-			.replaceAll("תענית חמישי",j("🚱"))
-			.replaceAll(" קמא","")
-			.replaceAll(" בתרא","")
-			.replaceAll("פסח שני",j("🧇🦥"))
-			.replaceAll("ל\"ג בעומר",j("🔥"))
-			.replaceAll("יום ירושלים",j("🏰"))
-			.replaceAll("ערב חג השבועות","")
-			.replaceAll("ערב חג הסוכות","")
-			.replaceAll("ערב חג הפסח","")
-			.replaceAll("חג ה","")
-			.replaceAll("שבועות",j("📜"))
-			.replaceAll("צום י\"ז בתמוז",j("🚱"))
-			.replaceAll("נדחה",j("🦥"))
-			.replaceAll("שבת חזון",j("🕶️"))
-		  .replaceAll("תשעה באב",j("🚱"))
-			.replaceAll("חמשה עשר באב",j("💕"))
-			.replaceAll("א' דסליחות לעדות המזרח",j("🙇"))
-			.replaceAll("א' דסליחות לאשכנזים",j("🙇🏻"))
-			.replaceAll("ערב ראש השנה","")
-			.replaceAll("א' ראש השנה",j("👑"))
-			.replaceAll("ב' ראש השנה",j("👑"))
-			.replaceAll("צום גדליה",j("🚱"))
-			.replaceAll("ערב יום הכיפורים","")
-			.replaceAll("יום הכיפורים",j("⚖️"))
-			.replaceAll("סוכות",j("🍋"))
-			.replaceAll("חול המועד ","")
-			.replaceAll('שבת חוה"מ',"")
-			.replaceAll("הושענא רבה",j("🌿"))
-			.replaceAll("שמחת תורה",j("🎉"))
-			.replaceAll("אסרו חג",j("🐑"))
-			.replaceAll("שבת חנוכה","")
-			.replaceAll("זאת חנוכה",j("🕎"))
-			.replaceAll("חנוכה",j("🕎"))
-			.replaceAll("צום עשרה בטבת",j("🚱"))
-			.replaceAll("שבת שירה",j("🎤"))
-			.replaceAll("ראש השנה לאילנות",j("🌱"))
-			.replaceAll("שבת שקלים",j("💰"))
-			.replaceAll("שבת זכור",j("🛀"))
-			.replaceAll("פורים",j("🥸"))
-			.replaceAll("שושן ","")
-			.replaceAll(" קטן","")
-			.replaceAll("תענית אסתר",j("🚱"))
-			.replaceAll("שבת פרה",j("🐮"))
-			.replaceAll("שבת החודש",j("👑"))
-			.replaceAll("פסח",j("🍪"))
-			.replaceAll("שביעי של פסח",j("🌊"));
+		const j = (i, o)=> { t = t.replaceAll(i, `<imo>${o}</imo>`) };
+		let t = (t1+t2)
+		j("כניסת ","")
+		j("צאת ","")
+		j("שבת:","")
+		j("החג:","")
+		j("הצום:","")
+		j("דראש","ראש")
+		j("ערב ראש חודש","")
+		j("א' ראש חודש","🌒")
+		j("א' דר\"ח","🌒") // (חנוכה)
+		j("ב' ראש חודש","🌘")
+		j("ב' דר\"ח","🌘") // (חנוכה)
+		j("ראש חודש","🌑")
+		j(" לעומר","<span name='omer'>🌾</span>")
+		j("יום הזכרון לשואה ולגבורה","🏴‍☠️")
+		j("יום הזכרון","🪖")
+		j("יום העצמאות","🇮🇱")
+		j(" מוקדם","🐇")
+		j("תענית שני","🚱")
+		j("תענית חמישי","🚱")
+		j(" קמא","")
+		j(" בתרא","")
+		j("פסח שני","🧇🦥")
+		j("ל\"ג בעומר","🔥")
+		j("יום ירושלים","🏰")
+		j("ערב חג השבועות","")
+		j("ערב חג הסוכות","")
+		j("ערב חג הפסח","")
+		j("חג ה","")
+		j("שבועות","📜")
+		j("צום י\"ז בתמוז","🚱")
+		j("נדחה","🦥")
+		j("שבת חזון","🕶️")
+		j("תשעה באב","🚱")
+		j("חמשה עשר באב","💕")
+		j("א' דסליחות לעדות המזרח","🙇")
+		j("א' דסליחות לאשכנזים","🙇🏻")
+		j("ערב ראש השנה","")
+		j("א' ראש השנה","👑")
+		j("ב' ראש השנה","👑")
+		j("צום גדליה","🚱")
+		j("ערב יום הכיפורים","")
+		j("יום הכיפורים","⚖️")
+		j("סוכות","🍋")
+		j("חול המועד ","")
+		j('שבת חוה"מ',"")
+		j("הושענא רבה","🌿")
+		j("שמחת תורה","🎉")
+		j("אסרו חג","🐑")
+		j("שבת חנוכה","")
+		j("זאת חנוכה","🕎")
+		j("חנוכה","🕎")
+		j("צום עשרה בטבת","🚱")
+		j("שבת שירה","🎤")
+		j("ראש השנה לאילנות","🌱")
+		j("שבת שקלים","💰")
+		j("שבת זכור","🛀")
+		j("פורים","🥸")
+		j("שושן ","")
+		j(" קטן","")
+		j("תענית אסתר","🚱")
+		j("שבת פרה","🐮")
+		j("שבת החודש","👑")
+		j("פסח","🍪")
+		j("שביעי של פסח","🌊");
 			
 			
 		// show only 4 rows
-		var tHTML4 = tHTML.substring(0, tHTML.indexOf("</tr>")+5)
+		var t4 = t.substring(0, t.indexOf("</tr>")+5)
 			current = hebDay();
 		
 		for (var i=0,show=0; i<12 && show<5; i++) {
-			var itr = tHTML.indexOf("<tr");
+			var itr = t.indexOf("<tr");
 			if (itr==-1) break;
-			var tr = tHTML.substring(itr, tHTML.indexOf("</tr>")+5);
-			tHTML = tHTML.replace(tr,"");
+			var tr = t.substring(itr, t.indexOf("</tr>")+5);
+			t = t.replace(tr,"");
 			
 			if (show || tr.indexOf(current)!=-1) {
-				tHTML4 += tr;
+				t4 += tr;
 				show++;
 			}
 		}
-		tHTML4 = "<table>" + tHTML4 + "</table>";
+		t4 = "<table>" + t4 + "</table>";
 		
 		// 
-		$(wdgt.sid).html(tHTML4);
+		$(wdgt.sid).html(t4);
 		
 		// current 
 		$(wdgt.sid + ' .tdDay').each((i, t)=> {

@@ -1,5 +1,5 @@
-// Import
-document.querySelector('html').$app.Import();
+// Common
+const $app = document.querySelector('html').$app;
 
 (()=>{
 
