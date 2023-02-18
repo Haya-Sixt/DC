@@ -108,16 +108,16 @@ function Progress () {
 	var notes = $(wdgt.sid + " > div[name=note]");
 	var now = parseInt( new Date().getTime() / 1000 ); 
 
-	notes.each(function() {
-		var percent = parseInt( (now - parseInt($(this).attr('startedAt'))) *100 / parseInt($(this).attr('duration')) ), 
-			noteP = $(this).children(':last-child');
+	notes.each((i, t)=> {
+		var percent = parseInt( (now - parseInt($(t).attr('startedAt'))) *100 / parseInt($(t).attr('duration')) ), 
+			noteP = $(t).children(':last-child');
 		
 		if (isNaN(percent) || percent <0) {
 			percent = 100; 
-			$(this).addClass("errorBorder");
+			$(t).addClass("errorBorder");
 		} else {
 			if (percent>100) percent=100;
-			$(this).removeClass("errorBorder");
+			$(t).removeClass("errorBorder");
 		}
 
 		var bi = noteP.css('background-image');

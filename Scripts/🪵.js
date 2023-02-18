@@ -115,7 +115,7 @@ wdgt.Entries = function* (now) {
 			duration = endsAt - e.startedAt;
 
 			var log_id = `🪵_${(Math.floor(Math.random() * 100000))}`;
-			resultProgress += `<div name="🪵Progress" startedAt="${e.startedAt}" duration="${duration}" 🪵_id="${log_id}">
+			resultProgress += `<div name="${wdgt.id}" startedAt="${e.startedAt}" duration="${duration}" 🪵_id="${log_id}">
 				<div>${e.log}</div><div></div></div><div style="height:10px;" ></div>`;
 
 			result += `<div id="${log_id}" ${(now < endsAt) && 'style="display:none;"'} >${e.log}</div>`; 
@@ -131,17 +131,17 @@ wdgt.Entries = function* (now) {
 		var now = parseInt( new Date().getTime() / 1000 ); 
 		var topOffset=0;
 
-		lp.each(function() {
-			var h='', m='', percent = parseInt( (now - parseInt($(this).attr('startedAt'))) *100 / parseInt($(this).attr('duration')) );
+		lp.each((i, t)=> {
+			var h='', m='', percent = parseInt( (now - parseInt($(t).attr('startedAt'))) *100 / parseInt($(t).attr('duration')) );
 			
 			if (isNaN(percent) || percent <0) {
 				m = percent + '%';
 				percent = 100; 
-				$(this).addClass("errorBorder");
+				$(t).addClass("errorBorder");
 			} 
 			else {
 				if (percent>100) percent=100;
-				m = parseInt( (parseInt($(this).attr('duration')) - now + parseInt($(this).attr('startedAt'))) / 60 );
+				m = parseInt( (parseInt($(t).attr('duration')) - now + parseInt($(t).attr('startedAt'))) / 60 );
 				if (m<1) m=''
 				else {
 					h = parseInt(m / 60);
@@ -152,22 +152,33 @@ wdgt.Entries = function* (now) {
 					if (m!='') m+='m';
 				}
 				
-				$(this).removeClass("errorBorder");
+				$(t).removeClass("errorBorder");
 			}
 			if (percent==100) {
-				$(this).hide();
-				$('#'+$(this).attr('🪵_id')).show();
+				$(t).hide();
+				$('#'+$(t).attr(`🪵_id`)).show();
 			} 
 			else  {
-				$(this).css('backgroundSize',percent+'% 100%')
+				$(t).css('backgroundSize',percent+'% 100%')
 					.children().last().text(h+' '+m);
-				$(this).addClass(wdgt.id);
+				Class (t);
 				$(wdgt.sid).css('top','calc(91% - '+ topOffset++ * 30 +'px)');
 				
 				if (m=='3m' && h=='')
 					Countdown(400);
 			} 
 		});
+
+		
+		//
+		function Class (t) {
+			if ($(t).hasClass(wdgt.id)) return;
+			$(t).addClass(wdgt.id);
+			const c = $(t).css('background-image'), 
+				v = c.slice(c.indexOf('var') + 4, c.indexOf(')')),
+				c2 = c.replace(v, getComputedStyle($('html')[0]).getPropertyValue(decodeURIComponent(v)).trim());
+			$(t).css('background-image', c2)
+		}
 	};
 
 })();

@@ -82,14 +82,14 @@ function Current() {
 function Next() {
 	var days=0, d="", c=false;
 	
-	$("#🗓️ .tdDay").each(function () {
+	$("#🗓️ .tdDay").each((i, t)=> {
 		
-		if ( $(this).hasClass('tdCurrent') ) {
-			c = '' + $(this).text().match(Schedule.c_match());
+		if ( $(t).hasClass('tdCurrent') ) {
+			c = '' + $(t).text().match(Schedule.c_match());
 			
 		}
 		else if (c) {
-			let m = $(this).text().match(Schedule.c_match());
+			let m = $(t).text().match(Schedule.c_match());
 			if (m) m = m.reduce((s,e)=>s + (c.includes(e) ? '' : e), '');
 			if (m && m!='') {
 				if (days == 0) d = 'מחר '

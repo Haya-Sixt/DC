@@ -20,7 +20,7 @@
 #🪵 { font-size:20px; padding:5px 3px 0 3px; background-repeat: no-repeat; } 
 .🪵Progress { font-size:2em; text-shadow: 4px 4px 4px var(--🖥️-c-b-1); padding:0px; 
 	border: 1px solid var(--🖥️-c-b-1); border-radius: 15px;
-	background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" style="background-color:var(--🖥️-c-b-1)"></svg>'); 
+	background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" style="background-color:var(--🖥️-c-t-1)"></svg>'); /*var is been eval by js*/
 	background-color: var(--🖥️-c-bs-2); background-repeat: no-repeat; display: flex; flex-wrap: no-wrap; }
 .🪵Progress div:first-child { flex: 100%; text-overflow: ellipsis; overflow: hidden; }
 .🪵Progress div:last-child { flex: 1px; white-space: nowrap; }
@@ -143,7 +143,7 @@ imo { font-size:22px; text-shadow: 3px 0px 5px var(--🖥️-c-b-3), 0px 3px 5px
 --🖥️-c-b-2: #141414; /*⏰(📱) border*/
 --🖥️-c-b-3: #1E1E1E; /*imo text-shadow*/
 /* main text of main bg */
---🖥️-c-t-1: #FFFFFF; /*tdHead, 📒 > div text; imo glowing */
+--🖥️-c-t-1: #FFFFFF; /*tdHead, 📒 > div text; 🪵Progress bg; imo glowing */
 --🖥️-c-t-2: #8B8B8B; /*🪵, ⏰:not(.markIconText) border, 🌡️xy text*/
 --🖥️-c-t-3: #A1A1A1; /*body text*/
 --🖥️-c-t-4: #b4b4b4; /*📅👈, ⏰ Text*/

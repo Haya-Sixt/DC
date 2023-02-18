@@ -143,14 +143,14 @@ class Popup {
 			.html(html)
 			.appendTo("body")
 			.css({
-						//'position' : 'absolute',
-						//'left' : '50%',
-						//'top' : '50%',
-						'margin-left' : function() {return -$(this).outerWidth()/2},
-						'margin-top' : function() {
+				//'position' : 'absolute',
+				//'left' : '50%',
+				//'top' : '50%',
+				'margin-left' : function() {return -$(this).outerWidth()/2},
+				'margin-top' : function() {
 					var height=10;
-					$(".popup").each(function() {
-						height += $(this).innerHeight() + 10;
+					$(".popup").each((i, t)=> {
+						height += $(t).innerHeight() + 10;
 					});
 					return -height; 
 				}
