@@ -25,18 +25,18 @@ wdgt.Update = ()=> {
 	$app.Vars['🕯️🕯️'] = wdgt.data.shabbat;
 	
 	// 🔋
-	if (wdgt.data.battery!="100") r = '<div class="error">' + '....'.substring(0,4-wdgt.data.battery.length) + wdgt.data.battery + '% ⚠️🔋</div>' + r;
+	if (wdgt.data.battery!="100") r = `<div class="error">${'....'.substring(0,4-wdgt.data.battery.length)}${wdgt.data.battery}% ⚠️🔋</div>${r}`;
 			
 	// 🌡️
 	if (now - forecast_clock > 6*60*60) {
 		var h = ((now - forecast_clock) / -60);
 		if (h<24) h='>24'
 		else h=h.toFixed(1);
-		result = '<div class="error">' + h + 'h   ⚠️🌡️</div>' + result;
+		r = `<div class="error">${h}h   ⚠️🌡️</div>${r}`;
 	}
 		
 	// ⏱️
-	r = '<div>' + $('#⏱️').text() + '</div>' + r; 
+	r = `<div>${$('#⏱️').text()}</div>${r}`; 
 	
 	$(wdgt.sid).html(r);
 
