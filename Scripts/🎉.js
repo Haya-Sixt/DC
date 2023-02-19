@@ -32,26 +32,26 @@ static Start (n) {
 	try {
 	n = parseInt(n);
 	if (n <= 0) return;
-	this.#n_s = ('' + n);
+	Countdown.#n_s = ('' + n);
 	
-	this.#Stop(true);
+	Countdown.#Stop(true);
 	
 	if ($("#⏳").length!=0) $("#⏳").remove();
 	$("<div>").attr("id","⏳").appendTo("body").html('<div class="cdc_container"></div>');
 		
-	var html = '', n_s_before = this.#n_s;
-	this.#Play(); 
+	var html = '', n_s_before = Countdown.#n_s;
+	Countdown.#Play(); 
 	for (var i = 0; i < n_s_before.length; i++) {
-		html += this.#template.replaceAll("cdc_dgtPlay", "cdc_" + i + "Play")
+		html += Countdown.#template.replaceAll("cdc_dgtPlay", "cdc_" + i + "Play")
 			.replaceAll("dgt_before", parseInt(n_s_before.charAt(i)))
-			.replaceAll("dgt_active", parseInt(this.#n_s.charAt(i)));
+			.replaceAll("dgt_active", parseInt(Countdown.#n_s.charAt(i)));
 	}
 
 	$("#⏳ .cdc_container").html(html);
 
 	$("#⏳ .cdc_container").show('slow');
 		
-	this.#i_Play = setInterval(this.#Play, 1000); 
+	Countdown.#i_Play = setInterval(Countdown.#Play, 1000); 
 	
 	} catch(e) { console.log('⏳ Init:\n' + e); }
 }
@@ -59,14 +59,14 @@ static Start (n) {
 //
 static #Play() {
 	try {
-	var minus1 = this.#Timefy(parseInt(this.#n_s)-1);
+	var minus1 = Countdown.#Timefy(parseInt(Countdown.#n_s)-1);
 	
-	if (minus1.length < this.#n_s.length) 
-		$(".cdc_container .cdc_" + (this.#n_s.length - minus1.length - 1) + "Play").hide('slow');
+	if (minus1.length < Countdown.#n_s.length) 
+		$(".cdc_container .cdc_" + (Countdown.#n_s.length - minus1.length - 1) + "Play").hide('slow');
 	
 	for (var i = minus1.length-1; i >= 0; i--) {
-		var n_s_i = i + (this.#n_s.length - minus1.length);
-		if (this.#n_s.charAt(n_s_i) != minus1.charAt(i)) {
+		var n_s_i = i + (Countdown.#n_s.length - minus1.length);
+		if (Countdown.#n_s.charAt(n_s_i) != minus1.charAt(i)) {
 						$(".cdc_container .cdc_" + n_s_i + "Play li").toggleClass("cdc_active cdc_before");
 			$(".cdc_container .cdc_" + n_s_i + "Play .cdc_active .cdc_inn").text(
 			  minus1.charAt(i)
@@ -74,19 +74,19 @@ static #Play() {
 
 		}
 	}
-	this.#n_s = minus1.padStart(this.#n_s.length, '0');
+	Countdown.#n_s = minus1.padStart(Countdown.#n_s.length, '0');
 	
-	this.#Stop();
+	Countdown.#Stop();
 	
 	} catch(e) { console.log('⏳ Play:\n' + e); }
 }
 
 static #Stop(force) {
-	if (!force && parseInt(this.#n_s)!=0 ) 
+	if (!force && parseInt(Countdown.#n_s)!=0 ) 
 		return;
 		
-	clearInterval(this.#i_Play);
-	this.#beep();
+	clearInterval(Countdown.#i_Play);
+	Countdown.#beep();
   
 	if (!force) 
 		setTimeout(()=>$("#⏳ .cdc_container").hide('slow'), 3000);
@@ -174,12 +174,12 @@ function popupUpdate() {
 function popupRemove(o) {
 	var height=10;
 	$(".popup").each(function(index) {
-//$(this).text(index + '' + o) ;
+//$(Countdown).text(index + '' + o) ;
 		if (index == o) 
-			$(this).remove()
+			$(Countdown).remove()
 		else {
-			height += $(this).innerHeight() + 10;
-			$(this).css({ 'margin-top' : function() {return -height;} });
+			height += $(Countdown).innerHeight() + 10;
+			$(Countdown).css({ 'margin-top' : function() {return -height;} });
 		} 
 	});
 } 
