@@ -1,6 +1,3 @@
-// Common
-const $app = document.querySelector('html').$app;
-
 (()=>{
 
 // C2: Command and Control
