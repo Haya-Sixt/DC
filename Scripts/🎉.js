@@ -2,7 +2,7 @@
 // ⏳
 class Countdown {
 
-static template = `<ul class="cdc_flip cdc_dgtPlay">
+static #template = `<ul class="cdc_flip cdc_dgtPlay">
 	<li class="cdc_before">
 		<div class="cdc_up">
 			<div class="cdc_shadow"></div>
@@ -42,7 +42,7 @@ static Start (n) {
 	var html = '', n_s_before = this.#n_s;
 	this.#Play(); 
 	for (var i = 0; i < n_s_before.length; i++) {
-		html += template.replaceAll("cdc_dgtPlay", "cdc_" + i + "Play")
+		html += this.#template.replaceAll("cdc_dgtPlay", "cdc_" + i + "Play")
 			.replaceAll("dgt_before", parseInt(n_s_before.charAt(i)))
 			.replaceAll("dgt_active", parseInt(this.#n_s.charAt(i)));
 	}
