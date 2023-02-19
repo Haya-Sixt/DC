@@ -108,7 +108,7 @@ wdgt.Month = (now)=> {
 				+ rU + "</tr>";
 			t2 = t2.substring( t2.indexOf("</tr>")+5);
 		}
-		const j = (i, o)=> { t = t.replaceAll(i, (o == '' || o.startsWith('<') || !o.match(Helpers.Emoji()) ? o : `<imo>${o}</imo>`) };
+		const j = (i, o)=> { t = t.replaceAll(i, (o == '' || o.startsWith('<') || !o.match(Helpers.Emoji())) ? o : `<imo>${o}</imo>`) };
 		let t = (t1+t2)
 		j("כניסת ","")
 		j("צאת ","")
