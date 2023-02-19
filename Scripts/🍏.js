@@ -9,7 +9,7 @@ const app = {
         Mode: location.hash.replace('#','')
     },
     Vars : { 
-        Dependency: (v)=> `V.${v}`,
+        Dependency: (v = '')=> `V.${v}`,
         '🕯️': 0, 
         '🕯️🕯️': false, 
         '🌇': 0, // used by 📒 (set by 📆)
