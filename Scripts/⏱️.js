@@ -51,7 +51,7 @@ wdgt.Init = ()=> {}
 
 //
 wdgt.Update = ()=> {
-	Current() || Next() || $(wdgt.sid).text('');
+	Current() || Next() || $(wdgt.sid).html('&nbsp;');;
 };
 
 function Current() {
