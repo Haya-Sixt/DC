@@ -82,7 +82,8 @@ function Next() {
 	$("#🗓️ .tdDay").each((i, t)=> {
 		
 		if ( $(t).hasClass('tdCurrent') ) {
-			c = '' + $(t).text().match(Helpers.Emoji());
+			c = $(t).text().match(Helpers.Emoji());
+			if (!c) c = '';
 		}
 		else if (c) {
 			let m = $(t).text().match(Helpers.Emoji());

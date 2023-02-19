@@ -146,9 +146,10 @@ return app;
 
 //
 class Helpers {
-	static Emoji (endsWith = null, exclude = '🌾') { 
-        if (exclude) exclude = `(?<!${exclude})`;
-        return new RegExp(`\\p{Extended_Pictographic}${exclude}.${endsWith}`,'ugm');
+	static Emoji (exclude = '🌾') { 
+        if (exclude) exclude = `(?<!${exclude})`
+        else exclude = '';
+        return new RegExp(`\\p{Extended_Pictographic}${exclude}`,'ugm'); // 🗒: dot isn't needed (although the emoji looks partial )
     }
     static Css (v) {
         return getComputedStyle($('html')[0]).getPropertyValue(decodeURIComponent(v)).trim();
