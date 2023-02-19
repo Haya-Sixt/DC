@@ -11,13 +11,12 @@ wdgt.dependency = ['🗓️','⏱️'];
 
 //
 wdgt.Update = ()=> {
-	let result='', now = parseInt( new Date().getTime() / 1000 ),
+	let r='', now = parseInt( new Date().getTime() / 1000 ),
 		forecast_clock = parseInt(new Date(wdgt.data.forecast_clock).getTime()/1000),
 		shishi = 0;
 	
 	for (const e of wdgt.Entries(now)) { // 🗒: yield doesn't work with forEach because it's callback
-		if (e.log.indexOf("[")==-1)
-			result += '<div>' + e.log + '</div>';
+		r += `<div data="${e.log}" ${ e.log.indexOf("[") == -1 && 'style="display:none;"' }>${e.log}</div>`;
 
 		// Set shishi
 		if ( e.log.substring(17).substring(0,4) == '🕯️ ' )
@@ -29,21 +28,20 @@ wdgt.Update = ()=> {
 	$app.Vars['🕯️🕯️'] = wdgt.data.shabbat;
 	
 	// 🔋
-	if (wdgt.data.battery!="100") 
-		result = '<div class="errorBorder">' + '....'.substring(0,4-wdgt.data.battery.length) + wdgt.data.battery + '% ⚠️🔋</div>' + result;
+	if (wdgt.data.battery!="100") r = '<div class="error">' + '....'.substring(0,4-wdgt.data.battery.length) + wdgt.data.battery + '% ⚠️🔋</div>' + r;
 			
 	// 🌡️
 	if (now - forecast_clock > 6*60*60) {
 		var h = ((now - forecast_clock) / -60);
 		if (h<24) h='>24'
 		else h=h.toFixed(1);
-		result = '<div class="errorBorder">' + h + 'h   ⚠️🌡️</div>' + result;
+		result = '<div class="error">' + h + 'h   ⚠️🌡️</div>' + result;
 	}
 		
 	// ⏱️
-	result = '<div>' + $('#⏱️').text() + '</div>' + result; 
+	r = '<div>' + $('#⏱️').text() + '</div>' + r; 
 	
-	$(wdgt.sid).html(result);
+	$(wdgt.sid).html(r);
 
 	Background ();
 };
@@ -67,7 +65,7 @@ function Background() {
 	function dx() {
 		let r = '';
 		c.match(Helpers.Emoji()).forEach((m) => {
-			r += '<tspan dx=\'-0.' + (m == '🕯️' ? 45 : 20) + 'em\'>' + m + '</tspan>';
+			r += '<tspan dx=\'-0.' + (m == '🕯️' ? 46 : 20) + 'em\'>' + m + '</tspan>';
 		});
 		return r;
 	}
@@ -98,7 +96,7 @@ wdgt.Entries = function* (now) {
 
 	//
 	wdgt.Init = ()=> {
-		let result=$('#🪵').html(), resultProgress='', now = parseInt( new Date().getTime() / 1000 );
+		let r='', now = parseInt( new Date().getTime() / 1000 );
 	
 		for (const e of $app.Widgets['🪵'].Entries(now)) {
 			if (e.log.indexOf("[")==-1) continue;
@@ -114,30 +112,26 @@ wdgt.Entries = function* (now) {
 				endsAt += parseInt(duration.substring(0,duration.indexOf('m')))*60;
 			duration = endsAt - e.startedAt;
 
-			var log_id = `🪵_${(Math.floor(Math.random() * 100000))}`;
-			resultProgress += `<div name="${wdgt.id}" startedAt="${e.startedAt}" duration="${duration}" 🪵_id="${log_id}">
-				<div>${e.log}</div><div></div></div><div style="height:10px;" ></div>`;
-
-			result += `<div id="${log_id}" ${(now < endsAt) && 'style="display:none;"'} >${e.log}</div>`; 
-		};
+			if (now >= endsAt) $(`#🪵 div[data="${e.log}"]`).show()
+			else r += `<div name="${wdgt.id}" data="${e.log}" startedAt="${e.startedAt}" duration="${duration}"><div>${e.log}</div><div></div></div><div style="height:10px;"></div>`;
+		}
 		
-		if (resultProgress != '') $('#🪵').html(result);
-		$(wdgt.sid).html(resultProgress);
+		$(wdgt.sid).html(r);
 	};
 
 	//
 	wdgt.Update = ()=> {
-		var lp = $(`${wdgt.sid} div[name="${wdgt.id}"]`);
-		var now = parseInt( new Date().getTime() / 1000 ); 
-		var topOffset=0;
+		let a = $(`${wdgt.sid} div[name="${wdgt.id}"]`),
+		now = parseInt( new Date().getTime() / 1000 ),
+		topOffset=0;
 
-		lp.each((i, t)=> {
+		a.each((i, t)=> {
 			var h='', m='', percent = parseInt( (now - parseInt($(t).attr('startedAt'))) *100 / parseInt($(t).attr('duration')) );
 			
 			if (isNaN(percent) || percent <0) {
 				m = percent + '%';
 				percent = 100; 
-				$(t).addClass("errorBorder");
+				$(t).addClass("error");
 			} 
 			else {
 				if (percent>100) percent=100;
@@ -151,25 +145,25 @@ wdgt.Entries = function* (now) {
 					if (h!='') h+='h';
 					if (m!='') m+='m';
 				}
-				
-				$(t).removeClass("errorBorder");
+				$(t).removeClass("error");
 			}
 			if (percent==100) {
 				$(t).hide();
-				$('#'+$(t).attr(`🪵_id`)).show();
+				$(`#🪵 div[data="${$(t).attr('data')}"]`).show();
 			} 
 			else  {
-				$(t).css('backgroundSize',percent+'% 100%')
+				$(t).css('backgroundSize',`${percent}% 100%`)
 					.children().last().text(h+' '+m);
 				Class (t);
-				$(wdgt.sid).css('top','calc(91% - '+ topOffset++ * 30 +'px)');
+				$(wdgt.sid).css('top',`calc(91% - ${topOffset++ * 30}px)`);
 				
 				if (m=='3m' && h=='')
 					Countdown(400);
 			} 
 		});
 
-		
+		if (!topOffset) return $app.Constants.Status.NoRepeat;
+
 		//
 		function Class (t) {
 			if ($(t).hasClass(wdgt.id)) return;

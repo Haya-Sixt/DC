@@ -7,7 +7,7 @@ const $app = document.querySelector('html').$app;
 // Notes
 const wdgt = new $app.Widget('📒');
 wdgt.repeat = { update: 3 };
-wdgt.dependency = ['📆','🪵'];
+wdgt.dependency = ['📆', $app.Vars.Dependency('🕯️')];
 
 //
 wdgt.Update = ()=> { 
@@ -113,10 +113,10 @@ function Progress () {
 		
 		if (isNaN(percent) || percent <0) {
 			percent = 100; 
-			$(t).addClass("errorBorder");
+			$(t).addClass("error");
 		} else {
 			if (percent>100) percent=100;
-			$(t).removeClass("errorBorder");
+			$(t).removeClass("error");
 		}
 
 		var bi = noteP.css('background-image');

@@ -121,7 +121,7 @@ imo { font-size:22px; text-shadow: 3px 0px 5px var(--🖥️-c-b-3), 0px 3px 5px
 #🌡️>:last-child { top:-30px; background-image: linear-gradient(to right, var(--🖥️-c-b-1), rgba(var(--🖥️-c-b-1_rgb), 0.8), rgba(var(--🖥️-c-b-1_rgb), 0.8), rgba(var(--🖥️-c-b-1_rgb), 0.8), rgba(var(--🖥️-c-b-1_rgb), 0.702), rgba(var(--🖥️-c-b-1_rgb), 0.702), rgba(var(--🖥️-c-b-1_rgb), 0.702), rgba(var(--🖥️-c-b-1_rgb), 0.8) 50%, rgba(var(--🖥️-c-b-1_rgb), 0) 50%); } 
 #🌡️>:last-child .tdCurrent { filter: invert(0.5) opacity(0.4); height: 100%; width: 50%; } 
 #💈 span { color:var(--🖥️-c-ts-2); position : relative; white-space : nowrap; } 
-.errorBorder { border-radius: 10px; border: var(--🖥️-c-be-3) 1px solid !important; } 
+.error { border-radius: 10px; border: var(--🖥️-c-be-3) 1px solid !important; } 
 .wdgt { white-space: nowrap; }
 
 .wdgt, .dafYomi, #🌡️>:last-child, .popup { position:absolute;}
