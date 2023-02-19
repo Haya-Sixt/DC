@@ -47,10 +47,10 @@ wdgt.Update = ()=> {
 function Background() {
 	try {		
 	var bg = 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' version=\'1.1\'><text x=\'3%\' y=\'90%\' font-size=\'4em\'>', 
-		match = $("#🗓️ .tdCurrent").text().match(Helpers.Emoji()),
+		a = $("#🗓️ .tdCurrent").text().match(Helpers.Emoji()),
 		c = '';
 	if ( $app.Vars['🕯️🕯️'] == "true" )  c += '🕯️🕯️';
-	if ( match )  c += match.join('');
+	if ( a )  c += a.join('');
 	if ( $app.Vars['☔'] )  c += '☔️';
 	if ( c == '')  c += '🌴';
 	
@@ -60,8 +60,8 @@ function Background() {
 	
 	//
 	function dx() {
-		let r = '';
-		c.match(Helpers.Emoji()).forEach((m) => {
+		let r = '', a = c.match(Helpers.Emoji());
+		a && a.forEach((m) => {
 			r += '<tspan dx=\'-0.' + (m == '🕯️' ? 46 : 20) + 'em\'>' + m + '</tspan>';
 		});
 		return r;
@@ -155,7 +155,7 @@ wdgt.Entries = function* (now) {
 				$(wdgt.sid).css('top',`calc(91% - ${topOffset++ * 30}px)`);
 				
 				if (m=='3m' && h=='')
-					Countdown(400);
+					Countdown.Start (400);
 			} 
 		});
 

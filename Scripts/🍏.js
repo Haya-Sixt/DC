@@ -96,6 +96,7 @@ const app = {
                 e = decodeURIComponent(decodeURIComponent(e));
             }
             $(this.sid).text(`${this.id} ${t}: ${e}`).addClass("error");
+            Popup.Add($(this.sid).text(), 30);
         }
     }
 };
