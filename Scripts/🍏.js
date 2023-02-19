@@ -103,8 +103,7 @@
     
     function Load () {
         const s = event.target.readyState;
-        if (s == "loading") Init ()
-        //else if (s == "interactive") ...
+        if (s == "interactive") Init ()
         else if (s == "complete") On ();
     }
 
