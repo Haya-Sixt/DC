@@ -132,7 +132,7 @@ function Resources () {
 
 function On () {
     for (const [k, w] of Object.entries(app.Widgets)) {
-        w.dependency.forEach(d=> addEventListener(`${app.Constants.Name}.${d}`, w.Init));
+        w.dependency && w.dependency.forEach(d=> addEventListener(`${app.Constants.Name}.${d}`, w.Init));
         w.Init();
     }
 }
