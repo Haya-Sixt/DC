@@ -148,7 +148,7 @@ static Add (html, t) {
 				return -height; 
 			}
 		});
-	t && p.delay( t*1000 ).remove();
+	t && setTimeout(()=>p.remove(), t*1000);
 }
 
 }
