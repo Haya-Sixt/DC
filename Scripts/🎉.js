@@ -93,11 +93,11 @@ static #Stop(force) {
 }
 
 static #Timefy(n) {
-	var this.#n_s = ('' + n);
+	var s = ('' + n);
 	n = 0;
-	for (var i = 0; i < this.#n_s.length; i++) {
-		var d = parseInt(this.#n_s.charAt(i));
-		if ((this.#n_s.length - i) % 2 == 0 && d > 5) 
+	for (var i = 0; i < s.length; i++) {
+		var d = parseInt(s.charAt(i));
+		if ((s.length - i) % 2 == 0 && d > 5) 
 			d = 5;
 		n = n * 10 + d;
 	}
