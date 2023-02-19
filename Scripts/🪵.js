@@ -167,7 +167,7 @@ wdgt.Entries = function* (now) {
 			$(t).addClass(wdgt.id);
 			const c = $(t).css('background-image'), 
 				v = c.slice(c.indexOf('var') + 4, c.indexOf(')')),
-				c2 = c.replace(v, Helpers.Css(v));
+				c2 = c.replace(`var(${v})`, Helpers.Css(v));
 			$(t).css('background-image', c2)
 		}
 	};
