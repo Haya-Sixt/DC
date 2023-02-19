@@ -83,7 +83,7 @@ function Next() {
 		
 		if ( $(t).hasClass('tdCurrent') ) {
 			c = $(t).text().match(Helpers.Emoji());
-			if (!c) c = '';
+			if (!c) c = ' ';
 		}
 		else if (c) {
 			let m = $(t).text().match(Helpers.Emoji());
