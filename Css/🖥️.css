@@ -34,7 +34,8 @@
 	background-image: linear-gradient(to bottom right, var(--🖥️-c-be-1), var(--🖥️-c-be-2) ); } 
 #📒 > div::first-line { font-size: 17px; }
 #📒 > div > div:last-child { width: 97%; height: 0.25em; border-radius : 0.25em; border:0.1em solid rgba(var(--🖥️-c-b-1_rgb), 0.702); } 
-.popup { border-radius: 15px; background-color: var(--🖥️-c-be-1); direction: ltr; }  
+.popup { min-height: 2em; min-height: 4em; text-align: center; vertical-align: middle; direction: ltr; 
+	border:0.1em solid rgba(var(--🖥️-c-b-1_rgb), 0.702); border-radius: 15px; background-color: var(--🖥️-c-be-1); }  
 .markIconText > *:first-child { transform:scale(1.3); left:2%; }
 .markIconText > *:nth-child(2) { transform:scale(1.2); left:-6%; 
 	text-shadow: 5px 0px 5px var(--🖥️-c-b-1), 0px 5px 5px var(--🖥️-c-b-1), -5px 0px 5px var(--🖥️-c-b-1), 0px -5px 5px var(--🖥️-c-b-1), 0px 0px 40px var(--🖥️-c-b-1), 0px 0px 30px var(--🖥️-c-bs-2); }

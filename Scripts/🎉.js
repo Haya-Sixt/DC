@@ -143,7 +143,7 @@ static Add (html, t) {
 			'margin-top' : function() {
 				var height=10;
 				$(".popup").each((i, t)=> {
-					height += $(t).innerHeight() + 10;
+					height += $(t).outerHeight() + 10;
 				});
 				return -height; 
 			}
