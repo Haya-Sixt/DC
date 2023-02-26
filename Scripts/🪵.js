@@ -16,7 +16,7 @@ wdgt.Update = ()=> {
 		r += `<div data="${e.log}" ${ e.log.indexOf("[") == -1 && 'style="display:none;"' }>${e.log}</div>`;
 
 		// Set shishi
-		if ( e.log.substring(17).substring(0,4) == '🕯️ ' )
+		if ( e.log.substring(6).substring(0,4) == '🕯️ ' )
 			shishi = e.startedAt;
 	};
 	
