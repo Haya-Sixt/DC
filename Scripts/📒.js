@@ -8,29 +8,28 @@ wdgt.dependency = ['📆', $app.Vars.Dependency('🕯️')];
 
 //
 wdgt.Update = ()=> { 
-	var result = '',
-		now = parseInt( new Date().getTime() / 1000 );
+	const now = parseInt( new Date().getTime() / 1000 );
+	let result = '';
 	
 	for (var i=0; i<wdgt.data.notes.length; i++) {
-		var cmd = wdgt.data.notes[i][1].substring( wdgt.data.notes[i][1].indexOf('📒')+1 ).replaceAll(' ',''),
+		const cmd = wdgt.data.notes[i][1].substring( wdgt.data.notes[i][1].indexOf('📒')+1 ).replaceAll(' ',''),
 			cond = cmd.substring( cmd.indexOf('(')+1, cmd.indexOf(')') ),
 			duration = parseHM(cmd.substring( cmd.indexOf("[")+1, cmd.indexOf("]") )),
-			condC = ','+cond.replaceAll('+',',').replaceAll('-',',')+',',
-			startedAt=0, endsAt, indx;
+			condC = ','+cond.replaceAll('+',',').replaceAll('-',',')+',';
+		let startedAt=0, endsAt, indx;
 		
 			
 		// Starts at :
 		
 		// 🗓️
 		if ((indx=condC.indexOf(',תאריך_'))!=-1) {
-			var dm = (dm=condC.substring(indx+7)).substring(0, dm.indexOf(',')).split('_'),
+			let dm = (dm=condC.substring(indx+7)).substring(0, dm.indexOf(',')).split('_'),
 				d = dm[0].replace('ʼ',"'"), m = dm[1];
 				
-			// every month
-			if (m == 'בחודש') {
+			if (m == 'בחודש' || $app.Widgets['📅👈'].data.month.includes(m)) {
 				if ($('#🗓️ .tdCurrent .hebdate').text().indexOf(d) != -1)
 					// default is 🌇
-					startedAt = $app.Vars['🌇'] + parseHM(cond, 'תאריך_'+d+'_'+m,condC);
+					startedAt = $app.Widgets['📆'].data['🌇'] + parseHM(cond, 'תאריך_'+d+'_'+m,condC);
 				else
 					continue; 
 			}
@@ -46,7 +45,7 @@ wdgt.Update = ()=> {
 		
 		// 🌇
 		if (condC.indexOf(',🌇,')!=-1) {
-			startedAt = $app.Vars['🌇'] + parseHM(cond,'🌇',condC);
+			startedAt = $app.Widgets['📆'].data['🌇'] + parseHM(cond,'🌇',condC);
 		}
 		
 		if (!startedAt || startedAt>now) 
@@ -60,9 +59,21 @@ wdgt.Update = ()=> {
 			continue;
 			
 		//
-		result += '<div name="note" startedAt="'+startedAt+'" duration="'+duration+'" >' 
-			+ wdgt.data.notes[i][0]+'<br>'+wdgt.data.notes[i][1].substring(0,wdgt.data.notes[i][1].indexOf('📒')).replaceAll('<br>','  ') 
-			+ '<div style="background-image: linear-gradient(to right, rgba(250, 20, 80, 0.6) 0%, rgba(100, 100, 241, 0.6) 0% );"></div></div>';
+		const Zmanit = (h)=> {
+				const d = new Date($app.Widgets['📆'].data('🌄')), 
+					m = parseFloat (($app.Widgets['📆'].data('🙏🏻') - $app.Widgets['📆'].data('👑')) / (60)).toFixed(1);
+				h -= 4;
+				d.setMinutes(d.getMinutes() + (m * h));
+				return `${d.getHours()}:${d.getMinutes()}`;
+			},
+			n = `<div name="note" startedAt="${startedAt}" duration="${duration}" >${
+				wdgt.data.notes[i][0]<br>$wdgt.data.notes[i][1].substring(0,wdgt.data.notes[i][1].indexOf('📒'))}`;
+		result = `${result}${
+			n.replaceAll('<br>','  ')
+			.replace ('{{Zmanit_4.5}}',  Zmanit(4.5))
+			.replace ('{{Zmanit_5.8}}',  Zmanit(5.8))
+			.replace ('{{Zmanit_10}}',  Zmanit(10))
+			}<div style="background-image: linear-gradient(to right, rgba(250, 20, 80, 0.6) 0%, rgba(100, 100, 241, 0.6) 0% );"></div></div>`;
 	}
 	
 	$(wdgt.sid).html(result);

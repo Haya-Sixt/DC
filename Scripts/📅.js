@@ -251,11 +251,13 @@ wdgt.url = ()=> `/times_${$app.Widgets['📅👈'].data.year}_${$app.Widgets['�
 //
 wdgt.Update = ()=> {
 	let times = '', ldate = new Date().toLocaleDateString('he-IL').replace('.','/').replace('.','/'),
-		trH = wdgt.data.substring(wdgt.data.indexOf("<td"),wdgt.data.indexOf("</tr")), 
+		trH = wdgt.data.substring(wdgt.data.indexOf("<td"), wdgt.data.indexOf("</tr")), 
 		trT = wdgt.data.substring(wdgt.data.indexOf(ldate));
+
+	wdgt.data = {};
 	trH = trH.replaceAll(' class="tdHead visible ','').replaceAll('type-date"','').replaceAll('type-time"','').replaceAll('type-limud"','').replaceAll('</td><td>','|').replaceAll('<td>','').replaceAll('</td>','').split('|'); 
 	trT = trT.substring(0, trT.indexOf("</tr")).replaceAll('</td><td>','|').replaceAll('</td>','').split('|');
-		
+	
 	for (var i=0; i<trH.length; i++) {
 		switch (trH[i]) {
 		case "עלות השחר": td("🏙️"); break;
@@ -274,14 +276,9 @@ wdgt.Update = ()=> {
 		}
 	}
 
-	times = "<table>"+times+"</table>";
+	times = `<table>${times}</table>`;
 	$(wdgt.sid).html(times);
 
-	// 🌇
-	var shm = $(wdgt.sid + " td:contains(🌇)").next().text().split(':');
-		($app.Vars['🌇']=new Date()).setHours(shm[0], shm[1], 0, 0);
-		$app.Vars['🌇'] = parseInt(new Date($app.Vars['🌇']).getTime()/1000);
-	
 	// daf yomi
 	$(wdgt.sid + ' .dafYomi').width($('#🗓️ .tdCurrent').width())
 		.appendTo('#🗓️ .tdCurrent');  // 🗒: '.detach()' not needed
@@ -293,13 +290,17 @@ wdgt.Update = ()=> {
 
 	//
 	function td(emoji) {
-		times += '<tr><td class="📆name">'+emoji+'</td><td class="📆val">'+trT[i]+'</td></tr>';
+		const hm = trT[i].split(':'),
+			t = new Date();
+		t.setHours(hm[0], hm[1], 0, 0);
+	  wdgt.data[emoji] = parseInt(t.getTime()/1000); // In used: 📒
+		times = `${times}<tr><td class="📆name">${emoji}</td><td class="📆val">${trT[i]}</td></tr>`;
 	}
 
 	//
 	function tdDafYomi() {
 		times += '<tr><td class="📆name"></td><td class="📆val"><div class="dafYomi">'+trT[i]+'</div></td></tr>';
-	}
+	} 
 };
 
 //
@@ -319,6 +320,6 @@ function Mark() {
 	if (first ) {
 		first.addClass('markIconText'); 
 	}
-}  
+} 
 
 })();
