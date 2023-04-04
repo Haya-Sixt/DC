@@ -62,7 +62,7 @@ wdgt.Update = ()=> {
 		//
 		const Zmanit = (h)=> {
 				const d = new Date($app.Widgets['📆'].data['🌄']), 
-					m = parseFloat (($app.Widgets['📆'].data['🙏🏻'] - $app.Widgets['📆'].data['👑']) / (60)).toFixed(1);
+					m = parseFloat(parseFloat (($app.Widgets['📆'].data['🙏'] - $app.Widgets['📆'].data['👑']) / 60).toFixed(1));
 				h -= 4;
 				d.setMinutes(d.getMinutes() + (m * h));
 				return `${d.getHours()}:${d.getMinutes()}`;
