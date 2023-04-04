@@ -9,7 +9,7 @@ wdgt.dependency = ['📆', $app.Vars.Dependency('🕯️')];
 //
 wdgt.Update = ()=> { 
 	const now = parseInt( new Date().getTime() / 1000 );
-	let result = '';
+	let rs = '';
 	
 	for (var i=0; i<wdgt.data.notes.length; i++) {
 		const cmd = wdgt.data.notes[i][1].substring( wdgt.data.notes[i][1].indexOf('📒')+1 ).replaceAll(' ',''),
@@ -23,13 +23,14 @@ wdgt.Update = ()=> {
 		
 		// 🗓️
 		if ((indx=condC.indexOf(',תאריך_'))!=-1) {
-			let dm = (dm=condC.substring(indx+7)).substring(0, dm.indexOf(',')).split('_'),
-				d = dm[0].replace('ʼ',"'"), m = dm[1];
+			const dm1 = condC.substring(indx+7),
+				dm2 = dm1.substring(0, dm1.indexOf(',')).split('_'),
+				dmd = dm2[0].replace('ʼ',"'"), dmm = dm2[1];
 				
-			if (m == 'בחודש' || $app.Widgets['📅👈'].data.month.includes(m)) {
-				if ($('#🗓️ .tdCurrent .hebdate').text().indexOf(d) != -1)
+			if (dmm == 'בחודש' || $app.Widgets['📅👈'].data.month.includes(dmm)) {
+				if ($('#🗓️ .tdCurrent .hebdate').text().indexOf(dmd) != -1)
 					// default is 🌇
-					startedAt = $app.Widgets['📆'].data['🌇'] + parseHM(cond, 'תאריך_'+d+'_'+m,condC);
+					startedAt = $app.Widgets['📆'].data['🌇'] + parseHM(cond, 'תאריך_'+dmd+'_'+dmm, condC);
 				else
 					continue; 
 			}
@@ -66,17 +67,17 @@ wdgt.Update = ()=> {
 				d.setMinutes(d.getMinutes() + (m * h));
 				return `${d.getHours()}:${d.getMinutes()}`;
 			},
-			n = `<div name="note" startedAt="${startedAt}" duration="${duration}" >${
+			r = `<div name="note" startedAt="${startedAt}" duration="${duration}" >${
 				wdgt.data.notes[i][0]<br>$wdgt.data.notes[i][1].substring(0,wdgt.data.notes[i][1].indexOf('📒'))}`;
-		result = `${result}${
-			n.replaceAll('<br>','  ')
+		rs = `${rs}${
+			r.replaceAll('<br>','  ')
 			.replace ('{{Zmanit_4.5}}',  Zmanit(4.5))
 			.replace ('{{Zmanit_5.8}}',  Zmanit(5.8))
 			.replace ('{{Zmanit_10}}',  Zmanit(10))
 			}<div style="background-image: linear-gradient(to right, rgba(250, 20, 80, 0.6) 0%, rgba(100, 100, 241, 0.6) 0% );"></div></div>`;
 	}
 	
-	$(wdgt.sid).html(result);
+	$(wdgt.sid).html(rs);
 	
 	Progress ();
 };
