@@ -68,7 +68,7 @@ wdgt.Update = ()=> {
 				return `${d.getHours()}:${d.getMinutes()}`;
 			},
 			r = `<div name="note" startedAt="${startedAt}" duration="${duration}" >${
-				wdgt.data.notes[i][0]<br>$wdgt.data.notes[i][1].substring(0,wdgt.data.notes[i][1].indexOf('📒'))}`;
+				wdgt.data.notes[i][0]}<br>${wdgt.data.notes[i][1].substring(0,wdgt.data.notes[i][1].indexOf('📒'))}`;
 		rs = `${rs}${
 			r.replaceAll('<br>','  ')
 			.replace ('{{Zmanit_4.5}}',  Zmanit(4.5))
