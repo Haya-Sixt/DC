@@ -12,7 +12,6 @@ const app = {
         Dependency: (v = '')=> `V.${v}`,
         '🕯️': 0, 
         '🕯️🕯️': false, 
-        '🌇': 0, // used by 📒 (set by 📆)
         '☔': false
     },
     Widgets: [],
