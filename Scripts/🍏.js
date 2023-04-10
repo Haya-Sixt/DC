@@ -10,9 +10,7 @@ const app = {
     },
     Vars : { 
         Dependency: (v = '')=> `V.${v}`,
-        '🕯️': 0, 
-        '🕯️🕯️': false, 
-        '☔': false
+        '🕯️': 0
     },
     Widgets: [],
     Widget: class Widget {

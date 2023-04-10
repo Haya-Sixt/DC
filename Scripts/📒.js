@@ -1,4 +1,4 @@
-// 
+// 1.
 (()=>{
 
 // Notes
@@ -8,85 +8,98 @@ wdgt.dependency = ['📆', $app.Vars.Dependency('🕯️')];
 
 //
 wdgt.Update = ()=> { 
-	const now = parseInt( new Date().getTime() / 1000 );
 	let rs = '';
-	
-	for (var i=0; i<wdgt.data.notes.length; i++) {
-		const cmd = wdgt.data.notes[i][1].substring( wdgt.data.notes[i][1].indexOf('📒')+1 ).replaceAll(' ',''),
+
+	for (const e of wdgt.Entries()) { // 🗒: yield doesn't work with forEach because it's callback
+		if (e.text == '') continue;
+		const r = `<div name="note" startedAt="${e.startedAt}" duration="${e.duration}" >${e.title}<br>${e.text}`;
+		rs = `${rs}${r.replace ('{{Zmanit_4.5}}',  Zmanit(4.5)).replace ('{{Zmanit_5.8}}',  Zmanit(5.8)).replace ('{{Zmanit_10}}',  Zmanit(10))
+			}<div style="background-image: linear-gradient(to right, rgba(250, 20, 80, 0.6) 0%, rgba(100, 100, 241, 0.6) 0% );"></div></div>`;
+	}
+
+	$(wdgt.sid).html(rs);
+	Progress ();
+};
+
+//
+function Zmanit (h) {
+	const T = (t)=> $app.Widgets['📆'].data[t],
+		d = new Date(T('👑') * 1000), 
+		m = parseFloat(parseFloat ((T('🙏') - T('👑')) / 60).toFixed(1));
+		h -= 4;
+	d.setMinutes(d.getMinutes() + (m * h));
+	return `${d.getHours()}:${d.getMinutes()}`;
+}
+
+//
+wdgt.Entries = function* () {
+	const now = parseInt( new Date().getTime() / 1000 );
+
+	for (var i = 0; i < wdgt.data.notes.length; i++) {
+		const e = wdgt.data.notes[i],
+			cmd = e[1].substring( e[1].indexOf('📒')+1 ).replaceAll(' ',''),
 			cond = cmd.substring( cmd.indexOf('(')+1, cmd.indexOf(')') ),
 			duration = parseHM(cmd.substring( cmd.indexOf("[")+1, cmd.indexOf("]") )),
 			condC = ','+cond.replaceAll('+',',').replaceAll('-',',')+',';
-		let startedAt=0, endsAt, indx;
+		let startedAt = 0, x, c;
 		
-			
-		// Starts at :
-		
-		// 🗓️
-		if ((indx=condC.indexOf(',תאריך_'))!=-1) {
-			const dm1 = condC.substring(indx+7),
-				dm2 = dm1.substring(0, dm1.indexOf(',')).split('_'),
-				dmd = dm2[0].replace('ʼ',"'"), dmm = dm2[1];
-				
-			if (dmm == 'בחודש' || $app.Widgets['📅👈'].data.month.includes(dmm)) {
-				if ($('#🗓️ .tdCurrent .hebdate').text().indexOf(dmd) != -1)
-					// default is 🌇
-					startedAt = $app.Widgets['📆'].data['🌇'] + parseHM(cond, 'תאריך_'+dmd+'_'+dmm, condC);
-				else
-					continue; 
-			}
-		}
-		
-		// 🕯️
-		if (condC.indexOf(',🕯️,')!=-1) {
-			if ($app.Vars['🕯️']>0)
-				startedAt = $app.Vars['🕯️'] + parseHM(cond,'🕯️',condC)
-			else
-				continue;
-		}
-		
-		// 🌇
-		if (condC.indexOf(',🌇,')!=-1) {
-			startedAt = $app.Widgets['📆'].data['🌇'] + parseHM(cond,'🌇',condC);
-		}
-		
-		if (!startedAt || startedAt>now) 
-			continue;
-		
-			
-		// Ends at
-		endsAt = startedAt + duration;
-	
-		if (endsAt<now) 
-			continue;
-			
 		//
-		const Zmanit = (h)=> {
-				const d = new Date($app.Widgets['📆'].data['👑'] * 1000), 
-					m = parseFloat(parseFloat (($app.Widgets['📆'].data['🙏'] - $app.Widgets['📆'].data['👑']) / 60).toFixed(1));
-				h -= 4;
-				d.setMinutes(d.getMinutes() + (m * h));
-				return `${d.getHours()}:${d.getMinutes()}`;
-			},
-			r = `<div name="note" startedAt="${startedAt}" duration="${duration}" >${
-				wdgt.data.notes[i][0]}<br>${wdgt.data.notes[i][1].substring(0,wdgt.data.notes[i][1].indexOf('📒'))}`;
-		rs = `${rs}${
-			r.replaceAll('<br>','  ')
-			.replace ('{{Zmanit_4.5}}',  Zmanit(4.5))
-			.replace ('{{Zmanit_5.8}}',  Zmanit(5.8))
-			.replace ('{{Zmanit_10}}',  Zmanit(10))
-			}<div style="background-image: linear-gradient(to right, rgba(250, 20, 80, 0.6) 0%, rgba(100, 100, 241, 0.6) 0% );"></div></div>`;
+		c = '📅';
+		x = condC.indexOf(`,${c}`);
+		if (x != -1) {
+			let cs = condC.substring(x + String(`,${c}`).length);
+			cs = cs.substring(0, cs.indexOf(','));
+			const dm = cs.split('_'), dmd = dm[0].replace('ʼ',"'"), dmm = dm.length1 > 1 ? dm[1] : '';
+			if ((dmm != '' && !$app.Widgets['📅👈'].data.month.includes(dmm)) || !($('#🗓️ .tdCurrent .hebdate').text()).includes(dmd)) continue; 
+		}
+				
+		// 
+		c = '📆';
+		x = condC.indexOf(`,${c}`);
+		if (x != -1) {
+			let cs = condC.substring(x + String(`,${c}`).length);
+			cs = cs.substring(0, cs.indexOf(','));
+			x = Math.max(cs.indexOf('+'), cs.indexOf('-'));
+		  
+			startedAt = $app.Widgets['📆'].data [x == -1 ? cs : cs.slice(0, x)];
+			if (x != -1) startedAt += parseHM(cond, c+cs.slice(0, x), condC);
+		
+		  if (!startedAt || startedAt > now || startedAt + duration < now) continue;
+		}
+
+		//
+		c = '🗓️';
+		x = condC.indexOf(`,${c}`);
+		if (x != -1) {
+			let cs = condC.substring(x + String(`,${c}`).length);
+			cs = cs.substring(0, cs.indexOf(','));
+
+			if (!($('#🗓️ .tdCurrent').text()).includes(cs)) continue; 
+		}
+
+		// 
+		c = '🕯️';
+		x = $app.Vars[c];
+		if (condC.includes(`,${c},`)) {
+			if (x) startedAt = x + parseHM(cond, c, condC);
+			if (!x || x <= 0 || startedAt > now || startedAt + duration < now) continue;
+		}
+
+		//
+		yield {			
+			title: e[0],
+			text: e[1].substring(0, e[1].indexOf('📒')).replaceAll('<br>','  ').trim(),
+			startedAt: startedAt,
+			duration: duration 
+		};
 	}
-	
-	$(wdgt.sid).html(rs);
-	
-	Progress ();
 };
 
 function parseHM(cond, find, condC) {
 	var t=0;
 	if ( find ) {
 		if ( (indx=condC.indexOf(','+find+',')) == -1) return 0;
-		// 🗒: emoji are 2 for the substring, but are 1 for the length
+		// 🗒: emoji are 2/3 for the substring, but are 1 for the length
 		cond = cond.substring( indx ) + ',';
 		cond = cond.substring(0, cond.indexOf(',') );
 		if ((indx=cond.indexOf('+')) != -1)
@@ -138,5 +151,30 @@ function Progress () {
 	
 	} catch (e) { wdgt.Error(e, 'Progress') } 
 } 
+
+})();
+
+
+// 2.
+(()=>{
+
+// Status icons
+const wdgt = new $app.Widget('🚥');
+wdgt.repeat = { update: 3 };
+wdgt.dependency = ['📒'];
+
+wdgt.Init = ()=> {
+
+}
+
+wdgt.Update = ()=> { 
+	let rs = '';
+
+	for (const e of $app.Widgets['📒'].Entries()) {
+    if (e.text == '') rs = `${rs}<div>${e.title}</div>`;
+	}
+
+	$(wdgt.sid).html(rs);
+}
 
 })();

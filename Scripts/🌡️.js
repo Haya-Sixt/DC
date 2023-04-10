@@ -36,9 +36,8 @@ function Normalize () {
 		});
 	});
 	
-	$app.Vars['☔'] = false;
 	$.each( wdgt.data.data, function( key, val, i) {
-		if (key==1 && val.pop) $app.Vars['☔'] = true;
+		if (key==1 && val.pop) wdgt.data['☔'] = true;
 		
 		columnBuilder.push({
 			y: [axisY_min,(axisY_max-axisY_min)*val.pop/100+axisY_min]

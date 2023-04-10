@@ -23,7 +23,7 @@ const wdgt = new $app.Widget('📅👈');
 wdgt.Init = ()=> {
 	wdgt.data = { 
 		year: new Intl.DateTimeFormat('he-u-ca-hebrew',{year:'numeric'}).format(new Date()),
-		month: wdgt.Month(new Date()) 
+		month: wdgt.Month(new Date())
 	};
 };
 	

@@ -8,12 +8,12 @@ wdgt.dependency = ['🗓️','⏱️'];
 
 //
 wdgt.Update = ()=> {
-	let r='', now = parseInt( new Date().getTime() / 1000 ),
+	let rs ='', now = parseInt( new Date().getTime() / 1000 ),
 		forecast_clock = parseInt(new Date(wdgt.data.forecast_clock).getTime()/1000),
 		shishi = 0;
 	
 	for (const e of wdgt.Entries(now)) { // 🗒: yield doesn't work with forEach because it's callback
-		r += `<div data="${e.log}" ${ e.log.indexOf("[") == -1 && 'style="display:none;"' }>${e.log}</div>`;
+		rs += `<div data="${e.log}" ${ e.log.indexOf("[") == -1 && 'style="display:none;"' }>${e.log}</div>`;
 
 		// Set shishi
 		if ( e.log.substring(6).substring(0,4) == '🕯️ ' )
@@ -21,24 +21,24 @@ wdgt.Update = ()=> {
 	};
 	
 	// 🕯️🕯️
-	$app.Vars['🕯️'] = shishi;
-	$app.Vars['🕯️🕯️'] = wdgt.data.shabbat;
+  $app.Vars ['🕯️'] = shishi;
+	wdgt.data ['🕯️🕯️'] = wdgt.data.shabbat;
 	
 	// 🔋
-	if (wdgt.data.battery!="100") r = `<div class="error">${'....'.substring(0,4-wdgt.data.battery.length)}${wdgt.data.battery}% ⚠️🔋</div>${r}`;
+	if (wdgt.data.battery!="100") rs = `<div class="error">${'....'.substring(0,4-wdgt.data.battery.length)}${wdgt.data.battery}% ⚠️🔋</div>${rs}`;
 			
 	// 🌡️
 	if (now - forecast_clock > 6*60*60) {
 		var h = ((now - forecast_clock) / -60);
-		if (h<24) h='>24'
-		else h=h.toFixed(1);
-		r = `<div class="error">${h}h   ⚠️🌡️</div>${r}`;
+		if (h < 24) h = '>24'
+		else h = h.toFixed(1);
+		rs = `<div class="error">${h}h   ⚠️🌡️</div>${rs}`;
 	}
 		
 	// ⏱️
-	r = `<div>${$('#⏱️').text()}</div>${r}`; 
+	rs = `<div>${$('#⏱️').text()}</div>${rs}`; 
 	
-	$(wdgt.sid).html(r);
+	$(wdgt.sid).html(rs);
 
 	Background ();
 };
@@ -49,10 +49,10 @@ function Background() {
 	var bg = 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' version=\'1.1\'><text x=\'3%\' y=\'90%\' font-size=\'4em\'>', 
 		a = $("#🗓️ .tdCurrent").text().match(Helpers.Emoji()),
 		c = '';
-	if ( $app.Vars['🕯️🕯️'] == "true" )  c += '🕯️🕯️';
-	if ( a )  c += a.join('');
-	if ( $app.Vars['☔'] )  c += '☔️';
-	if ( c == '')  c += '🌴';
+	if ( wdgt.data['🕯️🕯️'] == "true" ) c += '🕯️🕯️';
+	if ( a ) c += a.join('');
+	if ( $app.Widgets['🌡️']?.data['☔'] ) c += '☔️';
+	if ( c == '') c += '🌴';
 	
 	$(wdgt.sid).css('backgroundImage', bg + dx(c) + '</text></svg>")');
 
@@ -70,10 +70,10 @@ function Background() {
 
 //
 wdgt.Entries = function* (now) {
-	let log = wdgt.data.log.split('∆'); 
+	const log = wdgt.data.log.split('∆'); 
 	
-	for (var i=0; i<log.length; i++) {
-		var startedAt = parseInt(new Date(log[i].substring(0,16)).getTime()/1000);
+	for (let i=0; i<log.length; i++) {
+		let startedAt = parseInt(new Date(log[i].substring(0,16)).getTime()/1000);
 
 		if (now - startedAt > 6*60*60) continue;
 		yield {log: log[i].substring(11), startedAt: startedAt};
@@ -89,11 +89,11 @@ wdgt.Entries = function* (now) {
 	// Progress Bar
 	const wdgt = new $app.Widget('🪵Progress');
 	wdgt.dependency = ['🪵'];
-	wdgt.repeat = { init: 3, update: 1 };
+	wdgt.repeat = { update: 1 };
 
 	//
 	wdgt.Init = ()=> {
-		let r='', now = parseInt( new Date().getTime() / 1000 );
+		let rs = '', now = parseInt( new Date().getTime() / 1000 );
 	
 		for (const e of $app.Widgets['🪵'].Entries(now)) {
 			if (e.log.indexOf("[")==-1) continue;
@@ -110,10 +110,10 @@ wdgt.Entries = function* (now) {
 			duration = endsAt - e.startedAt;
 
 			if (now >= endsAt) $(`#🪵 div[data="${e.log}"]`).show()
-			else r += `<div name="${wdgt.id}" data="${e.log}" startedAt="${e.startedAt}" duration="${duration}"><div>${e.log}</div><div></div></div><div style="height:10px;"></div>`;
+			else rs += `<div name="${wdgt.id}" data="${e.log}" startedAt="${e.startedAt}" duration="${duration}"><div>${e.log}</div><div></div></div><div style="height:10px;"></div>`;
 		}
 		
-		$(wdgt.sid).html(r);
+		$(wdgt.sid).html(rs);
 	};
 
 	//
