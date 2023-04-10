@@ -25,7 +25,7 @@
 	background-color: var(--🖥️-c-bs-2); background-repeat: no-repeat; display: flex; flex-wrap: no-wrap; }
 .🪵Progress div:first-child { flex: 100%; text-overflow: ellipsis; overflow: hidden; }
 .🪵Progress div:last-child { flex: 1px; white-space: nowrap; }
-#🚥 { font-size:1.8em; } 
+#🚥 { font-size:1.8em; display: flex; column-gap: 5px; } 
 #🚥 > div { background-color: var(--🖥️-c-be-1); animation-name: 🚥; animation-duration: 2s; animation-iteration-count: infinite; } 
 #📒 { display: flex; flex-flow: row wrap; height: 100%; width: 100%; pointer-events: none; 
 	align-items: center;justify-content: center; align-content: center; padding-top: 10%; 
