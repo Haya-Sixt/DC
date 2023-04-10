@@ -11,10 +11,10 @@
 #⌚ { font-size:9.9em; text-align:center; 
 	animation-name: ⌚; animation-duration: 12s; animation-iteration-count: infinite; } 
 #⌚ :last-child { position: relative; width: 6%; height: 65%; left: -47%; top: -83%; 
-	animation-name: ⌚colon; animation-duration: 2s; animation-timing-function: ease; animation-iteration-count: infinite; } 
+	animation-name: ⌚Colon; animation-duration: 2s; animation-timing-function: ease; animation-iteration-count: infinite; } 
 #📅👉 { font-size:22px; } 
 #📅👈 { font-size:20px; } 
-#💈 span, #🚥 { font-size:23px; } 
+#💈 span { font-size:23px; } 
 #⏰ { font-size:23px; text-align:left; padding:0 0 0 3px; }
 #🪵, #🪵Progress { color:var(--🖥️-c-tbs-1); direction:ltr; } 
 #🪵, #🚥 > div, #⏰:not(.markIconText) { border-radius: 20px; border: 1px solid var(--🖥️-c-t-2); text-overflow: ellipsis; overflow: hidden; }
@@ -25,7 +25,8 @@
 	background-color: var(--🖥️-c-bs-2); background-repeat: no-repeat; display: flex; flex-wrap: no-wrap; }
 .🪵Progress div:first-child { flex: 100%; text-overflow: ellipsis; overflow: hidden; }
 .🪵Progress div:last-child { flex: 1px; white-space: nowrap; }
-#🚥 > div { animation-name: ⌚; animation-duration: 1s; animation-iteration-count: infinite; } 
+#🚥 { font-size:1.8em; } 
+#🚥 > div { background-color: var(--🖥️-c-be-1); animation-name: 🚥; animation-duration: 2s; animation-iteration-count: infinite; } 
 #📒 { display: flex; flex-flow: row wrap; height: 100%; width: 100%; pointer-events: none; 
 	align-items: center;justify-content: center; align-content: center; padding-top: 10%; 
 	animation-name: 📒; animation-duration: 12s; animation-iteration-count: infinite; } 
@@ -54,18 +55,18 @@
 #⏰.markIconText { top:43%; left: 4.5%; }  
 #🪵, #⏰ { left:3%; width:17.3%; } 
 #🪵 { top:54%; height:41.5%; } 
-#🚥 { top: 94%; left: 5%}
+#🚥 { top: 92%; left: 5%}
 #🪵Progress { left:20%; width:60%; height:0%; } 
 .popup { left: 50%; top: 70%; } 
 
 #⏱️{ display: none; } 
 
 @keyframes ⌚ { 0% {color: rgba(var(--🖥️-c-ts-1_rgb), 0.839);} 50% {color: rgba(var(--🖥️-c-ts-2_rgb), 0.459);} 100% {color: rgba(var(--🖥️-c-ts-1_rgb), 0.839);} } 
-@keyframes ⌚colon { 0% {backdrop-filter: brightness(0.7);} 50% {backdrop-filter: brightness(0);} 100% {backdrop-filter: brightness(0.7);} }  
+@keyframes ⌚Colon { 0% {backdrop-filter: brightness(0.7);} 50% {backdrop-filter: brightness(0);} 100% {backdrop-filter: brightness(0.7);} }  
 @keyframes 📒 { 0% {backdrop-filter: unset;} 50% {backdrop-filter: grayscale(50%);} 100% {backdrop-filter: unset;} } 
+@keyframes 🚥 { 50% {filter: drop-shadow(2px 4px 6px var(--🖥️-c-be-1));} }
 
 }
-
 
 /* 📱 (RN10S) */
 @media screen and (max-device-width: 500px) {
