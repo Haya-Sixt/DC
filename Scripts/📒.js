@@ -37,10 +37,10 @@ wdgt.Entries = function* () {
 
 	for (var i = 0; i < wdgt.data.notes.length; i++) {
 		const e = wdgt.data.notes[i],
-			cmd = e[1].substring( e[1].indexOf('📒')+1 ).replaceAll(' ',''),
-			cond = cmd.substring( cmd.indexOf('(')+1, cmd.indexOf(')') ),
-			duration = parseHM(cmd.substring( cmd.indexOf("[")+1, cmd.indexOf("]") )),
-			condC = ','+cond.replaceAll('+',',').replaceAll('-',',')+',';
+			cmd = e[1].substring( e[1].indexOf('📒') + 1 ).replaceAll(' ', ''),
+			cond = cmd.substring( cmd.indexOf('(') + 1, cmd.indexOf(')') ),
+			duration = parseHM(cmd.substring( cmd.indexOf("[") + 1, cmd.indexOf("]") )),
+			condC = `,${cond.replaceAll('+', ',').replaceAll('-', ',')},`;
 		let startedAt = 0, x, c;
 		
 		//
@@ -168,11 +168,13 @@ wdgt.Init = ()=> {
 }
 
 wdgt.Update = ()=> { 
-	let rs = '';
+	let rs = '', r;
 
 	for (const e of $app.Widgets['📒'].Entries()) {
     if (e.text == '') rs = `${rs}<div>${e.title}</div>`;
 	}
+
+	if ((r = $app.Widgets['🌡️']?.data['☔'])) rs = `${rs}<div>${r}</div>`;
 
 	$(wdgt.sid).html(rs);
 }

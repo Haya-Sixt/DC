@@ -46,12 +46,11 @@ wdgt.Update = ()=> {
 //
 function Background() {
 	try {		
-	var bg = 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' version=\'1.1\'><text x=\'3%\' y=\'90%\' font-size=\'4em\'>', 
-		a = $("#🗓️ .tdCurrent").text().match(Helpers.Emoji()),
-		c = '';
+	let bg = 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' version=\'1.1\'><text x=\'3%\' y=\'90%\' font-size=\'4em\'>', 
+		c = '', cs;
 	if ( wdgt.data['🕯️🕯️'] == "true" ) c += '🕯️🕯️';
-	if ( a ) c += a.join('');
-	if ( $app.Widgets['🌡️']?.data['☔'] ) c += '☔️';
+	if ( (cs = $("#🗓️ .tdCurrent").text().match(Helpers.Emoji())) ) c += cs.join('');
+	if ( (cs = $app.Widgets['🌡️']?.data['☔']) ) c += cs;
 	if ( c == '') c += '🌴';
 	
 	$(wdgt.sid).css('backgroundImage', bg + dx(c) + '</text></svg>")');
