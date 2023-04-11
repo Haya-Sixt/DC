@@ -46,7 +46,7 @@ wdgt.Update = ()=> {
 //
 function Background() {
 	try {		
-	let bg = 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' version=\'1.1\'><text x=\'3%\' y=\'90%\' font-size=\'4em\'>', 
+	let bg = 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' version=\'1.1\'><text x=\'3%\' y=\'90%\' font-size=\'3.8em\'>', 
 		c = '', cs;
 	if ( wdgt.data['🕯️🕯️'] == "true" ) c += '🕯️🕯️';
 	if ( (cs = $("#🗓️ .tdCurrent").text().match(Helpers.Emoji())) ) c += cs.join('');
@@ -58,10 +58,10 @@ function Background() {
 	} catch(e) { wdgt.Error(e, 'Background') }
 	
 	//
-	function dx() {
+	function dx(c) {
 		let r = '', a = c.match(Helpers.Emoji());
 		a && a.forEach((m) => {
-			r += '<tspan dx=\'-0.' + (m == '🕯️' ? 46 : 20) + 'em\'>' + m + '</tspan>';
+			r += '<tspan dx=\'-0.' + (m == '🕯️' ? 48 : 20) + 'em\'>' + m + '</tspan>';
 		});
 		return r;
 	}
