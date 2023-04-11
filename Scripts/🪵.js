@@ -23,10 +23,7 @@ wdgt.Update = ()=> {
 	// 🕯️🕯️
   $app.Vars ['🕯️'] = shishi;
 	wdgt.data ['🕯️🕯️'] = wdgt.data.shabbat;
-	
-	// 🔋
-	if (wdgt.data.battery!="100") rs = `<div class="error">${'....'.substring(0,4-wdgt.data.battery.length)}${wdgt.data.battery}% ⚠️🔋</div>${rs}`;
-			
+				
 	// 🌡️
 	if (now - forecast_clock > 6*60*60) {
 		var h = ((now - forecast_clock) / -60);
@@ -50,8 +47,10 @@ function Background() {
 		c = '', cs;
 	if ( wdgt.data['🕯️🕯️'] == "true" ) c += '🕯️🕯️';
 	if ( (cs = $("#🗓️ .tdCurrent").text().match(Helpers.Emoji())) ) c += cs.join('');
-	if ( (cs = $app.Widgets['🌡️']?.data['☔']) ) c += cs;
-	if ( c == '') c += '🌴';
+	if ( c == '') {
+		if ( (cs = $app.Widgets['🌡️']?.data['☔']) ) c += cs
+ 		else c += '🌴';
+	}
 	
 	$(wdgt.sid).css('backgroundImage', bg + dx(c) + '</text></svg>")');
 

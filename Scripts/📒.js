@@ -174,7 +174,13 @@ wdgt.Update = ()=> {
     if (e.text == '') rs = `${rs}<div>${e.title}</div>`;
 	}
 
-	if ((r = $app.Widgets['🌡️']?.data['☔'])) rs = `${rs}<div>${r}</div>`;
+	// 🔋
+	r = $app.Widgets['🪵']?.data?.battery;
+	if (r && r != "100") rs = `${rs}<div>🔋<span>${r}<span></div>`;
+
+	// ☔
+	r = $app.Widgets['🌡️']?.data['☔'];
+	if (r) rs = `${rs}<div>${r}</div>`;
 
 	$(wdgt.sid).html(rs);
 }
