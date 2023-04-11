@@ -135,8 +135,8 @@ imo { font-size:22px; }
 .popup {z-index: 9}
 #📒 {z-index: 8}
 #🪵Progress {z-index: 7}
-#📅👉, #📅👈 {z-index: 6}
-#⌚, #💈, #🚥 {z-index: 5}
+#📅👉, #📅👈, #🚥 {z-index: 6}
+#⌚, #💈 {z-index: 5}
 #📆, .dafYomi {z-index: 4}
 #🪵, #⏱️, #⏰ {z-index: 3}
 #🗓️ {z-index: 2}
