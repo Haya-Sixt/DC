@@ -19,24 +19,30 @@ wdgt.Update = ()=> {
 		if ( e.log.substring(6).substring(0,4) == '🕯️ ' )
 			shishi = e.startedAt;
 	};
-	
+
+	// ⏱️
+	rs = `${rs}<div>${$('#⏱️').text()}</div>`; 
+
 	// 🕯️🕯️
   $app.Vars ['🕯️'] = shishi;
 	wdgt.data ['🕯️🕯️'] = wdgt.data.shabbat;
-				
+
+	//
+	$(wdgt.sid).html(rs);
+	
+
+	// 🔋
+	if (wdgt.data.battery != "100") $app.Widgets['🚥'].Add ('🔋', wdgt.data.battery);
+
 	// 🌡️
 	if (now - forecast_clock > 6*60*60) {
 		var h = ((now - forecast_clock) / -60);
 		if (h < 24) h = '>24'
 		else h = h.toFixed(1);
-		rs = `<div class="error">${h}h   ⚠️🌡️</div>${rs}`;
+		$app.Widgets['🚥'].Add ('🌡️', `${h}h`);
 	}
-		
-	// ⏱️
-	rs = `<div>${$('#⏱️').text()}</div>${rs}`; 
-	
-	$(wdgt.sid).html(rs);
 
+	//
 	Background ();
 };
 

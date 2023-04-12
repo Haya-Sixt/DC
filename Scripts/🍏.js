@@ -5,11 +5,11 @@ const app = {
     Constants : {
         Status : { Done: 'done', NoRepeat: 'noRepeat' },
         Name: '🖥️',
-        Host: location.href.match(/.*\//umg)[0],
-        Mode: location.hash.replace('#','')
+        Host: location.href.match(/.*\//umg)[0]
     },
     Vars : { 
-        Dependency: (v = '')=> `V.${v}`,
+    	Mode: location.hash.replace('#',''),
+	    Dependency: (v = '')=> `V.${v}`,
         '🕯️': 0
     },
     Widgets: [],
@@ -33,10 +33,10 @@ const app = {
                 else return true;
             },
             Get = (url, i=0)=> {
-                let u = `${app.Constants.Mode}.json`;
+                let u = `${app.Vars.Mode}.json`;
                 if (url instanceof Array) u = url[i]
                 else if (url) u = url;
-                const db = u.endsWith('json') && app.Constants.Mode=='' ? '../' : '';
+                const db = u.endsWith('json') && app.Vars.Mode=='' ? '../' : '';
                 $.get( `${$app.Constants.Host}${db}📑/${this.id}${u}` )
                 .done((d)=> { 
                     try {

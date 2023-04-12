@@ -162,27 +162,36 @@ function Progress () {
 const wdgt = new $app.Widget('🚥');
 wdgt.repeat = { update: 3 };
 wdgt.dependency = ['📒'];
+wdgt.data = [];
 
 wdgt.Init = ()=> {
-
 }
 
 wdgt.Update = ()=> { 
 	let rs = '', r;
 
+	// 📒
 	for (const e of $app.Widgets['📒'].Entries()) {
     if (e.text == '') rs = `${rs}<div>${e.title}</div>`;
 	}
 
-	// 🔋
-	r = $app.Widgets['🪵']?.data?.battery;
-	if (r && r != "100") rs = `${rs}<div>🔋<span>${r}<span></div>`;
+	// From 'Add' - 🔋, ☔, 🌡️ ...
+	for (const [k, v] of Object.entries(wdgt.data)) {
+		r = v ? `<span>${v}<span>` : '';
+		rs = `${rs}<div>${k}${r}</div>`;
+	};
 
-	// ☔
-	r = $app.Widgets['🌡️']?.data['☔'];
-	if (r) rs = `${rs}<div>${r}</div>`;
-
+	// Resize 🪵
+	if (rs == '') $('#🪵').removeClass('🪵🚥')
+	else $('#🪵').addClass('🪵🚥');
+	
+	//
 	$(wdgt.sid).html(rs);
+}
+
+//
+wdgt.Add = (t,s)=> {
+  wdgt.data [t] = s;
 }
 
 })();
