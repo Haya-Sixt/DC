@@ -18,7 +18,7 @@
 #⏰ { font-size:23px; text-align:left; padding:0 0 0 3px; }
 #🪵, #🪵Progress { color:var(--🖥️-c-tbs-1); direction:ltr; } 
 #🪵, #⏰:not(.markIconText), #🚥 { border: 1px solid var(--🖥️-c-t-2); border-radius: 20px; text-overflow: ellipsis; overflow: hidden; }
-#🪵 { font-size:20px; padding:5px 3px 0 3px; background-repeat: no-repeat; } 
+#🪵 { font-size:20px; padding:5px 3px 0 3px; background-repeat: no-repeat; text-shadow: 2px 0px 2px var(--🖥️-c-b-1), 0px 2px 2px var(--🖥️-c-b-1), -2px 0px 2px var(--🖥️-c-b-1), 0px -2px 2px var(--🖥️-c-b-1); } 
 .🪵Progress { font-size:2em; text-shadow: 4px 4px 4px var(--🖥️-c-b-1); padding:0px; 
 	border: 1px solid var(--🖥️-c-b-1); border-radius: 15px;
 	background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" style="background-color:var(--🖥️-c-t-1)"></svg>'); /*var is been eval by js*/
@@ -56,7 +56,7 @@
 #⏰.markIconText { top:43%; left: 4.5%; }  
 #🪵, #⏰, #🚥 { left:3%; width:17.3%; } 
 #🪵 { top:54%; height:41.5%; } 
-.🪵🚥 { height: calc(41.5% - 2.2rem - 4px) !important; } 
+.🪵🚥 { height: calc(41.5% - 2.2rem - 8px) !important; } 
 #🪵Progress { left:20%; width:60%; height:0%; } 
 #🚥 { top: calc(54% + 41.5% - 2.2rem - 2px); } 
 .popup { left: 50%; top: 70%; } 
