@@ -56,9 +56,9 @@
 #⏰.markIconText { top:43%; left: 4.5%; }  
 #🪵, #⏰, #🚥 { left:3%; width:17.3%; } 
 #🪵 { top:54%; height:41.5%; } 
-.🪵🚥 { height: calc(41.5% - 2.2rem) !important; } 
+.🪵🚥 { height: calc(41.5% - 2.2rem - 4px) !important; } 
 #🪵Progress { left:20%; width:60%; height:0%; } 
-#🚥 { top: calc(98.5% - 2.2rem); } 
+#🚥 { top: calc(54% + 41.5% - 2.2rem - 2px); } 
 .popup { left: 50%; top: 70%; } 
 
 #⏱️{ display: none; } 
