@@ -12,14 +12,14 @@
 	animation-name: ⌚; animation-duration: 12s; animation-iteration-count: infinite; } 
 #⌚ :last-child { position: relative; width: 6%; height: 65%; left: -47%; top: -83%; 
 	animation-name: ⌚Colon; animation-duration: 2s; animation-timing-function: ease; animation-iteration-count: infinite; } 
-#📅👉 { font-size:22px; } 
-#📅👈 { font-size:20px; } 
-#💈 span { font-size:23px; } 
-#⏰ { font-size:23px; text-align:left; padding:0 0 0 3px; }
-#🪵, #🪵Progress { color:var(--🖥️-c-tbs-1); direction:ltr; } 
+#📅👉 { font-size: 22px; } 
+#📅👈 { font-size: 20px; } 
+#💈 span { font-size: 23px; } 
+#⏰ { font-size: 23px; text-align:left; padding:0 0 0 3px; }
+#🪵, #🪵Progress { color: var(--🖥️-c-tbs-1); direction:ltr; } 
 #🪵, #⏰:not(.markIconText), #🚥 { border: 1px solid var(--🖥️-c-t-2); border-radius: 20px; text-overflow: ellipsis; overflow: hidden; }
-#🪵 { font-size:20px; padding:5px 3px 0 3px; background-repeat: no-repeat; text-shadow: 2px 0px 2px var(--🖥️-c-b-1), 0px 2px 2px var(--🖥️-c-b-1), -2px 0px 2px var(--🖥️-c-b-1), 0px -2px 2px var(--🖥️-c-b-1); } 
-.🪵Progress { font-size:2em; text-shadow: 4px 4px 4px var(--🖥️-c-b-1); padding:0px; 
+#🪵 { font-size: 20px; padding:5px 3px 0 3px; background-repeat: no-repeat; text-shadow: 2px 0px 2px var(--🖥️-c-b-1), 0px 2px 2px var(--🖥️-c-b-1), -2px 0px 2px var(--🖥️-c-b-1), 0px -2px 2px var(--🖥️-c-b-1); } 
+.🪵Progress { font-size: 2em; text-shadow: 4px 4px 4px var(--🖥️-c-b-1); padding:0px; 
 	border: 1px solid var(--🖥️-c-b-1); border-radius: 15px;
 	background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" style="background-color:var(--🖥️-c-t-1)"></svg>'); /*var is been eval by js*/
 	background-color: var(--🖥️-c-bs-2); background-repeat: no-repeat; display: flex; flex-wrap: no-wrap; }
@@ -49,7 +49,7 @@
 #🌡️ { width:36%; height:34%; left:43%; top:10%; } 
 #🌡️>:last-child { width:34%; } 
 #💈 { width:2%; height:33%; top:3%; left: 77.5% } 
-#💈 span { left:82%; } 
+#💈 span { left:82%; top: 4%} 
 #📆 { top:3%; left:82%; }
 #🗓️ { top:41.5%; width:63%; left: 21%; height:53%; } 
 #⏰ { top:45%; } 
@@ -81,7 +81,7 @@
 #📅👉, #⏱️, #⏰ { font-size:21px; }
 #📅👈 { font-size:18px; } 
 #⏰ { border-radius: 20px; border: 1px solid var(--🖥️-c-b-2); padding:0 6px 0 6px; }
-#💈 span { font-size:20px; }  
+#💈 span { font-size: 20px; }  
 
 #📆, #📅👉 { top:6%; }
 #📆, #🗓️ { left:2.5%; } 
@@ -92,7 +92,7 @@
 #🌡️ { width:72%; height:19%; top:20%; left:23%; } 
 #🌡️>:last-child { width:33.5%; } 
 #💈 { width:4%; height:17%; left:93%; top: 18% } 
-#💈 span { left: 4%; top: 2%; } 
+#💈 span { left: 4%; top: 4%; } 
 #⏱️ { top:12%; right:2.5%; } 
 
 #🪵, #🪵Progress, #🚥, #⌚, #📒, .popup { display: none; }  
