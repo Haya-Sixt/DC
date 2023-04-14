@@ -49,7 +49,7 @@
 #🌡️ { width:36%; height:34%; left:43%; top:10%; } 
 #🌡️>:last-child { width:34%; } 
 #💈 { width:2%; height:33%; top:3%; left: 77.5% } 
-#💈 span { left:80%; } 
+#💈 span { left:82%; } 
 #📆 { top:3%; left:82%; }
 #🗓️ { top:41.5%; width:63%; left: 21%; height:53%; } 
 #⏰ { top:45%; } 
@@ -92,7 +92,7 @@
 #🌡️ { width:72%; height:19%; top:20%; left:23%; } 
 #🌡️>:last-child { width:33.5%; } 
 #💈 { width:4%; height:17%; left:93%; top: 18% } 
-#💈 span { left: 10px; top: 2%; } 
+#💈 span { left: 4%; top: 2%; } 
 #⏱️ { top:12%; right:2.5%; } 
 
 #🪵, #🪵Progress, #🚥, #⌚, #📒, .popup { display: none; }  
@@ -117,7 +117,7 @@ td {vertical-align:top;}
 .parasha, .omer { float:right; color:var(--🖥️-c-te-1); font-weight:normal; margin:2px; padding:0; text-align:center; clear:both; }
 imo, #🚥 > div { text-shadow: 3px 0px 5px var(--🖥️-c-b-3), 0px 3px 5px var(--🖥️-c-b-3), -3px 0px 5px var(--🖥️-c-b-3), 0px -3px 5px var(--🖥️-c-b-3), 0px 0px 30px var(--🖥️-c-t-1), 0px 0px 10px var(--🖥️-c-t-1);}
 imo { font-size:22px; }
-.wdgt, .📆name, .📆val, #🗓️ div.omer { white-space: nowrap; }
+.wdgt, .📆name, .📆val, #🗓️ div.omer, #💈 span { white-space: nowrap; }
 #🗓️ div.omer span{ filter: brightness(65%);} 
 #🗓️ td.tdCurrent div.omer { font-size:14px; } 
 
@@ -128,7 +128,7 @@ imo { font-size:22px; }
 .dafYomi { overflow: hidden; margin: 4% 0 0 0; } 
 #🌡️>:last-child { top:-30px; background-image: linear-gradient(to right, var(--🖥️-c-b-1), rgba(var(--🖥️-c-b-1_rgb), 0.8), rgba(var(--🖥️-c-b-1_rgb), 0.8), rgba(var(--🖥️-c-b-1_rgb), 0.8), rgba(var(--🖥️-c-b-1_rgb), 0.702), rgba(var(--🖥️-c-b-1_rgb), 0.702), rgba(var(--🖥️-c-b-1_rgb), 0.702), rgba(var(--🖥️-c-b-1_rgb), 0.8) 50%, rgba(var(--🖥️-c-b-1_rgb), 0) 50%); } 
 #🌡️>:last-child .tdCurrent { filter: invert(0.5) opacity(0.4); height: 100%; width: 50%; } 
-#💈 span { color:var(--🖥️-c-ts-2); position : relative; white-space : nowrap; } 
+#💈 span { color:var(--🖥️-c-ts-2); position : relative; } 
 .error { border-radius: 10px; border: var(--🖥️-c-be-3) 1px solid !important; } 
 
 .wdgt, .dafYomi, #🌡️>:last-child, .popup { position:absolute;}
