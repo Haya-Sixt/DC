@@ -182,13 +182,14 @@ wdgt.Update = ()=> {
 		if (e.title.startsWith(r)) {
 			let t, x;
 			for (const [k, v] of document.querySelector(`#🗓️ td.tdCurrent ${e.title.replace(r, '')}`).childNodes.entries()) {
-				
-				console.log(v, v.nodeName)
+				if (v.nodeName == 'SPAN') x = v.innerHTML
+				else t = v.nodeValue 
 		  }
+			Add (t, x);
 			continue;
 		}
 
-		rs = `${rs}<div>${e.title}</div>`;
+		Add (e.title);
 	}
 
 	// From 'Add' - 🔋, ☔, 🌡️ ...
@@ -198,11 +199,14 @@ wdgt.Update = ()=> {
 
 	// Resize 🪵
 	if (rs == '') {
-		$('#🪵').removeClass('🪵🚥')
+		$('#🚥').hide ();
+		$('#🪵').removeClass ('🪵🚥')
 	} 
 	else {
-		$('#🪵').addClass('🪵🚥');
+		$('#🪵').addClass ('🪵🚥');
+		$('#🚥').show ();
 	}
+	
 	//
 	$(wdgt.sid).html(rs);
 }
