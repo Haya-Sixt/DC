@@ -168,23 +168,41 @@ wdgt.Init = ()=> {
 }
 
 wdgt.Update = ()=> { 
+	const Add = (t, x)=> {
+		x = x ? `<span>${x}<span>` : '';
+		rs = `${rs}<div>${t}${x}</div>`;
+	};
 	let rs = '', r;
 
 	// 📒
 	for (const e of $app.Widgets['📒'].Entries()) {
-    if (e.text == '') rs = `${rs}<div>${e.title}</div>`;
+    if (e.text != '') continue; 
+
+		r = '🗓️';
+		if (e.title.startsWith(r)) {
+			let t, x;
+			for (const [k, v] of document.querySelector(`#🗓️ td.tdCurrent ${e.title.replace(r, '')}`).childNodes.entries()) {
+				
+				console.log(v, v.nodeName)
+		  }
+			continue;
+		}
+
+		rs = `${rs}<div>${e.title}</div>`;
 	}
 
 	// From 'Add' - 🔋, ☔, 🌡️ ...
 	for (const [k, v] of Object.entries(wdgt.data)) {
-		r = v ? `<span>${v}<span>` : '';
-		rs = `${rs}<div>${k}${r}</div>`;
-	};
+		Add (k, v);
+	}
 
 	// Resize 🪵
-	if (rs == '') $('#🪵').removeClass('🪵🚥')
-	else $('#🪵').addClass('🪵🚥');
-	
+	if (rs == '') {
+		$('#🪵').removeClass('🪵🚥')
+	} 
+	else {
+		$('#🪵').addClass('🪵🚥');
+	}
 	//
 	$(wdgt.sid).html(rs);
 }
