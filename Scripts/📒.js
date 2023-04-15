@@ -182,8 +182,8 @@ wdgt.Update = ()=> {
 		if (e.title.startsWith(r)) {
 			let t, x;
 			for (const [k, v] of document.querySelector(`#🗓️ td.tdCurrent ${e.title.replace(r, '')}`).childNodes.entries()) {
-				if (v.nodeName == 'SPAN') x = v.innerHTML
-				else t = v.nodeValue 
+				if (isNaN(v.textContent)) t = v.textContent
+				else x = v.textContent; 
 		  }
 			Add (t, x);
 			continue;
