@@ -57,7 +57,7 @@ wdgt.Update = ()=> {
 function Current() {
 	var now = parseInt( new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' }).replace(':','') ), 
 		firstMark = null,
-		match = $('#🗓️ .tdCurrent').text().match(/[0-2][0-9]:[0-5][0-9]/gm);
+		match = $('#🗓️ .tdCurrentHeb').text().match(/[0-2][0-9]:[0-5][0-9]/gm);
 	
 	match && match.forEach((m) => { 
 		var val = parseInt( m.replace(':','') );
@@ -81,7 +81,7 @@ function Next() {
 	
 	$("#🗓️ .tdDay").each((i, t)=> {
 		
-		if ( $(t).hasClass('tdCurrent') ) {
+		if ( $(t).hasClass('tdCurrentHeb') ) {
 			c = $(t).text().match(Helpers.Emoji());
 			if (!c) c = ' ';
 		}

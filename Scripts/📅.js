@@ -199,7 +199,7 @@ wdgt.Month = (now)=> {
 		$(wdgt.sid).html(t4);
 		
 		// current 
-		$(wdgt.sid + ' .tdDay').each((i, t)=> {
+		$(wdgt.sid + ' td.tdDay').each((i, t)=> {
 			if ($(t).html().indexOf(current)!=-1) {
 				$(t).addClass('tdCurrent');
 				return false;
@@ -211,7 +211,7 @@ wdgt.Month = (now)=> {
 	
 		// daf yomi
 		$( window ).resize(function() {
-			$(wdgt.sid + ' .dafYomi').width($(wdgt.sid + ' .tdCurrent').width());
+			$(wdgt.sid + ' .dafYomi').width($(wdgt.sid + ' td.tdCurrent').width());
 		});
 	};
 	
@@ -234,7 +234,7 @@ wdgt.Month = (now)=> {
 		else hd += "'";
 		return '<span class="hebdate">' + hd; 
 	}
-	
+
 })();
 
 
@@ -280,8 +280,8 @@ wdgt.Update = ()=> {
 	$(wdgt.sid).html(times);
 
 	// daf yomi
-	$(wdgt.sid + ' .dafYomi').width($('#🗓️ .tdCurrent').width())
-		.appendTo('#🗓️ .tdCurrent');  // 🗒: '.detach()' not needed
+	$(wdgt.sid + ' .dafYomi').width($('#🗓️ td.tdCurrent').width())
+		.appendTo('#🗓️ td.tdCurrent');  // 🗒: '.detach()' not needed
 
 	// Mark Current Zman
 	setInterval(Mark, 1000*60*3); 
@@ -320,6 +320,19 @@ function Mark() {
 	if (first ) {
 		first.addClass('markIconText'); 
 	}
+
+	//
+	CurrentBySunset ();
 } 
+
+//
+function CurrentBySunset () {
+	const c = 'tdCurrentHeb',
+		a = Array.from(document.querySelectorAll('#🗓️ td.tdDay')),
+		x = a.findIndex((e)=> e.classList.contains('tdCurrent')),
+		h = a [x + ( $app.Widgets['📆'].data['🌄'] > new Date().getTime() / 1000 ? 0 : 1)];
+	if (h != a[x]) a[x].classList.remove(c);
+	h.classList.add(c);
+}
 
 })();

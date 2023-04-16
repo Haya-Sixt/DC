@@ -117,7 +117,7 @@ imo, #🚥 > div { text-shadow: 3px 0px 5px var(--🖥️-c-b-3), 0px 3px 5px va
 imo { font-size:22px; }
 .wdgt, .📆name, .📆val, #🗓️ div.omer, #💈 span { white-space: nowrap; }
 #🗓️ div.omer span{ filter: brightness(65%);} 
-#🗓️ td.tdCurrent div.omer { font-size:14px; } 
+#🗓️ td.tdCurrentHeb div.omer { font-size:14px; } 
 
 
 #📆 { direction:ltr; } 

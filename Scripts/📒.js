@@ -50,7 +50,7 @@ wdgt.Entries = function* () {
 			let cs = condC.substring(x + String(`,${c}`).length);
 			cs = cs.substring(0, cs.indexOf(','));
 			const dm = cs.split('_'), dmd = dm[0].replace('ʼ',"'"), dmm = dm.length1 > 1 ? dm[1] : '';
-			if ((dmm != '' && !$app.Widgets['📅👈'].data.month.includes(dmm)) || !($('#🗓️ .tdCurrent .hebdate').text()).includes(dmd)) continue; 
+			if ((dmm != '' && !$app.Widgets['📅👈'].data.month.includes(dmm)) || !($('#🗓️ td.tdCurrentHeb .hebdate').text()).includes(dmd)) continue; 
 		}
 				
 		// 
@@ -74,7 +74,7 @@ wdgt.Entries = function* () {
 			let cs = condC.substring(x + String(`,${c}`).length);
 			cs = cs.substring(0, cs.indexOf(','));
 
-			if (!($('#🗓️ .tdCurrent').text()).includes(cs)) continue; 
+			if (!($('#🗓️ td.tdCurrentHeb').text()).includes(cs)) continue; 
 		}
 
 		// 
@@ -169,9 +169,9 @@ wdgt.Init = ()=> {
 
 wdgt.Update = ()=> { 
 	const Add = (t, x)=> {
-		x = x ? `<span>${x}<span>` : '';
-		rs = `${rs}<div>${t}${x}</div>`;
-	};
+			x = x ? `<span>${x}<span>` : '';
+			rs = `${rs}<div>${t}${x}</div>`;
+	  };
 	let rs = '', r;
 
 	// 📒
@@ -181,7 +181,7 @@ wdgt.Update = ()=> {
 		r = '🗓️';
 		if (e.title.startsWith(r)) {
 			let t, x;
-			for (const [k, v] of document.querySelector(`#🗓️ td.tdCurrent ${e.title.replace(r, '')}`).childNodes.entries()) {
+			for (const [k, v] of document.querySelector(`#🗓️ td.tdCurrentHeb ${e.title.replace(r, '')}`).childNodes.entries()) {
 				if (isNaN(v.textContent)) t = v.textContent
 				else x = v.textContent; 
 		  }
