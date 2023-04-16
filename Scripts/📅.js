@@ -330,7 +330,7 @@ function CurrentBySunset () {
 	const c = 'tdCurrentHeb',
 		a = Array.from(document.querySelectorAll('#🗓️ td.tdDay')),
 		x = a.findIndex((e)=> e.classList.contains('tdCurrent')),
-		h = a [x + ( $app.Widgets['📆'].data['🌄'] > new Date().getTime() / 1000 ? 0 : 1)];
+		h = a [x + ( $app.Widgets['📆'].data['🌇'] > new Date().getTime() / 1000 ? 0 : 1)];
 	if (h != a[x]) a[x].classList.remove(c);
 	h.classList.add(c);
 }
