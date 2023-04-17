@@ -80,6 +80,7 @@
 #📅👉, #⏱️, #⏰ { font-size:21px; }
 #📅👈 { font-size:18px; } 
 #⏰ { border-radius: 20px; border: 1px solid var(--🖥️-c-b-2); padding:0 6px 0 6px; }
+#⏰ span { position: relative; top: calc(-21px / 11); } 
 #💈 span { font-size: 20px; }  
 
 #📆, #📅👉 { top:6%; }

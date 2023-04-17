@@ -1,6 +1,6 @@
 
 /* 🏡 (A205U) */
-@media screen and (min-device-width: 500px) {
+@media screen and (min-device-width: 730px) {
 
 #⏳ { position: absolute; left:0; top:0; display: flex; flex-flow: column nowrap; height: 100%; width: 100%; align-items: center; } 
 .cdc_container ul.cdc_flip { height: 86px; }  
@@ -8,7 +8,7 @@
 
 
 /* 📱 (RN10S) */
-@media screen and (max-device-width: 500px) {
+@media screen and (max-device-width: 730px) {
 	
 #⏳ { display: none; }  
 	
@@ -251,18 +251,4 @@
     100% {
         opacity: 0;
     }
-}
-
-
-/* Main */
-___body {
-    min-height: 100%;
-    background: rgb(150, 150, 150);
-    background: -moz-radial-gradient(center, ellipse cover, rgba(150, 150, 150, 1) 0%, rgba(89, 89, 89, 1) 100%);
-    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(150, 150, 150, 1)), color-stop(100%, rgba(89, 89, 89, 1)));
-    background: -webkit-radial-gradient(center, ellipse cover, rgba(150, 150, 150, 1) 0%, rgba(89, 89, 89, 1) 100%);
-    background: -o-radial-gradient(center, ellipse cover, rgba(150, 150, 150, 1) 0%, rgba(89, 89, 89, 1) 100%);
-    background: -ms-radial-gradient(center, ellipse cover, rgba(150, 150, 150, 1) 0%, rgba(89, 89, 89, 1) 100%);
-    background: radial-gradient(ellipse at center, rgba(150, 150, 150, 1) 0%, rgba(89, 89, 89, 1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#969696', endColorstr = '#595959', GradientType = 1);
 }
