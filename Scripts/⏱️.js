@@ -77,23 +77,24 @@ function Current() {
 }
 
 function Next() {
-	var days=0, d="", c=false;
+	var days = 0, d = "", c = false;
 	
 	$("#🗓️ .tdDay").each((i, t)=> {
 		
-		if ( $(t).hasClass('tdCurrent') ) {
+		if ( $(t).hasClass('tdCurrentHeb') ) {
+			!$(t).hasClass('tdCurrent') && days++;
 			c = $(t).text().match(Helpers.Emoji());
-			if (!c) c = ' ';
+			!c && (c = ' ');
 		}
 		else if (c) {
 			let m = $(t).text().match(Helpers.Emoji());
-			if (m) m = m.reduce((s,e)=>s + (c.includes(e) ? '' : e), '');
-			if (m && m!='') {
+			m && (m = m.reduce((s, e)=> s + (c.includes(e) ? '' : e), ''));
+			if (m && m != '') {
 				if (days == 0) d = 'היום בערב '
 				else if (days == 1) d = 'מחר בערב '
-				else d = (days+1) + " ימים ל "; 
+				else d = (days + 1) + " ימים ל "; 
 				$(wdgt.sid).html(`<span>${d}</span>${m}`);
-				days =0;
+				days = 0;
 				return false; // 🗒: break '$.each' (but not 'forEach')
 			}
 			
