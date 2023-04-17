@@ -28,7 +28,7 @@
 .🪵Progress div:last-child { flex: 0.06rem; white-space: nowrap; }
 #🚥 { font-size:2.2rem; display: flex; flex-direction: row; justify-content: space-around; padding : 0.19rem; }  
 #🚥 > div { background-color: var(--🖥️-c-be-1); border: 0.06rem solid var(--🖥️-c-be-3); border-radius: 1.25rem; animation-name: 🚥; animation-duration: 2s; animation-iteration-count: infinite; } 
-#🚥 > div > span { position: absolute; left: 0; color: var(--🖥️-c-te-1); }
+#🚥 > div > span { position: absolute; left: 0; color: var(--🖥️-c-te-2); }
 #📒 { display: flex; flex-flow: row wrap; height: 100%; width: 100%; pointer-events: none; 
 	align-items: center;justify-content: center; align-content: center; padding-top: 10%; 
 	animation-name: 📒; animation-duration: 12s; animation-iteration-count: infinite; } 
@@ -164,8 +164,8 @@ imo { font-size:1.35rem; }
 --🖥️-c-td-1: #277EBC; /*.📆val(📱) text*/
 --🖥️-c-td-1_rgb: 39, 127, 190;
 /* emphasize text of main bg */
---🖥️-c-te-1: #A27A25; /*parash, omer, 🚥 span */
---🖥️-c-te-2: #FFA90D; /*markIconText text*/
+--🖥️-c-te-1: #A27A25; /*parash, omer text */
+--🖥️-c-te-2: #FFA90D; /*markIconText, 🚥 span text*/
 /* soft bg */
 --🖥️-c-bs-1: #20679b; /*tdHead bg; tdCurrent border, ⌚ text; */
 --🖥️-c-bs-2: #2986C8; /*.🪵Progress bg; .markIconText > *:nth-child(2) text-shadow*/
