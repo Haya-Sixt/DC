@@ -92,7 +92,7 @@ function Next() {
 				if (days == 0) d = 'היום בערב '
 				else if (days == 1) d = 'מחר בערב '
 				else d = (days+1) + " ימים ל "; 
-				$(wdgt.sid).text( d + m );
+				$(wdgt.sid).html(`<span>${d}</span>${m}`);
 				days =0;
 				return false; // 🗒: break '$.each' (but not 'forEach')
 			}
