@@ -1,9 +1,9 @@
 
 /* 🏡 (A205U) */
-@media screen and (min-device-width: 71.87rem) {
+@media screen and (min-device-width: 730px) {
 
-.📆name, #📅👉, #⏰, #⌚ { color:var(--🖥️-c-ts-1); }
-.📆name, .📆val { font-size:1.6rem; filter: grayscale(50%) brightness(50%);}
+.📆name, #📅👉, #⏰, #⌚ { color: var(--🖥️-c-ts-1); }
+.📆name, .📆val { font-size: 1.6rem; filter: grayscale(50%) brightness(50%);}
 .📆val { color:var(--🖥️-c-ts-2); }
 .📆name { text-shadow: 0.31rem 0 0.31rem var(--🖥️-c-b-1), 0 0.31rem 0.31rem var(--🖥️-c-b-1), -0.31rem 0 0.31rem var(--🖥️-c-b-1), 0 -0.31rem 0.31rem var(--🖥️-c-b-1); } 
 #🗓️ { overflow: hidden; border-top: 0.94rem solid var(--🖥️-c-b-1); } 
@@ -15,18 +15,18 @@
 #📅👉 { font-size: 1.35rem; } 
 #📅👈 { font-size: 1.25rem; } 
 #💈 span { font-size: 1.45rem; } 
-#⏰ { font-size: 1.45rem; text-align:left; padding:0 0 0 0.19rem; }
-#⏰ span { position: relative; top: calc(-1.45rem / 14); } 
+#⏰ { font-size: 1.35rem; text-align:left; padding:0 0 0 0.19rem; }
+#⏰ span { position: relative; top: calc(-1.35rem / 14); } 
 #🪵, #🪵Progress { color: var(--🖥️-c-tbs-1); direction:ltr; } 
-#🪵, #⏰:not(.markIconText), #🚥 { border: 0.06rem solid var(--🖥️-c-t-2); border-radius: 1.25rem; text-overflow: ellipsis; overflow: hidden; }
-#🪵 { font-size: 1.25rem; padding:0.31rem 0.19rem 0 0.19rem; background-repeat: no-repeat; text-shadow: 0.12rem 0 0.12rem var(--🖥️-c-b-1), 0 0.12rem 0.12rem var(--🖥️-c-b-1), -0.12rem 0 0.12rem var(--🖥️-c-b-1), 0 -0.12rem 0.12rem var(--🖥️-c-b-1); } 
+#🪵, #⏰:not(.markIconText), #🚥 { border: 0.06rem solid var(--🖥️-c-t-2); border-radius: 1.25rem; overflow: hidden; }
+#🪵 { font-size: 1.25rem; padding:0.31rem 0.19rem 0 0.19rem; background-repeat: no-repeat; text-overflow: ellipsis; text-shadow: 0.12rem 0 0.12rem var(--🖥️-c-b-1), 0 0.12rem 0.12rem var(--🖥️-c-b-1), -0.12rem 0 0.12rem var(--🖥️-c-b-1), 0 -0.12rem 0.12rem var(--🖥️-c-b-1); } 
 .🪵Progress { font-size: 2rem; text-shadow: 0.25rem 0.25rem 0.25rem var(--🖥️-c-b-1); padding: 0; 
 	border: 0.06rem solid var(--🖥️-c-b-1); border-radius: 0.94rem;
 	background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" style="background-color:var(--🖥️-c-t-1)"></svg>'); /*var is been eval by js*/
 	background-color: var(--🖥️-c-bs-2); background-repeat: no-repeat; display: flex; flex-wrap: no-wrap; }
 .🪵Progress div:first-child { flex: 100%; text-overflow: ellipsis; overflow: hidden; }
 .🪵Progress div:last-child { flex: 0.06rem; white-space: nowrap; }
-#🚥 { font-size:2.2rem; display: flex; flex-direction: row; justify-content: space-around; padding : 0.19rem; }  
+#🚥 { font-size: 2.2rem; display: flex; flex-direction: row; justify-content: space-around; padding : 0.19rem; }  
 #🚥 > div { background-color: var(--🖥️-c-be-1); border: 0.06rem solid var(--🖥️-c-be-3); border-radius: 1.25rem; animation-name: 🚥; animation-duration: 2s; animation-iteration-count: infinite; } 
 #🚥 > div > span { position: absolute; left: 0; color: var(--🖥️-c-te-2); }
 #📒 { display: flex; flex-flow: row wrap; height: 100%; width: 100%; pointer-events: none; 
@@ -71,19 +71,18 @@
 }
 
 /* 📱 (RN10S) */
-@media screen and (max-device-width: 71.87rem) {
+@media screen and (max-device-width: 730px) {
 
 .📆val { color:var(--🖥️-c-td-1); } 
-.📆name, .📆val { font-size:1.19rem; }
+.📆name, .📆val, #⏱️ { font-size: 1.19rem; }
 .📆name, #📅👉, #⏰ { color: var(--🖥️-c-t-4); }
 #⏱️ { color: var(--🖥️-c-t-2); }
 #🗓️ { border-top: 1.56rem solid var(--🖥️-c-b-1); }
-#🗓️ div.omer { font-size:0.69rem; } 
-#📅👉, #⏰ { font-size:1.3rem; }
-#📅👈, #⏱️ { font-size:1.25rem; } 
+#🗓️ div.omer { font-size: 0.69rem; } 
+#📅👉, #⏰ { font-size: 1.3rem; }
+#📅👈, #💈 span { font-size: 1.25rem; } 
 #⏰ { border-radius: 1.25rem; border: 0.06rem solid var(--🖥️-c-b-2); padding:0 0.37rem 0 0.37rem; }
 #⏰ span { position: relative; top: calc(-1.3rem / 14); } 
-#💈 span { font-size: 1.25rem; }  
 
 #📆, #📅👉 { top:6%; }
 #📆, #🗓️ { left:2.5%; } 
@@ -94,7 +93,7 @@
 #🌡️ { width:72%; height:19%; top:20%; left:23%; } 
 #🌡️>:last-child { width:33.5%; } 
 #💈 { width:4%; height:17%; left:93%; top: 18% } 
-#⏱️ { top:12.2%; right:2.5%; } 
+#⏱️ { top:12.1%; right:2.5%; } 
 
 #🪵, #🪵Progress, #🚥, #⌚, #📒, .popup { display: none; }  
 
