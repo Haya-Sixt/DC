@@ -44,7 +44,7 @@ wdgt.Update = ()=> {
 // Schedule
 const wdgt = new $app.Widget('⏰');
 wdgt.repeat = { update: 10 };
-wdgt.dependency = ['🗓️'];
+wdgt.dependency = ['📆'];
 
 //
 wdgt.Init = ()=> {}
