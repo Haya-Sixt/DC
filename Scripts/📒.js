@@ -198,14 +198,8 @@ wdgt.Update = ()=> {
 	}
 
 	// Resize 🪵
-	if (rs == '') {
-		$('#🚥').hide ();
-		$('#🪵').removeClass ('🪵🚥')
-	} 
-	else {
-		$('#🪵').addClass ('🪵🚥');
-		$('#🚥').show ();
-	}
+	if (rs == '') $('#🪵').removeClass ('🪵🚥')
+	else $('#🪵').addClass ('🪵🚥');
 	
 	//
 	$(wdgt.sid).html(rs);

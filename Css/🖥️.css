@@ -61,7 +61,7 @@
 #🚥 { top: calc(54% + 41.5% - 2.2rem - 0.12rem); } 
 .popup { left: 50%; top: 70%; } 
 
-#⏱️{ display: none; } 
+#⏱️, #🚥:empty { display: none; } 
 
 @keyframes ⌚ { 0% {color: rgba(var(--🖥️-c-ts-1_rgb), 0.839);} 50% {color: rgba(var(--🖥️-c-ts-2_rgb), 0.459);} 100% {color: rgba(var(--🖥️-c-ts-1_rgb), 0.839);} } 
 @keyframes ⌚Colon { 0% {backdrop-filter: brightness(0.7);} 50% {backdrop-filter: brightness(0);} 100% {backdrop-filter: brightness(0.7);} }  
