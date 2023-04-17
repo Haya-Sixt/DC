@@ -89,8 +89,8 @@ function Next() {
 			let m = $(t).text().match(Helpers.Emoji());
 			if (m) m = m.reduce((s,e)=>s + (c.includes(e) ? '' : e), '');
 			if (m && m!='') {
-				if (days == 0) d = 'מחר '
-				else if (days == 1) d = 'מחרתיים '
+				if (days == 0) d = 'היום בערב '
+				else if (days == 1) d = 'מחר בערב '
 				else d = (days+1) + " ימים ל "; 
 				$(wdgt.sid).text( d + m );
 				days =0;
