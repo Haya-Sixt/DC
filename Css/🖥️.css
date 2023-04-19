@@ -12,10 +12,10 @@
 	animation-name: ⌚; animation-duration: 12s; animation-iteration-count: infinite; } 
 #⌚ :last-child { position: relative; width: 6%; height: 65%; left: -47%; top: -83%; 
 	animation-name: ⌚Colon; animation-duration: 2s; animation-timing-function: ease; animation-iteration-count: infinite; } 
-#📅👉 { font-size: 1.35rem; } 
-#📅👈 { font-size: 1.25rem; } 
+#📅👉 { font-size: 1.45rem; } 
+#📅👈 { font-size: 1.45rem; } 
 #💈 span { font-size: 1.45rem; } 
-#⏰ { font-size: 1.35rem; text-align:left; padding:0 0 0 0.19rem; }
+#⏰ { font-size: 1.45rem; text-align:left; padding:0 0 0 0.19rem; }
 #⏰ span { position: relative; top: calc(-1.35rem / 14); } 
 #🪵, #🪵Progress { color: var(--🖥️-c-tbs-1); direction:ltr; } 
 #🪵, #⏰:not(.markIconText), #🚥 { border: 0.06rem solid var(--🖥️-c-t-2); border-radius: 1.25rem; overflow: hidden; }
