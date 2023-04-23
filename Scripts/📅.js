@@ -177,6 +177,7 @@ wdgt.Month = (now)=> {
 		j("שבת הגדול","🐑")
 		j("שביעי של פסח","🌊")
 		j("פסח","🫓")
+		j('עי"ט',"") // ערב יום טוב
 			
 		// show only 4 rows
 		var t4 = t.substring(0, t.indexOf("</tr>")+5)
