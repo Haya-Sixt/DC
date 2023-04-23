@@ -178,6 +178,7 @@ wdgt.Month = (now)=> {
 		j("שביעי של פסח","🌊")
 		j("פסח","🫓")
 		j('עי"ט',"") // ערב יום טוב
+		j('<div> ערוב תבשילין','<div class="hideOut"> ערוב תבשילין')
 			
 		// show only 4 rows
 		var t4 = t.substring(0, t.indexOf("</tr>")+5)
