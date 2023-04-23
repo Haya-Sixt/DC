@@ -48,7 +48,6 @@
 #📅👉 { left:35%; top:35%; }
 #📅👈 { left:3%; top:35.2%; } 
 #🌡️ { width:36%; height:34%; left:43%; top:10%; } 
-#🌡️>:last-child { width:34%; } 
 #💈 { width:2%; height:33%; top:3%; left: 78% } 
 #📆 { top:3%; left:82%; }
 #🗓️ { top:41.5%; width:63%; left: 21%; height:53%; } 
@@ -91,7 +90,6 @@
 #📅👈 { top:9%; right:2.5%; }
 #⏰ { top:11.8%; left:40%; }  
 #🌡️ { width:72%; height:19%; top:20%; left:23%; } 
-#🌡️>:last-child { width:33.5%; } 
 #💈 { width:4%; height:17%; left:93%; top: 18% } 
 #⏱️ { top:12.15%; right:2.5%; } 
 
@@ -123,7 +121,7 @@ imo { font-size:1.35rem; }
 .📆name, #📅👉 { text-align:right;}
 .📆val, #🪵, #🪵Progress { text-align:left; } 
 .dafYomi { overflow: hidden; margin: 4% 0 0 0; } 
-#🌡️>:last-child { top: -1.87rem; background-image: linear-gradient(to right, var(--🖥️-c-b-1), rgba(var(--🖥️-c-b-1_rgb), 0.8), rgba(var(--🖥️-c-b-1_rgb), 0.8), rgba(var(--🖥️-c-b-1_rgb), 0.8), rgba(var(--🖥️-c-b-1_rgb), 0.7), rgba(var(--🖥️-c-b-1_rgb), 0.7), rgba(var(--🖥️-c-b-1_rgb), 0.7), rgba(var(--🖥️-c-b-1_rgb), 0.8) 16.74%, rgba(var(--🖥️-c-b-1_rgb), 0) 16.75%,
+#🌡️>:last-child { top: -1.87rem; width: 100%; background-image: linear-gradient(to right, var(--🖥️-c-b-1), rgba(var(--🖥️-c-b-1_rgb), 0.8), rgba(var(--🖥️-c-b-1_rgb), 0.8), rgba(var(--🖥️-c-b-1_rgb), 0.8), rgba(var(--🖥️-c-b-1_rgb), 0.7), rgba(var(--🖥️-c-b-1_rgb), 0.7), rgba(var(--🖥️-c-b-1_rgb), 0.7), rgba(var(--🖥️-c-b-1_rgb), 0.8) 16.74%, rgba(var(--🖥️-c-b-1_rgb), 0) 16.75%,
 	transparent 16.76%, transparent 33.49%, rgba(var(--🖥️-c-b-1_rgb), 0.4) 33.5%, rgba(var(--🖥️-c-b-1_rgb), 0.3) 33.51%, rgba(var(--🖥️-c-b-1_rgb), 0.3), rgba(var(--🖥️-c-b-1_rgb), 0.3), rgba(var(--🖥️-c-b-1_rgb), 0.3), rgba(var(--🖥️-c-b-1_rgb), 0.4), rgba(var(--🖥️-c-b-1_rgb), 0.4), rgba(var(--🖥️-c-b-1_rgb), 0.5), rgba(var(--🖥️-c-b-1_rgb), 0.6), rgba(var(--🖥️-c-b-1_rgb), 0.7), rgba(var(--🖥️-c-b-1_rgb), 0.8)); }  
 #🌡️>:last-child .tdCurrent { filter: invert(0.5) opacity(0.4); height: 100%; width: 16.75%; right: 66.5%; position: relative; } 
 #💈 span { color: var(--🖥️-c-ts-2); position : relative; right: -1.3rem; top: 15%; } 
