@@ -124,6 +124,7 @@ imo { font-size:1.35rem; }
 #🌡️>:last-child { top: -1.87rem; width: 100%; background-image: linear-gradient(to right, var(--🖥️-c-b-1), rgba(var(--🖥️-c-b-1_rgb), 0.8), rgba(var(--🖥️-c-b-1_rgb), 0.8), rgba(var(--🖥️-c-b-1_rgb), 0.8), rgba(var(--🖥️-c-b-1_rgb), 0.7), rgba(var(--🖥️-c-b-1_rgb), 0.7), rgba(var(--🖥️-c-b-1_rgb), 0.7), rgba(var(--🖥️-c-b-1_rgb), 0.8) 16.74%, rgba(var(--🖥️-c-b-1_rgb), 0) 16.75%,
 	transparent 16.76%, transparent 33.49%, rgba(var(--🖥️-c-b-1_rgb), 0.4) 33.5%, rgba(var(--🖥️-c-b-1_rgb), 0.3) 33.51%, rgba(var(--🖥️-c-b-1_rgb), 0.3), rgba(var(--🖥️-c-b-1_rgb), 0.3), rgba(var(--🖥️-c-b-1_rgb), 0.3), rgba(var(--🖥️-c-b-1_rgb), 0.4), rgba(var(--🖥️-c-b-1_rgb), 0.4), rgba(var(--🖥️-c-b-1_rgb), 0.5), rgba(var(--🖥️-c-b-1_rgb), 0.6), rgba(var(--🖥️-c-b-1_rgb), 0.7), rgba(var(--🖥️-c-b-1_rgb), 0.8)); }  
 #🌡️>:last-child .tdCurrent { filter: invert(0.5) opacity(0.4); height: 100%; width: 16.75%; right: 66.5%; position: relative; } 
+#💈 { filter: opacity(0.8); }
 #💈 span { color: var(--🖥️-c-ts-2); position : relative; right: -1.3rem; top: 15%; } 
 .error { border-radius: 0.62rem; border: var(--🖥️-c-be-3) 0.06rem solid !important; } 
 /*.tdShabat {}*/
