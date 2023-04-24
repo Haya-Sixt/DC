@@ -180,8 +180,9 @@ wdgt.Update = ()=> {
 
 		r = '🗓️';
 		if (e.title.startsWith(r)) {
-			let t, x;
-			for (const [k, v] of document.querySelector(`#🗓️ td.tdCurrentHeb ${e.title.replace(r, '')}`).childNodes.entries()) {
+			let t, x, a = document.querySelector(`#🗓️ td.tdCurrentHeb ${e.title.replace(r, '')}`)?.childNodes?.entries();
+			if (!a) continue;
+			for (const [k, v] of a) {
 				if (isNaN(v.textContent)) t = v.textContent
 				else x = v.textContent; 
 		  }
