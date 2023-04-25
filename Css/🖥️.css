@@ -18,7 +18,7 @@
 #⏰ { font-size: 1.45rem; text-align:left; padding:0 0 0 0.19rem; }
 #⏰ span { position: relative; top: calc(-1.35rem / 14); } 
 #🪵, #🪵Progress { color: var(--🖥️-c-tbs-1); direction:ltr; } 
-#🪵, #⏰:not(.markIconText), #🚥 { border: 0.06rem solid var(--🖥️-c-t-2); border-radius: 1.25rem; overflow: hidden; }
+#🪵, #⏰:not(.markIconText) { border: 0.06rem solid var(--🖥️-c-t-2); border-radius: 1.25rem; overflow: hidden; }
 #🪵 { font-size: 1.25rem; padding:0.31rem 0.19rem 0 0.19rem; background-repeat: no-repeat; text-overflow: ellipsis; text-shadow: 0.12rem 0 0.12rem var(--🖥️-c-b-1), 0 0.12rem 0.12rem var(--🖥️-c-b-1), -0.12rem 0 0.12rem var(--🖥️-c-b-1), 0 -0.12rem 0.12rem var(--🖥️-c-b-1); } 
 .🪵Progress { font-size: 2rem; text-shadow: 0.25rem 0.25rem 0.25rem var(--🖥️-c-b-1); padding: 0; 
 	border: 0.06rem solid var(--🖥️-c-b-1); border-radius: 0.94rem;
@@ -105,7 +105,7 @@ td { vertical-align: top;}
 .tdHead, .tdDay, .hdate, .dafYomi { font-size:0.94rem;}
 .tdHead { border-radius: 0.62rem; text-align:center; color:var(--🖥️-c-t-1);background-color:var(--🖥️-c-bs-1);font-weight: normal;} 
 .tdDay { text-decoration: none; white-space: normal; }
-.tdCurrent { border-radius:0.31rem; border:0.06rem solid var(--🖥️-c-bs-1);
+.tdCurrent, #🚥 { border-radius:0.31rem; border:0.06rem solid var(--🖥️-c-bs-1);
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAASAgMAAAASx9efAAAADFBMVEUyMjI3Nzc7Ozs8PDyX7EujAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAK0lEQVQImWOQcmBgqL/AwLD/AQSD2CAxFMC4hIGB/S8DA/c/CAaxQWIIAAAI+Av1YBUTwQAAAABJRU5ErkJggg=="); } 
 #📅👈, .ldate, .dafYomi { color:var(--🖥️-c-t-4); font-weight: 100 !important; }
 .hebdate, .ldate { margin-top:0.12rem; } 
