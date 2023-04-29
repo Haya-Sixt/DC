@@ -58,9 +58,9 @@ wdgt.Entries = function* () {
 		x = condC.indexOf(`,${c}`);
 		if (x != -1) {
 			let cs = condC.substring(x + String(`,${c}`).length);
-      cs = cs.substring(0, cs.indexOf(','));
+			cs = cs.substring(0, cs.indexOf(','));
 			startedAt = $app.Widgets['📆'].data[cs];
-      startedAt += parseHM(cond, c + cs, condC);
+			startedAt += parseHM(cond, c + cs, condC);
 		
 		  if (!startedAt || startedAt > now || startedAt + duration < now) continue;
 		}
