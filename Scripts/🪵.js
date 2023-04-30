@@ -101,8 +101,8 @@ wdgt.Entries = function* (now) {
 	
 		for (const e of $app.Widgets['🪵'].Entries(now)) {
 			if (e.log.indexOf("[")==-1) continue;
-
-			let endsAt = e.startedAt, duration = 0;
+			//
+			let endsAt = e.startedAt, duration = 0, p = 1;
 			duration = e.log.substring(e.log.indexOf("[")+1, e.log.indexOf("]"));
 			e.log = e.log.replace('['+duration+']', '');
 			if (duration.indexOf('h')!=-1) 
@@ -112,8 +112,10 @@ wdgt.Entries = function* (now) {
 			if (duration.indexOf('m')!=-1) 
 				endsAt += parseInt(duration.substring(0,duration.indexOf('m')))*60;
 			duration = endsAt - e.startedAt;
-
-			if (now >= endsAt) $(`#🪵 div[data="${e.log}"]`).show()
+			//
+			if (e.log.includes('🕯️🕯️') && !$app.Widgets['🪵'].data ['🕯️🕯️']) p = 0;
+			//
+			if (now >= endsAt || !p) $(`#🪵 div[data="${e.log}"]`).show()
 			else rs += `<div name="${wdgt.id}" data="${e.log}" startedAt="${e.startedAt}" duration="${duration}"><div>${e.log}</div><div></div></div><div style="height:10px;"></div>`;
 		}
 		
