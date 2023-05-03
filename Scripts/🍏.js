@@ -143,7 +143,7 @@ return app;
 
 //
 class Helpers {
-	static Emoji (exclude = '(🌾|🍇') { 
+	static Emoji (exclude = '(🌾|🍇)') { 
         if (exclude) exclude = `(?<!${exclude})`
         else exclude = '';
         return new RegExp(`\[🇦-🇿]{2}|\\p{Extended_Pictographic}${exclude}`,'ugm'); // 🗒: 1. dot isn't needed (although the emoji looks partial ).  2. 'A-Z' is for countries (They are two values in the range of U+1F1E6 (Regional Indicator Symbol Letter A) and U+1F1FF (Regional Indicator Symbol Letter Z))
