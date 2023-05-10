@@ -132,7 +132,7 @@ imo { font-size:1.35rem; }
 .wdgt, .dafYomi, #🌡️>:last-child, .hideOut, .popup { position: absolute; }
 
 .popup {z-index: 9}
-#📒 {z-index: 8}
+#⏳, #📒 {z-index: 8}
 #🪵Progress {z-index: 7}
 #📅👉, #📅👈, #🚥 {z-index: 6}
 #⌚, #💈 {z-index: 5}

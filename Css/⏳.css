@@ -4,6 +4,7 @@
 
 #⏳ { position: absolute; left:0; top:0; display: flex; flex-flow: column nowrap; height: 100%; width: 100%; align-items: center; } 
 .cdc_container ul.cdc_flip { height: 86px; }  
+
 }
 
 
