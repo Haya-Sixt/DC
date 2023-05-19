@@ -39,7 +39,7 @@ wdgt.Update = ()=> {
 		var h = ((now - forecast_clock) / -60);
 		if (h < 24) h = '24'
 		else h = h.toFixed(1);
-		$app.Widgets['🚥'].Add ('🌡️', `${h}h`);
+		$app.Widgets['🚥'].Add ('🌡️', `${h}`);
 	}
 
 	//
