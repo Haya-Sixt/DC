@@ -24,6 +24,7 @@ wdgt.Update = ()=> {
 	rs = `${rs}<div>${$('#⏱️').text()}</div>`; 
 
 	// 🕯️🕯️
+	// 🗒: '🌋' App Must Have Delay Before 🔔. Otherwise '🏡' Won't Be Triggered (Because '🌋' Is Open).
   $app.Vars ['🕯️'] = shishi;
 	wdgt.data ['🕯️🕯️'] = wdgt.data.shabbat;
 
