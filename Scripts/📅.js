@@ -108,7 +108,7 @@ wdgt.Month = (now)=> {
 				+ rU + "</tr>";
 			t2 = t2.substring( t2.indexOf("</tr>")+5);
 		}
-		const j = (i, o)=> { t = t.replaceAll(i, (o == '' || o.startsWith('<') || !o.match(Helpers.Emoji())) ? o : `<imo>${o}</imo>`) };
+		const j = (i, o, f)=> { t = t.replaceAll(i, (o == '' || o.startsWith('<') || !o.match(Helpers.Emoji())) ? o : `<imo${f ? ` style='filter:${f};'` : ``}>${o}</imo>`) };
 		let t = (t1+t2)
 		j("כניסת ","")
 		j("צאת ","")
@@ -121,7 +121,7 @@ wdgt.Month = (now)=> {
 		j("א' דר\"ח","🌒") // (חנוכה)
 		j("ב' ראש חודש","🌘")
 		j("ב' דר\"ח","🌘") // (חנוכה)
-		j("ראש חודש","🌑")
+		j("ראש חודש","🌑", "brightness(2)")
 		j(" לעומר","<span name='omer'>🌾</span>")
 		j("יום הזכרון לשואה ולגבורה","🏴‍☠️")
 		j("יום הזכרון","🪖")
