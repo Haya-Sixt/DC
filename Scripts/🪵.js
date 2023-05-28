@@ -6,6 +6,8 @@ const wdgt = new $app.Widget('🪵');
 wdgt.repeat = { init: 3 };
 wdgt.dependency = ['🗓️','⏱️'];
 
+wdgt.Constants = { Ender: '➖'};
+
 //
 wdgt.Update = ()=> {
 	let rs ='', now = parseInt( new Date().getTime() / 1000 ),
@@ -13,6 +15,8 @@ wdgt.Update = ()=> {
 		shishi = 0;
 	
 	for (const e of wdgt.Entries(now)) { // 🗒: yield doesn't work with forEach because it's callback
+		if ( e.log.includes(wdgt.Constants.Ender) ) continue;
+
 		rs += `<div data="${e.log}" ${ e.log.indexOf("[") == -1 && 'style="display:none;"' }>${e.log}</div>`;
 
 		// Set shishi
@@ -98,12 +102,17 @@ wdgt.Entries = function* (now) {
 
 	//
 	wdgt.Init = ()=> {
-		let rs = '', now = parseInt( new Date().getTime() / 1000 );
+		const now = parseInt( new Date().getTime() / 1000 ), spacer = `<div style="height:10px;"></div>`;
+		let rs = '';
 	
 		for (const e of $app.Widgets['🪵'].Entries(now)) {
-			if (e.log.indexOf("[")==-1) continue;
+			if (e.log.includes($app.Widgets['🪵'].Constants.Ender)) {
+				const m = new RegExp(`<div name.* data=.*?\\s${e.log.split($app.Widgets['🪵'].Constants.Ender)[1].trim()}\\s.*?${spacer}`,`umg`);
+				rs = rs.replace(m, '');
+			}
+			if ( !e.log.includes("[") ) continue;
 			//
-			let endsAt = e.startedAt, duration = 0, p = 1;
+			let endsAt = e.startedAt, duration = 0;
 			duration = e.log.substring(e.log.indexOf("[")+1, e.log.indexOf("]"));
 			e.log = e.log.replace('['+duration+']', '');
 			if (duration.indexOf('h')!=-1) 
@@ -114,10 +123,8 @@ wdgt.Entries = function* (now) {
 				endsAt += parseInt(duration.substring(0,duration.indexOf('m')))*60;
 			duration = endsAt - e.startedAt;
 			//
-			if (e.log.includes('🕯️🕯️') && !$app.Widgets['🪵'].data ['🕯️🕯️']) p = 0;
-			//
-			if (now >= endsAt || !p) $(`#🪵 div[data="${e.log}"]`).show()
-			else rs += `<div name="${wdgt.id}" data="${e.log}" startedAt="${e.startedAt}" duration="${duration}"><div>${e.log}</div><div></div></div><div style="height:10px;"></div>`;
+			if (now >= endsAt) $(`#🪵 div[data="${e.log}"]`).show()
+			else rs += `<div name="${wdgt.id}" data="${e.log}" startedAt="${e.startedAt}" duration="${duration}"><div>${e.log}</div><div></div></div>${spacer}`;
 		}
 		
 		$(wdgt.sid).html(rs);
