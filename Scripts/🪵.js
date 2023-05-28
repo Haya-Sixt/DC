@@ -78,14 +78,14 @@ function Background() {
 }
 
 //
-wdgt.Entries = function* (now) {
-	const log = wdgt.data.log.split('∆'); 
-	
-	for (let i=0; i<log.length; i++) {
-		let startedAt = parseInt(new Date(log[i].substring(0,16)).getTime()/1000);
+wdgt.Entries = function* (now, reverse = false) {
+	let a = wdgt.data.log.split('∆'); 
+	if (reverse) a = a.reverse();
+	for (let i=0; i < a.length; i++) {
+		let startedAt = parseInt(new Date(a[i].substring(0,16)).getTime()/1000);
 
 		if (now - startedAt > 6*60*60) continue;
-		yield {log: log[i].substring(11), startedAt: startedAt};
+		yield {log: a[i].substring(11), startedAt: startedAt};
 	}
 };
 
@@ -105,7 +105,7 @@ wdgt.Entries = function* (now) {
 		const now = parseInt( new Date().getTime() / 1000 ), spacer = `<div style="height:10px;"></div>`;
 		let rs = '';
 	
-		for (const e of $app.Widgets['🪵'].Entries(now)) {
+		for (const e of $app.Widgets['🪵'].Entries(now, true)) {
 			if (e.log.includes($app.Widgets['🪵'].Constants.Ender)) {
 				const m = new RegExp(`<div name.* data=.*?\\s${e.log.split($app.Widgets['🪵'].Constants.Ender)[1].split(' ')[0]}\\s.*?${spacer}`,`umg`);
 				rs = rs.replace(m, '');
