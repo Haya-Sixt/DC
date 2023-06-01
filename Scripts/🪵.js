@@ -4,7 +4,7 @@
 // Log
 const wdgt = new $app.Widget('🪵');
 wdgt.repeat = { init: 3 };
-wdgt.dependency = ['🗓️','⏱️'];
+wdgt.dependency = ['📆','⏱️'];
 
 wdgt.Constants = { Ender: '➖'};
 
@@ -54,24 +54,27 @@ wdgt.Update = ()=> {
 //
 function Background() {
 	try {		
-	let bg = 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' version=\'1.1\'><text x=\'3%\' y=\'90%\' font-size=\'3.8em\'>', 
+	let bg = `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1'><text x='3%' y='90%' font-size='3.8em'>`, 
 		c = '', cs;
 	if ( wdgt.data['🕯️🕯️'] == "true" ) c += '🕯️🕯️';
 	if ( (cs = $("#🗓️ td.tdCurrentHeb").text().match(Helpers.Emoji())) ) c += cs.join('');
-	if ( c == '') {
-		if ( (cs = $app.Widgets['🌡️']?.data['☔']) ) c += cs
- 		else c += '🌴';
-	}
+	if ( c == '') c = Widgets[`📆`].data.current; 
+//{
+//		if ( (cs = $app.Widgets['🌡️']?.data['☔']) ) c += cs
+// 		else c += '🌴';
+//	}
 	
-	$(wdgt.sid).css('backgroundImage', bg + dx(c) + '</text></svg>")');
+	$(wdgt.sid).css('backgroundImage', `${bg}${dx(c)}</text></svg>")`);
 
 	} catch(e) { wdgt.Error(e, 'Background') }
 	
 	//
 	function dx(c) {
-		let r = '', a = c.match(Helpers.Emoji());
+		let r = '', a = c.match(Helpers.Emoji()), candle = 0;
 		a && a.forEach((m) => {
-			r += '<tspan dx=\'-0.' + (m == '🕯️' ? 48 : 20) + 'em\'>' + m + '</tspan>';
+			let dx = 20;	
+			if (m == '🕯️') dx = candle = (candle ? 60 : 48);
+			r += `<tspan dx="-0.${dx}em">${m}</tspan>`;
 		});
 		return r;
 	}

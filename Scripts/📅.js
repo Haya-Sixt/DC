@@ -308,21 +308,24 @@ wdgt.Update = ()=> {
 
 //
 function Mark() {
-	var now = parseInt( new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' }).replace(':','') ); 
-	var first = null;
+	let now = parseInt( new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' }).replace(':','') ), 
+	  first = null, current = `💤`;
 
 	$(wdgt.sid + " td.📆val").each((i, t)=> {
-		var v = parseInt( $(t).text().replace(':','') );
+		let v = parseInt( $(t).text().replace(':','') );
 		if ( now <= v && !first) {
 			first = $(t).parent();
 			if (v - now <= 3) Countdown.Start ((v - now)*100);
-		} else {
+		} 
+		else {
 			$(t).parent().removeClass('markIconText');
+			if (!first) current = $(t).parent().find('td.📆name').text();
 		}
 	});
 	if (first ) {
 		first.addClass('markIconText'); 
 	}
+	wdgt.data.current = current;
 
 	//
 	CurrentBySunset ();
