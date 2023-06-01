@@ -58,11 +58,7 @@ function Background() {
 		c = '', cs;
 	if ( wdgt.data['🕯️🕯️'] == "true" ) c += '🕯️🕯️';
 	if ( (cs = $("#🗓️ td.tdCurrentHeb").text().match(Helpers.Emoji())) ) c += cs.join('');
-	if ( c == '') c = Widgets[`📆`].data.current; 
-//{
-//		if ( (cs = $app.Widgets['🌡️']?.data['☔']) ) c += cs
-// 		else c += '🌴';
-//	}
+	if ( c == '') c = $app.Widgets[`📆`].data.current; 
 	
 	$(wdgt.sid).css('backgroundImage', `${bg}${dx(c)}</text></svg>")`);
 
