@@ -70,7 +70,7 @@ function Background() {
 		a && a.forEach((m) => {
 			let dx = 20;	
 			if (m == '🕯️') dx = candle = (candle ? 60 : 48);
-			r += `<tspan dx="-0.${dx}em">${m}</tspan>`;
+			r += `<tspan dx='-0.${dx}em'>${m}</tspan>`;
 		});
 		return r;
 	}
