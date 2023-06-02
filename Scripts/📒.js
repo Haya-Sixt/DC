@@ -75,13 +75,13 @@ wdgt.Entries = function* () {
 			if (!($('#🗓️ td.tdCurrentHeb').text()).includes(cs)) continue; 
 		}
 
-		// 
-	  // 🗒: '🌋' App Must Have Delay Before 🔔. Otherwise '🏡' Won't Be Triggered (Because '🌋' Is Open).
+		//
+		// 🗒: '🌋' App Must Have Delay Before 🔔. Otherwise '🏡' Won't Be Triggered (Because '🌋' Is Open).
 		c = '🕯️';
 		x = $app.Vars[c];
 		if (condC.includes(`,${c},`)) {
 			if (x) startedAt = x + parseHM(cond, c, condC);
-			if (!x || x <= 0 || startedAt > now || startedAt + duration < now) continue;
+			if (!x || x <= 0 || startedAt > now) continue;
 		}
 
 		//
