@@ -53,13 +53,13 @@ wdgt.Update = ()=> {
 
 //
 function Background() {
-	const x = '3%', y = '90%', tSize = 3.8, text = `<text x='${x}' y='${y}' font-size='${fontSize}em'`;
+	const x = '3%', y = '90%', fontSize = 3.8, text = `<text x='${x}' y='${y}' font-size='${fontSize}em'`;
 	let c = '', cs;
 	if ( wdgt.data['🕯️🕯️'] == "true" ) c += '🕯️🕯️';
 	if ( (cs = $("#🗓️ td.tdCurrentHeb").text().match(Helpers.Emoji())) ) c += cs.join('');
 	if ( c == '') {
-		const circle = `<circle cx='calc(${x} + 2.37em)' cy='calc(${y} - 1.3em)'`, r = 2.1,
-		  def = `<defs><clipPath id='cp'>${circle} r='${r}em'/></clipPath><clipPath id='bg_cp'>${circle} r='calc(${r}em + 1em)'/></clipPath><filter id='bg_f'><feGaussianBlur in='SourceGraphic' stdDeviation='8' /></filter></defs>`;
+		const circle = `<circle cx='calc(${x} + 2.37em)' cy='calc(${y} - 1.3em)'`, radius = 2.1,
+		  def = `<defs><clipPath id='cp'>${circle} r='${radius}em'/></clipPath><clipPath id='bg_cp'>${circle} r='calc(${radius}em + 1em)'/></clipPath><filter id='bg_f'><feGaussianBlur in='SourceGraphic' stdDeviation='8'/></filter></defs>`;
 		cs = $app.Widgets[`📆`].data.current;
 		c = `${def}${text.replace(fontSize, fontSize + 1)} dx='-0.1em' clip-path='url(%23bg_cp)' filter='url(%23bg_f)' opacity='0.4'>${cs}</text>${text} clip-path='url(%23cp)' opacity='0.6'>${cs}`;
 	}
