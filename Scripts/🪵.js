@@ -53,16 +53,19 @@ wdgt.Update = ()=> {
 
 //
 function Background() {
-	try {		
-	let bg = `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1'><text x='3%' y='90%' font-size='3.8em'>`, 
-		c = '', cs;
+	const x = '3%', y = '90%', tSize = 3.8, text = `<text x='${x}' y='${y}' font-size='${fontSize}em'`;
+	let c = '', cs;
 	if ( wdgt.data['🕯️🕯️'] == "true" ) c += '🕯️🕯️';
 	if ( (cs = $("#🗓️ td.tdCurrentHeb").text().match(Helpers.Emoji())) ) c += cs.join('');
-	if ( c == '') c = $app.Widgets[`📆`].data.current; 
+	if ( c == '') {
+		const circle = `<circle cx='calc(${x} + 2.37em)' cy='calc(${y} - 1.3em)'`, r = 2.1,
+		  def = `<defs><clipPath id='cp'>${circle} r='${r}em'/></clipPath><clipPath id='bg_cp'>${circle} r='calc(${r}em + 1em)'/></clipPath><filter id='bg_f'><feGaussianBlur in='SourceGraphic' stdDeviation='8' /></filter></defs>`;
+		cs = $app.Widgets[`📆`].data.current;
+		c = `${def}${text.replace(fontSize, fontSize + 1)} dx='-0.1em' clip-path='url(%23bg_cp)' filter='url(%23bg_f)' opacity='0.4'>${cs}</text>${text} clip-path='url(%23cp)' opacity='0.6'>${cs}`;
+	}
+	else c = `${text}>${dx(c)}`;
 	
-	$(wdgt.sid).css('backgroundImage', `${bg}${dx(c)}</text></svg>")`);
-
-	} catch(e) { wdgt.Error(e, 'Background') }
+	$(wdgt.sid).css('backgroundImage', `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1'>${c}</text></svg>`);
 	
 	//
 	function dx(c) {
