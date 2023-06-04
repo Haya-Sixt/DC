@@ -79,9 +79,10 @@ wdgt.Entries = function* () {
 		// 🗒: '🌋' App Must Have Delay Before 🔔. Otherwise '🏡' Won't Be Triggered (Because '🌋' Is Open).
 		c = '🕯️';
 		x = $app.Vars[c];
-		if (condC.includes(`,${c},`)) {
-			if (x) startedAt = x + parseHM(cond, c, condC);
-			if (!x || x <= 0 || startedAt > now) continue;
+		if (condC.includes(`,${c},`) && x) {
+			let cs = x + parseHM(cond, c, condC);
+			if (cs > now) continue;
+			if (!startedAt) startedAt = cs;
 		}
 
 		//
