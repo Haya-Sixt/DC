@@ -37,7 +37,7 @@ static Start (n) {
 	Countdown.#Stop(true);
 	
 	if ($("#⏳").length!=0) $("#⏳").remove();
-	$("<div>").attr("id","⏳").appendTo("body").html('<div class="cdc_container"></div>');
+	$("<div>").attr("id","⏳").appendTo("#🪵").html('<div class="cdc_container"></div>');
 		
 	var html = '', n_s_before = Countdown.#n_s;
 	Countdown.#Play(); 

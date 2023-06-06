@@ -20,7 +20,7 @@ const app = {
             this.status = this.init = this.update = this.url = this.dependency = null;
             this.repeat = {init: 0, update: 0};
 
-            $('<div>').attr('id', id).addClass('wdgt').html(`${id}...`).appendTo('body'); // 🗒: ⌚ must have this #text node.
+            $('<div>').attr('id', id).addClass('wdgt').html(`${id}...`).appendTo(`#${app.Constants.Name}`); // 🗒: ⌚ must have this #text node.
             app.Widgets[id] = this;
         }
         get Init () {
@@ -106,8 +106,15 @@ function Load () {
 }
 
 function Init () {
+    App ();
     Observers ();
     Resources ();
+}
+
+function App () {
+    const e = document.createElement('div');
+    e.id = app.Constants.Name;
+    document.body.appendChild(e);
 }
 
 function Observers () {
@@ -133,6 +140,7 @@ function On () {
         w.dependency && w.dependency.forEach(d=> addEventListener(`${app.Constants.Name}.${d}`, w.Init));
         w.Init();
     }
+    Countdown (11000);
 }
 
 //
