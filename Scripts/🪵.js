@@ -53,14 +53,14 @@ wdgt.Update = ()=> {
 
 //
 function Background() {
-	const x = '3%', y = '90%', fontSize = 3.8, text = `<text x='${x}' y='${y}' font-size='${fontSize}em'`;
+	const x = '3%', y = '90%', fontSize = 3.8, text = `<text x='${x}' y='${y}' font-size='${fontSize}em'>`;
 	let c = '', cs;
 	if ( wdgt.data['🕯️🕯️'] == "true" ) c += '🕯️🕯️';
 	if ( (cs = $("#🗓️ td.tdCurrentHeb").text().match(Helpers.Emoji())) ) c += cs.join('');
 	if ( c == '') c = '🌴'
-	else c = `${text}>${dx(c)}`;
+	else c = dx(c);
 	
-	$(wdgt.sid).css('backgroundImage', `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1'>${c}</text></svg>")`);
+	$(wdgt.sid).css('backgroundImage', `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1'>${text}${c}</text></svg>")`);
 	
 	//
 	function dx(c) {
