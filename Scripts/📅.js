@@ -349,7 +349,7 @@ function Background () {
 		x = c.indexOf('<text'),
 		x2 = x + c.slice(x).indexOf('>') + 1,
 		t = c.slice(x2, c.indexOf('</text')),
-		c2 = c.split('').splice(x2, t.length, $app.Widgets[`📆`].data.current).join(''),
+		c2 = c.split('').splice(x2, t.length, $app.Widgets[`📆`].data.current).join('');
 	if (!c) return;
 	$(wdgt.sid).css('backgroundImage', Helpers.CssUrl (c2));
 //		const circle = `<circle cx='calc(${x} + 2.37em)' cy='calc(${y} - 1.3em)'`, radius = 2.1,
