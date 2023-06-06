@@ -347,11 +347,11 @@ function CurrentBySunset () {
 function Background () {
 	const c = $(wdgt.sid).css('background-image'), 
 		x = c.indexOf('<text'),
-		t = c.slice(x + c.slice(x).indexOf('>') + 1, c.indexOf('</text')),
-		c2 = c.replace(';utf8','').replace(t, $app.Widgets[`📆`].data.current);
+		x2 = x + c.slice(x).indexOf('>') + 1,
+		t = c.slice(x2, c.indexOf('</text')),
+		c2 = c.split('').splice(x2, t.length, $app.Widgets[`📆`].data.current).join(''),
 	if (!c) return;
-	$(wdgt.sid).css('backgroundImage', c2);
-//	$(wdgt.sid).css('backgroundImage', `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1'>${text}${c}</text></svg>")`);
+	$(wdgt.sid).css('backgroundImage', Helpers.CssUrl (c2));
 //		const circle = `<circle cx='calc(${x} + 2.37em)' cy='calc(${y} - 1.3em)'`, radius = 2.1,
 //		  def = `<defs><clipPath id='cp'>${circle} r='${radius}em'/></clipPath><clipPath id='bg_cp'>${circle} r='calc(${radius}em + 1em)'/></clipPath><filter id='bg_f'><feGaussianBlur in='SourceGraphic' stdDeviation='8'/></filter></defs>`;
 //		c = `${def}${text} dx='-0.1em' clip-path='url(%23bg_cp)' filter='url(%23bg_f)' opacity='0.4'>${cs}</text>${text} clip-path='url(%23cp)' opacity='0.6'>${cs}`;

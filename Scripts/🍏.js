@@ -158,4 +158,7 @@ class Helpers {
     static Css (v) {
         return getComputedStyle($('html')[0]).getPropertyValue(decodeURIComponent(v)).trim();
     }
+    static CssUrl (c) {
+    	return `${c.split(',')[0].replace(';utf8','')},${encodeURIComponent(c.split(',')[1].replaceAll('\\','').slice(0,-2))}")`;
+    }
 }
