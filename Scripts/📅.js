@@ -345,7 +345,7 @@ function CurrentBySunset () {
 }
 
 function Background () {
-	const text = `<text x='0%' y='95%' font-size='7.4em' opacity='0.4'>`, 
+	const text = `<text x='0%' y='95%' font-size='7.4em' opacity='0.5'>`, 
 		c = $app.Widgets[`📆`].data.current;
 	$(wdgt.sid).css('backgroundImage', `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1'>${text}${c}</text></svg>")`);
 //		const circle = `<circle cx='calc(${x} + 2.37em)' cy='calc(${y} - 1.3em)'`, radius = 2.1,
