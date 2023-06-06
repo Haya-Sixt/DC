@@ -140,7 +140,7 @@ function On () {
         w.dependency && w.dependency.forEach(d=> addEventListener(`${app.Constants.Name}.${d}`, w.Init));
         w.Init();
     }
-    Countdown (11000);
+    Countdown.Start (6000);
 }
 
 //

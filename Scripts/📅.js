@@ -349,7 +349,7 @@ function Background () {
 //		  def = `<defs><clipPath id='cp'>${circle} r='${radius}em'/></clipPath><clipPath id='bg_cp'>${circle} r='calc(${radius}em + 1em)'/></clipPath><filter id='bg_f'><feGaussianBlur in='SourceGraphic' stdDeviation='8'/></filter></defs>`;
 //		c = `${def}${text} dx='-0.1em' clip-path='url(%23bg_cp)' filter='url(%23bg_f)' opacity='0.4'>${cs}</text>${text} clip-path='url(%23cp)' opacity='0.6'>${cs}`;
 		$(wdgt.sid).css('backgroundImage', `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1'>
-			<text x='0%' y='95%' font-size='6.4em' opacity='0.4'>${$app.Widgets[`📆`].data.current;}</text></svg>")`);
+			<text x='0%' y='95%' font-size='6.4em' opacity='0.4'>${$app.Widgets[`📆`].data.current}</text></svg>")`);
 }
 
 })();
