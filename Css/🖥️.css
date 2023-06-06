@@ -73,9 +73,10 @@
 /* 📱 (RN10S) */
 @media screen and (max-device-width: 730px) {
 
-.📆val { color:var(--🖥️-c-td-1); } 
 .📆name, .📆val, #⏱️ { font-size: 1.19rem; }
 .📆name, #📅👉, #⏰ { color: var(--🖥️-c-t-4); }
+#📆 { background-image: unset !important; }
+.📆val { color:var(--🖥️-c-td-1); } 
 #⏱️ { color: var(--🖥️-c-t-2); }
 #🗓️ { border-top: 1.56rem solid var(--🖥️-c-b-1); }
 #🗓️ div.omer { font-size: 0.69rem; } 
