@@ -4,6 +4,7 @@
 
 .📆name, #📅👉, #⏰, #⌚ { color: var(--🖥️-c-ts-1); }
 .📆name, .📆val { font-size: 1.6rem; filter: grayscale(50%) brightness(50%);}
+#📆 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><text x="0%" y="95%" font-size="7.4em" opacity="0.5"></text></svg>'); } /*text is been eval by js*/
 .📆val { color:var(--🖥️-c-ts-2); }
 .📆name { text-shadow: 0.31rem 0 0.31rem var(--🖥️-c-b-1), 0 0.31rem 0.31rem var(--🖥️-c-b-1), -0.31rem 0 0.31rem var(--🖥️-c-b-1), 0 -0.31rem 0.31rem var(--🖥️-c-b-1); } 
 #🗓️ { overflow: hidden; border-top: 0.94rem solid var(--🖥️-c-b-1); } 
