@@ -349,6 +349,7 @@ function Background () {
 		x = c.indexOf('<text'),
 		t = c.slice(x + c.slice(x).indexOf('>') + 1, c.indexOf('</text')),
 		c2 = c.replace(';utf8','').replace(t, $app.Widgets[`📆`].data.current);
+	if (!c) return;
 	$(wdgt.sid).css('backgroundImage', c2);
 //	$(wdgt.sid).css('backgroundImage', `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1'>${text}${c}</text></svg>")`);
 //		const circle = `<circle cx='calc(${x} + 2.37em)' cy='calc(${y} - 1.3em)'`, radius = 2.1,
