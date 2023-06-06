@@ -28,9 +28,10 @@ static #template = `<ul class="cdc_flip cdc_dgtPlay">
 static #n_s; 
 static #i_Play;
 
-static Start (n) {
+//
+static Start (mmss) {
 	try {
-	n = parseInt(n);
+	let n = parseInt(mmss);
 	if (n <= 0) return;
 	Countdown.#n_s = ('' + n);
 	
