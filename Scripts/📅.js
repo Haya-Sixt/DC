@@ -349,8 +349,8 @@ function Background () {
 		x = c.indexOf('<text'),
 		x2 = x + c.slice(x).indexOf('>') + 1,
 		t = c.slice(x2, c.indexOf('</text')),
-		c2 = c.split('').splice(x2, t.length, $app.Widgets[`📆`].data.current).join('');
-	if (!c) return;
+		c2 = `${c.slice(0, x2)}${$app.Widgets[`📆`].data.current}${c.slice(x2).replace(t,'')}`;
+	if (c == 'none') return; // Portrait
 	$(wdgt.sid).css('backgroundImage', Helpers.CssUrl (c2));
 //		const circle = `<circle cx='calc(${x} + 2.37em)' cy='calc(${y} - 1.3em)'`, radius = 2.1,
 //		  def = `<defs><clipPath id='cp'>${circle} r='${radius}em'/></clipPath><clipPath id='bg_cp'>${circle} r='calc(${radius}em + 1em)'/></clipPath><filter id='bg_f'><feGaussianBlur in='SourceGraphic' stdDeviation='8'/></filter></defs>`;
