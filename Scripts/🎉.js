@@ -37,7 +37,7 @@ static Start (mmss) {
 	
 	Countdown.#Stop(true);
 	
-	if ($("#⏳").length!=0) $("#⏳").remove();
+	if ($("#⏳").length) $("#⏳").remove();
 	$("<div>").attr("id","⏳").appendTo("#🪵").html('<div class="cdc_container"></div>');
 		
 	var html = '', n_s_before = Countdown.#n_s;
@@ -60,7 +60,11 @@ static Start (mmss) {
 //
 static #Play() {
 	try {
-	var minus1 = Countdown.#Timefy(parseInt(Countdown.#n_s)-1);
+	let minus1 = Countdown.#Timefy(parseInt(Countdown.#n_s)-1);
+	if (!$("#⏳").length) {
+		Countdown.Start(minus1);
+		return;
+	}
 	
 	if (minus1.length < Countdown.#n_s.length) 
 		$(".cdc_container .cdc_" + (Countdown.#n_s.length - minus1.length - 1) + "Play").hide('slow');
