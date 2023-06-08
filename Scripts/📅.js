@@ -345,8 +345,8 @@ function CurrentBySunset () {
 }
 
 function Background () {
-	const img = $(wdgt.sid).css('background-image'), 
-		c = !img.includes(',%') ? img : decodeURIComponent(decodeURIComponent(img)), // i.e: 'svg+xml,%253Csvg'. 🗒: Without '?' it's throwing err.
+	const a = $(wdgt.sid).css('background-image').split[','], 
+		c = !a[1].startsWith('%') ? a.join(',') : `${a[0]},${decodeURIComponent(decodeURIComponent(a[1]))}`, // i.e: 'svg+xml,%253Csvg'. 🗒: Without '?' it's throwing err.
 		x = c.indexOf('<text'),
 		x2 = x + c.slice(x).indexOf('>') + 1,
 		t = c.slice(x2, c.indexOf('</text')),
