@@ -165,11 +165,11 @@ class Helpers {
         let a = $(e).css(prop).split(',');
 	    if (a.length < 2) return; // bg-image is 'none' in Portrait
 
-        const Decode = ()=> { if (a[1].startsWith('%')) a[1] = decodeURIComponent(a[1]) }; // i.e: 'svg+xml,%253Csvg'. 🗒: Even 'try' doesn't stop this Internal Err 'URI Mis...' !!
-        Decode ();
-        Decode ();
+        //const Decode = ()=> { if (a[1].startsWith('%')) a[1] = decodeURIComponent(a[1]) }; // i.e: 'svg+xml,%253Csvg'. 🗒: Even 'try' doesn't stop this Internal Err 'URI Mis...' !!
+        //Decode ();
+        //Decode ();
 
-        let c = `${a[0]},${a[1]}`.replace(';utf8','').replaceAll('\\','')
+        let c = `${a[0]},${a[1]}`//.replace(';utf8','').replaceAll('\\','')
         	.replaceAll ('#','%23') // i.e: url(#
             //.replaceAll ('%3E%3C', '><'); // Needed. The Decode Is Partial. 🗒: '><' are together to prevent Err- 'Unescaped '<' not allowed in attributes values '
             .replaceAll ('%3E', '>').replaceAll ('%3C', '<'); // Needed. The Decode Is Partial.
