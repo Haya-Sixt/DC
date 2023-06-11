@@ -165,10 +165,13 @@ class Helpers {
         let a = $(e).css(prop).split(',');
 	    if (a.length < 2) return; // bg-image is 'none' in Portrait
 
-        if (a[1].startsWith('%')) a[1] = decodeURIComponent(a[1]); // i.e: 'svg+xml,%253Csvg'.
-        if (a[1].startsWith('%')) a[1] = decodeURIComponent(a[1]);
+        const Decode = ()=> { try { a[1] = decodeURIComponent(a[1]) } finally {} }; // i.e: 'svg+xml,%253Csvg'.
+        Decode ();
+        Decode ();
 
-        let c = `${a[0]},${a[1]}`.replace(';utf8','').replaceAll('\\','');
+        let c = `${a[0]},${a[1]}`.replace(';utf8','').replaceAll('\\','')
+        	.replaceAll ('#','%23') // i.e: url(#
+            .replaceAll ('%3C', '<').replaceAll ('%3E', '>'); // Just in case...😊
         if (typeof to != 'undefined') {
             a = c.split('</text>');
             for (let i = 0; i < a.length - 2; i++)
@@ -182,7 +185,7 @@ class Helpers {
         	c = `${c.slice(0, x)}${to}${c.slice(x2)}`;
         }
         a = c.split(',');
-        c = `${a[0]},${encodeURIComponent(a[1].slice(0,-2)).replaceAll('#','%23')}")`; // i.e: url(#
+        c = `${a[0]},${encodeURIComponent(a[1].slice(0,-2))}")`; 
 
         $(e).css(prop, c);
     }
