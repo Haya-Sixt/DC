@@ -168,7 +168,7 @@ class Helpers {
         if (a[1].startsWith('%')) a[1] = decodeURIComponent(a[1]); // i.e: 'svg+xml,%253Csvg'.
         if (a[1].startsWith('%')) a[1] = decodeURIComponent(a[1]);
 
-        let c = `${a[0]},${a[1]}`.replace(';utf8','').replaceAll('\\','').replaceAll('#','%23'); // i.e: url(#
+        let c = `${a[0]},${a[1]}`.replace(';utf8','').replaceAll('\\','');
         if (typeof to != 'undefined') {
             a = c.split('</text>');
             for (let i = 0; i < a.length - 2; i++)
@@ -182,7 +182,7 @@ class Helpers {
         	c = `${c.slice(0, x)}${to}${c.slice(x2)}`;
         }
         a = c.split(',');
-        c = `${a[0]},${encodeURIComponent(a[1].slice(0,-2))}")`;
+        c = `${a[0]},${encodeURIComponent(a[1].slice(0,-2)).replaceAll('#','%23')}")`; // i.e: url(#
 
         $(e).css(prop, c);
     }
