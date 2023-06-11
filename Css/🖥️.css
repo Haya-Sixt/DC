@@ -4,13 +4,13 @@
 
 .📆name, #📅👉, #⏰, #⌚ { color: var(--🖥️-c-ts-1); }
 .📆name, .📆val { font-size: var(--🖥️-c-px-26); filter: grayscale(50%) brightness(50%);}
-#📆 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><text x="0%" y="95%" font-size="8em" opacity="0.5"»></text></svg>'); } /*text is been eval by js*/
+#📆 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><text x="0%" y="95%" font-size="8em" opacity="0.5"></text></svg>'); } /*text is been eval by js*/
 .📆val { color:var(--🖥️-c-ts-2); }
 .📆name { text-shadow: var(--🖥️-c-px-5) 0 var(--🖥️-c-px-5) var(--🖥️-c-b-1), 0 var(--🖥️-c-px-5) var(--🖥️-c-px-5) var(--🖥️-c-b-1), calc(-1 * var(--🖥️-c-px-5)) 0 var(--🖥️-c-px-5) var(--🖥️-c-b-1), 0 calc(-1 * var(--🖥️-c-px-5)) var(--🖥️-c-px-5) var(--🖥️-c-b-1); } 
 #🗓️ { overflow: hidden; border-top: var(--🖥️-c-px-15) solid var(--🖥️-c-b-1); } 
 #🗓️ div.omer { font-size:var(--🖥️-c-px-12); } 
 #⌚ { /* font-size: var(--🖥️-c-px-155); text-align: center; */ 
-	background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><svg width="100%" height="100%" viewbox="0 0 1000 1000" style="font-size:100;"><defs><filter id="⌚filter"><feTurbulence type="turbulence"><animate attributeName="baseFrequency" values="0.4;0.5" dur="10s" repeatCount="indefinite" />	<animate attributeName="numOctaves" values="4;5" dur="10s" repeatCount="indefinite" /></feTurbulence><feColorMatrix id="⌚matrix" type="matrix" values="0 0 0 -1 1 0 0 0 -1 1 0 0 0 -1 1 0 0 0 0 1"/><feComponentTransfer><feFuncR type="table" tableValues="0 0 0 .4 1"/></feComponentTransfer></filter><mask id="⌚mask"><text x="250" y="500"»>??:??</text></mask></defs><text x="250" y="500" style="filter: url(#⌚filter);" mask="url(#⌚mask)"»>??:??</text></svg>'); /*text is been eval by js*/ 
+	background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><svg width="100%" height="100%" viewbox="0 0 1000 1000" style="font-size:100;"><defs><filter id="⌚filter"><feTurbulence type="turbulence"><animate attributeName="baseFrequency" values="0.4;0.5" dur="10s" repeatCount="indefinite"/><animate attributeName="numOctaves" values="4;5" dur="10s" repeatCount="indefinite"/></feTurbulence><feColorMatrix id="⌚matrix" type="matrix" values="0 0 0 -1 1 0 0 0 -1 1 0 0 0 -1 1 0 0 0 0 1"/><feComponentTransfer><feFuncR type="table" tableValues="0 0 0 .4 1"/></feComponentTransfer></filter><mask id="⌚mask"><text x="250" y="500"></text></mask></defs><text x="250" y="500" style="filter: url(#⌚filter);" mask="url(#⌚mask)"></text></svg>'); /*text is been eval by js*/ 
 	animation-name: ⌚; animation-duration: 12s; animation-iteration-count: infinite; } 
 #⌚ :last-child { position: relative; width: 6%; height: 65%; left: -47%; top: -83%; 
 	animation-name: ⌚Colon; animation-duration: 2s; animation-timing-function: ease; animation-iteration-count: infinite; } 
