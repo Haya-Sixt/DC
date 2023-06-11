@@ -26,25 +26,7 @@ wdgt.repeat = { update: 1 };
 
 //
 wdgt.Init = ()=> {
-	$("<div>").css('background-image', `url('data:image/svg+xml;utf8,
-	<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 1000 1000" style="font-size: 100;">
-	<defs>
-	<filter id="⌚filter">
-	<feTurbulence type="turbulence">
-		<animate attributeName="baseFrequency" values="0.4;0.5" dur="10s" repeatCount="indefinite" />
-		<animate attributeName="numOctaves" values="4;5" dur="10s" repeatCount="indefinite" />
-	</feTurbulence>
-	<feColorMatrix id="⌚matrix" type="matrix" values="0 0 0 -1 1 0 0 0 -1 1 0 0 0 -1 1 0 0 0 0 1"/>
-	<feComponentTransfer>
-		<feFuncR type="table" tableValues="0 0 0 .4 1"/>
-	</feComponentTransfer>
-		</filter>
-	<mask id="⌚mask">
-	<text x="250" y="500"»>??:??</text>
-	</mask>
-	</defs> 
-	<text x="250" y="500" style="filter: url(#⌚filter);" mask="url(#⌚mask)"»>??:??</text>
-	</svg>')`.replaceAll('\n','')).appendTo($(wdgt.sid));
+	$(wdgt.sid).text('');
 
 	// colon 
 	$("<div>").appendTo($(wdgt.sid));
@@ -52,11 +34,10 @@ wdgt.Init = ()=> {
 
 wdgt.Update = ()=> {
 	const time = new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' }),
-		e = $(document.querySelector(wdgt.sid).firstElementChild),
-		b = e.css('background-image'),
+		b = $(wdgt.ids).css('background-image'),
 		x = b.indexOf ('»') + 2,
 		t = b.slice(x, x + 5);
-	e.css('background-image', b.replaceAll (t, time));
+	$(wdgt.ids).css('background-image', b.replaceAll (t, time));
 }
 
 })();
