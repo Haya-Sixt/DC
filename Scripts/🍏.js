@@ -163,7 +163,7 @@ class Helpers {
         const a = $(e).css(prop).split(',');
 	    if (a.length < 2) return; // bg-image is 'none' in Portrait
 
-        const decode = a[1].startsWith('%') ? decodeURIComponent(a[1]) : a[1];
+        const decode = (a[1].startsWith('%') ? decodeURIComponent(a[1]) : a[1]).replace('%C2%BB','»');
         let c = `${a[0]},${decode.startsWith('%') ? decodeURIComponent(decode) : decode}`, // i.e: 'svg+xml,%253Csvg'. 🗒: Without '?' it's throwing err.
         	x, x2;
         if (to) {
