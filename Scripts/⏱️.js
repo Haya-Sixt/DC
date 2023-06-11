@@ -33,11 +33,8 @@ wdgt.Init = ()=> {
 };
 
 wdgt.Update = ()=> {
-	const time = new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' }),
-		b = $(wdgt.ids).css('background-image'),
-		x = b.indexOf ('»') + 2,
-		t = b.slice(x, x + 5);
-	$(wdgt.ids).css('background-image', b.replaceAll (t, time));
+	const time = new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
+	Helpers.Css('background-image', wdgt.ids, time);
 }
 
 })();
