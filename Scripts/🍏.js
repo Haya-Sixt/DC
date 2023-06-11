@@ -170,8 +170,9 @@ class Helpers {
 
         let c = `${a[0]},${a[1]}`.replace(';utf8','').replaceAll('\\','').replaceAll('#','%23'); // i.e: url(#
         if (to) {
-            a = []; 
-            c.split('</text>').forEach((s)=> a.push(s.slice(0, s.lastIndexOf('>') + 1))); 
+            a = c.split('</text>');
+            for (let i = 0; i < a.length - 2; i++)
+            	a[i] = a[i].slice(0, a[i].lastIndexOf('>') + 1); 
             c = a.join(`${to}</text>`);
         }
         else {
