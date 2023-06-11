@@ -171,7 +171,8 @@ class Helpers {
 
         let c = `${a[0]},${a[1]}`.replace(';utf8','').replaceAll('\\','')
         	.replaceAll ('#','%23') // i.e: url(#
-            .replaceAll ('%3C', '<').replaceAll ('%3E', '>'); // Needed. The Decode Is Partial
+            .replaceAll ('%3E%3C/text', '></text'); // Needed. The Decode Is Partial. 🗒: '></t' are together to prevent Err- ' ">" in att ...'
+
         if (typeof to != 'undefined') {
             a = c.split('</text>');
             for (let i = 0; i < a.length - 2; i++)
