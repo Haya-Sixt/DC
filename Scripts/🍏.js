@@ -185,8 +185,8 @@ class Helpers {
             to = Helpers.Css(c.slice(x, x2));
         	c = `${c.slice(0, x)}${to}${c.slice(x2)}`;
         }
-        a = c.split(',');
-        c = `${a[0]},${encodeURIComponent(a[1].slice(0,-2))}")`; 
+        //a = c.split(',');
+        //c = `${a[0]},${encodeURIComponent(a[1])}`;
 
         $(e).css(prop, c);
     }
