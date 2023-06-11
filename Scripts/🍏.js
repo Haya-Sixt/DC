@@ -150,15 +150,35 @@ return app;
 
 //
 class Helpers {
+    //
 	static Emoji (exclude = '(🌾)') { 
         if (exclude) exclude = `(?<!${exclude})`
         else exclude = '';
         return new RegExp(`\[🇦-🇿]{2}|\\p{Extended_Pictographic}${exclude}`,'ugm'); // 🗒: 1. dot isn't needed (although the emoji looks partial ).  2. 'A-Z' is for countries (They are two values in the range of U+1F1E6 (Regional Indicator Symbol Letter A) and U+1F1FF (Regional Indicator Symbol Letter Z))
     }
-    static Css (v) {
-        return getComputedStyle($('html')[0]).getPropertyValue(decodeURIComponent(v)).trim();
-    }
-    static CssUrl (c) {
-    	return `${c.split(',')[0].replace(';utf8','')},${encodeURIComponent(c.split(',')[1].replaceAll('\\','').slice(0,-2))}")`;
+    //
+    static Css (prop, e, to) {
+        if (!e) return getComputedStyle($('html')[0]).getPropertyValue(decodeURIComponent(prop)).trim();
+        //
+        const a = $(e).(prop).split(',');
+	    if (a.length < 2) return; // bg-image is 'none' in Portrait
+
+        const decode = a[1].startsWith('%') ? decodeURIComponent(a[1]) : a[1];
+        let c = `${a[0]},${decode.startsWith('%') ? decodeURIComponent(decode) : decode}`, // i.e: 'svg+xml,%253Csvg'. 🗒: Without '?' it's throwing err.
+        	x, x2;
+        if (to) {
+            x = c.indexOf('»') + 2,
+        	x2 = x + c.slice(x).indexOf('<');
+        }
+        else {
+            x = c.indexOf('var') + 4,
+        	x2 = x + c.slice(x).indexOf(')');
+            to = Helper.Css(c.slice(x, x2));
+        }
+        c = `${c.slice(0, x)}${to}${c.slice(x2)}`;
+        const a2 = c.split(',');
+        c = `${a2[0].replace(';utf8','')},${encodeURIComponent(a2[1].replaceAll('\\','').slice(0,-2))}")`;
+
+        $(e).css(prop, c)
     }
 }

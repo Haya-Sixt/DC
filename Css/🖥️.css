@@ -4,7 +4,7 @@
 
 .📆name, #📅👉, #⏰, #⌚ { color: var(--🖥️-c-ts-1); }
 .📆name, .📆val { font-size: var(--🖥️-c-px-26); filter: grayscale(50%) brightness(50%);}
-#📆 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><text x="0%" y="95%" font-size="8em" opacity="0.5"></text></svg>'); } /*text is been eval by js*/
+#📆 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><text x="0%" y="95%" font-size="8em" opacity="0.5"»></text></svg>'); } /*text is been eval by js*/
 .📆val { color:var(--🖥️-c-ts-2); }
 .📆name { text-shadow: var(--🖥️-c-px-5) 0 var(--🖥️-c-px-5) var(--🖥️-c-b-1), 0 var(--🖥️-c-px-5) var(--🖥️-c-px-5) var(--🖥️-c-b-1), calc(-1 * var(--🖥️-c-px-5)) 0 var(--🖥️-c-px-5) var(--🖥️-c-b-1), 0 calc(-1 * var(--🖥️-c-px-5)) var(--🖥️-c-px-5) var(--🖥️-c-b-1); } 
 #🗓️ { overflow: hidden; border-top: var(--🖥️-c-px-15) solid var(--🖥️-c-b-1); } 

@@ -345,14 +345,7 @@ function CurrentBySunset () {
 }
 
 function Background () {
-	const a = $(wdgt.sid).css('background-image').split(','), 
-		c = !(a[1].startsWith('%')) ? a.join(',') : `${a[0]},${decodeURIComponent(decodeURIComponent(a[1]))}`, // i.e: 'svg+xml,%253Csvg'. 🗒: Without '?' it's throwing err.
-		x = c.indexOf('<text'),
-		x2 = x + c.slice(x).indexOf('>') + 1,
-		t = c.slice(x2, c.indexOf('</text')),
-		c2 = `${c.slice(0, x2)}${wdgt.data.current}${c.slice(x2).replace(t,'')}`;
-	if (c == 'none') return; // Portrait
-	$(wdgt.sid).css('backgroundImage', Helpers.CssUrl (c2));
+	Helpers.Css ('background-image', wdgt.sid, wdgt.data.current);
 //		const circle = `<circle cx='calc(${x} + 2.37em)' cy='calc(${y} - 1.3em)'`, radius = 2.1,
 //		  def = `<defs><clipPath id='cp'>${circle} r='${radius}em'/></clipPath><clipPath id='bg_cp'>${circle} r='calc(${radius}em + 1em)'/></clipPath><filter id='bg_f'><feGaussianBlur in='SourceGraphic' stdDeviation='8'/></filter></defs>`;
 //		c = `${def}${text} dx='-0.1em' clip-path='url(%23bg_cp)' filter='url(%23bg_f)' opacity='0.4'>${cs}</text>${text} clip-path='url(%23cp)' opacity='0.6'>${cs}`;
