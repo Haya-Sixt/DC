@@ -44,7 +44,7 @@ wdgt.Init = ()=> {
 	</mask>
 	</defs> 
 	<text x="250" y="500" style="filter: url(#⌚filter);" mask="url(#⌚mask)"»>??:??</text>
-	</svg>');`).appendTo($(wdgt.sid));
+	</svg>')`.replaceAll('\n','')).appendTo($(wdgt.sid));
 
 	// colon 
 	$("<div>").appendTo($(wdgt.sid));
@@ -52,12 +52,11 @@ wdgt.Init = ()=> {
 
 wdgt.Update = ()=> {
 	const time = new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' }),
-		e = $(document.querySelector(wdgt.sid).firstChild),
+		e = $(document.querySelector(wdgt.sid).firstElementChild),
 		b = e.css('background-image'),
 		x = b.indexOf ('»') + 2,
 		t = b.slice(x, x + 5);
 	e.css('background-image', b.replaceAll (t, time));
-	//textContent = time;
 }
 
 })();
