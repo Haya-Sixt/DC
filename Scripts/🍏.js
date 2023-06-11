@@ -178,7 +178,7 @@ class Helpers {
         else {
             const x = c.indexOf('var') + 4,
         		x2 = x + c.slice(x).indexOf(')');
-            to = Helper.Css(c.slice(x, x2));
+            to = Helpers.Css(c.slice(x, x2));
         	c = `${c.slice(0, x)}${to}${c.slice(x2)}`;
         }
         a = c.split(',');
