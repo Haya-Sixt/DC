@@ -168,7 +168,7 @@ class Helpers {
         if (a[1].startsWith('%')) a[1] = decodeURIComponent(a[1]); // i.e: 'svg+xml,%253Csvg'.
         if (a[1].startsWith('%')) a[1] = decodeURIComponent(a[1]);
 
-        let c = `${a[0]},${a[1]}`.replace(';utf8','').replaceAll('\\','');
+        let c = `${a[0]},${a[1]}`.replace(';utf8','').replaceAll('\\','').replaceAll('#','%23'); // i.e: url(#
         if (to) {
             a = []; 
             c.split('</text>').forEach((s)=> a.push(s.slice(0, s.lastIndexOf('>') + 1))); 
