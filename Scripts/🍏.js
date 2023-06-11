@@ -160,7 +160,7 @@ class Helpers {
     static Css (prop, e, to) {
         if (!e) return getComputedStyle($('html')[0]).getPropertyValue(decodeURIComponent(prop)).trim();
         //
-        const a = $(e).(prop).split(',');
+        const a = $(e).css(prop).split(',');
 	    if (a.length < 2) return; // bg-image is 'none' in Portrait
 
         const decode = a[1].startsWith('%') ? decodeURIComponent(a[1]) : a[1];
@@ -179,6 +179,6 @@ class Helpers {
         const a2 = c.split(',');
         c = `${a2[0].replace(';utf8','')},${encodeURIComponent(a2[1].replaceAll('\\','').slice(0,-2))}")`;
 
-        $(e).css(prop, c)
+        $(e).css(prop, c);
     }
 }
