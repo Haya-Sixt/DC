@@ -169,7 +169,7 @@ class Helpers {
         if (a[1].startsWith('%')) a[1] = decodeURIComponent(a[1]);
 
         let c = `${a[0]},${a[1]}`.replace(';utf8','').replaceAll('\\','').replaceAll('#','%23'); // i.e: url(#
-        if (to) {
+        if (typeof to != 'undefined') {
             a = c.split('</text>');
             for (let i = 0; i < a.length - 2; i++)
             	a[i] = a[i].slice(0, a[i].lastIndexOf('>') + 1); 
