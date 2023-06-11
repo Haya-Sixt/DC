@@ -34,7 +34,7 @@ wdgt.Init = ()=> {
 
 wdgt.Update = ()=> {
 	const time = new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
-	Helpers.Css('background-image', wdgt.ids, time);
+	Helpers.Css('background-image', wdgt.sid, time);
 }
 
 })();
