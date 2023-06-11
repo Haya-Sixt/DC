@@ -186,7 +186,8 @@ class Helpers {
         	c = `${c.slice(0, x)}${to}${c.slice(x2)}`;
         }
         a = c.split(',');
-        a[1] = encodeURIComponent(a[1]).replaceAll ('#','%23'); // i.e: url(#;
+        //a[1] = encodeURIComponent(a[1]).replaceAll ('#','%23'); // i.e: url(#;
+        a[1] = a[1].replaceAll ('#','%23'); // i.e: url(#;
         c = `url('${a[0]},${a[1]}')`; 
 
         $(e).css(prop, c);
