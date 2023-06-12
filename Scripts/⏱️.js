@@ -46,7 +46,7 @@ wdgt.Init = ()=> {
 	<text x="100%" y="98%"></text>
 	</mask>
 	</defs>
-	<text x="100%" y="98%" style="filter: url(%23⌚filter);" mask="url(%23⌚mask)"></text>
+	<text x="100%" y="98%" style="filter: url(#⌚filter);" mask="url(#⌚mask)"></text>
 	`).appendTo($(wdgt.sid));
 
 	// colon 
