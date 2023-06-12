@@ -27,6 +27,27 @@ wdgt.repeat = { update: 1 };
 //
 wdgt.Init = ()=> {
 	$(wdgt.sid).text('');
+	//
+	$('<div>').html(`
+	<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewbox="0 0 1000 1000" style="font-size:100;">
+	<defs>
+	<filter id="⌚filter">
+	<feTurbulence type="turbulence">
+	<animate attributeName="baseFrequency" values="0.4;0.5" dur="10s" repeatCount="indefinite"/>
+	<animate attributeName="numOctaves" values="4;5" dur="10s" repeatCount="indefinite"/>
+	</feTurbulence>
+	<feColorMatrix type="matrix" values="0 0 0 -1 1 0 0 0 -1 1 0 0 0 -1 1 0 0 0 0 1"/>
+	<feComponentTransfer>
+	<feFuncR type="table" tableValues="0 0 0 .4 1"/>
+	</feComponentTransfer>
+	</filter>
+	<mask id="⌚mask">
+	<text x="250" y="500"></text>
+	</mask>
+	</defs>
+	<text x="250" y="500" style="filter: url(%23⌚filter);" mask="url(%23⌚mask)"></text>
+	</svg>
+	`).appendTo($(wdgt.sid));
 
 	// colon 
 	$("<div>").appendTo($(wdgt.sid));
@@ -34,7 +55,7 @@ wdgt.Init = ()=> {
 
 wdgt.Update = ()=> {
 	const time = new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
-	Helpers.Css('background-image', wdgt.sid, time);
+	$(wdgt.sid).find('text').text(time);
 }
 
 })();
