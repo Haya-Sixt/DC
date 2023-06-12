@@ -170,9 +170,9 @@ class Helpers {
         Decode ();
 
         let c = `${a[0]},${a[1]}`.replace(';utf8','').replaceAll('\\','')
-            .replaceAll ('%3E', '>').replaceAll ('%3C', '<') // Needed. The Decode Is Partial.
-			.replaceAll ("'", '"').replaceAll ('%22','"').replace ('url("','').replace ('svg>")','svg>')
-            .replaceAll ('"','%22').replaceAll ('#','%23'); // i.e: url(#;
+            .replaceAll ('%3E', '>').replaceAll ('%3C', '<'); // Needed. The Decode Is Partial.
+			//.replaceAll ("'", '"').replaceAll ('%22','"').replace ('url("','').replace ('svg>")','svg>')
+            //.replaceAll ('"','%22').replaceAll ('#','%23'); // i.e: url(#;
 
         if (typeof to != 'undefined') {
             a = c.split('</text>');
@@ -186,10 +186,12 @@ class Helpers {
             to = Helpers.Css(c.slice(x, x2));
         	c = `${c.slice(0, x)}${to}${c.slice(x2)}`;
         }
-        //a = c.split(',');
-        //a[1] = encodeURIComponent(a[1]).replaceAll ('#','%23'); // i.e: url(#;
-        //c = `url(%27${a[0]},${a[1]}%27)`;
-        c = `url(%27${c}%27)`;
+        a = c.split(',');
+        a[1] = encodeURIComponent(a[1]);//.replaceAll ('#','%23'); // i.e: url(#;
+        c = a.join(',');
+        //c = `url('${a[0]},${a[1]}')`;
+        
+        //c = `url(%27${c}%27)`;
 
         $(e).css(prop, c);
     }
