@@ -9,7 +9,7 @@
 .📆name { text-shadow: var(--🖥️-c-px-5) 0 var(--🖥️-c-px-5) var(--🖥️-c-b-1), 0 var(--🖥️-c-px-5) var(--🖥️-c-px-5) var(--🖥️-c-b-1), calc(-1 * var(--🖥️-c-px-5)) 0 var(--🖥️-c-px-5) var(--🖥️-c-b-1), 0 calc(-1 * var(--🖥️-c-px-5)) var(--🖥️-c-px-5) var(--🖥️-c-b-1); } 
 #🗓️ { overflow: hidden; border-top: var(--🖥️-c-px-15) solid var(--🖥️-c-b-1); } 
 #🗓️ div.omer { font-size:var(--🖥️-c-px-12); } 
-#⌚ { animation-name: ⌚; animation-duration: 12s; animation-iteration-count: infinite; fill: white; } 
+#⌚ { font-weight: 300; animation-name: ⌚; animation-duration: 12s; animation-iteration-count: infinite; } 
 #⌚Colon { position: relative; width: 6%; height: 65%; left: -47%; top: -62%; animation-name: ⌚Colon; animation-duration: 2s; animation-timing-function: ease; animation-iteration-count: infinite; } 
 #📅👉 { font-size: var(--🖥️-c-px-23); } 
 #📅👈 { font-size: var(--🖥️-c-px-23); } 
@@ -61,7 +61,7 @@
 
 #⏱️, #🚥:empty { display: none; } 
 
-@keyframes ⌚ { 0% {color: rgba(var(--🖥️-c-ts-1_rgb), 0.839);} 50% {color: rgba(var(--🖥️-c-ts-2_rgb), 0.459);} 100% {color: rgba(var(--🖥️-c-ts-1_rgb), 0.839);} } 
+@keyframes ⌚ { 0% {filter: sepia(0.8) opacity(0.5);} 50% {filter: sepia(0.8) opacity(0.2) hue-rotate(338deg);} 100% {filter: sepia(0.8) opacity(0.5);} } 
 @keyframes ⌚Colon { 0% {backdrop-filter: brightness(0.7);} 50% {backdrop-filter: brightness(0);} 100% {backdrop-filter: brightness(0.7);} }  
 @keyframes 📒 { 0% {backdrop-filter: unset;} 50% {backdrop-filter: grayscale(50%);} 100% {backdrop-filter: unset;} } 
 @keyframes 🚥 { 50% {filter: drop-shadow(var(--🖥️-c-px-2) var(--🖥️-c-px-4) var(--🖥️-c-px-6) var(--🖥️-c-be-1));} }
@@ -157,9 +157,7 @@ imo { font-size:var(--🖥️-c-px-22); }
 --🖥️-c-t-4: #b4b4b4; /*📅👈, ⏰ Text*/
 /* soft text of main bg */
 --🖥️-c-ts-1: #fbf1ca; /*.📆name, #📅👉, #⏰ text*/
---🖥️-c-ts-1_rgb: 251, 241, 202; /*⌚ text*/
 --🖥️-c-ts-2: #f9eea2; /*.📆val, 💈 span, 🌡️° text*/
---🖥️-c-ts-2_rgb: 249, 238, 162; /*⌚ text*/
 /* dark text of main bg */
 --🖥️-c-td-1: #277EBC; /*.📆val(📱) text*/
 --🖥️-c-td-1_rgb: 39, 127, 190;
@@ -167,7 +165,7 @@ imo { font-size:var(--🖥️-c-px-22); }
 --🖥️-c-te-1: #A27A25; /*parash, omer text */
 --🖥️-c-te-2: #FFA90D; /*markIconText, 🚥 span text*/
 /* soft bg */
---🖥️-c-bs-1: #20679b; /*tdHead bg; tdCurrent border, ⌚ text; */
+--🖥️-c-bs-1: #20679b; /*tdHead bg; tdCurrent border */
 --🖥️-c-bs-2: #2986C8; /*.🪵Progress bg; .markIconText > *:nth-child(2) text-shadow*/
 /* main text of soft bg */
 --🖥️-c-tbs-1: #E6E6E6; /*🪵+Progress Text*/
@@ -179,7 +177,6 @@ imo { font-size:var(--🖥️-c-px-22); }
 
 /* Sizes */
 :root {
-	--🖥️-c-px-155: 9.9rem;
 	--🖥️-c-px-126: 8rem;
 	--🖥️-c-px-63: 4rem;
 	--🖥️-c-px-40: 2.5rem;
