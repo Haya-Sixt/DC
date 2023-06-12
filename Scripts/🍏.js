@@ -165,17 +165,15 @@ class Helpers {
         let a = $(e).css(prop).split(',');
 	    if (a.length < 2) return; // bg-image is 'none' in Portrait
 
-        const Decode = ()=> { try {
-            //if (a[1].startsWith('%')) 
-            a[1] = decodeURIComponent(a[1]);
-        } catch (err) {console.log (err)} }; // i.e: 'svg+xml,%253Csvg'. 🗒: Even 'try' doesn't stop this Internal Err 'URI Mis...' !!
+        const Decode = ()=> { try { a[1] = decodeURIComponent(a[1]) } catch {} }; // i.e: 'svg+xml,%253Csvg'. 
         Decode ();
         Decode ();
 
         let c = `${a[0]},${a[1]}`.replace(';utf8','').replaceAll('\\','')
-            //.replaceAll ('%3E%3C', '><'); // Needed. The Decode Is Partial. 🗒: '><' are together to prevent Err- 'Unescaped '<' not allowed in attributes values '
             .replaceAll ('%3E', '>').replaceAll ('%3C', '<') // Needed. The Decode Is Partial.
-			.replace ('url("','').replace ("url('",'').replace ('svg>")','svg>').replace ("svg>')",'svg>');
+			.replaceAll ("'", '"').replaceAll ('%22','"').replace ('url("','').replace ('svg>")','svg>')
+            .replaceAll ('"','%22').replaceAll ('#','%23'); // i.e: url(#;
+
         if (typeof to != 'undefined') {
             a = c.split('</text>');
             for (let i = 0; i < a.length - 1; i++)
@@ -188,10 +186,10 @@ class Helpers {
             to = Helpers.Css(c.slice(x, x2));
         	c = `${c.slice(0, x)}${to}${c.slice(x2)}`;
         }
-        a = c.split(',');
+        //a = c.split(',');
         //a[1] = encodeURIComponent(a[1]).replaceAll ('#','%23'); // i.e: url(#;
-        ////a[1] = a[1].replaceAll ('#','%23'); // i.e: url(#;
-        c = `url('${a[0]},${a[1]}')`; 
+        //c = `url(%27${a[0]},${a[1]}%27)`;
+        c = `url(%27${c}%27)`;
 
         $(e).css(prop, c);
     }
