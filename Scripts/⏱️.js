@@ -40,7 +40,7 @@ wdgt.Init = ()=> {
 wdgt.Update = ()=> {
 	const time = new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
 	$(wdgt.sid).find('text').text(time);
-	$(`${wdgt.sid} svg`).attr("xmlns","http://www.w3.org/2000/svg").attr("style","font-size: 1500%; width: 100%; height: 100%;");
+	$(`${wdgt.sid} svg`).attr("xmlns","http://www.w3.org/2000/svg").attr("style","font-size: 1500%;  width: 100%; height: 100%;");
 }
 
 })();
