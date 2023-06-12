@@ -29,15 +29,15 @@ wdgt.Init = ()=> {
 	$(wdgt.sid).text('');
 	//
 	$('<div>')
-	//.attr("style","font-size: 1500%; width: 100%; height: 100%;")
-	.html('<svg style="font-size: 1500%; width: 100%; height: 100%;"><defs><filter id="⌚filter"><feTurbulence type="turbulence"><animate attributeName="baseFrequency" values="0.4;0.5" dur="10s" repeatCount="indefinite"></animate><animate attributeName="numOctaves" values="4;5" dur="10s" repeatCount="indefinite"></animate></feTurbulence><feColorMatrix type="matrix" values="0 0 0 -1 1 0 0 0 -1 1 0 0 0 -1 1 0 0 0 0 1"></feColorMatrix><feComponentTransfer><feFuncR type="table" tableValues="0 0 0 .4 1"></feFuncR></feComponentTransfer></filter><mask id="⌚mask"><text x="100%" y="98%"></text></mask></defs><text x="100%" y="98%" style="filter: url(#⌚filter);" mask="url(#⌚mask)"></text></svg>')
+	.attr("style","width: 100%; height: 100%;")
+	.html('<svg style="font-size: calc(var(--🖥️-c-px-14) * 10); width: 100%; height: 100%;"><defs><filter id="⌚filter"><feTurbulence type="turbulence"><animate attributeName="baseFrequency" values="0.4;0.5" dur="10s" repeatCount="indefinite"></animate><animate attributeName="numOctaves" values="4;5" dur="10s" repeatCount="indefinite"></animate></feTurbulence><feColorMatrix type="matrix" values="0 0 0 -1 1 0 0 0 -1 1 0 0 0 -1 1 0 0 0 0 1"></feColorMatrix><feComponentTransfer><feFuncR type="table" tableValues="0 0 0 .4 1"></feFuncR></feComponentTransfer></filter><mask id="⌚mask"><text x="100%" y="98%"></text></mask></defs><text x="100%" y="98%" style="filter: url(#⌚filter);" mask="url(#⌚mask)"></text></svg>')
 	//$('<svg>')
 	//.attr("style","font-size: 1500%; width: 100%; height: 100%;")
 	//.html('<defs><filter id="⌚filter"><feTurbulence type="turbulence"><animate attributeName="baseFrequency" values="0.4;0.5" dur="10s" repeatCount="indefinite"></animate><animate attributeName="numOctaves" values="4;5" dur="10s" repeatCount="indefinite"></animate></feTurbulence><feColorMatrix type="matrix" values="0 0 0 -1 1 0 0 0 -1 1 0 0 0 -1 1 0 0 0 0 1"></feColorMatrix><feComponentTransfer><feFuncR type="table" tableValues="0 0 0 .4 1"></feFuncR></feComponentTransfer></filter><mask id="⌚mask"><text x="100%" y="98%"></text></mask></defs><text x="100%" y="98%" style="filter: url(#⌚filter);" mask="url(#⌚mask)"></text>')
 	.appendTo($(wdgt.sid));
 
 	// colon 
-	$("<div>").attr('id',`${wdgt.sid}colon`).appendTo($(wdgt.sid));
+	$("<div>").attr('id',`${wdgt.id}Colon`).appendTo($(wdgt.sid));
 };
 
 wdgt.Update = ()=> {
