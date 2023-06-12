@@ -28,8 +28,10 @@ wdgt.repeat = { update: 1 };
 wdgt.Init = ()=> {
 	$(wdgt.sid).text('');
 	//
-	$('<div>').html(`
-	<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewbox="0 0 1000 1000" style="font-size:100;">
+	$('<svg>')
+	.attr("viewbox","0 0 1000 1000")
+	.attr("style","font-size: 100%; width: 100%; height: 100%;")
+	.html(`
 	<defs>
 	<filter id="⌚filter">
 	<feTurbulence type="turbulence">
@@ -46,7 +48,6 @@ wdgt.Init = ()=> {
 	</mask>
 	</defs>
 	<text x="250" y="500" style="filter: url(%23⌚filter);" mask="url(%23⌚mask)"></text>
-	</svg>
 	`).appendTo($(wdgt.sid));
 
 	// colon 
