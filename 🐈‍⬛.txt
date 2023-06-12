@@ -8,6 +8,9 @@ kill {pid}
 sh /storage/emulated/0/Documents/Apps/MacroDroid/🖥️/scripts/🐈‍⬛.sh 🖥️/DC
 
 --------commit---------
+
+Identity: azbmdk@gmail.com, Haya-Sixt
+
 apps="/storage/emulated/0/Documents/Apps"
 app="🖥️"
 repo="DC"
