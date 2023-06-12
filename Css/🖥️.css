@@ -10,7 +10,7 @@
 #🗓️ { overflow: hidden; border-top: var(--🖥️-c-px-15) solid var(--🖥️-c-b-1); } 
 #🗓️ div.omer { font-size:var(--🖥️-c-px-12); } 
 #⌚ { font-size: var(--🖥️-c-px-155); text-align: center; animation-name: ⌚; animation-duration: 12s; animation-iteration-count: infinite; } 
-#⌚ :last-child { position: relative; width: 6%; height: 65%; left: -47%; top: -83%; animation-name: ⌚Colon; animation-duration: 2s; animation-timing-function: ease; animation-iteration-count: infinite; } 
+#⌚ div:last-child { position: relative; width: 6%; height: 65%; left: -47%; top: -83%; animation-name: ⌚Colon; animation-duration: 2s; animation-timing-function: ease; animation-iteration-count: infinite; } 
 #📅👉 { font-size: var(--🖥️-c-px-23); } 
 #📅👈 { font-size: var(--🖥️-c-px-23); } 
 #💈 span { font-size: var(--🖥️-c-px-23); } 
