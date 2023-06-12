@@ -170,8 +170,8 @@ class Helpers {
         Decode ();
 
         let c = `${a[0]},${a[1]}`.replace(';utf8','').replaceAll('\\','')
-            .replaceAll ('%3E', '>').replaceAll ('%3C', '<'); // Needed. The Decode Is Partial.
-			//.replaceAll ("'", '"').replaceAll ('%22','"').replace ('url("','').replace ('svg>")','svg>')
+            .replaceAll ('%3E', '>').replaceAll ('%3C', '<') // Needed. The Decode Is Partial.
+			.replaceAll ("'", '"').replaceAll ('%22','"').replace ('url("','').replace ('svg>")','svg>');
             //.replaceAll ('"','%22').replaceAll ('#','%23'); // i.e: url(#;
 
         if (typeof to != 'undefined') {
@@ -188,8 +188,8 @@ class Helpers {
         }
         a = c.split(',');
         a[1] = encodeURIComponent(a[1]);//.replaceAll ('#','%23'); // i.e: url(#;
-        c = a.join(',');
-        //c = `url('${a[0]},${a[1]}')`;
+        //c = a.join(',');
+        c = `url('${a[0]},${a[1]}')`;
         
         //c = `url(%27${c}%27)`;
 
