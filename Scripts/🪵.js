@@ -176,7 +176,7 @@ wdgt.Entries = function* (now, reverse = false) {
 		function Class (t) {
 			if ($(t).hasClass(wdgt.id)) return;
 			$(t).addClass(wdgt.id);
-			Helper.Css('background-image', t); // sets the var
+			Helpers.Css('background-image', t); // sets the var
 		}
 	};
 
