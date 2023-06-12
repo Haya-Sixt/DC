@@ -29,8 +29,7 @@ wdgt.Init = ()=> {
 	$(wdgt.sid).text('');
 	//
 	$('<svg>')
-	.attr("viewbox","0 0 1000 1000")
-	.attr("style","font-size: 100%; width: 100%; height: 100%;")
+	.attr("style","font-size: 150%; width: 100%; height: 100%;")
 	.html(`
 	<defs>
 	<filter id="⌚filter">
@@ -44,10 +43,10 @@ wdgt.Init = ()=> {
 	</feComponentTransfer>
 	</filter>
 	<mask id="⌚mask">
-	<text x="250" y="500"></text>
+	<text dx="-0.5%" dy="-6%" x="100%" y="100%"></text>
 	</mask>
 	</defs>
-	<text x="250" y="500" style="filter: url(%23⌚filter);" mask="url(%23⌚mask)"></text>
+	<text dx="-0.5%" dy="-6%" Tx="100%" y="100%" style="filter: url(%23⌚filter);" mask="url(%23⌚mask)"></text>
 	`).appendTo($(wdgt.sid));
 
 	// colon 
