@@ -172,7 +172,7 @@ class Helpers {
         let c = `${a[0]},${a[1]}`.replace(';utf8','').replaceAll('\\','')
             .replaceAll ('%3E', '>').replaceAll ('%3C', '<') // Needed. The Decode Is Partial.
 			.replaceAll ("'", '"').replaceAll ('%22','"').replace ('url("','').replace ('svg>")','svg>');
-            //.replaceAll ('"','%22').replaceAll ('#','%23'); // i.e: url(#;
+            //🗒: replacing '#' with '%23' ( i.e: 'url(#' ) should be done in the css (hard coded). Otherwise it returns back to '#' (Also tried after the encoding)
 
         if (typeof to != 'undefined') {
             a = c.split('</text>');
@@ -187,12 +187,9 @@ class Helpers {
         	c = `${c.slice(0, x)}${to}${c.slice(x2)}`;
         }
         a = c.split(',');
-        a[1] = encodeURIComponent(a[1]);//.replaceAll ('#','%23'); // i.e: url(#;
-        //c = a.join(',');
+        a[1] = encodeURIComponent(a[1]);
         c = `url('${a[0]},${a[1]}')`;
         
-        //c = `url(%27${c}%27)`;
-
         $(e).css(prop, c);
     }
 }
