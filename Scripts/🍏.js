@@ -165,7 +165,10 @@ class Helpers {
         let a = $(e).css(prop).split(',');
 	    if (a.length < 2) return; // bg-image is 'none' in Portrait
 
-        const Decode = ()=> { if (a[1].startsWith('%')) a[1] = decodeURIComponent(a[1]) }; // i.e: 'svg+xml,%253Csvg'. 🗒: Even 'try' doesn't stop this Internal Err 'URI Mis...' !!
+        const Decode = ()=> { try {
+            //if (a[1].startsWith('%')) 
+            a[1] = decodeURIComponent(a[1]);
+        } catch (err) {console.log (err)} }; // i.e: 'svg+xml,%253Csvg'. 🗒: Even 'try' doesn't stop this Internal Err 'URI Mis...' !!
         Decode ();
         Decode ();
 
@@ -175,7 +178,7 @@ class Helpers {
 			.replace ('url("','').replace ("url('",'').replace ('svg>")','svg>').replace ("svg>')",'svg>');
         if (typeof to != 'undefined') {
             a = c.split('</text>');
-            for (let i = 0; i < a.length - 2; i++)
+            for (let i = 0; i < a.length - 1; i++)
             	a[i] = a[i].slice(0, a[i].lastIndexOf('>') + 1); 
             c = a.join(`${to}</text>`);
         }
