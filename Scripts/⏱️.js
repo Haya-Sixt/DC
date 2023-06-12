@@ -35,8 +35,8 @@ wdgt.Init = ()=> {
 	<defs>
 	<filter id="⌚filter">
 	<feTurbulence type="turbulence">
-	<animate attributeName="baseFrequency" values="0.4;0.5" dur="10s" repeatCount="indefinite"/>
-	<animate attributeName="numOctaves" values="4;5" dur="10s" repeatCount="indefinite"/>
+	<animate attributeName="baseFrequency" values="0.4;0.5" dur="10s" repeatCount="indefinite"></animate>
+	<animate attributeName="numOctaves" values="4;5" dur="10s" repeatCount="indefinite"></animate>
 	</feTurbulence>
 	<feColorMatrix type="matrix" values="0 0 0 -1 1 0 0 0 -1 1 0 0 0 -1 1 0 0 0 0 1"/>
 	<feComponentTransfer>
