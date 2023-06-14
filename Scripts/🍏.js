@@ -181,10 +181,10 @@ class Helpers {
             c = a.join(`${to}</text>`);
         }
         else {
-            const x = c.indexOf('var') + 4,
+            const x = c.indexOf('var'),
         		x2 = x + c.slice(x).indexOf(')');
-            to = Helpers.Css(c.slice(x, x2));
-        	c = `${c.slice(0, x)}${to}${c.slice(x2)}`;
+            to = Helpers.Css(c.slice(x + 4, x2));
+        	c = `${c.slice(0, x)}${to}${c.slice(x2 + 1)}`;
         }
         a = c.split(',');
         a[1] = encodeURIComponent(a[1]);
