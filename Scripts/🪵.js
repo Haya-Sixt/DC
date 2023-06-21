@@ -29,7 +29,7 @@ wdgt.Update = ()=> {
 
 	// 🕯️🕯️
 	// 🗒: '🌋' App Must Have Delay Before 🔔. Otherwise '🏡' Won't Be Triggered (Because '🌋' Is Open).
-  $app.Vars ['🕯️'] = shishi;
+	$app.Vars ['🕯️'] = shishi;
 	wdgt.data ['🕯️🕯️'] = wdgt.data.shabbat;
 
 	//
@@ -53,15 +53,13 @@ wdgt.Update = ()=> {
 
 //
 function Background() {
-	const x = '3%', y = '90%', fontSize = 3.8, text = `<text x='${x}' y='${y}' font-size='${fontSize}em'>`;
 	let c = '', cs;
 	if ( wdgt.data['🕯️🕯️'] == "true" ) c += '🕯️🕯️';
-	if ( (cs = $("#🗓️ td.tdCurrentHeb").text().match(Helpers.Emoji())) ) c += cs.join('');
 	if ( c == '') c = '🌴'
 	else c = dx(c);
 	
-	$(wdgt.sid).css('backgroundImage', `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1'>${text}${c}</text></svg>")`);
-	
+	Helpers.Css ('background-image', wdgt.sid, c);
+
 	//
 	function dx(c) {
 		let r = '', a = c.match(Helpers.Emoji()), candle = 0;

@@ -173,7 +173,7 @@ wdgt.Month = (now)=> {
 		j("תענית אסתר","🚱")
 		j("שבת פרה","🐮")
 		j("שבת החודש","👑")
-    j("עוברים ל","") // שעון קיץ
+		j("עוברים ל","") // שעון קיץ
 		j("שבת הגדול","🐑")
 		j("שביעי של פסח","🌊")
 		j("פסח","🫓")
@@ -342,6 +342,9 @@ function CurrentBySunset () {
 		h = a [x + ( wdgt.data['🌇'] > new Date().getTime() / 1000 ? 0 : 1)];
 	if (h != a[x]) a[x].classList.remove(c);
 	h.classList.add(c);
+	
+	const cs = h.textContent.match(Helpers.Emoji());
+	if (cs) Helpers.Css ('background-image', '#🗓️', cs.join(''));
 }
 
 function Background () {

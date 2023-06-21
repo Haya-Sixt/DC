@@ -89,7 +89,7 @@ const app = {
         Error (e, t) {
             if (e.stack) {
                 const a = e.stack.split('\n'); 
-                e = a.filter((s, i)=> i < 2 || i == a.length - 1).join('\n').replaceAll(location.origin, '').replaceAll('<anonymous>', '').replaceAll('/DC/Scripts/', '');
+                e = a.filter((s, i)=> i < 1 || i == a.length - 1).join('\n').replaceAll(location.origin, '').replaceAll('<anonymous>', '').replaceAll('/DC/Scripts/', '');
                 e = decodeURIComponent(decodeURIComponent(e));
             }
             $(this.sid).text(`${this.id} ${t}: ${e}`).addClass("error");
@@ -180,9 +180,9 @@ class Helpers {
             	a[i] = a[i].slice(0, a[i].lastIndexOf('>') + 1); 
             c = a.join(`${to}</text>`);
         }
-        else {
-            const x = c.indexOf('var'),
-        		x2 = x + c.slice(x).indexOf(')');
+        const x = c.indexOf('var'),
+        	x2 = x + c.slice(x).indexOf(')');
+    	if (x != -1) {
             to = Helpers.Css(c.slice(x + 4, x2));
         	c = `${c.slice(0, x)}${to}${c.slice(x2 + 1)}`;
         }
