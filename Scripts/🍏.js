@@ -148,19 +148,23 @@ return app;
 
 })();
 
+
 //
 class Helpers {
+
     //
 	static Emoji (exclude = '(🌾)') { 
         if (exclude) exclude = `(?<!${exclude})`
         else exclude = '';
         return new RegExp(`\[🇦-🇿]{2}|\\p{Extended_Pictographic}${exclude}`,'ugm'); // 🗒: 1. dot isn't needed (although the emoji looks partial ).  2. 'A-Z' is for countries (They are two values in the range of U+1F1E6 (Regional Indicator Symbol Letter A) and U+1F1FF (Regional Indicator Symbol Letter Z))
     }
+
     // If No 'e', Than It's A Get Var.
     // Otherwise, The Default Match Is To Replace <Text>. 
     // If No 'to' Is Supply, Than It Replace Var.
     static Css (prop, e, to) {
-        if (!e) return getComputedStyle($('html')[0]).getPropertyValue(decodeURIComponent(prop)).trim();
+        if (!e) return Get ();
+
         //
         let a = $(e).css(prop).split(',');
 	    if (a.length < 2) return; // bg-image is 'none' in Portrait
@@ -172,24 +176,40 @@ class Helpers {
         let c = `${a[0]},${a[1]}`.replace(';utf8','').replaceAll('\\','')
             .replaceAll ('%3E', '>').replaceAll ('%3C', '<') // Needed. The Decode Is Partial.
 			.replaceAll ("'", '"').replaceAll ('%22','"').replace ('url("','').replace ('svg>")','svg>');
-            //🗒: replacing '#' with '%23' ( i.e: 'url(#' ) should be done in the css (hard coded). Otherwise it returns back to '#' (Also tried after the encoding)
+            // 🗒: replacing '#' with '%23' ( i.e: 'url(#' ) should be done in the css (hard coded). Otherwise it returns back to '#' (Also tried after the encoding)
 
-        if (typeof to != 'undefined') {
-            a = c.split('</text>');
-            for (let i = 0; i < a.length - 1; i++)
-            	a[i] = a[i].slice(0, a[i].lastIndexOf('>') + 1); 
-            c = a.join(`${to}</text>`);
-        }
-        const x = c.indexOf('var'),
-        	x2 = x + c.slice(x).indexOf(')');
-    	if (x != -1) {
-            to = Helpers.Css(c.slice(x + 4, x2));
-        	c = `${c.slice(0, x)}${to}${c.slice(x2 + 1)}`;
-        }
+		Text ();
+    	Var ();
+    
         a = c.split(',');
         a[1] = encodeURIComponent(a[1]);
         c = `url('${a[0]},${a[1]}')`;
         
         $(e).css(prop, c);
+
+
+        //
+        function Get (p = prop) {
+            return getComputedStyle($('html')[0]).getPropertyValue(decodeURIComponent(p)).trim();
+        }
+
+        //
+        function Text () {
+            if (typeof to == 'undefined') return;
+            a = c.split('</text>');
+            for (let i = 0; i < a.length - 1; i++)
+            	a[i] = a[i].slice(0, a[i].lastIndexOf('>') + 1); 
+            c = a.join(`${to}</text>`);
+        }
+
+        //
+        function Var () {
+        	const x = c.indexOf('var('),
+        		x2 = x + c.slice(x).indexOf(')');
+            if (x == -1) return;
+            const v = Get (c.slice(x + 4, x2));
+        	c = `${c.slice(0, x)}${v}${c.slice(x2 + 1)}`;
+            Var ();
+        }
     }
 }
