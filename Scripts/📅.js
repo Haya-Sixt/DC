@@ -343,8 +343,8 @@ function CurrentBySunset () {
 	if (h != a[x]) a[x].classList.remove(c);
 	h.classList.add(c);
 	
-	const cs = h.textContent.match(Helpers.Emoji());
-	if (cs) Helpers.Css ('background-image', '#🗓️', cs.join(''));
+	const cs = h.textContent.match(Helpers.Emoji()) ?? [];
+	Helpers.Css ('background-image', '#🗓️', cs.join(''));
 }
 
 function Background () {
