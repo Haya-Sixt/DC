@@ -154,11 +154,11 @@ function Today () {
 
 // Temperature
 const wdgt = new $app.Widget('💈');
-wdgt.dependency = ['🌡️'];
+wdgt.dependency = ['🪵'];
 
 //
 wdgt.Init = ()=> {
-	wdgt.data = parseFloat($app.Widgets['🌡️'].data.data[0].temp).toFixed(2);
+	wdgt.data = parseFloat($app.Widgets['🪵'].data['🌡️']).toFixed(2);
 };
 
 //
