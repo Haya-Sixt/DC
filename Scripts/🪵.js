@@ -11,7 +11,7 @@ wdgt.Constants = { Ender: '➖'};
 //
 wdgt.Update = ()=> {
 	let rs ='', now = parseInt( new Date().getTime() / 1000 ),
-		forecast_clock = parseInt(new Date(wdgt.data.forecast_clock).getTime()/1000),
+		forecast_clock = parseInt(new Date(wdgt.data.forecast.c).getTime()/1000),
 		shishi = 0;
 	
 	for (const e of wdgt.Entries(now)) { // 🗒: yield doesn't work with forEach because it's callback
@@ -24,8 +24,8 @@ wdgt.Update = ()=> {
 			shishi = e.startedAt;
 	};
 
-	// ⏱️
-	rs = `${rs}<div>${$('#⏱️').text()}</div>`; 
+	// ⏱️,🌡️
+	rs = `${rs}<div>${$('#⏱️').text()}</div><div>${wdgt.data.forecast.tt} </div>`; 
 
 	// 🕯️🕯️
 	// 🗒: '🌋' App Must Have Delay Before 🔔. Otherwise '🏡' Won't Be Triggered (Because '🌋' Is Open).
@@ -40,9 +40,9 @@ wdgt.Update = ()=> {
 	if (wdgt.data.battery != "100") $app.Widgets['🚥'].Add ('🔋', wdgt.data.battery);
 
 	// 🌡️
-	wdgt.data ['🌡️'] = wdgt.data.forecast;
+	wdgt.data ['🌡️'] = wdgt.data.forecast.t;
 	if (now - forecast_clock > 6*60*60) {
-		var h = ((now - forecast_clock) / -60);
+		let h = ((now - forecast_clock) / -60);
 		if (h < 24) h = '24'
 		else h = h.toFixed(1);
 		$app.Widgets['🚥'].Add ('🌡️', `${h}`);
