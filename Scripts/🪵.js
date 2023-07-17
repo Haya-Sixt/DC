@@ -11,7 +11,7 @@ wdgt.Constants = { Ender: '➖'};
 //
 wdgt.Update = ()=> {
 	let rs ='', now = parseInt( new Date().getTime() / 1000 ),
-		forecast_clock = parseInt(new Date(wdgt.data.forecast.c).getTime()/1000),
+		forecast_clock = parseInt(new Date(wdgt.data.forecast.c).getTime()),
 		shishi = 0;
 	
 	for (const e of wdgt.Entries(now)) { // 🗒: yield doesn't work with forEach because it's callback
@@ -25,7 +25,7 @@ wdgt.Update = ()=> {
 	};
 
 	// ⏱️,🌡️
-	rs = `${rs}<div>${$('#⏱️').text()}</div><div>${wdgt.data.forecast.tt} </div>`; 
+	rs = `${rs}<div>${$('#⏱️').text()}</div><div>${wdgt.data.forecast.tt} 🌡️</div>`; 
 
 	// 🕯️🕯️
 	// 🗒: '🌋' App Must Have Delay Before 🔔. Otherwise '🏡' Won't Be Triggered (Because '🌋' Is Open).
