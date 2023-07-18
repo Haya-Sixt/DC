@@ -23,6 +23,14 @@ do
     git status
   ;;
   "commit")
+# key
+eval "$(ssh-agent -s)"
+status="$(ssh-add -l -E sha256)"
+echo $status
+if [ -z "${status##*$nokey*}" ]; then
+  ssh-add $apps/.ssh/id_rsa
+  ssh -T git@github.com
+fi
     cd $apps/$app/$repo
     git add .
     git commit --all -m "🐈‍⬛📱" 
