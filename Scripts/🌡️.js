@@ -47,7 +47,7 @@ function Normalize () {
 
 // ☔
 function Pop (p) {
-	const pop = [null, '🌦️', '🌧️', '⛈️', '❄️'];
+	const pop = [null, '☂️', '☔', '⚡', '❄️'];
 	p = pop[ Math.ceil( p / (100 / (pop.length - 1) ) ) ];
   if (p) $app.Widgets['🚥'].Add (p);
 }
@@ -97,43 +97,49 @@ function Render() {
 
 //
 function Images() {
-	for(var i = 0; i < chart.data[0].dataPoints.length; i++) {
-		var nm = "", ic=chart.data[0].dataPoints[i].icon;
+	const cIcons = [['☀️',['c01']],
+			['🌤️',['c02']],
+			['⛅',['c']],
+			['☁️',['a']],
+			['🌦',['r01','r04','r05','t01','t02']],
+			['🌧️',['d','f','r','u']],
+			['⛈️',['t']],
+			['🌨️',['s']]],
+		cClassN = `${wdgt.id}-icon`,
+		cSize = 40,
+		Icon = (c) => {
+				for (let i = 0; i < cIcons.length; i++) {
+					for (let j = 0; j < cIcons[i][1].length; j++) {
+						if (c.startsWith(cIcons[i][1][j])) return cIcons[i][0];
+					}
+				}
+			};
+	for (var i = 0; i < chart.data[0].dataPoints.length; i++) {
+		const ic = chart.data[0].dataPoints[i].icon;
 
-		images.push($("<img>").attr("src", $app.Constants.Host + "Images/weatherbit/"+ic+".png").attr("title",ic));
-
-		if (ic.substring(0,1)=="a") nm="cloudy"
-		else if (ic.substring(0,1)=="c") nm="sunny"
-		else nm="rainy";
-		chart.data[0].dataPoints[i].name = nm;
-
-		images[i].attr("class", nm)
-			.appendTo($(wdgt.sid));
+		images.push($("<img>").attr("src", `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><text x="0" y="${cSize}px" font-size="${cSize - 10}px">${Icon(ic)}</text></svg>`));
+		
 		Position(images[i], i);
+		images[i].attr("class", cClassN).appendTo($(wdgt.sid));
 	}
-	//
-	$( window ).resize(function() {
-		var cloudy = 0, rainy = 0, sunny = 0;
-		if (!chart) return;
-		for(var i=0;i<chart.data[0].dataPoints.length;i++) {
-			const iC = chart.axisX[0].convertValueToPixel(chart.data[0].dataPoints[i].x) - 20;
-			if(chart.data[0].dataPoints[i].name == "cloudy") {					
-				$(".cloudy").eq(cloudy++).css({ "left": iC});
-			} else if(chart.data[0].dataPoints[i].name == "rainy") {
-				$(".rainy").eq(rainy++).css({ "left": iC});  
-			} else if(chart.data[0].dataPoints[i].name == "sunny") {
-				$(".sunny").eq(sunny++).css({ "left": iC});  
-			}                
-		}
-	}); 
 	
 	//
 	function Position(image, index) {
 		var x = chart.axisX[0].convertValueToPixel(chart.data[0].dataPoints[index].x);
-		image.width("40px")
-			.css({ "left": x - 20 + "px",
-			"position": "absolute","top":"-30px"});
-	}
+		image.width("40px") // 🗒: width is needed
+			.css({ "left": `${x - (cSize / 2)}px`,
+				"position": "absolute", 
+				"top": `-${cSize}px`});
+	} 
+	
+	//
+	$( window ).resize(function() {
+		if (!chart) return;
+		for(var i=0;i<chart.data[0].dataPoints.length;i++) {
+			const iC = chart.axisX[0].convertValueToPixel(chart.data[0].dataPoints[i].x) - 20;
+			$(`.${cClassN}`).eq(i).css({ "left": iC});
+		}
+	});
 }
 
 // Dimmer
