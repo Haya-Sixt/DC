@@ -17,7 +17,9 @@ wdgt.Update = ()=> {
 
 	Render ();
 	
-	Images ();
+	Verify ();
+	
+	//Images ();
 	
 	Today ();
 };
@@ -91,60 +93,36 @@ function Render() {
 			dataPoints: columnBuilder
 		}]
 	}); 
-
-  chart.creditText = '';
+	
+	chart.creditText = '';
 	Icons ();
 	chart.render();
 
+	//
 	function Icons () {
-		const w = chart.width,
-		f = chart.height / 7 / 2,
-		s = chart.width / 7.5,
-		c = (chart.width - s * 2) / 4,
-		cIcons = [['☀️',['c01']],
-							['🌤️',['c02']],
-							['⛅',['c']],
-							['☁️',['a']],
-							['🌦',['r01','r04','r05','t01','t02']],
-							['🌧️',['d','f','r','u']],
-							['⛈️',['t']],
-							['🌨️',['s']]],
-						cClassN = `${wdgt.id}-icon`,
-					cSize = 40,
-		Icon = (c) => {
-			for (let i = 0; i < cIcons.length; i++) {
-				for (let j = 0; j < cIcons[i][1].length; j++) {
-					if (c.startsWith(cIcons[i][1][j])) return cIcons[i][0];
+		const cIcons = [['☀️',['c01']],
+				['🌤️',['c02']],
+				['⛅',['c']],
+				['☁️',['a']],
+				['🌦',['r01','r04','r05','t01','t02']],
+				['🌧️',['d','f','r','u']],
+				['⛈️',['t']],
+				['🌨️',['s']]],
+			Icon = (c) => {
+				for (let i = 0; i < cIcons.length; i++) {
+					for (let j = 0; j < cIcons[i][1].length; j++) {
+						if (c.startsWith(cIcons[i][1][j])) return cIcons[i][0];
+					}
 				}
-			}
-		};
-																																																											for (var i = 0; i < chart.data[0].dataPoints.length; i++) {
-																																																													const ic = chart.data[0].dataPoints[i].icon;
-
-																																																															images.push($("<img>").attr("src", `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><text x="0" y="${cSize}px" font-size="${cSize - 10}px">${Icon(ic)}</text></svg>`));
-																																																																	
-																																																																			Position(images[i], i);
-																																																																					images[i].attr("class", cClassN).appendTo($(wdgt.sid));
-																																																																						}
-																																																																							
-																																																																								//
-																																																																									function Position(image, index) {
-																																																																											var x = chart.axisX[0].convertValueToPixel(chart.data[0].dataPoints[index].x);
-																																																																													image.width("40px") // 🗒: width is needed
-																																																																																.css({ "left": `${x - (cSize / 2)}px`,
-																																																																																				"position": "absolute", 
-																																																																																								"top": `-${cSize}px`});
-																																																																																									} 
-																																																																																										
-																																																																																											// 🗒: Needed
-																																																																																												$( window ).resize(function() {
-																																																																																														if (!chart) return;
-																																																																																																for(var i=0;i<chart.data[0].dataPoints.length;i++) {
-																																																																																																			const iC = chart.axisX[0].convertValueToPixel(chart.data[0].dataPoints[i].x) - 20;
-																																																																																																						$(`.${cClassN}`).eq(i).css({ "left": iC});
-																																																																																																								}
-																																																																																																									});
-																																																																																																										
+			},
+			f = chart.height / 7 / 2,
+			c = chart.axisX[0].convertValueToPixel(chart.data[0].dataPoints[0].x), // (chart.width - s * 2) / 4
+			s = (chart.width - c * 4) / 2; // chart.width / 7.5
+			
+		chart.ctx.font = `${f}px Calibri`;
+		for (var i = 0; i < chart.data[0].dataPoints.length; i++) {
+			const t = chart.data[0].dataPoints[i].icon;
+			chart.ctx.fillText(Icon(t), s + (c * i), 1);
 		}
 	}
 }
@@ -152,11 +130,16 @@ function Render() {
 //
 function Verify () {
 	const canvas = document.querySelector(`${wdgt.sid} > div.canvasjs-chart-container > canvas:nth-child(1)`),
-		ctx = canvas?.getContext("2d")?.getImageData(0,0,200,200)
-		?.data?.filter((p)=>p!=0)?.length; 
-		//7651
+		c = canvas?.getContext("2d")?.getImageData(0,0,200,200)
+			?.data?.filter((p)=>p!=0)?.length; 
+	
+	if (c < 7000) { // 7651
+		Popup.Add(`${this.id} is ${c} length.\nRerendering...`, 30);
+		Render ();
+	}
 }
 
+/*
 //
 function Images() {
 	const cIcons = [['☀️',['c01']],
@@ -202,8 +185,8 @@ function Images() {
 			$(`.${cClassN}`).eq(i).css({ "left": iC});
 		}
 	});
-	
 }
+*/
 
 // Dimmer
 function Today () {
