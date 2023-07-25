@@ -91,7 +91,7 @@
 #📅👉 { right:2.5%; }
 #📅👈 { top:9%; right:2.5%; }
 #⏰ { top:11.8%; left:40%; } 
-#🌡️ { width:72%; height:19%; top:20%; right:-10%; } 
+#🌡️ { width:72%; height:19%; top:20%; right:-1%; } 
 #⏱️ { top:12.15%; right:2.5%; } 
 
 #🪵, #🪵Progress, #🚥, #⌚, #💈, #📒, .popup { display: none; }  
