@@ -131,7 +131,7 @@ function Images() {
 				"position": "absolute", 
 				"top": `-${cSize}px`});
 	} 
-	
+	/*
 	//
 	$( window ).resize(function() {
 		if (!chart) return;
@@ -140,6 +140,7 @@ function Images() {
 			$(`.${cClassN}`).eq(i).css({ "left": iC});
 		}
 	});
+	*/
 }
 
 // Dimmer
