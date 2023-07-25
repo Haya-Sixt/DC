@@ -116,9 +116,9 @@ function Render() {
 				}
 			},
 			f = chart.height / 7 / 2,
-			c = chart.axisX[0].convertValueToPixel(chart.data[0].dataPoints[0].x), // (chart.width - s * 2) / 4
-			s = (chart.width - c * 4) / 2; // chart.width / 7.5
-			
+			s = chart.width / 7.5, // (chart.width - c * 4) / 2
+			c = (chart.width - s * 2) / 4; // 🗒: chart.axisX is null before rendering. // chart.axisX[0].convertValueToPixel(chart.data[0].dataPoints[0].x) 
+			 
 		chart.ctx.font = `${f}px Calibri`;
 		for (var i = 0; i < chart.data[0].dataPoints.length; i++) {
 			const t = chart.data[0].dataPoints[i].icon;
