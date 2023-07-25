@@ -19,10 +19,12 @@ wdgt.Update = ()=> {
 	
 	Verify ();
 	
+	Icons ();
 	Images ();
 	
 	Today ();
 };
+
 
 //
 function Normalize () {
@@ -45,14 +47,16 @@ function Normalize () {
 			y: [axisY_min,(axisY_max-axisY_min)*val.pop/100+axisY_min]
 		});
 	});
+	
+	
+	// ☔
+	function Pop (p) {
+		const pop = [null, '☂️', '☔', '⚡', '❄️'];
+		p = pop[ Math.ceil( p / (100 / (pop.length - 1) ) ) ];
+	  if (p) $app.Widgets['🚥'].Add (p);
+	}
 }
 
-// ☔
-function Pop (p) {
-	const pop = [null, '☂️', '☔', '⚡', '❄️'];
-	p = pop[ Math.ceil( p / (100 / (pop.length - 1) ) ) ];
-  if (p) $app.Widgets['🚥'].Add (p);
-}
 
 //
 function Render() {
@@ -95,37 +99,39 @@ function Render() {
 	}); 
 	
 	chart.creditText = '';
-	Icons ();
+	
 	chart.render();
+}
 
-	//
-	function Icons () {
-		const cIcons = [['☀️',['c01']],
-				['🌤️',['c02']],
-				['⛅',['c']],
-				['☁️',['a']],
-				['🌦',['r01','r04','r05','t01','t02']],
-				['🌧️',['d','f','r','u']],
-				['⛈️',['t']],
-				['🌨️',['s']]],
-			Icon = (c) => {
-				for (let i = 0; i < cIcons.length; i++) {
-					for (let j = 0; j < cIcons[i][1].length; j++) {
-						if (c.startsWith(cIcons[i][1][j])) return cIcons[i][0];
-					}
+
+//
+function Icons () {
+	const cIcons = [['☀️',['c01']],
+			['🌤️',['c02']],
+			['⛅',['c']],
+			['☁️',['a']],
+			['🌦',['r01','r04','r05','t01','t02']],
+			['🌧️',['d','f','r','u']],
+			['⛈️',['t']],
+			['🌨️',['s']]],
+		Icon = (c) => {
+			for (let i = 0; i < cIcons.length; i++) {
+				for (let j = 0; j < cIcons[i][1].length; j++) {
+					if (c.startsWith(cIcons[i][1][j])) return cIcons[i][0];
 				}
-			},
-			f = chart.height / 7 / 2,
-			s = chart.width / 7.5, // (chart.width - c * 4) / 2
-			c = (chart.width - s * 2) / 4; // 🗒: chart.axisX is null before rendering. // chart.axisX[0].convertValueToPixel(chart.data[0].dataPoints[0].x) 
-			 
-		chart.ctx.font = `${f}px Calibri`;
-		for (var i = 0; i < rangeBuilder.length; i++) {
-			const t = rangeBuilder[i].icon;
-			chart.ctx.fillText(Icon(t), s + (c * i), 1);
-		}
+			}
+		},
+		f = chart.height / 3.5 / 2,
+		s = chart.width / 7.5, // (chart.width - c * 4) / 2
+		c = (chart.width - s * 2) / 4; // chart.axisX[0].convertValueToPixel(chart.data[0].dataPoints[0].x) 
+		 
+	chart.ctx.font = `${f}px Calibri`;
+	for (var i = 0; i < rangeBuilder.length; i++) {
+		const t = rangeBuilder[i].icon;
+		chart.ctx.fillText(Icon(t), s + (c * i), 1);
 	}
 }
+
 
 //
 function Verify () {
@@ -133,7 +139,7 @@ function Verify () {
 		c = canvas?.getContext("2d")?.getImageData(0,0,200,200)
 			?.data?.filter((p)=>p!=0)?.length; 
 	
-	if (c < 7000) { // 7651
+	if ((c ?? 0) < 7000) { // 7651
 		Popup.Add(`${this.id} is ${c} length.\nRerendering...`, 30);
 		Render ();
 	}
