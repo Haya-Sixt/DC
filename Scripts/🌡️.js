@@ -120,8 +120,8 @@ function Render() {
 			c = (chart.width - s * 2) / 4; // 🗒: chart.axisX is null before rendering. // chart.axisX[0].convertValueToPixel(chart.data[0].dataPoints[0].x) 
 			 
 		chart.ctx.font = `${f}px Calibri`;
-		for (var i = 0; i < chart.data[0].dataPoints.length; i++) {
-			const t = chart.data[0].dataPoints[i].icon;
+		for (var i = 0; i < rangeBuilder.length; i++) {
+			const t = rangeBuilder[i].icon;
 			chart.ctx.fillText(Icon(t), s + (c * i), 1);
 		}
 	}
