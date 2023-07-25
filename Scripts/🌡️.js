@@ -17,9 +17,8 @@ wdgt.Update = ()=> {
 
 	Render ();
 	
-	Verify ();
+	//Verify ();
 	
-	Icons ();
 	Images ();
 	
 	Today ();
@@ -98,29 +97,17 @@ function Render() {
 		}]
 	}); 
 	
-	chart.creditText = '';
+	//chart.creditText = '';
 	
 	chart.render();
 }
 
 
+/* 
 //
 function Icons () {
-	const cIcons = [['☀️',['c01']],
-			['🌤️',['c02']],
-			['⛅',['c']],
-			['☁️',['a']],
-			['🌦',['r01','r04','r05','t01','t02']],
-			['🌧️',['d','f','r','u']],
-			['⛈️',['t']],
-			['🌨️',['s']]],
-		Icon = (c) => {
-			for (let i = 0; i < cIcons.length; i++) {
-				for (let j = 0; j < cIcons[i][1].length; j++) {
-					if (c.startsWith(cIcons[i][1][j])) return cIcons[i][0];
-				}
-			}
-		},
+	const cIcons = ,
+		Icon = (c) => ,
 		f = chart.height / 3.5 / 2,
 		s = chart.width / 7.5, // (chart.width - c * 4) / 2
 		c = (chart.width - s * 2) / 4; // chart.axisX[0].convertValueToPixel(chart.data[0].dataPoints[0].x) 
@@ -131,8 +118,9 @@ function Icons () {
 		chart.ctx.fillText(Icon(t), s + (c * i), 1);
 	}
 }
+*/
 
-
+/*
 //
 function Verify () {
 	const canvas = document.querySelector(`${wdgt.sid} > div.canvasjs-chart-container > canvas:nth-child(1)`),
@@ -144,7 +132,7 @@ function Verify () {
 		Render ();
 	}
 }
-
+*/
 
 //
 function Images() {
