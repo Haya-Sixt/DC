@@ -131,8 +131,8 @@ function Images() {
 				"position": "absolute", 
 				"top": `-${cSize}px`});
 	} 
-	/*
-	//
+	
+	// 🗒: Needed
 	$( window ).resize(function() {
 		if (!chart) return;
 		for(var i=0;i<chart.data[0].dataPoints.length;i++) {
@@ -140,7 +140,7 @@ function Images() {
 			$(`.${cClassN}`).eq(i).css({ "left": iC});
 		}
 	});
-	*/
+	
 }
 
 // Dimmer
