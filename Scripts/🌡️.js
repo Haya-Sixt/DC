@@ -19,7 +19,7 @@ wdgt.Update = ()=> {
 	
 	Verify ();
 	
-	//Images ();
+	Images ();
 	
 	Today ();
 };
@@ -139,7 +139,7 @@ function Verify () {
 	}
 }
 
-/*
+
 //
 function Images() {
 	const cIcons = [['☀️',['c01']],
@@ -186,7 +186,7 @@ function Images() {
 		}
 	});
 }
-*/
+
 
 // Dimmer
 function Today () {
