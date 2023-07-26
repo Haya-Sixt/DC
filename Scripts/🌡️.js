@@ -55,7 +55,8 @@ function Normalize () {
 	function Pop (p) {
 		const pop = [null, '☂️', '☔', '⚡', '❄️'];
 		p = pop[ Math.ceil( p / (100 / (pop.length - 1) ) ) ];
-	  if (p) $app.Widgets['🚥'].Add (p);
+	  if (p) $app.Widgets['🚥'].Add (p, undefined, wdgt.id)
+	  else $app.Widgets['🚥'].Remove (undefined, wdgt.id)
 	}
 }
 
@@ -203,6 +204,20 @@ $( window ).resize(function() {
 	Verify ();
 });  
 
+
+//
+function FindBug () {
+	const d = document.querySelector(wdgt.sid);
+	d.addEventListener ('click', ()=> {
+		const canvas = document.querySelector(`${wdgt.sid} > div.canvasjs-chart-container > canvas:nth-child(1)`),
+		c = canvas?.getContext("2d")?.getImageData(0,0,200,200)
+			?.data?.filter((p)=>p!=0)?.length; 
+	
+		Popup.Add(`verified: ${verified}, c: ${c}`, 30);
+	});
+}
+FindBug ();
+	
 })();
 
 
@@ -215,7 +230,7 @@ wdgt.dependency = ['🪵'];
 
 //
 wdgt.Init = ()=> {
-	wdgt.data = parseFloat($app.Widgets['🪵'].data['🌡️']).toFixed(2);
+	wdgt.data = parseFloat($app.Widgets['🪵'].data[wdgt.id]).toFixed(2);
 };
 
 //

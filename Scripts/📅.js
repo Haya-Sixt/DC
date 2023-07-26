@@ -6,7 +6,7 @@ const wdgt = new $app.Widget('📅👉');
 
 //
 wdgt.Init = ()=> {
-	var date = new Date().toLocaleDateString('he-IL', { weekday: 'short', day: '2-digit', month: '2-digit' }).replace("יום ","").replace('.','/'); 
+	let date = new Date().toLocaleDateString('he-IL', { weekday: 'short', day: '2-digit', month: '2-digit' }).replace("יום ","").replace('.','/'); 
 	$(wdgt.sid).text(date);
 };
 
@@ -29,7 +29,7 @@ wdgt.Init = ()=> {
 	
 //
 wdgt.Update = ()=> {
-	var seven = !(wdgt.data.year % 7) ? 'שנת שמיטה' : 'שנה ' + String.fromCharCode((wdgt.data.year % 7) + 'א'.charCodeAt(0) - 1) + "'", 
+	let seven = !(wdgt.data.year % 7) ? 'שנת שמיטה' : 'שנה ' + String.fromCharCode((wdgt.data.year % 7) + 'א'.charCodeAt(0) - 1) + "'", 
 		leap = '' + ([0,3,6,8,11,14,17].includes(wdgt.data.year % 19) ? 'מעוברת' : 'פשוטה');
 	
 	$(wdgt.sid).text( wdgt.data.month + '  ' + wdgt.data.year + '  ' + seven + '  ' + leap );
@@ -61,7 +61,7 @@ wdgt.Month = (now)=> {
 	
 	//
 	function Next() {
-		var now = new Date(), month, monthNext;
+		let now = new Date(), month, monthNext;
 		month = monthNext = $app.Widgets['📅👈'].data.month;
 		while (month == monthNext) {
 			now.setDate(now.getDate()+1); 
@@ -73,7 +73,7 @@ wdgt.Month = (now)=> {
 	
 	//
 	wdgt.Update = ()=> {
-		var t1 = wdgt.data[0].replaceAll("tdCurrent",""),
+		let t1 = wdgt.data[0].replaceAll("tdCurrent",""),
 			t2 = wdgt.data[1].replaceAll("tdCurrent","");
 				
 		// NOTE:  On month 'Eyar' the last row was all marked by ' tdUnused' (on all 7 td),
@@ -88,13 +88,13 @@ wdgt.Month = (now)=> {
 		t2 = t2.substring(0,t2.lastIndexOf("<tr"));
 		
 		// merge two months
-		var r1last = t1.substring(t1.lastIndexOf("<tr"));
-		var r2first = t2.substring(0,t2.indexOf("</tr>")+5);
-		var u=0, rU = t2.substring(0,t2.indexOf("<td "));
-		for (var i=0; i<7; i++) {
-			var td1 = r1last.substring(r1last.indexOf("<td "), r1last.indexOf("</td>")+5);
+		let r1last = t1.substring(t1.lastIndexOf("<tr")),
+			r2first = t2.substring(0,t2.indexOf("</tr>")+5),
+			u=0, rU = t2.substring(0,t2.indexOf("<td "));
+		for (let i=0; i<7; i++) {
+			let td1 = r1last.substring(r1last.indexOf("<td "), r1last.indexOf("</td>")+5),
+				td2 = r2first.substring(r2first.indexOf("<td "), r2first.indexOf("</td>")+5);
 			r1last = r1last.replace(td1,"");
-			var td2 = r2first.substring(r2first.indexOf("<td "), r2first.indexOf("</td>")+5);
 			r2first = r2first.replace(td2,"");
 			if (td1.indexOf(" tdUnused")!=-1) {
 				rU += td2;
@@ -182,13 +182,13 @@ wdgt.Month = (now)=> {
 		j('<div> ערוב תבשילין','<div class="hideOut"> ערוב תבשילין')
 			
 		// show only 4 rows
-		var t4 = t.substring(0, t.indexOf("</tr>")+5)
+		let t4 = t.substring(0, t.indexOf("</tr>")+5)
 			current = hebDay();
 		
-		for (var i=0,show=0; i<12 && show<5; i++) {
-			var itr = t.indexOf("<tr");
+		for (let i=0,show=0; i<12 && show<5; i++) {
+			let itr = t.indexOf("<tr");
 			if (itr==-1) break;
-			var tr = t.substring(itr, t.indexOf("</tr>")+5);
+			let tr = t.substring(itr, t.indexOf("</tr>")+5);
 			t = t.replace(tr,"");
 			
 			if (show || tr.indexOf(current)!=-1) {
@@ -219,7 +219,7 @@ wdgt.Month = (now)=> {
 	};
 	
 	function hebDay() {
-		var d = parseInt(new Intl.DateTimeFormat('he-u-ca-hebrew',{day:'numeric'}).format(new Date()) ), hd="";
+		let d = parseInt(new Intl.DateTimeFormat('he-u-ca-hebrew',{day:'numeric'}).format(new Date()) ), hd="";
 		if (d>=30) {
 				hd="ל";
 				d-=30;
@@ -261,7 +261,7 @@ wdgt.Update = ()=> {
 	trH = trH.replaceAll(' class="tdHead visible ','').replaceAll('type-date"','').replaceAll('type-time"','').replaceAll('type-limud"','').replaceAll('</td><td>','|').replaceAll('<td>','').replaceAll('</td>','').split('|'); 
 	trT = trT.substring(0, trT.indexOf("</tr")).replaceAll('</td><td>','|').replaceAll('</td>','').split('|');
 	
-	for (var i=0; i<trH.length; i++) {
+	for (let i=0; i<trH.length; i++) {
 		switch (trH[i]) {
 		case "עלות השחר": td("🏙️"); break;
 		case "זמן טלית ותפילין": td("🫂"); break;
@@ -297,12 +297,12 @@ wdgt.Update = ()=> {
 			t = new Date();
 		t.setHours(hm[0], hm[1], 0, 0);
 	  wdgt.data[emoji] = parseInt(t.getTime()/1000); // In used: 📒
-		times = `${times}<tr><td class="📆name">${emoji}</td><td class="📆val">${trT[i]}</td></tr>`;
+		times = `${times}<tr><td class="${wdgt.id}name">${emoji}</td><td class="${wdgt.id}val">${trT[i]}</td></tr>`;
 	}
 
 	//
 	function tdDafYomi() {
-		times += '<tr><td class="📆name"></td><td class="📆val"><div class="dafYomi">'+trT[i]+'</div></td></tr>';
+		times += `<tr><td class="${wdgt.id}name"></td><td class="${wdgt.id}val"><div class="dafYomi">${trT[i]}</div></td></tr>`;
 	} 
 };
 
@@ -311,7 +311,7 @@ function Mark() {
 	let now = parseInt( new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' }).replace(':','') ), 
 	  first = null, current = `💤`;
 
-	$(wdgt.sid + " td.📆val").each((i, t)=> {
+	$(`${wdgt.sid} td.${wdgt.id}val`).each((i, t)=> {
 		let v = parseInt( $(t).text().replace(':','') );
 		if ( now <= v && !first) {
 			first = $(t).parent();
@@ -319,13 +319,14 @@ function Mark() {
 		} 
 		else {
 			$(t).parent().removeClass('markIconText');
-			if (!first) current = $(t).parent().find('td.📆name').text();
+			if (!first) current = $(t).parent().find(`td.${wdgt.id}name`).text();
 		}
 	});
 	if (first ) {
 		first.addClass('markIconText'); 
 	}
 	wdgt.data.current = current;
+	if ($app.Vars[wdgt.id] != current) $app.Vars[wdgt.id] = current;
 
 	//
 	CurrentBySunset ();

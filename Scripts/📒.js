@@ -159,38 +159,39 @@ function Progress () {
 
 // Status icons
 const wdgt = new $app.Widget('🚥');
-wdgt.repeat = { update: 3 };
-wdgt.dependency = ['📒'];
+wdgt.dependency = ['📒', $app.Vars.Dependency('📆')];
 wdgt.data = [];
 
 wdgt.Init = ()=> {
+	
+	// 📒
+	wdgt.Remove (undefined, '📒');
+	for (const e of $app.Widgets['📒'].Entries()) {
+		if (e.text != '') continue; 
+
+		r = '🗓️';
+		if (e.title.startsWith(r)) {
+			let t, x, a = document.querySelector(`#🗓️ td.tdCurrentHeb ${e.title.replace(r, '')}`)?.childNodes?.entries();
+			if (!a) continue;
+			for (const [k, v] of a)
+				if (isNaN(v.textContent)) t = v.textContent
+				else x = v.textContent;
+				
+			wdgt.Add (t, x, '📒');
+			continue;
+		}
+
+		wdgt.Add (e.title, undefined, '📒');
+	} 
 }
 
+//
 wdgt.Update = ()=> { 
 	const Add = (t, x)=> {
 			x = x ? `<span>${x}<span>` : '';
 			rs = `${rs}<div>${t}${x}</div>`;
 	  };
 	let rs = '', r;
-
-	// 📒
-	for (const e of $app.Widgets['📒'].Entries()) {
-    if (e.text != '') continue; 
-
-		r = '🗓️';
-		if (e.title.startsWith(r)) {
-			let t, x, a = document.querySelector(`#🗓️ td.tdCurrentHeb ${e.title.replace(r, '')}`)?.childNodes?.entries();
-			if (!a) continue;
-			for (const [k, v] of a) {
-				if (isNaN(v.textContent)) t = v.textContent
-				else x = v.textContent; 
-		  }
-			Add (t, x);
-			continue;
-		}
-
-		Add (e.title);
-	}
 
 	// From 'Add' - 🔋, ☔, 🌡️ ...
 	for (const [k, v] of Object.entries(wdgt.data)) {
@@ -205,9 +206,35 @@ wdgt.Update = ()=> {
 	$(wdgt.sid).html(rs);
 }
 
+
 //
-wdgt.Add = (t,s)=> {
-  wdgt.data [t] = s;
+wdgt.Add = (k, v = '', g = k)=> {
+	if (wdgt.data [k] && wdgt.data [k].v == v) return;
+	wdgt.data [k] = { v: v, g: g};
+	Refresh ();
 }
+
+//
+wdgt.Remove = (k, g)=> {
+	let deleted;
+	if (k && typeof wdgt.data [k] != 'undefined') {
+		delete wdgt.data [k];
+		deleted = true;
+	}
+	if (g) for (const [k, o] of Object.entries(wdgt.data)) {
+		if (o.g == g) {
+			delete wdgt.data [k];
+			deleted = true;
+		}
+	}
+	deleted && Refresh ();
+}
+
+//
+function Refresh () {
+	if (wdgt.status != $app.Constants.Status.Done ) return;
+	wdgt.Update ();
+}
+
 
 })();

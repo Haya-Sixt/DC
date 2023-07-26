@@ -10,7 +10,8 @@ const app = {
     Vars : { 
     	Mode: location.hash.replace('#',''),
 	    Dependency: (v = '')=> `V.${v}`,
-        '🕯️': 0
+        '🕯️': 0,
+        '📆': ''
     },
     Widgets: [],
     Widget: class Widget {
