@@ -253,7 +253,7 @@ wdgt.url = ()=> `/times_${$app.Widgets['📅👈'].data.year}_${$app.Widgets['�
 
 //
 wdgt.Update = ()=> {
-	let times = '', ldate = new Date().toLocaleDateString('he-IL').replace('.','/').replace('.','/'),
+	let i = 0, times = '', ldate = new Date().toLocaleDateString('he-IL').replace('.','/').replace('.','/'),
 		trH = wdgt.data.substring(wdgt.data.indexOf("<td"), wdgt.data.indexOf("</tr")), 
 		trT = wdgt.data.substring(wdgt.data.indexOf(ldate));
 
@@ -261,7 +261,7 @@ wdgt.Update = ()=> {
 	trH = trH.replaceAll(' class="tdHead visible ','').replaceAll('type-date"','').replaceAll('type-time"','').replaceAll('type-limud"','').replaceAll('</td><td>','|').replaceAll('<td>','').replaceAll('</td>','').split('|'); 
 	trT = trT.substring(0, trT.indexOf("</tr")).replaceAll('</td><td>','|').replaceAll('</td>','').split('|');
 	
-	for (let i=0; i<trH.length; i++) {
+	for (; i<trH.length; i++) {
 		switch (trH[i]) {
 		case "עלות השחר": td("🏙️"); break;
 		case "זמן טלית ותפילין": td("🫂"); break;
@@ -296,7 +296,7 @@ wdgt.Update = ()=> {
 		const hm = trT[i].split(':'),
 			t = new Date();
 		t.setHours(hm[0], hm[1], 0, 0);
-	  wdgt.data[emoji] = parseInt(t.getTime()/1000); // In used: 📒
+		wdgt.data[emoji] = parseInt(t.getTime()/1000); // In used: 📒
 		times = `${times}<tr><td class="${wdgt.id}name">${emoji}</td><td class="${wdgt.id}val">${trT[i]}</td></tr>`;
 	}
 
