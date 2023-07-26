@@ -137,7 +137,7 @@ function Icons () {
 	//
 	function Position(image, index) {
 		var x = chart.axisX[0].convertValueToPixel(chart.data[0].dataPoints[index].x);
-		image.width("40px") // 🗒: width is needed
+		image.width(`${c_size}px`) // 🗒: width is needed
 			.css({ "left": `${x - (c_size / 2)}px`,
 				"position": "absolute", 
 				"top": `-${c_size}px`});
@@ -160,16 +160,17 @@ function Icons () {
 
 }
 
+
 // 🗒: Needed
 function Icon_Resize () {
-	for(var i=0;i<chart.data[0].dataPoints.length;i++) {
+	for(var i = 0; i < chart.data[0].dataPoints.length; i++) {
 		const iC = chart.axisX[0].convertValueToPixel(chart.data[0].dataPoints[i].x) - 20;
 		$(`.${c_class}`).eq(i).css({ "left": iC});
 	}
 }
 	
 
-// Dimmer
+// dim today's column
 function Today () {
 	const x = chart.axisX[0].convertValueToPixel(chart.data[0].dataPoints[0].x);
 	$("<div>")
