@@ -2,9 +2,10 @@
 (()=>{
 
 // Forecast
-const wdgt = new $app.Widget('🌡️');
-
-let chart, images = [], rangeBuilder = [], columnBuilder = [], axisY_max = -100, axisY_min = 100;
+const wdgt = new $app.Widget('🌡️'), 
+	c_class = `${wdgt.id}-icon`; 
+	
+let chart, images, rangeBuilder, columnBuilder, axisY_max = -100, axisY_min = 100;
 
 //{"data":[{"moonrise_ts":1655587278,"wind_cdir":"WNW","rh":53,"pres":935.7,"high_temp":29,"sunset_ts":1655657353,"ozone":288.9,"moon_phase":0.582192,"wind_gust_spd":11.6,"snow_depth":0,"clouds":0,"ts":1655622060,"sunrise_ts":1655606026,"app_min_temp":18.8,"wind_spd":4.5,"pop":0,"wind_cdir_full":"west-northwest","slp":1010.8,"moon_phase_lunation":0.69,"valid_date":"2022-06-19","app_max_temp":29.4,"vis":24.128,"dewpt":14.4,"snow":0,"uv":2,"weather":{"icon":"c01d","code":800,"description":"Clear Sky"},"wind_dir":300,"max_dhi":null,"clouds_hi":0,"precip":0,"low_temp":17.8,"max_temp":29,"moonset_ts":1655628794,"datetime":"2022-06-19","temp":25.3,"min_temp":18.8,"clouds_mid":0,"clouds_low":5},
 //{"moonrise_ts":1655851715,"wind_cdir":"W","rh":68,"pres":934.4,"high_temp":27.4,"sunset_ts":1655916589,"ozone":293.2,"moon_phase":0.266352,"wind_gust_spd":10.2,"snow_depth":0,"clouds":9,"ts":1655845260,"sunrise_ts":1655865263,"app_min_temp":17.9,"wind_spd":5.4,"pop":0,"wind_cdir_full":"west","slp":1006.5,"moon_phase_lunation":0.79,"valid_date":"2022-06-22","app_max_temp":27.6,"vis":24.128,"dewpt":15.1,"snow":0,"uv":11.2,"weather":{"icon":"c02d","code":801,"description":"Few clouds"},"wind_dir":281,"max_dhi":null,"clouds_hi":0,"precip":0,"low_temp":19.1,"max_temp":27.4,"moonset_ts":1655898707,"datetime":"2022-06-22","temp":22,"min_temp":17.9,"clouds_mid":0,"clouds_low":33}],"city_name":"West Jerusalem","lon":"35.21961","timezone":"Asia\/Jerusalem","lat":"31.78199","country_code":"IL","state_code":"06"};
@@ -17,16 +18,17 @@ wdgt.Update = ()=> {
 
 	Render ();
 	
-	//Verify ();
-	
-	Images ();
+	Icons ();
 	
 	Today ();
+	
+	Verify ();
 };
 
 
 //
 function Normalize () {
+	rangeBuilder = [];
 	$.each( wdgt.data.data, function( key, val) {
 		axisY_max=val.max_temp>axisY_max?val.max_temp:axisY_max;
 		axisY_min=val.min_temp<axisY_min?val.min_temp:axisY_min;
@@ -39,6 +41,7 @@ function Normalize () {
 		});
 	});
 	
+	columnBuilder = [];
 	$.each( wdgt.data.data, function( key, val, i) {
 		if (key==1) Pop(val.pop);
 		
@@ -103,11 +106,46 @@ function Render() {
 }
 
 
-/* 
 //
 function Icons () {
-	const cIcons = ,
-		Icon = (c) => ,
+	const c_icons = [['☀️',['c01']],
+			['🌤️',['c02']],
+			['⛅',['c']],
+			['☁️',['a']],
+			['🌦',['r01','r04','r05','t01','t02']],
+			['🌧️',['d','f','r','u']],
+			['⛈️',['t']],
+			['🌨️',['s']]],
+		c_size = 40,
+		Icon = (c) => {
+				for (let i = 0; i < c_icons.length; i++) {
+					for (let j = 0; j < c_icons[i][1].length; j++) {
+						if (c.startsWith(c_icons[i][1][j])) return c_icons[i][0];
+					}
+				}
+			};
+	images = [];
+	for (var i = 0; i < chart.data[0].dataPoints.length; i++) {
+		const ic = chart.data[0].dataPoints[i].icon;
+
+		images.push($("<img>").attr("src", `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><text x="0" y="${c_size}px" font-size="${c_size - 10}px">${Icon(ic)}</text></svg>`));
+		
+		Position(images[i], i);
+		images[i].attr("class", c_class).appendTo($(wdgt.sid));
+	}
+	
+	//
+	function Position(image, index) {
+		var x = chart.axisX[0].convertValueToPixel(chart.data[0].dataPoints[index].x);
+		image.width("40px") // 🗒: width is needed
+			.css({ "left": `${x - (c_size / 2)}px`,
+				"position": "absolute", 
+				"top": `-${c_size}px`});
+	}
+	
+/* 
+function Icons () {
+	const c_icons = , Icon = (c) => ,
 		f = chart.height / 3.5 / 2,
 		s = chart.width / 7.5, // (chart.width - c * 4) / 2
 		c = (chart.width - s * 2) / 4; // chart.axisX[0].convertValueToPixel(chart.data[0].dataPoints[0].x) 
@@ -120,67 +158,16 @@ function Icons () {
 }
 */
 
-/*
-//
-function Verify () {
-	const canvas = document.querySelector(`${wdgt.sid} > div.canvasjs-chart-container > canvas:nth-child(1)`),
-		c = canvas?.getContext("2d")?.getImageData(0,0,200,200)
-			?.data?.filter((p)=>p!=0)?.length; 
-	
-	if ((c ?? 0) < 7000) { // 7651
-		Popup.Add(`${this.id} is ${c} length.\nRerendering...`, 30);
-		Render ();
-	}
-}
-*/
-
-//
-function Images() {
-	const cIcons = [['☀️',['c01']],
-			['🌤️',['c02']],
-			['⛅',['c']],
-			['☁️',['a']],
-			['🌦',['r01','r04','r05','t01','t02']],
-			['🌧️',['d','f','r','u']],
-			['⛈️',['t']],
-			['🌨️',['s']]],
-		cClassN = `${wdgt.id}-icon`,
-		cSize = 40,
-		Icon = (c) => {
-				for (let i = 0; i < cIcons.length; i++) {
-					for (let j = 0; j < cIcons[i][1].length; j++) {
-						if (c.startsWith(cIcons[i][1][j])) return cIcons[i][0];
-					}
-				}
-			};
-	for (var i = 0; i < chart.data[0].dataPoints.length; i++) {
-		const ic = chart.data[0].dataPoints[i].icon;
-
-		images.push($("<img>").attr("src", `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><text x="0" y="${cSize}px" font-size="${cSize - 10}px">${Icon(ic)}</text></svg>`));
-		
-		Position(images[i], i);
-		images[i].attr("class", cClassN).appendTo($(wdgt.sid));
-	}
-	
-	//
-	function Position(image, index) {
-		var x = chart.axisX[0].convertValueToPixel(chart.data[0].dataPoints[index].x);
-		image.width("40px") // 🗒: width is needed
-			.css({ "left": `${x - (cSize / 2)}px`,
-				"position": "absolute", 
-				"top": `-${cSize}px`});
-	} 
-	
-	// 🗒: Needed
-	$( window ).resize(function() {
-		if (!chart) return;
-		for(var i=0;i<chart.data[0].dataPoints.length;i++) {
-			const iC = chart.axisX[0].convertValueToPixel(chart.data[0].dataPoints[i].x) - 20;
-			$(`.${cClassN}`).eq(i).css({ "left": iC});
-		}
-	});
 }
 
+// 🗒: Needed
+function Icon_Resize () {
+	for(var i=0;i<chart.data[0].dataPoints.length;i++) {
+		const iC = chart.axisX[0].convertValueToPixel(chart.data[0].dataPoints[i].x) - 20;
+		$(`.${c_class}`).eq(i).css({ "left": iC});
+	}
+}
+	
 
 // Dimmer
 function Today () {
@@ -191,6 +178,26 @@ function Today () {
 		.css({ "left": x - 24 + "px" })
 		.appendTo($(wdgt.sid));
 }
+
+
+//
+function Verify () {
+	const canvas = document.querySelector(`${wdgt.sid} > div.canvasjs-chart-container > canvas:nth-child(1)`),
+		c = canvas?.getContext("2d")?.getImageData(0,0,200,200)
+			?.data?.filter((p)=>p!=0)?.length; 
+	
+	if ((c ?? 0) < 7000) { // 7651
+		wdgt.Reset(`Verify is ${c}`);
+	}
+}
+
+
+// 
+$( window ).resize(function() {
+	if (!chart) return;
+	Icon_Resize (); 
+	Verify ();
+});  
 
 })();
 
