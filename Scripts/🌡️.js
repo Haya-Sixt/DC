@@ -181,14 +181,17 @@ function Today () {
 
 
 //
+let verified;
 function Verify () {
 	const canvas = document.querySelector(`${wdgt.sid} > div.canvasjs-chart-container > canvas:nth-child(1)`),
 		c = canvas?.getContext("2d")?.getImageData(0,0,200,200)
 			?.data?.filter((p)=>p!=0)?.length; 
 	
 	if ((c ?? 0) < 7000) { // 7651
-		wdgt.Reset(`Verify is ${c}`);
+		!verified && wdgt.Reset(`Verify is ${c}`);
+		verified = true;
 	}
+	else verified = false; 
 }
 
 
