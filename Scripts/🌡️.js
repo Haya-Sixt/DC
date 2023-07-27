@@ -20,7 +20,7 @@ wdgt.Update = ()=> {
 	
 	Icons ();
 	
-	Today ();
+	DimTodayColumn ();
 	
 	Verify ();
 };
@@ -117,7 +117,6 @@ function Icons () {
 			['🌧️',['d','f','r','u']],
 			['⛈️',['t']],
 			['🌨️',['s']]],
-		c_size = 40,
 		Icon = (c) => {
 				for (let i = 0; i < c_icons.length; i++) {
 					for (let j = 0; j < c_icons[i][1].length; j++) {
@@ -125,17 +124,37 @@ function Icons () {
 					}
 				}
 			};
+			
+	setTimeout (Set, 1000);
+
+	function Set () {
+		const d = document.querySelector('#🌡️').firstChild,
+			ctx = chart.overlaidCanvasCtx,
+			canvas = ctx.canvas,
+			f = parseInt (canvas.height / 15),
+			c = parseInt (canvas.width / 12),
+			dP = chart.data[0].dataPoints; 
+			
+		d.querySelectorAll(':not(canvas)').forEach((e)=>{e.style.display = 'none'});
+		canvas.style.setProperty('top',`-${f}px`)
+		canvas.style.setProperty('left',`-${f}px`)
+		ctx.font = `${f}px Calibri`;
+		for (let i = 1; i <= dP.length; i++) {
+			const ic = dP[i].icon;
+			ctx.fillText('🌩️', c, f);
+		}
+	}
+
+/*
+function Icons () {
+	const c_icons = , Icon = (c) => , c_size = 40;
 	images = [];
 	for (var i = 0; i < chart.data[0].dataPoints.length; i++) {
 		const ic = chart.data[0].dataPoints[i].icon;
-
 		images.push($("<img>").attr("src", `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><text x="0" y="${c_size}px" font-size="${c_size - 10}px">${Icon(ic)}</text></svg>`));
-		
 		Position(images[i], i);
 		images[i].attr("class", c_class).appendTo($(wdgt.sid));
 	}
-	
-	//
 	function Position(image, index) {
 		var x = chart.axisX[0].convertValueToPixel(chart.data[0].dataPoints[index].x);
 		image.width(`${c_size}px`) // 🗒: width is needed
@@ -143,7 +162,7 @@ function Icons () {
 				"position": "absolute", 
 				"top": `-${c_size}px`});
 	}
-	
+*/
 /* 
 function Icons () {
 	const c_icons = , Icon = (c) => ,
@@ -161,7 +180,7 @@ function Icons () {
 
 }
 
-
+/*
 // 🗒: Needed
 function Icon_Resize () {
 	for(var i = 0; i < chart.data[0].dataPoints.length; i++) {
@@ -169,10 +188,11 @@ function Icon_Resize () {
 		$(`.${c_class}`).eq(i).css({ "left": iC});
 	}
 }
-	
+*/
 
-// dim today's column
-function Today () {
+
+// 
+function DimTodayColumn () {
 	const x = chart.axisX[0].convertValueToPixel(chart.data[0].dataPoints[0].x);
 	$("<div>")
 		.html('<div class="tdCurrent"></div>')
@@ -190,7 +210,7 @@ function Verify () {
 			?.data?.filter((p)=>p!=0)?.length; 
 	
 	if ((c ?? 0) < 7000) { // 7651
-		!verified && wdgt.Reset(`Verify is ${c}`);
+		// !verified && wdgt.Reset(`Verify is ${c}`);
 		verified = true;
 	}
 	else verified = false; 
@@ -200,7 +220,8 @@ function Verify () {
 // 
 $( window ).resize(function() {
 	if (!chart) return;
-	Icon_Resize (); 
+	//Icon_Resize (); 
+	Icons ();
 	Verify ();
 });  
 
