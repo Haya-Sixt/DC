@@ -125,7 +125,7 @@ function Icons () {
 				}
 			};
 			
-	setTimeout (Set, 1000);
+	setTimeout (Set, 250);
 
 	function Set () {
 		const d = document.querySelector('#🌡️').firstChild,
@@ -141,7 +141,7 @@ function Icons () {
 		ctx.font = `${f}px Calibri`;
 		for (let i = 1; i <= dP.length; i++) {
 			const ic = dP[i].icon;
-			ctx.fillText('🌩️', c, f);
+			ctx.fillText(Icon(ic), c * i, f);
 		}
 	}
 
