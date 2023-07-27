@@ -194,8 +194,8 @@ wdgt.Update = ()=> {
 	let rs = '', r;
 
 	// From 'Add' - 🔋, ☔, 🌡️ ...
-	for (const [k, v] of Object.entries(wdgt.data)) {
-		Add (k, v);
+	for (const [k, o] of Object.entries(wdgt.data)) {
+		Add (k, o.v);
 	}
 
 	// Resize 🪵
