@@ -139,9 +139,9 @@ function Icons () {
 		canvas.style.setProperty('top',`-${f}px`)
 		canvas.style.setProperty('left',`-${f}px`)
 		ctx.font = `${f}px Calibri`;
-		for (let i = 1; i <= dP.length; i++) {
+		for (let i = 0; i < dP.length; i++) {
 			const ic = dP[i].icon;
-			ctx.fillText(Icon(ic), c * i, f);
+			ctx.fillText(Icon(ic), c * (i + 1), f);
 		}
 	}
 
