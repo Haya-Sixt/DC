@@ -131,8 +131,8 @@ function Icons () {
 		const d = document.querySelector('#🌡️').firstChild,
 			ctx = chart.overlaidCanvasCtx,
 			canvas = ctx.canvas,
-			f = parseInt (canvas.height / 15),
-			c = parseInt (canvas.width / 12),
+			f = parseInt (canvas.height / 10), // RN10S 15
+			c = parseInt (canvas.width / 8.4), // RN10S 12
 			dP = chart.data[0].dataPoints; 
 			
 		d.querySelectorAll(':not(canvas)').forEach((e)=>{e.style.display = 'none'});
