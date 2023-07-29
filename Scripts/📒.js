@@ -4,22 +4,25 @@
 // Notes
 const wdgt = new $app.Widget('📒');
 wdgt.repeat = { update: 3 };
-wdgt.dependency = ['📆', $app.Vars.Dependency('🕯️')];
+wdgt.dependency = ['📆', $app.Constants.Var('🕯️')];
 
 //
 wdgt.Update = ()=> { 
 	let rs = '';
 
-	for (const e of wdgt.Entries()) { // 🗒: yield doesn't work with forEach because it's callback
-		if (e.text == '') continue;
-		const r = `<div name="note" startedAt="${e.startedAt}" duration="${e.duration}" >${e.title}<br>${e.text}`;
-		rs = `${rs}${r.replace ('{{Zmanit_4.5}}',  Zmanit(4.5)).replace ('{{Zmanit_5.8}}',  Zmanit(5.8)).replace ('{{Zmanit_10}}',  Zmanit(10))
-			}<div style="background-image: linear-gradient(to right, rgba(250, 20, 80, 0.6) 0%, rgba(100, 100, 241, 0.6) 0% );"></div></div>`;
-	}
+	StatusIcons ();
+	for (const e of wdgt.Entries())  // 🗒: yield doesn't work with forEach because it's callback
+		if (e.text == '') StatusIcons (e.title)
+		else {
+			const r = `<div name="note" startedAt="${e.startedAt}" duration="${e.duration}" >${e.title}<br>${e.text}`;
+			rs = `${rs}${r.replace ('{{Zmanit_4.5}}',  Zmanit(4.5)).replace ('{{Zmanit_5.8}}',  Zmanit(5.8)).replace ('{{Zmanit_10}}',  Zmanit(10))
+				}<div style="background-image: linear-gradient(to right, rgba(250, 20, 80, 0.6) 0%, rgba(100, 100, 241, 0.6) 0% );"></div></div>`;
+		}
 
 	$(wdgt.sid).html(rs);
 	Progress ();
 };
+
 
 //
 function Zmanit (h) {
@@ -30,6 +33,7 @@ function Zmanit (h) {
 	d.setMinutes(d.getMinutes() + (m * h));
 	return `${d.getHours()}:${d.getMinutes()}`;
 }
+
 
 //
 wdgt.Entries = function* () {
@@ -122,6 +126,8 @@ function parseHM(cond, find, condC) {
 	}
 }
 
+
+//
 function Progress () {
 	try {
 
@@ -151,6 +157,22 @@ function Progress () {
 	} catch (e) { wdgt.Error(e, 'Progress') } 
 } 
 
+
+//
+function StatusIcons (title) {
+	const r = '🗓️', wk = `${wdgt.sid}${r}`;
+	if (!title) $app.Widgets['🚥'].Remove (wk)
+	else if (title.startsWith(r)) {
+		const a = document.querySelector(`#${r} td.tdCurrentHeb ${title.replace(r, '')}`)?.childNodes?.entries();
+		if (!a) return;
+		let t, x; 
+		for (const [k, v] of a)
+			if (isNaN(v.textContent)) t = v.textContent
+			else x = v.textContent;
+		$app.Widgets['🚥'].Add (wk, t, x);
+	}
+}
+
 })();
 
 
@@ -159,43 +181,22 @@ function Progress () {
 
 // Status icons
 const wdgt = new $app.Widget('🚥');
-wdgt.dependency = ['📒', $app.Vars.Dependency('📆')];
-wdgt.data = [];
+let data = [];
 
 wdgt.Init = ()=> {
-	
-	// 📒
-	wdgt.Remove (undefined, '📒');
-	for (const e of $app.Widgets['📒'].Entries()) {
-		if (e.text != '') continue; 
-
-		r = '🗓️';
-		if (e.title.startsWith(r)) {
-			let t, x, a = document.querySelector(`#🗓️ td.tdCurrentHeb ${e.title.replace(r, '')}`)?.childNodes?.entries();
-			if (!a) continue;
-			for (const [k, v] of a)
-				if (isNaN(v.textContent)) t = v.textContent
-				else x = v.textContent;
-				
-			wdgt.Add (t, x, '📒');
-			continue;
-		}
-
-		wdgt.Add (e.title, undefined, '📒');
-	} 
 }
 
 //
-wdgt.Update = ()=> { 
-	const Add = (t, x)=> {
-			x = x ? `<span>${x}<span>` : '';
-			rs = `${rs}<div>${t}${x}</div>`;
+wdgt.Update = ()=> {
+	const Add = (k, v)=> {
+			v = v ? `<span>${v}<span>` : '';
+			rs = `${rs}<div>${k}${v}</div>`;
 	  };
-	let rs = '', r;
+	let rs = '';
 
 	// From 'Add' - 🔋, ☔, 🌡️ ...
-	for (const [k, o] of Object.entries(wdgt.data)) {
-		Add (k, o.v);
+	for (const [wk, o] of Object.entries(data)) {
+		Add (o.k, o.v);
 	}
 
 	// Resize 🪵
@@ -208,22 +209,25 @@ wdgt.Update = ()=> {
 
 
 //
-wdgt.Add = (k, v = '', g = k)=> {
-	if (wdgt.data [k] && wdgt.data [k].v == v) return;
-	wdgt.data [k] = { v: v, g: g};
+wdgt.Add = (w, k, v)=> {
+	const wk = `${w}.${k}`;
+	if (data [wk] === v) return;
+	data [wk] = {k: k, v: v};
 	Refresh ();
 }
 
 //
-wdgt.Remove = (k, g)=> {
+wdgt.Remove = (w, k)=> {
 	let deleted;
-	if (k && typeof wdgt.data [k] != 'undefined') {
-		delete wdgt.data [k];
+	if (k) {
+		const wk = `${w}.${k}`;
+		if (typeof data [wk] == 'undefined') return;
+		delete data [wk];
 		deleted = true;
 	}
-	if (g) for (const [k, o] of Object.entries(wdgt.data)) {
-		if (o.g == g) {
-			delete wdgt.data [k];
+	else for (const [wk, o] of Object.entries(data)) {
+		if (wk.startsWith(`${w}.`)) {
+			delete data [wk];
 			deleted = true;
 		}
 	}
@@ -235,6 +239,5 @@ function Refresh () {
 	if (wdgt.status != $app.Constants.Status.Done ) return;
 	wdgt.Update ();
 }
-
 
 })();

@@ -3,13 +3,14 @@ const $app = (function () {
 
 const app = {
     Constants : {
+    	Event: (id, id2 = '')=> `${app.Constants.Name}.${id}${id2 ? '.' : ''}${id2}`, 
+	    Var: (v = '')=> `V.${v}`,
         Status : { Done: 'done', NoRepeat: 'noRepeat' },
         Name: '🖥️',
         Host: location.href.match(/.*\//umg)[0]
     },
     Vars : { 
     	Mode: location.hash.replace('#',''),
-	    Dependency: (v = '')=> `V.${v}`,
         '🕯️': 0,
         '📆': ''
     },
@@ -29,7 +30,7 @@ const app = {
             try {
             const ResolveDependency = ()=> {
                 if (!this.dependency || this.status == app.Constants.Status.Done) return true;
-                const f = this.dependency.filter(d=> (d.startsWith(app.Vars.Dependency()) ? app.Vars[`_${d.replace(app.Vars.Dependency(), '')}`] : app.Widgets[d].status) != app.Constants.Status.Done);
+                const f = this.dependency.filter(d=> (d.startsWith(app.Constants.Var()) ? app.Vars[`_${d.replace(app.Constants.Var(), '')}`] : app.Widgets[d].status) != app.Constants.Status.Done);
                 if (f.length) return false
                 else return true;
             },
@@ -76,7 +77,7 @@ const app = {
             this.update && (this.update() == app.Constants.Status.NoRepeat) && clearTimeout(i_update);
             if (this.status != app.Constants.Status.Done) {
                 this.status = app.Constants.Status.Done;
-                dispatchEvent(new Event(`${app.Constants.Name}.${this.id}`));
+                dispatchEvent(new Event( app.Constants.Event (this.id) ));
             }
             } catch (e) { this.Error(e, 'Update') } }
         }
@@ -125,7 +126,7 @@ function Observers () {
         },
         set: function(target, prop, value) {
             target[`_${prop}`] = app.Constants.Status.Done;
-            dispatchEvent(new Event(`${app.Constants.Name}.${app.Vars.Dependency(prop)}`));
+            dispatchEvent(new Event( app.Constants.Event (app.Constants.Var(prop)) ));
             return Reflect.set(target, prop, value);
         }
     });
@@ -138,7 +139,7 @@ function Resources () {
 
 function On () {
     for (const [k, w] of Object.entries(app.Widgets)) {
-        w.dependency && w.dependency.forEach(d=> addEventListener(`${app.Constants.Name}.${d}`, w.Init));
+        w.dependency && w.dependency.forEach(d=> addEventListener(app.Constants.Event (d), w.Init));
         w.Init();
     }
 }

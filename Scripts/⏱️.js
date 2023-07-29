@@ -29,7 +29,7 @@ wdgt.Init = ()=> {
 	$(wdgt.sid).text('');
 	//
 	const x = 186, y = 98;
-	$('<div>') // 🗒: without 'div', and insted 'svg', the animation won't work.
+	$('<div>') // 🗒: without 'div', and instead 'svg', the animation won't work.
 	.attr("style","width: 100%; height: 100%;")
 	.html(`<svg style="width: 100%; height: 100%; fill: white;" viewbox="0 0 10 10"><defs><filter id="⌚filter"><feTurbulence type="turbulence"><animate attributeName="baseFrequency" values="2;7" dur="10s" repeatCount="indefinite"></animate><animate attributeName="numOctaves" values="2;3" dur="10s" repeatCount="indefinite"></animate></feTurbulence><feColorMatrix type="matrix" values="0 0 0 -1 1 0 0 0 -1 1 0 0 0 -1 1 0 0 0 0 1"></feColorMatrix><feComponentTransfer><feFuncR type="table" tableValues="0 0 0 0 1"></feFuncR></feComponentTransfer></filter><mask id="⌚mask"><text x="${x}%" y="${y}%"></text></mask></defs><text x="${x}%" y="${y}%" style="filter: url(#⌚filter);" mask="url(#⌚mask)"></text></svg>`)
 	.appendTo($(wdgt.sid));

@@ -55,8 +55,8 @@ function Normalize () {
 	function Pop (p) {
 		const pop = [null, '☂️', '☔', '⚡', '❄️'];
 		p = pop[ Math.ceil( p / (100 / (pop.length - 1) ) ) ];
-	  if (p) $app.Widgets['🚥'].Add (p, undefined, wdgt.id)
-	  else $app.Widgets['🚥'].Remove (undefined, wdgt.id)
+	  if (p) $app.Widgets['🚥'].Add (wdgt.id, p)
+	  else $app.Widgets['🚥'].Remove (wdgt.id)
 	}
 }
 

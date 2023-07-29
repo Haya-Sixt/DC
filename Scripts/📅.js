@@ -29,10 +29,11 @@ wdgt.Init = ()=> {
 	
 //
 wdgt.Update = ()=> {
-	let seven = !(wdgt.data.year % 7) ? 'שנת שמיטה' : 'שנה ' + String.fromCharCode((wdgt.data.year % 7) + 'א'.charCodeAt(0) - 1) + "'", 
-		leap = '' + ([0,3,6,8,11,14,17].includes(wdgt.data.year % 19) ? 'מעוברת' : 'פשוטה');
+	const seven = !(wdgt.data.year % 7) ? 'שנת שמיטה' : 'שנה ' + String.fromCharCode((wdgt.data.year % 7) + 'א'.charCodeAt(0) - 1) + "'", 
+		leap = '' + ([0,3,6,8,11,14,17].includes(wdgt.data.year % 19) ? 'מעוברת' : 'פשוטה'),
+		year = `5'${wdgt.data.year.slice(1)}`;
 	
-	$(wdgt.sid).text( wdgt.data.month + '  ' + wdgt.data.year + '  ' + seven + '  ' + leap );
+	$(wdgt.sid).text( wdgt.data.month + '  ' + year + '  ' + seven + '  ' + leap );
 };
 
 //
@@ -326,8 +327,7 @@ function Mark() {
 		first.addClass('markIconText'); 
 	}
 	wdgt.data.current = current;
-	if ($app.Vars[wdgt.id] != current) $app.Vars[wdgt.id] = current;
-
+	
 	//
 	CurrentBySunset ();
 

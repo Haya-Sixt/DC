@@ -37,8 +37,8 @@ wdgt.Update = ()=> {
 	
 
 	// 🔋
-	if (wdgt.data.battery != "100") $app.Widgets['🚥'].Add ('🔋', wdgt.data.battery)
-	else $app.Widgets['🚥'].Remove ('🔋');
+	if (wdgt.data.battery != "100") $app.Widgets['🚥'].Add (wdgt.id, '🔋', wdgt.data.battery)
+	else $app.Widgets['🚥'].Remove (wdgt.id, '🔋');
 
 	// 💈
 	wdgt.data ['💈'] = wdgt.data.forecast.t; 
@@ -48,9 +48,9 @@ wdgt.Update = ()=> {
 		let h = ((now - forecast_clock) / -60);
 		if (h < 24) h = '24'
 		else h = h.toFixed(1);
-		$app.Widgets['🚥'].Add ('🌡️', `${h}`);
+		$app.Widgets['🚥'].Add (wdgt.id, '🌡️', `${h}`);
 	}
-	else $app.Widgets['🚥'].Remove ('🌡️');
+	else $app.Widgets['🚥'].Remove (wdgt.id, '🌡️');
 
 	//
 	Background ();
