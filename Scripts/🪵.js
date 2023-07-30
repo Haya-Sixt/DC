@@ -11,7 +11,6 @@ wdgt.Constants = { Ender: '➖'};
 //
 wdgt.Update = ()=> {
 	let rs ='', now = parseInt( new Date().getTime() / 1000 ),
-		forecast_clock = parseInt(new Date(wdgt.data.forecast.c).getTime()),
 		shishi = 0;
 	
 	for (const e of wdgt.Entries(now)) { // 🗒: yield doesn't work with forEach because it's callback
@@ -24,8 +23,8 @@ wdgt.Update = ()=> {
 			shishi = e.startedAt;
 	};
 
-	// ⏱️,🌡️
-	rs = `${rs}<div>${$('#⏱️').text()}</div><div>${wdgt.data.forecast.tt} 🌡️</div>`; 
+	// ⏱️
+	rs = `${rs}<div>${$('#⏱️').text()}</div>`; 
 
 	// 🕯️🕯️
 	// 🗒: '🌋' App Must Have Delay Before 🔔. Otherwise '🏡' Won't Be Triggered (Because '🌋' Is Open).
@@ -42,19 +41,25 @@ wdgt.Update = ()=> {
 
 	// 💈
 	wdgt.data ['💈'] = wdgt.data.forecast.t; 
+	Clock (now, '💈', wdgt.data.forecast.tc, 2);
 	
 	// 🌡️
-	if (now - forecast_clock > 6*60*60) {
-		let h = ((now - forecast_clock) / -60);
-		if (h < 24) h = '24'
-		else h = h.toFixed(1);
-		$app.Widgets['🚥'].Add (wdgt.id, '🌡️', `${h}`);
-	}
-	else $app.Widgets['🚥'].Remove (wdgt.id, '🌡️');
-
+	Clock (now, '🌡️', wdgt.data.forecast.fc);
+	
 	//
 	Background ();
 };
+
+function Clock (now, w, c, hours = 6) {
+	c = parseInt(new Date(c).getTime());
+	if (now - c > hours * 60 * 60) {
+		let h = ((now - c) / -60);
+		if (h < 24) h = '24'
+		else h = h.toFixed(1);
+		$app.Widgets['🚥'].Add (wdgt.id, w, `${h}`);
+	}
+	else $app.Widgets['🚥'].Remove (wdgt.id, w);
+}
 
 //
 function Background() {
