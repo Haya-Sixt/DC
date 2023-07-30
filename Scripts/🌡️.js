@@ -234,7 +234,8 @@ function FindBug () {
 		c = canvas?.getContext("2d")?.getImageData(0,0,200,200)
 			?.data?.filter((p)=>p!=0)?.length; 
 	
-		Popup.Add(`verified: ${verified}, c: ${c}`, 30);
+		Popup.Add(`chart: ${chart}, verified: ${verified}, c: ${c}.  Resetting in 10s`, 30);
+		setTimeout (()=> { wdgt.Reset(`Verify is ${c}`) }, 10000);
 	});
 }
 FindBug ();
