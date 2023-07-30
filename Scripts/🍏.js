@@ -167,27 +167,30 @@ class Helpers {
     // Otherwise, The Default Match Is To Replace <Text>. 
     // If No 'to' Is Supply, Than It Replace Var.
     static Css (prop, e, to) {
+        const Decode = ()=> { try { a[1] = decodeURIComponent(a[1]) } catch {} }; // i.e: 'svg+xml,%253Csvg'. 
+        
+        //
         if (!e) return Get ();
 
         //
         let a = $(e).css(prop).split(',');
 	    if (a.length < 2) return; // bg-image is 'none' in Portrait
 
-        const Decode = ()=> { try { a[1] = decodeURIComponent(a[1]) } catch {} }; // i.e: 'svg+xml,%253Csvg'. 
+        a[1] = a[1].replaceAll ("'", '"'); // 🗒: must be before 'Decode' (i.e: 🪵🕯️🕯️)
         Decode ();
         Decode ();
 
         let c = `${a[0]},${a[1]}`.replace(';utf8','').replaceAll('\\','')
             .replaceAll ('%3E', '>').replaceAll ('%3C', '<') // Needed. The Decode Is Partial.
-			.replaceAll ("'", '"').replaceAll ('%22','"').replace ('url("','').replace ('svg>")','svg>');
+			.replaceAll ('%22','"').replace ('url("','').replace ('svg>")','svg>');
             // 🗒: replacing '#' with '%23' ( i.e: 'url(#' ) should be done in the css (hard coded). Otherwise it returns back to '#' (Also tried after the encoding)
 
 		Text ();
     	Var ();
     
         a = c.split(',');
-        a[1] = encodeURIComponent(a[1])
-        	.replaceAll("'", '&quot;'); // 🕯️🕯️
+        a[1] = encodeURIComponent(a[1]);
+
         c = `url('${a[0]},${a[1]}')`;
         
         $(e).css(prop, c);

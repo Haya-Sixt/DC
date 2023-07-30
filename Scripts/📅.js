@@ -31,7 +31,7 @@ wdgt.Init = ()=> {
 wdgt.Update = ()=> {
 	const seven = !(wdgt.data.year % 7) ? 'שנת שמיטה' : 'שנה ' + String.fromCharCode((wdgt.data.year % 7) + 'א'.charCodeAt(0) - 1) + "'", 
 		leap = '' + ([0,3,6,8,11,14,17].includes(wdgt.data.year % 19) ? 'מעוברת' : 'פשוטה'),
-		year = `5'${wdgt.data.year.slice(1)}`;
+		year = `${wdgt.data.year.slice(1)}'5`;
 	
 	$(wdgt.sid).text( wdgt.data.month + '  ' + year + '  ' + seven + '  ' + leap );
 };
