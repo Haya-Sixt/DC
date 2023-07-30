@@ -22,7 +22,7 @@ wdgt.Update = ()=> {
 	
 	DimTodayColumn ();
 	
-	Verify ();
+	//Verify ();
 };
 
 
@@ -209,11 +209,14 @@ function Verify () {
 		c = canvas?.getContext("2d")?.getImageData(0,0,200,200)
 			?.data?.filter((p)=>p!=0)?.length; 
 	
-	if ((c ?? 0) < 7000) { // 7651
-		// !verified && wdgt.Reset(`Verify is ${c}`);
+	if (chart && (c ?? 0) < 7000) { // 7651
+		!verified && wdgt.Init();
 		verified = true;
 	}
-	else verified = false; 
+	else {
+		verified = false;
+		setTimeout (Verify, 3 * 60 * 1000);
+	}
 }
 
 
@@ -222,10 +225,10 @@ $( window ).resize(function() {
 	if (!chart) return;
 	//Icon_Resize (); 
 	Icons ();
-	Verify ();
+	//Verify ();
 });  
 
-
+/*
 //
 function FindBug () {
 	const d = document.querySelector(wdgt.sid);
@@ -237,8 +240,11 @@ function FindBug () {
 		wdgt.Reset(`FindBug:: chart: ${chart}, verified: ${verified}, c: ${c}`);
 	});
 }
-FindBug ();
-	
+*/
+//
+//FindBug ();
+Verify (); 
+
 })();
 
 
