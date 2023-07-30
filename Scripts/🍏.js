@@ -90,12 +90,14 @@ const app = {
         }
         Error (e, t) {
             if (e.stack) {
+            	Popup.Add(`${this.id} ${t}: ${e.stack}`, 30);
                 const a = e.stack.split('\n'); 
                 e = a.filter((s, i)=> i < 1 || i == a.length - 1).join('\n').replaceAll(location.origin, '').replaceAll('<anonymous>', '').replaceAll('/DC/Scripts/', '');
                 e = decodeURIComponent(decodeURIComponent(e));
             }
+            else Popup.Add(`${this.id} ${t}: ${e}`, 30);
+            if (e.includes(' at XMLHttpRequest')) e = e.slice(0, e.indexOf(' at XMLHttpRequest'));
             $(this.sid).text(`${this.id} ${t}: ${e}`).addClass("error");
-            Popup.Add($(this.sid).text(), 30);
         }
     }
 };
@@ -184,7 +186,8 @@ class Helpers {
     	Var ();
     
         a = c.split(',');
-        a[1] = encodeURIComponent(a[1]);
+        a[1] = encodeURIComponent(a[1])
+        	.replaceAll("'", '&quot;'); // 🕯️🕯️
         c = `url('${a[0]},${a[1]}')`;
         
         $(e).css(prop, c);
