@@ -176,13 +176,12 @@ class Helpers {
         let a = $(e).css(prop).split(',');
 	    if (a.length < 2) return; // bg-image is 'none' in Portrait
 
-        a[1] = a[1].replaceAll ("'", '"'); // 🗒: must be before 'Decode' (i.e: 🪵🕯️🕯️)
-        Decode ();
+	    Decode ();
         Decode ();
 
         let c = `${a[0]},${a[1]}`.replace(';utf8','').replaceAll('\\','')
             .replaceAll ('%3E', '>').replaceAll ('%3C', '<') // Needed. The Decode Is Partial.
-			.replaceAll ('%22','"').replace ('url("','').replace ('svg>")','svg>');
+			.replaceAll ("'", '"').replaceAll ('%22','"').replace ('url("','').replace ('svg>")','svg>');
             // 🗒: replacing '#' with '%23' ( i.e: 'url(#' ) should be done in the css (hard coded). Otherwise it returns back to '#' (Also tried after the encoding)
 
 		Text ();
@@ -207,7 +206,7 @@ class Helpers {
             a = c.split('</text>');
             for (let i = 0; i < a.length - 1; i++)
             	a[i] = a[i].slice(0, a[i].lastIndexOf('>') + 1); 
-            c = a.join(`${to}</text>`);
+            c = a.join(`${to.replaceAll ("'", '"')}</text>`);
         }
 
         //
