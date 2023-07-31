@@ -103,42 +103,42 @@ const app = {
 };
 
 
-function Load () {
-    const s = event.target.readyState;
-    if (s == "interactive") Init ()
-    else if (s == "complete") On ();
-}
-
+//
 function Init () {
     App ();
     Observers ();
     Resources ();
+
+	//
+	function App () {
+	    const e = document.createElement('div');
+	    e.id = app.Constants.Name;
+	    document.body.appendChild(e);
+	}
+	
+	//
+	function Observers () {
+	    app.Vars = new Proxy(app.Vars, {
+	        get: function(target, prop) {
+	            return Reflect.get(target, prop);
+	        },
+	        set: function(target, prop, value) {
+	            target[`_${prop}`] = app.Constants.Status.Done;
+	            dispatchEvent(new Event( app.Constants.Event (app.Constants.Var(prop)) ));
+	            return Reflect.set(target, prop, value);
+	        }
+	    });
+	}
+	
+	//
+	function Resources () {
+	    [app.Constants.Name,'⏳'].forEach((e)=> { const link = document.createElement('link'); link.rel = 'stylesheet'; link.type = 'text/css'; link.href = app.Constants.Host + 'Css/' + e + '.css'; document.head.appendChild(link); } ); 
+	    ['🎉','📅','🌡️','🪵','⏱️','📒','⚠️'].forEach((e)=> { const script = document.createElement('script'); script.type = 'text/javascript'; script.src = app.Constants.Host + 'Scripts/' + e + '.js'; document.head.appendChild(script); } ); 
+	}
 }
 
-function App () {
-    const e = document.createElement('div');
-    e.id = app.Constants.Name;
-    document.body.appendChild(e);
-}
 
-function Observers () {
-    app.Vars = new Proxy(app.Vars, {
-        get: function(target, prop) {
-            return Reflect.get(target, prop);
-        },
-        set: function(target, prop, value) {
-            target[`_${prop}`] = app.Constants.Status.Done;
-            dispatchEvent(new Event( app.Constants.Event (app.Constants.Var(prop)) ));
-            return Reflect.set(target, prop, value);
-        }
-    });
-}
-
-function Resources () {
-    [app.Constants.Name,'⏳'].forEach((e)=> { const link = document.createElement('link'); link.rel = 'stylesheet'; link.type = 'text/css'; link.href = app.Constants.Host + 'Css/' + e + '.css'; document.head.appendChild(link); } ); 
-    ['🎉','📅','🌡️','🪵','⏱️','📒','⚠️'].forEach((e)=> { const script = document.createElement('script'); script.type = 'text/javascript'; script.src = app.Constants.Host + 'Scripts/' + e + '.js'; document.head.appendChild(script); } ); 
-}
-
+//
 function On () {
     for (const [k, w] of Object.entries(app.Widgets)) {
         w.dependency && w.dependency.forEach(d=> addEventListener(app.Constants.Event (d), w.Init));
@@ -146,10 +146,19 @@ function On () {
     }
 }
 
+
+//
+function Load () {
+    const s = document.readyState;
+    if (s == "interactive") Init ()
+    else if (s == "complete") On ();
+}
+
 //
 document.addEventListener("readystatechange", Load);
-return app;
+Load (); // because of 'defer' (needed for the <html bgcolor>) 
 
+return app;
 })();
 
 
