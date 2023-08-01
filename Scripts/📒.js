@@ -53,7 +53,7 @@ wdgt.Entries = function* () {
 		if (x != -1) {
 			let cs = condC.substring(x + String(`,${c}`).length);
 			cs = cs.substring(0, cs.indexOf(','));
-			const dm = cs.split('_'), dmd = dm[0].replace('ʼ',"'"), dmm = dm.length1 > 1 ? dm[1] : '';
+			const dm = cs.split('_'), dmd = dm[0].replace('ʼ',"'"), dmm = dm.length > 1 ? dm[1] : '';
 			if ((dmm != '' && !$app.Widgets['📅👈'].data.month.includes(dmm)) || !($('#🗓️ td.tdCurrentHeb .hebdate').text()).includes(dmd)) continue; 
 		}
 				
