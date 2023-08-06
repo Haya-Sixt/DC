@@ -50,11 +50,10 @@ wdgt.Update = ()=> {
 	Background ();
 };
 
-function Clock (now, w, c, hours = 6) {
-	c = parseInt(new Date(c).getTime());
-	if (now - c > hours * 60 * 60) {
-		let h = ((now - c) / -60);
-		if (h < 24) h = '24'
+function Clock (now, w, c, hours = 7) {
+	let h = (now - c) / (60 * 60);
+	if (h > hours) {
+		if (h > 24) h = '24'
 		else h = h.toFixed(1);
 		$app.Widgets['🚥'].Add (wdgt.id, w, `${h}`);
 	}
