@@ -213,8 +213,10 @@ class Helpers {
         function Text () {
             if (typeof to == 'undefined') return;
             a = c.split('</text>');
-            for (let i = 0; i < a.length - 1; i++)
-            	a[i] = a[i].slice(0, a[i].indexOf('>') + 1); 
+            for (let i = 0; i < a.length - 1; i++) {
+            	if (a[i].includes('<tspan')) a[i] = a[i].slice(0, a[i].indexOf('<tspan')); 
+            	a[i] = a[i].slice(0, a[i].lastIndexOf('>') + 1); 
+        	}
             c = a.join(`${to.replaceAll ("'", '"')}</text>`);
         }
 
