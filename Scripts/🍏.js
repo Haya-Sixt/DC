@@ -214,7 +214,7 @@ class Helpers {
             if (typeof to == 'undefined') return;
             a = c.split('</text>');
             for (let i = 0; i < a.length - 1; i++)
-            	a[i] = a[i].slice(0, a[i].lastIndexOf('>') + 1); 
+            	a[i] = a[i].slice(0, a[i].indexOf('>') + 1); 
             c = a.join(`${to.replaceAll ("'", '"')}</text>`);
         }
 

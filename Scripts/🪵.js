@@ -74,7 +74,7 @@ function Background() {
 		let r = '', a = c.match(Helpers.Emoji()), candle = 0;
 		a && a.forEach((m) => {
 			let dx = 20;	
-			if (m == '🕯️') dx = candle = (candle ? 60 : 48);
+			if (m == '🕯️'.match(Helpers.Emoji())) dx = candle = (candle ? 40 : 30); // 'match' because length 2≠3
 			r += `<tspan dx="-0.${dx}em">${m}</tspan>`;
 		});
 		return r;
