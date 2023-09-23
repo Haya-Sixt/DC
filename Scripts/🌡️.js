@@ -21,8 +21,6 @@ wdgt.Update = ()=> {
 	Icons ();
 	
 	DimTodayColumn ();
-	
-	//Verify ();
 };
 
 
@@ -63,7 +61,7 @@ function Normalize () {
 
 //
 function Render() {
-	const f = (e)=> e.dataPoint.x == 1 ? e.dataPoint.y[e.index] + "°" : '';
+	const f = (e)=> '12'.includes(e.dataPoint.x) ? parseInt(e.dataPoint.y[e.index]) : '';
 
 	chart = wdgt.data.chart = new CanvasJS.Chart(wdgt.id, {
 		axisY: {
@@ -144,51 +142,7 @@ function Icons () {
 			ctx.fillText(Icon(ic), c * (i + 1), f);
 		}
 	}
-
-/*
-function Icons () {
-	const c_icons = , Icon = (c) => , c_size = 40;
-	images = [];
-	for (var i = 0; i < chart.data[0].dataPoints.length; i++) {
-		const ic = chart.data[0].dataPoints[i].icon;
-		images.push($("<img>").attr("src", `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><text x="0" y="${c_size}px" font-size="${c_size - 10}px">${Icon(ic)}</text></svg>`));
-		Position(images[i], i);
-		images[i].attr("class", c_class).appendTo($(wdgt.sid));
-	}
-	function Position(image, index) {
-		var x = chart.axisX[0].convertValueToPixel(chart.data[0].dataPoints[index].x);
-		image.width(`${c_size}px`) // 🗒: width is needed
-			.css({ "left": `${x - (c_size / 2)}px`,
-				"position": "absolute", 
-				"top": `-${c_size}px`});
-	}
-*/
-/* 
-function Icons () {
-	const c_icons = , Icon = (c) => ,
-		f = chart.height / 3.5 / 2,
-		s = chart.width / 7.5, // (chart.width - c * 4) / 2
-		c = (chart.width - s * 2) / 4; // chart.axisX[0].convertValueToPixel(chart.data[0].dataPoints[0].x) 
-		 
-	chart.ctx.font = `${f}px Calibri`;
-	for (var i = 0; i < rangeBuilder.length; i++) {
-		const t = rangeBuilder[i].icon;
-		chart.ctx.fillText(Icon(t), s + (c * i), 1);
-	}
 }
-*/
-
-}
-
-/*
-// 🗒: Needed
-function Icon_Resize () {
-	for(var i = 0; i < chart.data[0].dataPoints.length; i++) {
-		const iC = chart.axisX[0].convertValueToPixel(chart.data[0].dataPoints[i].x) - 20;
-		$(`.${c_class}`).eq(i).css({ "left": iC});
-	}
-}
-*/
 
 
 // 
@@ -223,26 +177,11 @@ function Verify () {
 // 
 $( window ).resize(function() {
 	if (!chart) return;
-	//Icon_Resize (); 
 	Icons ();
-	//Verify ();
 });  
 
-/*
+
 //
-function FindBug () {
-	const d = document.querySelector(wdgt.sid);
-	d.addEventListener ('click', ()=> {
-		const canvas = document.querySelector(`${wdgt.sid} > div.canvasjs-chart-container > canvas:nth-child(1)`),
-		c = canvas?.getContext("2d")?.getImageData(0,0,200,200)
-			?.data?.filter((p)=>p!=0)?.length; 
-			
-		wdgt.Reset(`FindBug:: chart: ${chart}, verified: ${verified}, c: ${c}`);
-	});
-}
-*/
-//
-//FindBug ();
 Verify (); 
 
 })();
