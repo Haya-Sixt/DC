@@ -61,7 +61,7 @@ function Normalize () {
 
 //
 function Render() {
-	const f = (e)=> '12'.includes(e.dataPoint.x) ? parseInt(e.dataPoint.y[e.index]) : '';
+	const f = (e)=> '12'.includes(e.dataPoint.x) ? Math.round(e.dataPoint.y[e.index]) : '';
 
 	chart = wdgt.data.chart = new CanvasJS.Chart(wdgt.id, {
 		axisY: {
