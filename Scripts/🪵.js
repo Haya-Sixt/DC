@@ -255,3 +255,28 @@ function Refresh () {
 }
 
 })();
+
+
+// 4.
+(()=>{
+
+// Messaging from 🤖
+const wdgt = new $app.Widget('🤖');
+
+wdgt.Init = ()=> {
+	wdgt.listener?.remove(); 
+	wdgt.listener = $("<input>")
+		.attr("inputmode", "none")
+		.attr("style", "position: absolute; color: transparent; border: none; background: transparent; box-shadow: none; outline: none;")
+		.appendTo(`#${ $app.Constants.Name }️`)
+		.on("paste", (ev)=> setTimeout((e)=> Dispatch (e.val()), 1, $(ev.target)))
+		.on("blur", ()=> wdgt.Init ())
+		.focus(); 
+	}; 
+}
+
+function Dispatch (v) {
+	Popup.Add (`${wdgt.Name}.Dispatch: ${v}`, 30);
+}
+
+})(); 
