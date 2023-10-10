@@ -267,7 +267,7 @@ wdgt.Init = ()=> {
 	$("<input>")
 		.attr("inputmode", "none")
 		.attr("style", "position: absolute; color: transparent; border: none; background: transparent; box-shadow: none; outline: none;")
-		.appendTo(a)
+		.appendTo(`#${ $app.Constants.Name }️`)
 		.on("paste", (ev)=> setTimeout((e)=> Dispatch (e.value), 1, ev.target))
 		.on("blur", (ev)=> { ev.target.remove(); wdgt.Init () } )
 		.focus();
