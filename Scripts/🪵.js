@@ -264,15 +264,13 @@ function Refresh () {
 const wdgt = new $app.Widget('🤖');
 
 wdgt.Init = ()=> {
-	wdgt.listener?.remove(); 
-	wdgt.listener = $("<input>")
+	$("<input>")
 		.attr("inputmode", "none")
 		.attr("style", "position: absolute; color: transparent; border: none; background: transparent; box-shadow: none; outline: none;")
-		.appendTo(`#${ $app.Constants.Name }️`)
-		.on("paste", (ev)=> setTimeout((e)=> Dispatch (e.val()), 1, $(ev.target)))
-		.on("blur", ()=> wdgt.Init ())
-		.focus(); 
-	}; 
+		.appendTo(a)
+		.on("paste", (ev)=> setTimeout((e)=> Dispatch (e.value), 1, ev.target))
+		.on("blur", (ev)=> { ev.target.remove(); wdgt.Init () } )
+		.focus();
 }
 
 function Dispatch (v) {
