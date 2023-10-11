@@ -264,12 +264,14 @@ function Refresh () {
 const wdgt = new $app.Widget('🤖');
 wdgt.repeat = { update: 1 };
 
+const c_mark = `${$app.Constants.Name}.${wdgt.id}`;
+
 wdgt.Init = ()=> {
 	Listen ();
-	// Mark ready
+	// ready
 	$("<div>")
 		.attr("style", "position: absolute; top: -100vh;")
-		.html(`${$app.Constants.Name}.${wdgt.id}`)
+		.html(c_mark)
 		.appendTo(`#${$app.Constants.Name}`);
 }
 
@@ -302,7 +304,7 @@ function Paste (ev) {
 	ev.preventDefault(); 
 	const d = '\n', v = (ev.originalEvent.clipboardData || window.clipboardData).getData("text").split(d);
 	if (v.length < 2) return;
-	ev.target.value = v[0];
+	ev.target.value = `${c_mark}.${v[0]}`;
 	Dispatch (v.slice(1).join(d)); 
 }
 
