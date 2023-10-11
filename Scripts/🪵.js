@@ -262,18 +262,28 @@ function Refresh () {
 
 // Messaging from 🤖
 const wdgt = new $app.Widget('🤖');
+wdgt.repeat = { update: 1 };
 
 wdgt.Init = ()=> {
 	$(wdgt.sid).html('');
 	$("<input>")
-		.attr("inputmode", "none")
+		.attr("inputmode", "none") // UI focus glowing border
 		.attr("style", "position: absolute; color: transparent; border: none; background: transparent; box-shadow: none; outline: none;")
 		.appendTo(wdgt.sid)
 		.on("paste", (ev)=> setTimeout((e)=> Dispatch (e.value), 1, ev.target))
-		.on("blur", (ev)=> wdgt.Init ())
-		.focus();
+		.on("blur", ()=> wdgt.Init ());
+	// 🗒: Already tried 'contenteditable' on body. Doesn't work well.
 }
 
+wdgt.Update = ()=> {
+	$(`${wdgt.sid} input`).focus();
+	setTimeout (()=> {
+		if ($(wdgt.sid).is(":focus")) return 
+		else wdgt.Update ();
+	}, 1000);
+}
+
+//
 function Dispatch (v) {
 	Popup.Add (`${wdgt.Name}.Dispatch: ${v}`, 30);
 }
