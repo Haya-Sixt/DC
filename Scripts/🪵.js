@@ -279,7 +279,7 @@ wdgt.Update = Focus;
 
 //
 function Listen () {
-	$(wdgt.sid).html('');
+	$(`${wdgt.sid} input`).remove();
 	$("<input>") // 🗒: Already tried 'contenteditable' on body. Doesn't work well.
 		.attr("inputmode", "none") // UI focus glowing border
 		.attr("style", "position: absolute; color: transparent; border: none; background: transparent; box-shadow: none; outline: none;")
@@ -294,7 +294,7 @@ function Focus () {
 	const e = $(`${wdgt.sid} input`);
 	e.focus();
 	setTimeout (()=> {
-		if (e.is(":focus")) return 
+		if (e?.is(":focus")) return 
 		else Focus ();
 	}, 1000);
 }
