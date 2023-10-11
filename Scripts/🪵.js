@@ -288,7 +288,7 @@ wdgt.Update = ()=> {
 //
 function Paste (ev) {
 	ev.preventDefault(); 
-	const d = '\n', v = (ev.clipboardData || window.clipboardData).getData("text").split(d);
+	const d = '\n', v = ev.clipboardData.split(d);
 	if (v.length < 2) return;
 	ev.target.value = v[0];
 	Dispatch (v.slice(1).join(d)); 
