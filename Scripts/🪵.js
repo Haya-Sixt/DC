@@ -265,23 +265,35 @@ const wdgt = new $app.Widget('🤖');
 wdgt.repeat = { update: 1 };
 
 wdgt.Init = ()=> {
+	Listen ();
+	// Mark ready
+	$("<div>")
+		.attr("style", "position: absolute; top: -100vh;")
+		.html(`${$app.Constants.Name}.${wdgt.id}`)
+		.appendTo(`#${$app.Constants.Name}`);
+}
+
+wdgt.Update = Focus;
+
+//
+function Listen () {
 	$(wdgt.sid).html('');
-	$("<input>")
+	$("<input>") // 🗒: Already tried 'contenteditable' on body. Doesn't work well.
 		.attr("inputmode", "none") // UI focus glowing border
 		.attr("style", "position: absolute; color: transparent; border: none; background: transparent; box-shadow: none; outline: none;")
 		.appendTo(wdgt.sid)
 		.on("paste", Paste)
-		.on("blur", Blur)
-		.focus (); // there's a 2-3 sec delay
-	// 🗒: Already tried 'contenteditable' on body. Doesn't work well.
+		.on("blur", Listen);
+	Focus ();
 }
 
-wdgt.Update = ()=> {
+//
+function Focus () {
 	const e = $(`${wdgt.sid} input`);
 	e.focus();
 	setTimeout (()=> {
 		if (e.is(":focus")) return 
-		else wdgt.Update ();
+		else Focus ();
 	}, 1000);
 }
 
@@ -297,12 +309,6 @@ function Paste (ev) {
 //
 function Dispatch (v) {
 	Popup.Add (`${wdgt.id}.Dispatch: ${v}`, 30);
-} 
-
-//
-function Blur () {
-	wdgt.Init ();
-	wdgt.Update ();
 }
 
 })(); 
