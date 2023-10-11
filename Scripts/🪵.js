@@ -268,11 +268,11 @@ const c_mark = `${$app.Constants.Name}.${wdgt.id}`;
 
 wdgt.Init = ()=> {
 	Listen ();
-	// ready
+	// response
 	$("<div>")
 		.attr("style", "position: absolute; top: -100vh;")
 		.html(c_mark)
-		.appendTo(`#${$app.Constants.Name}`);
+		.appendTo(wdgt.sid);
 }
 
 wdgt.Update = Focus;
@@ -304,7 +304,7 @@ function Paste (ev) {
 	ev.preventDefault(); 
 	const d = '\n', v = (ev.originalEvent.clipboardData || window.clipboardData).getData("text").split(d);
 	if (v.length < 2) return;
-	ev.target.value = `${c_mark}.${v[0]}`;
+	$(`${wdgt.sid} div`).html (`${c_mark}.${v[0]}`);
 	Dispatch (v.slice(1).join(d)); 
 }
 
