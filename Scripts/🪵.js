@@ -270,22 +270,39 @@ wdgt.Init = ()=> {
 		.attr("inputmode", "none") // UI focus glowing border
 		.attr("style", "position: absolute; color: transparent; border: none; background: transparent; box-shadow: none; outline: none;")
 		.appendTo(wdgt.sid)
-		.on("paste", (ev)=> setTimeout((e)=> Dispatch (e.value), 1, ev.target))
-		.on("blur", ()=> wdgt.Init ());
+		.on("paste", Paste)
+		.on("blur", Blur)
+		.focus (); // there's a 2-3 sec delay
 	// 🗒: Already tried 'contenteditable' on body. Doesn't work well.
 }
 
 wdgt.Update = ()=> {
-	$(`${wdgt.sid} input`).focus();
+	const e = $(`${wdgt.sid} input`);
+	e.focus();
 	setTimeout (()=> {
-		if ($(wdgt.sid).is(":focus")) return 
+		if (e.is(":focus")) return 
 		else wdgt.Update ();
 	}, 1000);
 }
 
 //
+function Paste (ev) {
+	ev.preventDefault(); 
+	const d = '\n', v = (ev.clipboardData || window.clipboardData).getData("text").split(d);
+	if (v.length < 2) return;
+	ev.target.value = v[0];
+	Dispatch (v.slice(1).join(d)); 
+}
+
+//
 function Dispatch (v) {
-	Popup.Add (`${wdgt.Name}.Dispatch: ${v}`, 30);
+	Popup.Add (`${wdgt.id}.Dispatch: ${v}`, 30);
+} 
+
+//
+function Blur () {
+	wdgt.Init ();
+	wdgt.Update ();
 }
 
 })(); 
