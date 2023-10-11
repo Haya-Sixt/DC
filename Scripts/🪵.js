@@ -267,12 +267,8 @@ wdgt.repeat = { update: 1 };
 const c_mark = `${$app.Constants.Name}.${wdgt.id}`;
 
 wdgt.Init = ()=> {
+	$(wdgt.sid).html(`<div style="position: absolute; top: -100vh;">${c_mark}</div>`);
 	Listen ();
-	// response
-	$("<div>")
-		.attr("style", "position: absolute; top: -100vh;")
-		.html(c_mark)
-		.appendTo(wdgt.sid);
 }
 
 wdgt.Update = Focus;
