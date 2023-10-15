@@ -27,14 +27,13 @@ wdgt.Update = ()=> {
 		if (d.includes('-')) d = d.replace (d.slice(d.indexOf('-') - 1), '');
 		const napaId = y[d];
 		if (napaId) d = n[napaId];
-		if (!a[c]?.includes(d)) {
-			if (!a[c]) a[c] = ''; // 🗒: needed
-			if (a[c]) a[c] += `, `;
-			a[c] += d;
-		}
+		const f = a.find (({cat})=> cat == c);
+		if (f?.napa?.includes(d)) continue;
+		if (!f) a.push ({ cat: c, napa: d, startedAt: startedAt })
+		else f.napa += `, ${d}`;
 	}
-	for (const k in a) {
-		$app.Widgets['🔔'].Info (`${wdgt.id} 🛟 🏮 ${k}`, a[k], startedAt, 6 * 60 * 60);
+	for (const e in a) {
+		$app.Widgets['🔔'].Info (`${wdgt.id} 🛟 🏮 ${e.cat}`, e.napa, e.startedAt, 6 * 60 * 60);
 	}
 };
 
