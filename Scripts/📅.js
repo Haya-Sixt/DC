@@ -319,7 +319,7 @@ function Mark() {
 		let v = parseInt( $(t).text().replace(':','') );
 		if ( now <= v && !first) {
 			first = $(t).parent();
-			if (v - now <= 3) $app.Widget['⏳'].Start ((v - now)*100);
+			if (v - now <= 3) $app.Widgets['⏳'].Start ((v - now)*100);
 		} 
 		else {
 			$(t).parent().removeClass('markIconText');

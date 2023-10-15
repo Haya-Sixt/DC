@@ -173,7 +173,7 @@ wdgt.Update = ()=> {
 			$(wdgt.sid).css('top',`calc(91% - ${topOffset++ * 30}px)`);
 			
 			if (m=='3m' && h=='')
-				$app.Widget['⏳'].Start (400);
+				$app.Widgets['⏳'].Start (400);
 		} 
 	});
 
