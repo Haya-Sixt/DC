@@ -15,6 +15,9 @@ wdgt.Update = ()=> {
 	
 	const a = [];
 	for (const e of wdgt.data) {
+		// 6 hours 
+		if (parseInt((new Date() - new Date(e.alertDate)) / (1000 * 60)) / 60 > 6) continue;
+		//
 		const c = e.category_desc;
 		let d = e.data
 			.replace ('אזור תעשייה ','')
