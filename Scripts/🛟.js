@@ -7,7 +7,7 @@ const wdgt = new $app.Widget('🛟');
 wdgt.repeat = { init: 3 };
 
 //
-wdgt.url = ()=> `https://www.oref.org.il//Shared/Ajax/GetAlarmsHistory.aspx?lang=he&mode=0`;
+//CORS wdgt.url = ()=> `https://www.oref.org.il//Shared/Ajax/GetAlarmsHistory.aspx?lang=he&mode=0`;
 
 //
 wdgt.Update = ()=> {
