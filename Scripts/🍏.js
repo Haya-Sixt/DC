@@ -93,12 +93,12 @@ const app = {
         }
         Error (e, t) {
             if (e.stack) {
-            	app['🔔'].Alert(`${this.id} ${t}: ${e.stack}`);
+            	app.Widgets['🔔'].Alert(`${this.id} ${t}: ${e.stack}`);
                 const a = e.stack.split('\n'); 
                 e = a.filter((s, i)=> i < 1 || i == a.length - 1).join('\n').replaceAll(location.origin, '').replaceAll('<anonymous>', '').replaceAll('/DC/Scripts/', '');
                 e = decodeURIComponent(decodeURIComponent(e));
             }
-            else app['🔔'].Alert(`${this.id} ${t}: ${e}`);
+            else app.Widgets['🔔'].Alert(`${this.id} ${t}: ${e}`);
             if (e.includes(' at XMLHttpRequest')) e = e.slice(0, e.indexOf(' at XMLHttpRequest'));
             $(this.sid).text(`${this.id} ${t}: ${e}`).addClass("error");
         }

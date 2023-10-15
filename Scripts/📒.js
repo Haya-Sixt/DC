@@ -13,7 +13,7 @@ wdgt.Update = ()=> {
 	StatusIcons ();
 	for (const e of wdgt.Entries())  // 🗒: yield doesn't work with forEach because it's callback
 		if (e.text == '') StatusIcons (e.title)
-		else $app['🔔'].Info (e);
+		else $app.Widgets['🔔'].Info (e);
 };
 
 

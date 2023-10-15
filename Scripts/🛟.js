@@ -31,7 +31,7 @@ wdgt.Update = ()=> {
 		}
 	}
 	for (const k in a) {
-		$app['🔔'].Info (`${wdgt.id} ${k}`, a[k]);
+		$app.Widgets['🔔'].Info (`${wdgt.id} ${k}`, a[k]);
 	}
 };
 

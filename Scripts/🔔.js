@@ -1,7 +1,20 @@
+//
+(()=>{
 
-// 1. 
-$app['🔔'] = (()=> {
-	
+// Countdown 
+const wdgt = new $app.Widget('🔔');
+
+//
+wdgt.Init = ()=> {
+	$(wdgt.sid).html('');
+};
+
+//
+wdgt.Info = (...args)=> T.Info (...args); 
+
+//
+wdgt.Alert = (...args)=> T.Alert (...args); 
+
 // 🔔
 class T {
 
@@ -67,9 +80,8 @@ static #Progress () {
 	(notes.length - del.length) > 0 && setTimeout(()=> T.#Progress(), 1000*61);
 } 
 
-} // 🔔
+} // T
 
-return T;
 })();
 
 
