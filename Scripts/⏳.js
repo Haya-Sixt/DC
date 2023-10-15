@@ -10,7 +10,7 @@ wdgt.Init = ()=> {
 };
 
 //
-wdgt.Start = T.Start; 
+wdgt.Start = ()=> T.Start (); 
 	
 //
 class T {

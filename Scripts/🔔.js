@@ -19,13 +19,13 @@ static Alert (e, ...args) {
 
 //
 static #Box (mode, duration, e, ...args) {
-	const name = (m ? 'info' : 'alert'), now = parseInt( new Date().getTime() / 1000 );
+	const name = (mode ? 'info' : 'alert'), now = parseInt( new Date().getTime() / 1000 );
 	//
 	if (typeof e != 'object') e = { 'title': e, 'text': args.length ? args[0] : '', 'startedAt': args.length > 1 ? args[1] : now, 'duration': args.length > 2 ? args[2] : duration}; 
 	//
 	if (e.title && e.text) e.title += `<br>`;
 	let tt = (e.title+e.text).replaceAll('"',"'");
-	if (!m) tt = `⚠️ ${tt}`;
+	if (!mode) tt = `⚠️ ${tt}`;
 	
 	// prevent duplicates
 	if ($(`${sid}[tt="${tt}"]`).length) return;
