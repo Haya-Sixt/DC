@@ -1,6 +1,19 @@
+//
+(()=>{
 
-// ⏳
-class Countdown {
+// Countdown 
+const wdgt = new $app.Widget('⏳');
+
+//
+wdgt.Init = ()=> {
+	$(wdgt.sid).html('');
+};
+
+//
+wdgt.Start = T.Start; 
+	
+//
+class T {
 
 static #template = `<ul class="cdc_flip cdc_dgtPlay">
 	<li class="cdc_before">
@@ -33,26 +46,26 @@ static Start (mmss) {
 	try {
 	let n = parseInt(mmss);
 	if (n <= 0) return;
-	Countdown.#n_s = ('' + n);
+	T.#n_s = ('' + n);
 	
-	Countdown.#Stop(true);
+	T.#Stop(true);
 	
 	if ($("#⏳").length) $("#⏳").remove();
 	$("<div>").attr("id","⏳").appendTo("#🪵").html('<div class="cdc_container"></div>');
 		
-	var html = '', n_s_before = Countdown.#n_s;
-	Countdown.#Play(); 
+	var html = '', n_s_before = T.#n_s;
+	T.#Play(); 
 	for (var i = 0; i < n_s_before.length; i++) {
-		html += Countdown.#template.replaceAll("cdc_dgtPlay", "cdc_" + i + "Play")
+		html += T.#template.replaceAll("cdc_dgtPlay", "cdc_" + i + "Play")
 			.replaceAll("dgt_before", parseInt(n_s_before.charAt(i)))
-			.replaceAll("dgt_active", parseInt(Countdown.#n_s.charAt(i)));
+			.replaceAll("dgt_active", parseInt(T.#n_s.charAt(i)));
 	}
 
 	$("#⏳ .cdc_container").html(html);
 
 	$("#⏳ .cdc_container").show('slow');
 		
-	Countdown.#i_Play = setInterval(Countdown.#Play, 1000); 
+	T.#i_Play = setInterval(T.#Play, 1000); 
 	
 	} catch(e) { console.log('⏳ Init:\n' + e); }
 }
@@ -60,18 +73,15 @@ static Start (mmss) {
 //
 static #Play() {
 	try {
-	let minus1 = Countdown.#Timefy(parseInt(Countdown.#n_s)-1);
-	if (!$("#⏳").length) {
-		Countdown.Start(minus1);
-		return;
-	}
+	let minus1 = T.#Timefy(parseInt(T.#n_s)-1);
+	if (!$("#⏳").length) return T.Start (minus1);
 	
-	if (minus1.length < Countdown.#n_s.length) 
-		$(".cdc_container .cdc_" + (Countdown.#n_s.length - minus1.length - 1) + "Play").hide('slow');
+	if (minus1.length < T.#n_s.length) 
+		$(".cdc_container .cdc_" + (T.#n_s.length - minus1.length - 1) + "Play").hide('slow');
 	
 	for (var i = minus1.length-1; i >= 0; i--) {
-		var n_s_i = i + (Countdown.#n_s.length - minus1.length);
-		if (Countdown.#n_s.charAt(n_s_i) != minus1.charAt(i)) {
+		var n_s_i = i + (T.#n_s.length - minus1.length);
+		if (T.#n_s.charAt(n_s_i) != minus1.charAt(i)) {
 						$(".cdc_container .cdc_" + n_s_i + "Play li").toggleClass("cdc_active cdc_before");
 			$(".cdc_container .cdc_" + n_s_i + "Play .cdc_active .cdc_inn").text(
 			  minus1.charAt(i)
@@ -79,19 +89,19 @@ static #Play() {
 
 		}
 	}
-	Countdown.#n_s = minus1.padStart(Countdown.#n_s.length, '0');
+	T.#n_s = minus1.padStart(T.#n_s.length, '0');
 	
-	Countdown.#Stop();
+	T.#Stop();
 	
 	} catch(e) { console.log('⏳ Play:\n' + e); }
 }
 
 static #Stop(force) {
-	if (!force && parseInt(Countdown.#n_s)!=0 ) 
+	if (!force && parseInt(T.#n_s)!=0 ) 
 		return;
 		
-	clearInterval(Countdown.#i_Play);
-	Countdown.#beep();
+	clearInterval(T.#i_Play);
+	T.#beep();
   
 	if (!force) 
 		setTimeout(()=>$("#⏳ .cdc_container").hide('slow'), 3000);
@@ -116,78 +126,6 @@ static #beep() {
 	} catch(e) { console.log('⏳ Beep:\n' + e); }
 }
 
-}
+} // T
 
-
-//
-class Popup {
-
-static Dimention() {
-	Add(new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' })
-		+':  🌡️ '+ parseInt($("#🌡️").height())
-		+'X'+ parseInt($("#🌡️").width())
-		+',  🌡️(canvas) '+ parseInt($("canvas.canvasjs-chart-canvas").height())
-		+'X'+ parseInt($("canvas.canvasjs-chart-canvas").width())
-		+',  🗓️ '+ parseInt($("#🗓️ table").height())
-		+'X'+ parseInt($("#🗓️ table").width())
-		//+', body: '+ parseInt($("body").width())
-		//+', doc: '+ parseInt($(document).width())
-	);
-}
-
-static Add (html, t) {
-	const p = $("<div>")
-		.attr("name","popup")
-		.attr("class","popup")
-		//.attr("style","")
-		.html(html)
-		.appendTo("body")
-		.css({
-			//'position' : 'absolute',
-			//'left' : '50%',
-			//'top' : '50%',
-			'margin-left' : function() {return -$(this).outerWidth()/2},
-			'margin-top' : function() {
-				var height=10;
-				$(".popup").each((i, t)=> {
-					height += $(t).outerHeight() + 10;
-				});
-				return -height; 
-			}
-		});
-	t && setTimeout(()=>p.remove(), t*1000);
-}
-
-}
-
-/*
-function popupInit() {
-	//setTimeout (popup_dimention, 1000*10);
-	//setTimeout (popup_dimention, 1000*60*4);
-
-	//popupAdd("1 ניסיון");
-	//popupAdd("2 ניסיון");
-	//popupAdd("3 ניסיון");
-	//popupAdd("4 ניסיון 4 ניסיון 4 ניסיון 4 ניסיון");
-		
-	//popupUpdate();
-	//setInterval(popupUpdate, 1000*60);
-}
-
-function popupUpdate() {
-	popupRemove( 1 );
-} 
-
-function popupRemove(o) {
-	var height=10;
-	$(".popup").each(function(index) {
-//$(Countdown).text(index + '' + o) ;
-		if (index == o) 
-			$(Countdown).remove()
-		else {
-			height += $(Countdown).innerHeight() + 10;
-			$(Countdown).css({ 'margin-top' : function() {return -height;} });
-		} 
-	});
-} 
-*/
+})();

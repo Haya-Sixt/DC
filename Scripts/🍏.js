@@ -90,12 +90,12 @@ const app = {
         }
         Error (e, t) {
             if (e.stack) {
-            	Popup.Add(`${this.id} ${t}: ${e.stack}`, 30);
+            	app['🔔'].Alert(`${this.id} ${t}: ${e.stack}`);
                 const a = e.stack.split('\n'); 
                 e = a.filter((s, i)=> i < 1 || i == a.length - 1).join('\n').replaceAll(location.origin, '').replaceAll('<anonymous>', '').replaceAll('/DC/Scripts/', '');
                 e = decodeURIComponent(decodeURIComponent(e));
             }
-            else Popup.Add(`${this.id} ${t}: ${e}`, 30);
+            else app['🔔'].Alert(`${this.id} ${t}: ${e}`);
             if (e.includes(' at XMLHttpRequest')) e = e.slice(0, e.indexOf(' at XMLHttpRequest'));
             $(this.sid).text(`${this.id} ${t}: ${e}`).addClass("error");
         }
@@ -133,7 +133,9 @@ function Init () {
 	//
 	function Resources () {
 	    [app.Constants.Name,'⏳'].forEach((e)=> { const link = document.createElement('link'); link.rel = 'stylesheet'; link.type = 'text/css'; link.href = app.Constants.Host + 'Css/' + e + '.css'; document.head.appendChild(link); } ); 
-	    ['🎉','📅','🌡️','🪵','⏱️','📒','⚠️'].forEach((e)=> { const script = document.createElement('script'); script.type = 'text/javascript'; script.src = app.Constants.Host + 'Scripts/' + e + '.js'; document.head.appendChild(script); } ); 
+	    // 🗒: To edit in MixPlorer, add '//'
+	    ['🔔','⏳','📅','🌡️','🪵','🚥','⏱️','📒','🛟','🤖']
+	    .forEach((e)=> { const script = document.createElement('script'); script.type = 'text/javascript'; script.src = app.Constants.Host + 'Scripts/' + e + '.js'; document.head.appendChild(script); } ); 
 	}
 }
 

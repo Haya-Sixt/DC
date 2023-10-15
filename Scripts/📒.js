@@ -8,19 +8,12 @@ wdgt.dependency = ['📆', $app.Constants.Var('🕯️')];
 
 //
 wdgt.Update = ()=> { 
-	let rs = '';
+	$(wdgt.sid).html('');
 
 	StatusIcons ();
 	for (const e of wdgt.Entries())  // 🗒: yield doesn't work with forEach because it's callback
 		if (e.text == '') StatusIcons (e.title)
-		else {
-			const r = `<div name="note" startedAt="${e.startedAt}" duration="${e.duration}" >${e.title}<br>${e.text}`;
-			rs = `${rs}${r.replace ('{{Zmanit_4.5}}',  Zmanit(4.5)).replace ('{{Zmanit_5.8}}',  Zmanit(5.8)).replace ('{{Zmanit_10}}',  Zmanit(10))
-				}<div style="background-image: linear-gradient(to right, rgba(250, 20, 80, 0.6) 0%, rgba(100, 100, 241, 0.6) 0% );"></div></div>`;
-		}
-
-	$(wdgt.sid).html(rs);
-	Progress ();
+		else $app['🔔'].Info (e);
 };
 
 
@@ -125,38 +118,6 @@ function parseHM(cond, find, condC) {
 		return t;
 	}
 }
-
-
-//
-function Progress () {
-	try {
-
-	var notes = $(wdgt.sid + " > div[name=note]");
-	var now = parseInt( new Date().getTime() / 1000 ); 
-
-	notes.each((i, t)=> {
-		var percent = parseInt( (now - parseInt($(t).attr('startedAt'))) *100 / parseInt($(t).attr('duration')) ), 
-			noteP = $(t).children(':last-child');
-		
-		if (isNaN(percent) || percent <0) {
-			percent = 100; 
-			$(t).addClass("error");
-		} else {
-			if (percent>100) percent=100;
-			$(t).removeClass("error");
-		}
-
-		var bi = noteP.css('background-image');
-		var cut = bi.substring( bi.indexOf(')')+1, bi.indexOf('%')+1 );
-		bi = bi.replace(cut, percent+'%');
-		noteP.css('background-image', bi);
-	});
-
-	notes.length > 0 && setTimeout(Progress, 1000*61);
-	
-	} catch (e) { wdgt.Error(e, 'Progress') } 
-} 
-
 
 //
 function StatusIcons (title) {
