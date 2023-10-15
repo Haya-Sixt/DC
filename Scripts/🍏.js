@@ -38,8 +38,11 @@ const app = {
                 let u = `${app.Vars.Mode}.json`;
                 if (url instanceof Array) u = url[i]
                 else if (url) u = url;
-                const db = u.endsWith('json') && app.Vars.Mode=='' ? '../' : '';
-                $.get( `${$app.Constants.Host}${db}📑/${this.id}${u}` )
+                if (!u.startsWith('http')) {
+                	const db = u.endsWith('json') && app.Vars.Mode=='' ? '../' : '';
+                	u = `${$app.Constants.Host}${db}📑/${this.id}${u}`;
+            	}
+                $.get( u )
                 .done((d)=> { 
                     try {
                     if (url instanceof Array) {

@@ -28,19 +28,19 @@ static #Box (mode, duration, e, ...args) {
 	if (!mode) tt = `⚠️ ${tt}`;
 	
 	// prevent duplicates
-	if ($(`${sid}[tt="${tt}"]`).length) return;
+	if ($(`${T.#sid}[tt="${tt}"]`).length) return;
 	
 	const r = `<div name="${name}" startedAt="${e.startedAt}" duration="${e.duration}" tt="{tt}">${tt}`,
 		p = `<div style="background-image: linear-gradient(to right, rgba(250, 20, 80, 0.6) 0%, rgba(100, 100, 241, 0.6) 0% );"></div></div>`;
 
-	$(sid).html(`${$(sid).html()}${r}${p}`);
+	$(T.#sid).html(`${$(T.#sid).html()}${r}${p}`);
 	T.#Progress ();
 }
 
 //
 static #Progress () {
 	const now = parseInt( new Date().getTime() / 1000 ), del = [];
-	let notes = $(sid + " > div[name]");
+	let notes = $(T.#sid + " > div[name]");
 	
 	notes.each((i, t)=> {
 		var percent = parseInt( (now - parseInt($(t).attr('startedAt'))) * 100 / parseInt($(t).attr('duration')) ), 
