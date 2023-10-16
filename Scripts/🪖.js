@@ -20,7 +20,11 @@ wdgt.Update = ()=> {
 		if (parseInt((new Date() - startedAt) / (1000 * 60)) / 60 > 6) continue;
 		
 		// find 'alerted cat' in 'a'
-		const c = e.category_desc.trim (),
+		const c = e.category_desc.trim ()
+			.replace ("ירי רקטות וטילים", '🚀')
+			.replace ("חדירת מחבלים", '🧕)
+			.replace ("חדירת כלי טיס עוין", '🛸')
+			.replace ("אזהרה", '⚠️'),
 			ac = a.find (({cat})=> c == cat);
 			
 		// find 'alerted city' in 'y'
@@ -46,7 +50,8 @@ wdgt.Update = ()=> {
 			else i++; // ' '
 		
 		// find 'found alerted napa' in 'n'
-		if (napa) napa = n[napa];
+		if (napa) napa = n[napa]
+		else napa = e.data;
 		
 		// adding 'found napa' to 'found alerted cat in a'
 		if (ac?.napa?.includes(napa)) continue;

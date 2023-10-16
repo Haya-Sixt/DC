@@ -43,7 +43,7 @@ static #Box (mode, duration, e, ...args) {
 	// prevent duplicates
 	if ($(`${T.#sid}[tt="${tt}"]`).length) return;
 	
-	const r = `<div name="${name}" startedAt="${e.startedAt}" duration="${e.duration}" tt="{tt}">${tt}`,
+	const r = `<div name="${name}" startedat="${e.startedAt}" duration="${e.duration}" tt="${tt}">${tt}`,
 		p = `<div style="background-image: linear-gradient(to right, rgba(250, 20, 80, 0.6) 0%, rgba(100, 100, 241, 0.6) 0% );"></div></div>`;
 
 	$(T.#sid).html(`${$(T.#sid).html()}${r}${p}`);
@@ -56,7 +56,7 @@ static #Progress () {
 	let notes = $(T.#sid + " > div[name]");
 	
 	notes.each((i, t)=> {
-		var percent = parseInt( (now - parseInt($(t).attr('startedAt'))) * 100 / parseInt($(t).attr('duration')) ), 
+		var percent = parseInt( (now - parseInt($(t).attr('startedat'))) * 100 / parseInt($(t).attr('duration')) ), 
 			noteP = $(t).children(':last-child');
 		
 		if (isNaN(percent) || percent < 0) {
