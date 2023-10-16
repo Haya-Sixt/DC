@@ -28,12 +28,15 @@ wdgt.Update = ()=> {
 			ac = a.find (({cat})=> c == cat);
 			
 		// normalize 'y'. e.g: ' מודיעין-מכבים-רעות  '
-		const Y = (d)=> {
+		const F = (f)=> {
+			for (const e in y) if (f (e)) return e; // y.find/filter... fail in such big array.
+		},
+		Y = (d)=> {
 			let n = y[d];
-			if (!n) n = y.find ((e)=> e.includes(`(${d})`));
-			if (!n) n = y.find ((e)=> e.startsWith(`${d}-`));
-			if (!n) n = y.find ((e)=> e.includes(`-${d}-`));
-			if (!n) n = y.find ((e)=> e.endsWith(`-${d}`));
+			if (!n) n = F ((e)=> e.includes(`(${d})`));
+			if (!n) n = F ((e)=> e.startsWith(`${d}-`));
+			if (!n) n = F ((e)=> e.includes(`-${d}-`));
+			if (!n) n = F ((e)=> e.endsWith(`-${d}`));
 			return n;
 		}; 
 		
