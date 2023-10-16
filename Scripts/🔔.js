@@ -87,7 +87,7 @@ static #Progress () {
 
 //
 static Clear (group) {
-	$(`${T.#sid} > div[group="${group}"]`) ).each((i, t)=> { t.remove () });
+	$(`${T.#sid} > div[group="${group}"]`).each((i, t)=> { t.remove () });
 }
 
 } // T
