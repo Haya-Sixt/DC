@@ -16,8 +16,8 @@ wdgt.Update = ()=> {
 	const a = [];
 	for (const e of wdgt.data) {
 		// 6 hours expired
-		const startedAt = new Date(e.alertDate);
-		if (parseInt((new Date() - startedAt) / (1000 * 60)) / 60 > 6) continue;
+		const startedAt = parseInt(new Date(e.alertDate).getTime () / 1000);
+		if ( (parseInt (new Date().getTime() / 1000) - startedAt) / (60 * 60) > 6) continue;
 		
 		// find 'alerted cat' in 'a'
 		const c = e.category_desc.trim ()
@@ -45,8 +45,6 @@ wdgt.Update = ()=> {
 				.replace ('צפוני ','')
 				.replace ('מטווח ','');
 			if (d.includes('-')) d = d.replace (d.slice(d.indexOf('-') - 1), '');
-			
-			// TODO!!!!!
 			
 			// again  normalize 'd'. remove words. e.g: מטווח ניר עוז
 			let i = 0, ix, napa; 

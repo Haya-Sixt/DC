@@ -128,7 +128,7 @@ wdgt.Init = ()=> {
 		duration = endsAt - e.startedAt;
 		//
 		if (now >= endsAt) $(`#🪵 div[data="${e.log}"]`).show()
-		else rs += `<div name="${wdgt.id}" data="${e.log}" startedAt="${e.startedAt}" duration="${duration}"><div>${e.log}</div><div></div></div>${spacer}`;
+		else rs += `<div name="${wdgt.id}" data="${e.log}" startedat="${e.startedAt}" duration="${duration}"><div>${e.log}</div><div></div></div>${spacer}`;
 	}
 	
 	$(wdgt.sid).html(rs);
@@ -141,7 +141,7 @@ wdgt.Update = ()=> {
 	topOffset=0;
 
 	a.each((i, t)=> {
-		var h='', m='', percent = parseInt( (now - parseInt($(t).attr('startedAt'))) *100 / parseInt($(t).attr('duration')) );
+		var h='', m='', percent = parseInt( (now - parseInt($(t).attr('startedat'))) *100 / parseInt($(t).attr('duration')) );
 		
 		if (isNaN(percent) || percent <0) {
 			m = percent + '%';
@@ -150,7 +150,7 @@ wdgt.Update = ()=> {
 		} 
 		else {
 			if (percent>100) percent=100;
-			m = parseInt( (parseInt($(t).attr('duration')) - now + parseInt($(t).attr('startedAt'))) / 60 );
+			m = parseInt( (parseInt($(t).attr('duration')) - now + parseInt($(t).attr('startedat'))) / 60 );
 			if (m<1) m=''
 			else {
 				h = parseInt(m / 60);
