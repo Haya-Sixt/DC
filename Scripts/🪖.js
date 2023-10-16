@@ -12,6 +12,7 @@ wdgt.repeat = { init: 3 };
 //
 wdgt.Update = ()=> {
 	$(wdgt.sid).html('');
+	$app.Widgets['🔔'].Clear (wdgt.id);
 	
 	const a = [];
 	for (const e of wdgt.data) {
@@ -67,7 +68,7 @@ wdgt.Update = ()=> {
 	}
 	//
 	for (const k in a) {
-		$app.Widgets['🔔'].Info (`${wdgt.id} ${a[k].cat}`, a[k].napa, a[k].startedAt, 6 * 60 * 60);
+		$app.Widgets['🔔'].Info (a[k].cat, a[k].napa, a[k].startedAt, 6 * 60 * 60, wdgt.id);
 	}
 };
 

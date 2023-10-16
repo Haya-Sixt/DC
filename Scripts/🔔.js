@@ -21,7 +21,7 @@ class T {
 static #sid = '#🔔';
 
 //
-static Info (e, ...args) {
+static Info (e,, ...args) {
 	T.#Box (1, 60, e, ...args);
 }
 
@@ -34,7 +34,12 @@ static Alert (e, ...args) {
 static #Box (mode, duration, e, ...args) {
 	const name = (mode ? 'info' : 'alert'), now = parseInt( new Date().getTime() / 1000 );
 	//
-	if (typeof e != 'object') e = { 'title': e, 'text': args.length ? args[0] : '', 'startedAt': args.length > 1 ? args[1] : now, 'duration': args.length > 2 ? args[2] : duration}; 
+	if (typeof e != 'object') e = {
+		title: e, 
+		text: args.length ? args[0] : '', 
+		startedAt: args.length > 1 ? args[1] : now, 
+		duration: args.length > 2 ? args[2] : duration, 
+		group: args.length > 3 ? args[3] : ''}; 
 	//
 	if (e.title && e.text) e.title += `<br>`;
 	let tt = (e.title+e.text).replaceAll('"',"'");
@@ -43,7 +48,7 @@ static #Box (mode, duration, e, ...args) {
 	// prevent duplicates
 	if ($(`${T.#sid} > div[tt="${tt}"]`).length) return;
 	
-	const r = `<div name="${name}" startedat="${e.startedAt}" duration="${e.duration}" tt="${tt}">${tt}`,
+	const r = `<div name="${name}" startedat="${e.startedAt}" duration="${e.duration}" group="${e.group}" tt="${tt}">${tt}`,
 		p = `<div style="background-image: linear-gradient(to right, rgba(250, 20, 80, 0.6) 0%, rgba(100, 100, 241, 0.6) 0% );"></div></div>`;
 
 	$(T.#sid).html(`${$(T.#sid).html()}${r}${p}`);
@@ -53,7 +58,7 @@ static #Box (mode, duration, e, ...args) {
 //
 static #Progress () {
 	const now = parseInt( new Date().getTime() / 1000 ), del = [];
-	let notes = $(T.#sid + " > div[name]");
+	let notes = $(`${T.#sid} > div[name]`);
 	
 	notes.each((i, t)=> {
 		var percent = parseInt( (now - parseInt($(t).attr('startedat'))) * 100 / parseInt($(t).attr('duration')) ), 
@@ -79,6 +84,11 @@ static #Progress () {
 
 	(notes.length - del.length) > 0 && setTimeout(()=> T.#Progress(), 1000*61);
 } 
+
+//
+static Clear (group) {
+	$(`${T.#sid} > div[group="${group}"]`) ).each((i, t)=> { t.remove () });
+}
 
 } // T
 
