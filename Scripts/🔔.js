@@ -15,6 +15,9 @@ wdgt.Info = (...args)=> T.Info (...args);
 //
 wdgt.Alert = (...args)=> T.Alert (...args); 
 
+//
+wdgt.Clear = (...args)=> T.Clear (...args); 
+
 // 🔔
 class T {
 
