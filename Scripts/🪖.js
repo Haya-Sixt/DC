@@ -15,9 +15,9 @@ wdgt.Update = ()=> {
 	
 	const a = [];
 	for (const e of wdgt.data) {
-		// 6 hours expired
+		// 1 hours expired
 		const startedAt = parseInt(new Date(e.alertDate).getTime () / 1000);
-		if ( (parseInt (new Date().getTime() / 1000) - startedAt) / (60 * 60) > 6) continue;
+		if ( (parseInt (new Date().getTime() / 1000) - startedAt) / (60 * 60) > 1) continue;
 		
 		// find 'alerted cat' in 'a'
 		const c = e.category_desc.trim ()
