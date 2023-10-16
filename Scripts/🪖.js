@@ -27,14 +27,6 @@ wdgt.Update = ()=> {
 			.replace ("אזהרה", '⚠️'),
 			ac = a.find (({cat})=> c == cat);
 			
-		// find 'alerted city' in 'y'
-		let i = 0, napa, d = e.data
-		// normalize 'd'. e.g: ' תל אביב - מזרח '
-			.replace ('אזור תעשייה ','')
-			.replace ('הדרומי ','')
-			.replace ('צפוני ','')
-			.replace ('מטווח ','');
-		if (d.includes('-')) d = d.replace (d.slice(d.indexOf('-') - 1), '');
 		// normalize 'y'. e.g: ' מודיעין-מכבים-רעות  '
 		const Y = (d)=> {
 			let n = y[d];
@@ -43,20 +35,34 @@ wdgt.Update = ()=> {
 			if (!n) n = y.find ((e)=> e.includes(`-${d}-`));
 			if (!n) n = y.find ((e)=> e.endsWith(`-${d}`));
 			return n;
-		};
-		// try again to normalize 'd'. remove words. e.g: מטווח ניר עוז
-		while ( !( napa = Y ( d.slice (i) ) ) )
-			if ( (i = d.slice (i).indexOf (' ')) == -1) break
-			else i++; // ' '
+		}; 
 		
-		// find 'found alerted napa' in 'n'
-		if (napa) napa = n[napa]
-		else napa = e.data;
-		
-		// adding 'found napa' to 'found alerted cat in a'
-		if (ac?.napa?.includes(napa)) continue;
-		if (!ac) a.push ({ cat: c, napa: napa, startedAt: startedAt })
-		else ac.napa += `, ${napa}`;
+		// find 'alerted city' in 'y' 
+		e.data.split (', ').forEach ((d)=> { // e.g: "שדרות, איבים, ניר עם"
+			// normalize 'd'. e.g: ' תל אביב - מזרח '
+			d = d.replace ('אזור תעשייה ','')
+				.replace ('הדרומי ','')
+				.replace ('צפוני ','')
+				.replace ('מטווח ','');
+			if (d.includes('-')) d = d.replace (d.slice(d.indexOf('-') - 1), '');
+			
+			// TODO!!!!!
+			
+			// again  normalize 'd'. remove words. e.g: מטווח ניר עוז
+			let i = 0, ix, napa; 
+			while ( !( napa = Y ( d.slice (i) ) ) )
+				if ( (ix = d.slice (i).indexOf (' ')) == -1) break
+				else i += ix + 1; // ' '
+			
+			// find 'found alerted napa' in 'n'
+			if (napa) napa = n[napa]
+			else napa = e.data;
+			
+			// adding 'found napa' to 'found alerted cat in a'
+			if (ac?.napa?.includes(napa)) continue;
+			if (!ac) a.push ({ cat: c, napa: napa, startedAt: startedAt })
+			else ac.napa += `, ${napa}`;
+		}
 	}
 	//
 	for (const k in a) {
