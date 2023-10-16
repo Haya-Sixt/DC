@@ -7,7 +7,7 @@ const wdgt = new $app.Widget('🛟');
 wdgt.repeat = { init: 3 };
 
 //
-//CORS wdgt.url = ()=> `https://www.oref.org.il//Shared/Ajax/GetAlarmsHistory.aspx?lang=he&mode=0`;
+// CORS wdgt.url = ()=> `https://www.oref.org.il//Shared/Ajax/GetAlarmsHistory.aspx?lang=he&mode=0`;
 
 //
 wdgt.Update = ()=> {
@@ -15,24 +15,46 @@ wdgt.Update = ()=> {
 	
 	const a = [];
 	for (const e of wdgt.data) {
+		// 6 hours expired
 		const startedAt = new Date(e.alertDate);
-		// 6 hours 
 		if (parseInt((new Date() - startedAt) / (1000 * 60)) / 60 > 6) continue;
-		//
-		const c = e.category_desc;
-		let d = e.data
+		
+		// find 'alerted cat' in 'a'
+		const c = e.category_desc.trim (),
+			ac = a.find (({cat})=> c == cat);
+			
+		// find 'alerted city' in 'y'
+		let i = 0, napa, d = e.data
+		// normalize 'd'. e.g: ' תל אביב - מזרח '
 			.replace ('אזור תעשייה ','')
 			.replace ('הדרומי ','')
-			.replace ('צפוני ','');
+			.replace ('צפוני ','')
+			.replace ('מטווח ','');
 		if (d.includes('-')) d = d.replace (d.slice(d.indexOf('-') - 1), '');
-		const napaId = y[d];
-		if (napaId) d = n[napaId];
-		const f = a.find (({cat})=> cat == c);
-		if (f?.napa?.includes(d)) continue;
-		if (!f) a.push ({ cat: c, napa: d, startedAt: startedAt })
-		else f.napa += `, ${d}`;
+		// normalize 'y'. e.g: ' מודיעין-מכבים-רעות  '
+		const Y = (d)=> {
+			let n = y[d];
+			if (!n) n = y.find ((e)=> e.includes(`(${d})`));
+			if (!n) n = y.find ((e)=> e.startsWith(`${d}-`));
+			if (!n) n = y.find ((e)=> e.includes(`-${d}-`));
+			if (!n) n = y.find ((e)=> e.endsWith(`-${d}`));
+			return n;
+		};
+		// try again to normalize 'd'. remove words. e.g: מטווח ניר עוז
+		while ( !( napa = Y ( d.slice (i) ) ) )
+			if ( (i = d.slice (i).indexOf (' ')) == -1) break
+			else i++; // ' '
+		
+		// find 'found alerted napa' in 'n'
+		if (napa) napa = n[napa];
+		
+		// adding 'found napa' to 'found alerted cat in a'
+		if (ac?.napa?.includes(napa)) continue;
+		if (!ac) a.push ({ cat: c, napa: napa, startedAt: startedAt })
+		else ac.napa += `, ${napa}`;
 	}
-	for (const e in a) {
+	//
+	for (const [k, e] in a) {
 		$app.Widgets['🔔'].Info (`${wdgt.id} 🛟 🏮 ${e.cat}`, e.napa, e.startedAt, 6 * 60 * 60);
 	}
 };
@@ -54,7 +76,7 @@ n[32]='חדרה';
 n[73]='טול כרם';
 n[76]='בית לחם';
 n[21]='צפת';
-n[75]='ירדן )יריחו(';
+n[75]='יריחו'; // ירדן
 n[74]='ראמאללה'
 n[44]='רחובות';
 n[53]='חולון';
@@ -63,7 +85,7 @@ n[72]='שכם';
 n[25]='נצרת';
 n[31]='חיפה';
 n[51]='תל אביב';
-n[71]='גנין';
+n[71]="ג'נין";
 
 //
 let y = []; 
