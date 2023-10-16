@@ -54,8 +54,8 @@ wdgt.Update = ()=> {
 		else ac.napa += `, ${napa}`;
 	}
 	//
-	for (const [k, e] in a) {
-		$app.Widgets['🔔'].Info (`${wdgt.id} 🪖 🏮 ${e.cat}`, e.napa, e.startedAt, 6 * 60 * 60);
+	for (const k in a) {
+		$app.Widgets['🔔'].Info (`${wdgt.id} ${a[k].cat}`, a[k].napa, a[k].startedAt, 6 * 60 * 60);
 	}
 };
 
