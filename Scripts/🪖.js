@@ -62,7 +62,7 @@ wdgt.Update = ()=> {
 			if (ac?.napa?.includes(napa)) return;
 			if (!ac) a.push ({ cat: c, napa: napa, startedAt: startedAt })
 			else ac.napa += `, ${napa}`;
-		}
+		});
 	}
 	//
 	for (const k in a) {
