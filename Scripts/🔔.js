@@ -41,7 +41,7 @@ static #Box (mode, duration, e, ...args) {
 	if (!mode) tt = `⚠️ ${tt}`;
 	
 	// prevent duplicates
-	if ($(`${T.#sid}[tt="${tt}"]`).length) return;
+	if ($(`${T.#sid} > div[tt="${tt}"]`).length) return;
 	
 	const r = `<div name="${name}" startedat="${e.startedAt}" duration="${e.duration}" tt="${tt}">${tt}`,
 		p = `<div style="background-image: linear-gradient(to right, rgba(250, 20, 80, 0.6) 0%, rgba(100, 100, 241, 0.6) 0% );"></div></div>`;

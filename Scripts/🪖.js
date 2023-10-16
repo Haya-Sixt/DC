@@ -57,7 +57,7 @@ wdgt.Update = ()=> {
 			
 			// find 'found alerted napa' in 'n'
 			if (napa) napa = n[napa]
-			else napa = e.data;
+			else return; // napa = e.data;
 			
 			// adding 'found napa' to 'found alerted cat in a'
 			if (ac?.napa?.includes(napa)) return;
