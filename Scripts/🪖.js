@@ -29,7 +29,7 @@ wdgt.Update = ()=> {
 			
 		// normalize 'y'. e.g: ' מודיעין-מכבים-רעות  '
 		const F = (f)=> {
-			for (const e in y) if (f (e)) return e; // y.find/filter... fail in such big array.
+			for (const e in y) if (f (e)) return y[e]; // y.find/filter... fail in such big array.
 		},
 		Y = (d)=> {
 			let n = y[d];
