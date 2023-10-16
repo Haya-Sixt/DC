@@ -137,7 +137,7 @@ function Init () {
 	function Resources () {
 	    [app.Constants.Name,'⏳'].forEach((e)=> { const link = document.createElement('link'); link.rel = 'stylesheet'; link.type = 'text/css'; link.href = app.Constants.Host + 'Css/' + e + '.css'; document.head.appendChild(link); } ); 
 	    // 🗒: To edit in MixPlorer, add '//'
-	    ['🔔','⏳','📅','🌡️','🪵','🚥','⏱️','📒','🛟','🤖']
+	    ['🔔','⏳','📅','🌡️','🪵','🚥','⏱️','📒','🪖','🤖']
 	    .forEach((e)=> { const script = document.createElement('script'); script.type = 'text/javascript'; script.src = app.Constants.Host + 'Scripts/' + e + '.js'; document.head.appendChild(script); } ); 
 	}
 }

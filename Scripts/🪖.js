@@ -3,7 +3,7 @@
 (()=>{
 
 // פיקוד העורף
-const wdgt = new $app.Widget('🛟');
+const wdgt = new $app.Widget('🪖');
 wdgt.repeat = { init: 3 };
 
 //
@@ -55,7 +55,7 @@ wdgt.Update = ()=> {
 	}
 	//
 	for (const [k, e] in a) {
-		$app.Widgets['🔔'].Info (`${wdgt.id} 🛟 🏮 ${e.cat}`, e.napa, e.startedAt, 6 * 60 * 60);
+		$app.Widgets['🔔'].Info (`${wdgt.id} 🪖 🏮 ${e.cat}`, e.napa, e.startedAt, 6 * 60 * 60);
 	}
 };
 
