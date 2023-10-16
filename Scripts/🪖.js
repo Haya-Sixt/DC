@@ -22,7 +22,7 @@ wdgt.Update = ()=> {
 		// find 'alerted cat' in 'a'
 		const c = e.category_desc.trim ()
 			.replace ("ירי רקטות וטילים", '🚀')
-			.replace ("חדירת מחבלים", '🧕)
+			.replace ("חדירת מחבלים",'🚷')
 			.replace ("חדירת כלי טיס עוין", '🛸')
 			.replace ("אזהרה", '⚠️'),
 			ac = a.find (({cat})=> c == cat);
