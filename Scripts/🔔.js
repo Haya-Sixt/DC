@@ -21,7 +21,7 @@ class T {
 static #sid = '#🔔';
 
 //
-static Info (e,, ...args) {
+static Info (e, ...args) {
 	T.#Box (1, 60, e, ...args);
 }
 
