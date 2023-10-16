@@ -59,7 +59,7 @@ wdgt.Update = ()=> {
 			else napa = e.data;
 			
 			// adding 'found napa' to 'found alerted cat in a'
-			if (ac?.napa?.includes(napa)) continue;
+			if (ac?.napa?.includes(napa)) return;
 			if (!ac) a.push ({ cat: c, napa: napa, startedAt: startedAt })
 			else ac.napa += `, ${napa}`;
 		}
