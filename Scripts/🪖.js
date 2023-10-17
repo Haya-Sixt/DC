@@ -110,7 +110,7 @@ async #Init () {
 	
 	this.#israel = new this.#lib.LatLng (31.94117, 35.00818);  
 	
-	$("<div>").attr("id", this.#id).hide().appendTo($app.sid);
+	$("<div>").attr("id", this.#id).hide().appendTo(`#${$app.Constants.Name}`);
 	
 	this.#map = new this.#lib.Map(document.getElementById (this.#id), {
 		center: this.#israel, 
