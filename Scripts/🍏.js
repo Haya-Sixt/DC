@@ -22,7 +22,7 @@ const app = {
             this.status = this.init = this.update = this.url = this.dependency = null;
             this.repeat = {init: 0, update: 0};
 
-            $('<div>').attr('id', id).addClass('wdgt').html(`${id}...`).appendTo(`#${app.Constants.Name}`); // 🗒: ⌚ must have this #text node.
+            $('<div>').attr('id', id).addClass('wdgt').html(`${id}...`).appendTo(`#${app.Constants.Name}c1`); // 🗒: ⌚ must have this #text node.
             app.Widgets[id] = this;
         }
         get Init () {
