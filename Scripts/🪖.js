@@ -12,7 +12,6 @@ wdgt.repeat = { init: 3 };
 //
 wdgt.Update = ()=> {
 	$(wdgt.sid).html('');
-	$app.Widgets['🔔'].Clear (wdgt.id);
 	
 	const a = [];
 	for (const e of wdgt.data) {
@@ -66,11 +65,133 @@ wdgt.Update = ()=> {
 			else ac.napa += `, ${napa}`;
 		});
 	}
+	
+	//
+	if (a.length && !$app['🗺️']) $app['🗺️'] = new Map ();
+	//
+	$app.Widgets['🔔'].Clear (wdgt.id);
+	$app['🗺️'].Clear ();
 	//
 	for (const k in a) {
 		$app.Widgets['🔔'].Info (a[k].cat, a[k].napa, a[k].startedAt, 6 * 60 * 60, wdgt.id);
+		$app['🗺️'].Add (a[k].napa, a[k].cat);
 	}
 };
+
+
+//
+class Map { 
+
+#id = "🗺️"; 
+#sid = `#${this.#id}`;
+#map = 0;
+#service = 0;
+#israel = 0;
+#lib = 0;
+#markers = [];
+
+constructor () {
+	this.#Init ();
+}
+
+async #Init () {
+	//
+	(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
+		key: "AIzaSyAaPFYfPqodoHrJrGq-5r3i5DSzWMaJ49c", // Blue
+		v: "weekly",
+		region: "IL",
+		language: "iw",
+	});
+
+	//
+	this.#lib = google.maps;
+	const { Map } = await this.#lib.importLibrary("maps");
+	const { Places } = await this.#lib.importLibrary("places");
+	
+	this.#israel = new this.#lib.LatLng (31.94117, 35.00818);  
+	
+	$("<div>").attr("id", this.#id).hide().appendTo($app.sid);
+	
+	this.#map = new this.#lib.Map(document.getElementById (this.#id), {
+		center: this.#israel, 
+		zoom: 7,
+		mapTypeId: "satellite", // terrain, hybrid, satellite
+		disableDefaultUI: true, // - doesn't work
+	});
+	this.#service = new this.#lib.places.PlacesService(this.#map);
+}
+
+//
+async Add (q, ic) {
+	if (!this.#map) return setTimeout ((t, q, ic)=> t.Add(q, ic), 1000, this, q, ic); // 🗒: '()=>' needed
+	
+	$(this.#sid).show ();
+	
+	const request = {
+		query: q, // `${q}, ישראל`,
+		fields: ["geometry.location"],
+		language: "iw",
+		locationBias: this.#israel,
+	};
+	
+	//
+	this.#service.findPlaceFromQuery(request, (n, status) => {
+		if (status === this.#lib.places.PlacesServiceStatus.OK && n) {
+			for (let i = 0; i < n.length; i++) 
+				this.#Marker (n[i], q, ic);
+//			this.#map.setCenter(n[0].geometry.location);
+		}
+	});
+
+
+//  instead of Places:
+/*
+	new this.#lib.Geocoder()
+	.geocode(q)
+	.then((result) => {
+		const { results } = result;
+		map.setCenter(results[0].geometry.location);
+		const marker = new this.#lib.Marker();
+		marker.setPosition(results[0].geometry.location);
+		marker.setMap(this.#map);
+	})
+	.catch((e) => {
+		alert("Geocode was not successful for the following reason: " + e);
+	}); 
+*/
+}
+
+//
+#Marker (r, q, ic) {
+	if (!r.geometry || !r.geometry.location) return;
+	
+	const h = 32, image = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="${h}" height="${h}"><text dx="-1" dy="26" style="font: ${h-4}px sans-serif;" >${ic}</text></svg>`;
+	
+	this.#markers.push(new google.maps.Marker({
+		position: r.geometry.location, 
+		map: this.#map,
+		icon: image,
+		label: {
+			text: q,
+			className: "marker",
+		},
+		optimized: true,
+	}));
+}
+
+//
+Clear () {
+	while (this.#markers.length) 
+		this.#markers.pop().setMap(null);
+	(!this.#markers.length) && $(this.#sid).hide ();
+}
+
+} // Map 
+
+
+//
+// converter location » napa
+//
 
 //
 let n = [];

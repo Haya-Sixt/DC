@@ -47,7 +47,8 @@ function Paste (ev) {
 
 //
 function Dispatch (v) {
-	$app.Widgets['🔔'].Info (`${wdgt.id}.Dispatch: ${v}`);
+	if ($app.Widgets[v]) $app.Widgets[v].Init ()
+	else $app.Widgets['🔔'].Info (`${wdgt.id}.Dispatch: ${v}`);
 }
 
 })();

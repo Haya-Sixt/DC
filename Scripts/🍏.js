@@ -114,9 +114,13 @@ function Init () {
 
 	//
 	function App () {
-	    const e = document.createElement('div');
-	    e.id = app.Constants.Name;
-	    document.body.appendChild(e);
+	    //const e = document.createElement('div');
+	    //e.id = app.Constants.Name;
+	    //document.body.appendChild(e);
+	    const a = ("<div>").attr("id", app.Constants.Name),
+	    	;c1 = ("<div>").attr("id", `${app.Constants.Name}c1`);
+	    a.appendTo('body');
+	    c1.appendTo(a);
 	}
 	
 	//
