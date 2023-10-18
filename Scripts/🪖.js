@@ -70,11 +70,11 @@ wdgt.Update = ()=> {
 	if (a.length && !$app['🗺️']) $app['🗺️'] = new Map ();
 	//
 	$app.Widgets['🔔'].Clear (wdgt.id);
-	$app['🗺️'].Clear ();
+	$app['🗺️']?.Clear ();
 	//
 	for (const k in a) {
 		$app.Widgets['🔔'].Info (a[k].cat, a[k].napa, a[k].startedAt, 6 * 60 * 60, wdgt.id);
-		$app['🗺️'].Add (a[k].napa, a[k].cat);
+		$app['🗺️']?.Add (a[k].napa, a[k].cat);
 	}
 };
 
