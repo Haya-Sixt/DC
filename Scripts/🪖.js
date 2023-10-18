@@ -24,8 +24,7 @@ wdgt.Update = ()=> {
 			.replace ("ירי רקטות וטילים", '🚀')
 			.replace ("חדירת מחבלים",'🚷')
 			.replace ("חדירת כלי טיס עוין", '🛸')
-			.replace ("אזהרה", '⚠️'),
-			ac = a.find (({cat})=> c == cat);
+			.replace ("אזהרה", '⚠️');
 			
 		// normalize 'y'. e.g: ' מודיעין-מכבים-רעות  '
 		const F = (f)=> {
@@ -60,6 +59,7 @@ wdgt.Update = ()=> {
 			else return; // napa = e.data;
 			
 			// adding 'found napa' to 'found alerted cat in a'
+			const ac = a.find (({cat})=> c == cat);
 			if (ac?.napa?.includes(napa)) return;
 			if (!ac) a.push ({ cat: c, napa: napa, startedAt: startedAt })
 			else ac.napa += `, ${napa}`;
