@@ -135,8 +135,8 @@ async Add (q, ic) {
 	
 //
 #Center (r) {
-	const lt = r.geometry.location.lat (), 
-		lg = r.geometry.location.lng ();
+	const lt = typeof r.geometry.location.lat == 'number' ? r.geometry.location.lat : r.geometry.location.lat (), 
+		lg = typeof r.geometry.location.lng == 'number' ? r.geometry.location.lng : r.geometry.location.lng ();
 	if (this.#minlt > lt) this.#minlt = lt;
 	if (this.#minlg > lg) this.#minlg = lg;
 	if (this.#maxlt < lt) this.#maxlt = lt; 
