@@ -3,8 +3,8 @@
 
 // Notes
 const wdgt = new $app.Widget('📒');
-wdgt.repeat = { update: 3 };
 wdgt.dependency = ['📆', $app.Constants.Var('🕯️')];
+wdgt.repeat = { update: 3 };
 
 //
 wdgt.Update = ()=> { 

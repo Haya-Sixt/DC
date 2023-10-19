@@ -18,6 +18,8 @@ wdgt.Add = (id)=> {
 class T {
 
 #name = "🗺️";
+#id = "";
+#sid = "";
 #map = 0;
 #service = 0;
 #israel = 0;

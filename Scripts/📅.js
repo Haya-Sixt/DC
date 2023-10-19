@@ -50,197 +50,197 @@ wdgt.Month = (now)=> {
 // 3. 
 (()=>{
 
-	// Calendar
-	const wdgt = new $app.Widget('🗓️');
-	wdgt.dependency = ['📅👈'];
-	
-	//
-	wdgt.url = ()=> [
-		`/${wdgt.id}_${$app.Widgets['📅👈'].data.year}_${$app.Widgets['📅👈'].data.month}.htm`,
-		`/${wdgt.id}_${Next().year}_${Next().month}.htm`
-	];
-	
-	//
-	function Next() {
-		let now = new Date(), month, monthNext;
-		month = monthNext = $app.Widgets['📅👈'].data.month;
-		while (month == monthNext) {
-			now.setDate(now.getDate()+1); 
-			monthNext = $app.Widgets['📅👈'].Month(now);
-		}
-		yearNext = new Intl.DateTimeFormat('he-u-ca-hebrew',{year:'numeric'}).format(now);
-		return {"month":monthNext,"year":yearNext};
+// Calendar
+const wdgt = new $app.Widget('🗓️');
+wdgt.dependency = ['📅👈'];
+
+//
+wdgt.url = ()=> [
+	`/${wdgt.id}_${$app.Widgets['📅👈'].data.year}_${$app.Widgets['📅👈'].data.month}.htm`,
+	`/${wdgt.id}_${Next().year}_${Next().month}.htm`
+];
+
+//
+function Next() {
+	let now = new Date(), month, monthNext;
+	month = monthNext = $app.Widgets['📅👈'].data.month;
+	while (month == monthNext) {
+		now.setDate(now.getDate()+1); 
+		monthNext = $app.Widgets['📅👈'].Month(now);
 	}
-	
-	//
-	wdgt.Update = ()=> {
-		let t1 = wdgt.data[0].replaceAll("tdCurrent",""),
-			t2 = wdgt.data[1].replaceAll("tdCurrent","");
-				
-		// NOTE:  On month 'Eyar' the last row was all marked by ' tdUnused' (on all 7 td),
-		// 		so need to be removed also.
-		if (t1.substring(t1.lastIndexOf("<tr")).indexOf(" tdUsed") ==-1) 
-			// remove empty row
-			t1 = t1.substring(0,t1.lastIndexOf("<tr"));
-	
-		// remove header of next month
-		t2 = (t2 = t2.substring( t2.indexOf("<tr")+3)).substring( t2.indexOf("<tr"));
+	yearNext = new Intl.DateTimeFormat('he-u-ca-hebrew',{year:'numeric'}).format(now);
+	return {"month":monthNext,"year":yearNext};
+}
+
+//
+wdgt.Update = ()=> {
+	let t1 = wdgt.data[0].replaceAll("tdCurrent",""),
+		t2 = wdgt.data[1].replaceAll("tdCurrent","");
+			
+	// NOTE:  On month 'Eyar' the last row was all marked by ' tdUnused' (on all 7 td),
+	// 		so need to be removed also.
+	if (t1.substring(t1.lastIndexOf("<tr")).indexOf(" tdUsed") ==-1) 
 		// remove empty row
-		t2 = t2.substring(0,t2.lastIndexOf("<tr"));
-		
-		// merge two months
-		let r1last = t1.substring(t1.lastIndexOf("<tr")),
-			r2first = t2.substring(0,t2.indexOf("</tr>")+5),
-			u=0, rU = t2.substring(0,t2.indexOf("<td "));
-		for (let i=0; i<7; i++) {
-			let td1 = r1last.substring(r1last.indexOf("<td "), r1last.indexOf("</td>")+5),
-				td2 = r2first.substring(r2first.indexOf("<td "), r2first.indexOf("</td>")+5);
-			r1last = r1last.replace(td1,"");
-			r2first = r2first.replace(td2,"");
-			if (td1.indexOf(" tdUnused")!=-1) {
-				rU += td2;
-				u=1; 
-			} else { 
-				rU += td1;
-			}
-		}
-		if (u) {
-			t1 = t1.substring(0,t1.lastIndexOf("<tr"))
-				+ rU + "</tr>";
-			t2 = t2.substring( t2.indexOf("</tr>")+5);
-		}
-		const j = (i, o, f)=> { t = t.replaceAll(i, (o == '' || o.startsWith('<') || !o.match(Helpers.Emoji())) ? o : `<imo${f ? ` style='filter:${f};'` : ``}>${o}</imo>`) };
-		let t = (t1+t2)
-		j("כניסת ","")
-		j("צאת ","")
-		j("שבת:","")
-		j("החג:","")
-		j("הצום:","")
-		j("דראש","ראש")
-		j("ערב ראש חודש","")
-		j("א' ראש חודש","🌒")
-		j("א' דר\"ח","🌒") // (חנוכה)
-		j("ב' ראש חודש","🌘")
-		j("ב' דר\"ח","🌘") // (חנוכה)
-		j("ראש חודש","🌑", "brightness(2)")
-		j(" לעומר","<span name='omer'>🌾</span>")
-		j("יום הזכרון לשואה ולגבורה","🏴‍☠️", "brightness(2)")
-		j("יום הזכרון","🪖")
-		j("יום העצמאות","🇮🇱")
-		j(" מוקדם","🐇")
-		j("תענית שני","")
-		j("תענית חמישי","")
-		j(" קמא","")
-		j(" בתרא","")
-		j("פסח שני","🫓")
-		j("ל\"ג בעומר","🔥")
-		j("יום ירושלים","🏰")
-		j("ערב חג השבועות","")
-		j("ערב חג הסוכות","")
-		j("ערב חג הפסח","")
-		j("חג ה","")
-		j("שבועות","📜")
-		j("צום י\"ז בתמוז","🚱")
-		j("נדחה","🦥")
-		j("שבת חזון","🕶️")
-		j("תשעה באב","🚱")
-		j("חמשה עשר באב","💕")
-		j("א' דסליחות לעדות המזרח","🙇")
-		j("א' דסליחות לאשכנזים","🙇🏻")
-		j("ערב ראש השנה","")
-		j("א' ראש השנה","👑")
-		j("ב' ראש השנה","👑")
-		j("שבת ראש השנה","👑")
-		j("צום גדליה","🚱")
-		j("שבת שובה", "שובה")
-		j("ערב יום הכיפורים","")
-		j("יום הכיפורים","⚖️", "brightness(2)")
-		j('שבת חוה"מ פסח',"")
-		j('שבת חוה"מ סוכות',"")
-		j("חול המועד ","")
-		j("סוכות","🍋")
-		j("הושענא רבה","🌿")
-		j("שמחת תורה","🎉")
-		j("אסרו חג","🐏")
-		j("שבת חנוכה","")
-		j("זאת חנוכה","🕎")
-		j("חנוכה","🕎")
-		j("צום עשרה בטבת","🚱")
-		j("שבת שירה","🎤")
-		j("ראש השנה לאילנות","🌱")
-		j("שבת שקלים","💰")
-		j("שבת זכור","🛀")
-		j("פורים","🥸")
-		j("שושן ","")
-		j(" קטן","")
-		j("תענית אסתר","🚱")
-		j("שבת פרה","🐮")
-		j("שבת החודש","👑")
-		j("עוברים ל","") // שעון קיץ
-		j("שבת הגדול","🐑")
-		j("שביעי של פסח","🌊")
-		j("פסח","🫓")
-		j('🇮🇱','🇮🇱')
-		j('עי"ט',"") // ערב יום טוב
-		j("שבת וחג:","")
-		j('<div> ערוב תבשילין','<div class="hideOut"> ערוב תבשילין')
-			
-		// show only 4 rows
-		let t4 = t.substring(0, t.indexOf("</tr>")+5)
-			current = hebDay();
-		
-		for (let i=0,show=0; i<12 && show<5; i++) {
-			let itr = t.indexOf("<tr");
-			if (itr==-1) break;
-			let tr = t.substring(itr, t.indexOf("</tr>")+5);
-			t = t.replace(tr,"");
-			
-			if (show || tr.indexOf(current)!=-1) {
-				t4 += tr;
-				show++;
-			}
-		}
-		t4 = "<table>" + t4 + "</table>";
-		
-		// 
-		$(wdgt.sid).html(t4);
-		
-		// current 
-		$(wdgt.sid + ' td.tdDay').each((i, t)=> {
-			if ($(t).html().indexOf(current)!=-1) {
-				$(t).addClass('tdCurrent');
-				return false;
-			}
-		});
-		
-		// omer 
-		$(wdgt.sid + ' span[name=omer]').parent().addClass('omer');
+		t1 = t1.substring(0,t1.lastIndexOf("<tr"));
+
+	// remove header of next month
+	t2 = (t2 = t2.substring( t2.indexOf("<tr")+3)).substring( t2.indexOf("<tr"));
+	// remove empty row
+	t2 = t2.substring(0,t2.lastIndexOf("<tr"));
 	
-		// daf yomi
-		$( window ).resize(function() {
-			$(wdgt.sid + ' .dafYomi').width($(wdgt.sid + ' td.tdCurrent').width());
-		});
-	};
-	
-	function hebDay() {
-		let d = parseInt(new Intl.DateTimeFormat('he-u-ca-hebrew',{day:'numeric'}).format(new Date()) ), hd="";
-		if (d>=30) {
-				hd="ל";
-				d-=30;
-		} else if (d>=20) {
-				hd="כ";
-				d-=20;
-		} else if (d>=10) {
-				hd="י";
-				d-=10;
-		} 
-		hd+=d?String.fromCharCode(d + 'א'.charCodeAt(0) - 1):'';
-		if (hd=='יה') hd='טו'
-		else if (hd=='יו') hd='טז';
-		if (hd.length>1) hd = hd.slice(0, 1) + '"' + hd.slice(1)
-		else hd += "'";
-		return '<span class="hebdate">' + hd; 
+	// merge two months
+	let r1last = t1.substring(t1.lastIndexOf("<tr")),
+		r2first = t2.substring(0,t2.indexOf("</tr>")+5),
+		u=0, rU = t2.substring(0,t2.indexOf("<td "));
+	for (let i=0; i<7; i++) {
+		let td1 = r1last.substring(r1last.indexOf("<td "), r1last.indexOf("</td>")+5),
+			td2 = r2first.substring(r2first.indexOf("<td "), r2first.indexOf("</td>")+5);
+		r1last = r1last.replace(td1,"");
+		r2first = r2first.replace(td2,"");
+		if (td1.indexOf(" tdUnused")!=-1) {
+			rU += td2;
+			u=1; 
+		} else { 
+			rU += td1;
+		}
 	}
+	if (u) {
+		t1 = t1.substring(0,t1.lastIndexOf("<tr"))
+			+ rU + "</tr>";
+		t2 = t2.substring( t2.indexOf("</tr>")+5);
+	}
+	const j = (i, o, f)=> { t = t.replaceAll(i, (o == '' || o.startsWith('<') || !o.match(Helpers.Emoji())) ? o : `<imo${f ? ` style='filter:${f};'` : ``}>${o}</imo>`) };
+	let t = (t1+t2)
+	j("כניסת ","")
+	j("צאת ","")
+	j("שבת:","")
+	j("החג:","")
+	j("הצום:","")
+	j("דראש","ראש")
+	j("ערב ראש חודש","")
+	j("א' ראש חודש","🌒")
+	j("א' דר\"ח","🌒") // (חנוכה)
+	j("ב' ראש חודש","🌘")
+	j("ב' דר\"ח","🌘") // (חנוכה)
+	j("ראש חודש","🌑", "brightness(2)")
+	j(" לעומר","<span name='omer'>🌾</span>")
+	j("יום הזכרון לשואה ולגבורה","🏴‍☠️", "brightness(2)")
+	j("יום הזכרון","🪖")
+	j("יום העצמאות","🇮🇱")
+	j(" מוקדם","🐇")
+	j("תענית שני","")
+	j("תענית חמישי","")
+	j(" קמא","")
+	j(" בתרא","")
+	j("פסח שני","🫓")
+	j("ל\"ג בעומר","🔥")
+	j("יום ירושלים","🏰")
+	j("ערב חג השבועות","")
+	j("ערב חג הסוכות","")
+	j("ערב חג הפסח","")
+	j("חג ה","")
+	j("שבועות","📜")
+	j("צום י\"ז בתמוז","🚱")
+	j("נדחה","🦥")
+	j("שבת חזון","🕶️")
+	j("תשעה באב","🚱")
+	j("חמשה עשר באב","💕")
+	j("א' דסליחות לעדות המזרח","🙇")
+	j("א' דסליחות לאשכנזים","🙇🏻")
+	j("ערב ראש השנה","")
+	j("א' ראש השנה","👑")
+	j("ב' ראש השנה","👑")
+	j("שבת ראש השנה","👑")
+	j("צום גדליה","🚱")
+	j("שבת שובה", "שובה")
+	j("ערב יום הכיפורים","")
+	j("יום הכיפורים","⚖️", "brightness(2)")
+	j('שבת חוה"מ פסח',"")
+	j('שבת חוה"מ סוכות',"")
+	j("חול המועד ","")
+	j("סוכות","🍋")
+	j("הושענא רבה","🌿")
+	j("שמחת תורה","🎉")
+	j("אסרו חג","🐏")
+	j("שבת חנוכה","")
+	j("זאת חנוכה","🕎")
+	j("חנוכה","🕎")
+	j("צום עשרה בטבת","🚱")
+	j("שבת שירה","🎤")
+	j("ראש השנה לאילנות","🌱")
+	j("שבת שקלים","💰")
+	j("שבת זכור","🛀")
+	j("פורים","🥸")
+	j("שושן ","")
+	j(" קטן","")
+	j("תענית אסתר","🚱")
+	j("שבת פרה","🐮")
+	j("שבת החודש","👑")
+	j("עוברים ל","") // שעון קיץ
+	j("שבת הגדול","🐑")
+	j("שביעי של פסח","🌊")
+	j("פסח","🫓")
+	j('🇮🇱','🇮🇱')
+	j('עי"ט',"") // ערב יום טוב
+	j("שבת וחג:","")
+	j('<div> ערוב תבשילין','<div class="hideOut"> ערוב תבשילין')
+		
+	// show only 4 rows
+	let t4 = t.substring(0, t.indexOf("</tr>")+5)
+		current = hebDay();
+	
+	for (let i=0,show=0; i<12 && show<5; i++) {
+		let itr = t.indexOf("<tr");
+		if (itr==-1) break;
+		let tr = t.substring(itr, t.indexOf("</tr>")+5);
+		t = t.replace(tr,"");
+		
+		if (show || tr.indexOf(current)!=-1) {
+			t4 += tr;
+			show++;
+		}
+	}
+	t4 = "<table>" + t4 + "</table>";
+	
+	// 
+	$(wdgt.sid).html(t4);
+	
+	// current 
+	$(wdgt.sid + ' td.tdDay').each((i, t)=> {
+		if ($(t).html().indexOf(current)!=-1) {
+			$(t).addClass('tdCurrent');
+			return false;
+		}
+	});
+	
+	// omer 
+	$(wdgt.sid + ' span[name=omer]').parent().addClass('omer');
+
+	// daf yomi
+	$( window ).resize(function() {
+		$(wdgt.sid + ' .dafYomi').width($(wdgt.sid + ' td.tdCurrent').width());
+	});
+};
+
+function hebDay() {
+	let d = parseInt(new Intl.DateTimeFormat('he-u-ca-hebrew',{day:'numeric'}).format(new Date()) ), hd="";
+	if (d>=30) {
+			hd="ל";
+			d-=30;
+	} else if (d>=20) {
+			hd="כ";
+			d-=20;
+	} else if (d>=10) {
+			hd="י";
+			d-=10;
+	} 
+	hd+=d?String.fromCharCode(d + 'א'.charCodeAt(0) - 1):'';
+	if (hd=='יה') hd='טו'
+	else if (hd=='יו') hd='טז';
+	if (hd.length>1) hd = hd.slice(0, 1) + '"' + hd.slice(1)
+	else hd += "'";
+	return '<span class="hebdate">' + hd; 
+}
 
 })();
 

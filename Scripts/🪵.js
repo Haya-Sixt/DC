@@ -3,8 +3,8 @@
 
 // Log
 const wdgt = new $app.Widget('🪵');
-wdgt.repeat = { init: 3 };
 wdgt.dependency = ['📆','⏱️'];
+wdgt.repeat = { init: 3 };
 
 wdgt.Constants = { Ender: '➖'};
 
