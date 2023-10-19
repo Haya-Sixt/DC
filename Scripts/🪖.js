@@ -69,7 +69,7 @@ wdgt.Update = ()=> {
 	}
 	
 	//
-	if (a.length && !map) map = $app.Widget['🗺️'].Add (wdgt.id);
+	if (a.length && !map) map = $app.Widgets['🗺️'].Add (wdgt.id);
 	//
 	$app.Widgets['🔔'].Clear (wdgt.id);
 	map?.Clear ();
