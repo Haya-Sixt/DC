@@ -3,6 +3,7 @@
 
 // פיקוד העורף
 const wdgt = new $app.Widget('🪖');
+wdgt.dependency = ['🗺️'];
 wdgt.repeat = { init: 3 };
 
 let map;
