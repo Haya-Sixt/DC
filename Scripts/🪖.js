@@ -15,7 +15,7 @@ let map;
 wdgt.Update = ()=> {
 	$(wdgt.sid).html('');
 	
-	const a = [];
+	const a = [], comma = ', ';
 	for (const e of wdgt.data) {
 		// 1 hours expired
 		const startedAt = parseInt(new Date(e.alertDate).getTime () / 1000);
@@ -64,7 +64,7 @@ wdgt.Update = ()=> {
 			const ac = a.find (({cat})=> c == cat);
 			if (ac?.napa?.includes(napa)) return;
 			if (!ac) a.push ({ cat: c, napa: napa, startedAt: startedAt })
-			else ac.napa += `, ${napa}`;
+			else ac.napa += `${comma}${napa}`;
 		});
 	}
 	
@@ -76,7 +76,7 @@ wdgt.Update = ()=> {
 	//
 	for (const k in a) {
 		$app.Widgets['🔔'].Info (a[k].cat, a[k].napa, a[k].startedAt, 6 * 60 * 60, wdgt.id);
-		map?.Add (a[k].napa, a[k].cat);
+		a[k].napa.split (comma).forEach ((e)=> map?.Add (e, a[k].cat));
 	}
 };
 

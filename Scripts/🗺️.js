@@ -10,66 +10,106 @@ wdgt.Init = ()=> {
 	$(wdgt.sid).html('');
 };
 
+//
+wdgt.Update = ()=> {
+	//T.Init ();
+};
+
 wdgt.Add = (id)=> {
 	return new T (id);
 }
 
-// 🗺️
-class T {
 
-#name = "🗺️";
-#id = "";
-#sid = "";
-#map = 0;
-#service = 0;
-#israel = 0;
-#lib = 0;
-#markers = [];
-#minlt = 1000;
-#maxlt = 0;
-#minlg = 1000;
-#maxlg = 0;
+// 🗺️ base
+class B {
 
-constructor (id) {
-	this.#id = `${this.#name}️.${id}`;
-	this.#sid = `#${this.#id}`;
-	this.#Init ();
-}
+static name = "🗺️";
+static israel = 0;
+static lib = 0;
 
-async #Init () {
-	//
+//
+static async Init () {
 	(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
-		key: localStorage.getItem(this.#name), // Blue
+		key: localStorage.getItem(B.name), // Blue
 		v: "weekly",
 		region: "IL",
 		language: "iw",
 	});
 
 	//
-	this.#lib = google.maps;
-	const { Map } = await this.#lib.importLibrary("maps");
-	const { Places } = await this.#lib.importLibrary("places");
+	B.lib = google.maps;
+	const { Map } = await B.lib.importLibrary("maps");
+	const { Places } = await B.lib.importLibrary("places");
 	
-	this.#israel = new this.#lib.LatLng (31.94117, 35.00818);  
+	B.israel = new B.lib.LatLng (31.94117, 35.00818);
+}
+
+} // B
+
+B.Init ();
+
+// 🗺️
+class T extends B {
 	
-	$("<div>").attr("id", this.#id).addClass(this.#name).hide().appendTo(`#${$app.Constants.Name}`);
+#id = "";
+#sid = "";
+#map = 0;
+#service = 0;
+#markers = [];
+#minlt = 1000;
+#maxlt = 0;
+#minlg = 1000;
+#maxlg = 0;
+
+//
+constructor (id) {
+	super ();
+	this.#id = `${B.name}️.${id}`;
+	this.#sid = `#${this.#id}`;
+	this.#Init ();
+}
+
+async #WaitFor (o) {
+	await new Promise(resolve => setTimeout(()=>o && resolve(o), 1000));
+}
+  
+async #Init () {
+	$("<div>").attr("id", this.#id).addClass(B.name)/*.hide()*/.appendTo(`#${$app.Constants.Name}`);
 	
-	this.#map = new this.#lib.Map(document.getElementById (this.#id), {
-		center: this.#israel, 
+	/**/
+	await this.#WaitFor ((o)=> B.lib.Map);
+	if (!B?.lib?.Map) return setTimeout ((t)=> t.#Init(), 1000, this); // 🗒: '()=>' needed
+	/**/
+	
+	this.#map = new B.lib.Map(document.getElementById (this.#id), {
+		center: B.israel, 
 		zoom: 7,
 		mapTypeId: "hybrid", // terrain, hybrid, satellite
 		disableDefaultUI: true, // - doesn't work
 	});
-	this.#service = new this.#lib.places.PlacesService(this.#map);
+	
+	/**/
+	await this.#WaitFor (()=> B.lib.places.PlacesService); 
+	const PS = (t, B)=> {
+		if (B.lib.places.PlacesService) return t.#service = new B.lib.places.PlacesService(t.#map);
+		setTimeout ((t, B)=> PS, 1000, this, B); 
+		return false;
+	};
+	PS (this, B);
+	/**/
 }
 
 //
 async Add (q, ic) {
-	if (!this.#map) return setTimeout ((t, q, ic)=> t.Add(q, ic), 1000, this, q, ic); // 🗒: '()=>' needed
+	/**/
+	await this.#WaitFor (()=> this.#map); 
+	await this.#WaitFor (()=> this.#service); 
+	if (!this.#map || !this.#service) return setTimeout ((t, q, ic)=> t.Add(q, ic), 1000, this, q, ic); // 🗒: '()=>' needed
+	/**/
 	
-	$(this.#sid).show ();
+	//$(this.#sid).show ();
 	
-	const ls_id = `${this.#name}️.${q}`,
+	const ls_id = `${B.name}️.${q}`,
 		ls = JSON.parse(localStorage.getItem (ls_id)),
 		Add = (n)=> {
 			let r;
@@ -86,22 +126,22 @@ async Add (q, ic) {
 			query: q,
 			fields: ["geometry.location"],
 			language: "iw",
-			locationBias: this.#israel,
+			locationBias: B.israel,
 		};
 		this.#service.findPlaceFromQuery(request, (n, status) => {
-			if (status === this.#lib.places.PlacesServiceStatus.OK && Add (n) )
+			if (status === B.lib.places.PlacesServiceStatus.OK && Add (n) )
 				localStorage.setItem(ls_id, JSON.stringify(n));
 		});
 	}
 
 //  instead of Places:
 /*
-	new this.#lib.Geocoder()
+	new B.lib.Geocoder()
 	.geocode(q)
 	.then((result) => {
 		const { results } = result;
 		map.setCenter(results[0].geometry.location);
-		const marker = new this.#lib.Marker();
+		const marker = new B.lib.Marker();
 		marker.setPosition(results[0].geometry.location);
 		marker.setMap(this.#map);
 	})
