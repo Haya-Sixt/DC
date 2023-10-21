@@ -52,29 +52,27 @@ B.Init ();
 class T extends B {
 	
 #id = "";
-#sid = "";
-#map = 0;
-#service = 0;
+#e = null; // 🗒: 'sid' failed with show/hide.
+#map = null;
+#service = null;
 #markers = [];
-#minlt = 1000;
-#maxlt = 0;
-#minlg = 1000;
-#maxlg = 0;
 
 //
 constructor (id) {
 	super ();
 	this.#id = `${B.name}️.${id}`;
-	this.#sid = `#${this.#id}`;
 	this.#Init ();
 }
 
 async #WaitFor (o) {
-	await new Promise(resolve => setTimeout(()=>o && resolve(o), 1000));
+	await new Promise(resolve => {
+		const R = ()=> setTimeout(()=> { o ? resolve() : R() }, 1000);
+		R ();
+	});
 }
   
 async #Init () {
-	$("<div>").attr("id", this.#id).addClass(B.name)/*.hide()*/.appendTo(`#${$app.Constants.Name}`);
+	this.#e = $("<div>").attr("id", this.#id).addClass(B.name).hide().appendTo(`#${$app.Constants.Name}`);
 	
 	/**/
 	await this.#WaitFor ((o)=> B.lib.Map);
@@ -107,7 +105,7 @@ async Add (q, ic) {
 	if (!this.#map || !this.#service) return setTimeout ((t, q, ic)=> t.Add(q, ic), 1000, this, q, ic); // 🗒: '()=>' needed
 	/**/
 	
-	//$(this.#sid).show ();
+	this.#e.show ();
 	
 	const ls_id = `${B.name}️.${q}`,
 		ls = JSON.parse(localStorage.getItem (ls_id)),
@@ -163,10 +161,10 @@ async Add (q, ic) {
 		position: r.geometry.location, 
 		map: this.#map,
 		icon: image,
-		label: {
+		/*label: {
 			text: q,
 			className: "marker",
-		},
+		},*/
 		optimized: true,
 	}));
 	this.#Center (r); 
@@ -174,6 +172,11 @@ async Add (q, ic) {
 }
 	
 //
+#minlt = 1000;
+#maxlt = 0;
+#minlg = 1000;
+#maxlg = 0;
+#i_zoom = 0;
 #Center (r) {
 	const lt = typeof r.geometry.location.lat == 'number' ? r.geometry.location.lat : r.geometry.location.lat (), 
 		lg = typeof r.geometry.location.lng == 'number' ? r.geometry.location.lng : r.geometry.location.lng ();
@@ -182,7 +185,7 @@ async Add (q, ic) {
 	if (this.#maxlt < lt) this.#maxlt = lt; 
 	if (this.#maxlg < lg) this.#maxlg = lg;
 	//
-	const minzoom = 9, padding = 3,
+	const maxzoom = 9, padding = 3,
 		ltp = (this.#maxlt - this.#minlt) / padding,
 		lgp = (this.#maxlg - this.#minlg) / padding,
 		bounds = {
@@ -192,14 +195,21 @@ async Add (q, ic) {
 			south: this.#minlt + ltp,
 		};
 	this.#map.fitBounds(bounds); 
-	if (this.#map.zoom > minzoom) this.#map.setZoom(minzoom);
+	// 🗒: needed (due to G maps inner cache ?)
+	if (this.#i_zoom) clearInterval (this.#i_zoom);
+	let steps = 5;
+	this.#i_zoom = setInterval (()=> {
+		if (!steps) clearInterval (this.#i_zoom);
+		steps = --steps;
+		if (this.#map.zoom > maxzoom) this.#map.setZoom (maxzoom);
+	}, 1000)
 } 
 
 //
 Clear () {
 	while (this.#markers.length) 
 		this.#markers.pop().setMap(null);
-	(!this.#markers.length) && $(this.#sid).hide ();
+	(!this.#markers.length) && this.#e.hide ();
 }
 
 } // T

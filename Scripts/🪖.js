@@ -15,7 +15,7 @@ let map;
 wdgt.Update = ()=> {
 	$(wdgt.sid).html('');
 	
-	const a = [], comma = ', ';
+	const a = [], hyphen = ' - ', comma = ', ';
 	for (const e of wdgt.data) {
 		// 1 hours expired
 		const startedAt = parseInt(new Date(e.alertDate).getTime () / 1000);
@@ -38,17 +38,18 @@ wdgt.Update = ()=> {
 			if (!n) n = F ((e)=> e.startsWith(`${d}-`));
 			if (!n) n = F ((e)=> e.includes(`-${d}-`));
 			if (!n) n = F ((e)=> e.endsWith(`-${d}`));
+			if (!n) n = F ((e)=> e.includes(`${d.replaceAll('-', ' ')}`)); // e.g: 'בת-ים'
 			return n;
 		}; 
 		
 		// find 'alerted city' in 'y' 
 		e.data.split (', ').forEach ((d)=> { // e.g: "שדרות, איבים, ניר עם"
-			// normalize 'd'. e.g: ' תל אביב - מזרח '
+			// normalize 'd'. e.g: ' תל אביב - מזרח ' (but not 'בת-ים')
 			d = d.replace ('אזור תעשייה ','')
 				.replace ('הדרומי ','')
 				.replace ('צפוני ','')
 				.replace ('מטווח ','');
-			if (d.includes('-')) d = d.replace (d.slice(d.indexOf('-') - 1), '');
+			if (d.includes(hyphen)) d = d.replace (d.slice(d.indexOf(hyphen)), '');
 			
 			// again  normalize 'd'. remove words. e.g: מטווח ניר עוז
 			let i = 0, ix, napa; 
