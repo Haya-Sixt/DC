@@ -26,22 +26,23 @@ wdgt.repeat = { update: 1 };
 
 //
 wdgt.Init = ()=> {
-//	$(wdgt.sid).text('');
-//	const x = 186, y = 98;
-//	$('<div>') // 🗒: without 'div', and instead 'svg', the animation won't work.
-//	.attr("style","width: 100%; height: 100%;")
-//	.html(`<svg style="width: 100%; height: 100%; fill: white;" viewbox="0 0 10 10"><defs><filter id="⌚filter"><feTurbulence type="turbulence"><animate attributeName="baseFrequency" values="2;7" dur="10s" repeatCount="indefinite"></animate><animate attributeName="numOctaves" values="2;3" dur="10s" repeatCount="indefinite"></animate></feTurbulence><feColorMatrix type="matrix" values="0 0 0 -1 1 0 0 0 -1 1 0 0 0 -1 1 0 0 0 0 1"></feColorMatrix><feComponentTransfer><feFuncR type="table" tableValues="0 0 0 0 1"></feFuncR></feComponentTransfer></filter><mask id="⌚mask"><text x="${x}%" y="${y}%"></text></mask></defs><text x="${x}%" y="${y}%" style="filter: url(#⌚filter);" mask="url(#⌚mask)"></text></svg>`)
-//	.appendTo($(wdgt.sid));
-
-	// colon 
-	$("<div>").attr('id',`${wdgt.id}Colon`).appendTo($(wdgt.sid));
+	$(wdgt.sid).text(''); 
 };
 
 wdgt.Update = ()=> {
 	const time = new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
-//	$(wdgt.sid).find('text').text(time);
-	document.querySelector(wdgt.sid).firstChild.textContent = time; 
+	Helpers.Css ('background-image', wdgt.sid, time);
 }
+
+//#⌚ { color: var(--🖥️-c-ts-1); }
+//#⌚ { font-size: var(--🖥️-c-px-155); text-align:center; animation-name: ⌚; animation-duration: 12s; animation-iteration-count: infinite; } /* #⌚ svg { font-size: var(--🖥️-c-px-11); font-weight: 400; animation-name: ⌚; animation-duration: 12s; animation-iteration-count: infinite; } */
+//#⌚Colon { position: relative; width: 6%; height: 65%; left: -47%; top: -83%; animation-name: ⌚Colon; animation-duration: 2s; animation-timing-function: ease; animation-iteration-count: infinite; } /* svg: top -65% */
+//@keyframes ⌚ { 0% {color: rgba(var(--🖥️-c-ts-1_rgb), 0.839);} 50% {color: rgba(var(--🖥️-c-ts-2_rgb), 0.459);} 100% {color: rgba(var(--🖥️-c-ts-1_rgb), 0.839);} } /* svg: @keyframes ⌚ { 0% {filter: sepia(1) opacity(0.8);} 50% {filter: sepia(1) opacity(0.5);} 100% {filter: sepia(1) opacity(0.8);} } */ 
+//@keyframes ⌚Colon { 0% {backdrop-filter: brightness(0.7);} 50% {backdrop-filter: brightness(0);} 100% {backdrop-filter: brightness(0.7);} } 
+// init. colon 
+//$("<div>").attr('id',`${wdgt.id}Colon`).appendTo($(wdgt.sid));
+// update
+//document.querySelector(wdgt.sid).firstChild.textContent = time; 
 
 })();
 

@@ -185,14 +185,16 @@ class Helpers {
     // Otherwise, The Default Match Is To Replace <Text>. 
     // If No 'to' Is Supply, Than It Replace Var.
     static Css (prop, e, to) {
-        const Decode = ()=> { try { a[1] = decodeURIComponent(a[1]) } catch {} }; // i.e: 'svg+xml,%253Csvg'. 
+        const delimiter = '{{,}}', Decode = ()=> { try { a[1] = decodeURIComponent(a[1]) } catch {} }; // i.e: 'svg+xml,%253Csvg'. 
         
         //
         if (!e) return Get ();
 
         //
-        let a = $(e).css(prop).split(',');
-	    if (a.length < 2) return; // bg-image is 'none' in Portrait
+        let a = $(e).css(prop);
+        //if (!a.startsWith ('url')) a = `url('data:image/svg+xml;utf8,${a}`;
+        a = a.replace (',', delimiter).split(delimiter);
+        if (a.length < 2) return; // bg-image is 'none' in Portrait
 
 	    Decode ();
         Decode ();
@@ -205,7 +207,7 @@ class Helpers {
 		Text ();
     	Var ();
     
-        a = c.split(',');
+        a = c.replace (',', delimiter).split(delimiter);
         a[1] = encodeURIComponent(a[1]);
 
         c = `url('${a[0]},${a[1]}')`;
