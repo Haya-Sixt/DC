@@ -132,6 +132,7 @@ imo { font-size:var(--🖥️-c-px-22); }
 .wdgt, .📆name, .📆val, #🗓️ div.omer, #💈 span { white-space: nowrap; } 
 #🖥️, .wdgt, .dafYomi, #🌡️>:last-child, .hideOut { position: absolute; }
 
+#🤖 {z-index: 9}
 #⏳, #🔔 {z-index: 8}
 #🪵Progress {z-index: 7}
 #📅👉, #📅👈, #🚥 {z-index: 6}
@@ -139,8 +140,8 @@ imo { font-size:var(--🖥️-c-px-22); }
 #📆, .dafYomi {z-index: 4}
 #🪵, #⏱️, #⏰ {z-index: 3}
 #🗓️ {z-index: 2}
-#🌡️ {z-index: 1}
-#🖥️ {z-index: 0}
+#🌡, #🗺️️ {z-index: 1}
+#🖥️, #🪖, 📒 {z-index: 0}
 
 
 /* Colors:  */
