@@ -172,9 +172,9 @@ async Add (q, ic) {
 }
 	
 //
-#minlt = 1000;
+#minlt = 100;
 #maxlt = 0;
-#minlg = 1000;
+#minlg = 100;
 #maxlg = 0;
 #i_zoom = 0;
 #Center (r) {
@@ -209,7 +209,12 @@ async Add (q, ic) {
 Clear () {
 	while (this.#markers.length) 
 		this.#markers.pop().setMap(null);
-	(!this.#markers.length) && this.#e.hide ();
+	this.#e.hide ();
+	//
+	this.#minlt = 100;
+	this.#maxlt = 0;
+	this.#minlg = 100;
+	this.#maxlg = 0; 
 }
 
 } // T
