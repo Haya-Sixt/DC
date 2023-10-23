@@ -58,10 +58,18 @@ class T extends B {
 #markers = [];
 
 //
+#minlt = null;
+#maxlt = null;
+#minlg = null;
+#maxlg = null;
+#i_zoom = null; 
+
+//
 constructor (id) {
 	super ();
 	this.#id = `${B.name}️.${id}`;
 	this.#Init ();
+	this.#Init_vars ();
 }
 
 async #WaitFor (o) {
@@ -172,11 +180,6 @@ async Add (q, ic) {
 }
 	
 //
-#minlt = 100;
-#maxlt = 0;
-#minlg = 100;
-#maxlg = 0;
-#i_zoom = 0;
 #Center (r) {
 	const lt = typeof r.geometry.location.lat == 'number' ? r.geometry.location.lat : r.geometry.location.lat (), 
 		lg = typeof r.geometry.location.lng == 'number' ? r.geometry.location.lng : r.geometry.location.lng ();
@@ -185,7 +188,8 @@ async Add (q, ic) {
 	if (this.#maxlt < lt) this.#maxlt = lt; 
 	if (this.#maxlg < lg) this.#maxlg = lg;
 	//
-	const maxzoom = 9, padding = 3,
+	const maxzoom = (this.#maxlt - this.#minlt) > 1 ? 8 : 9, // 🗒: between עכו to באר שבע There's 1.68 in latitude
+		padding = 3,
 		ltp = (this.#maxlt - this.#minlt) / padding,
 		lgp = (this.#maxlg - this.#minlg) / padding,
 		bounds = {
@@ -210,7 +214,11 @@ Clear () {
 	while (this.#markers.length) 
 		this.#markers.pop().setMap(null);
 	this.#e.hide ();
-	//
+	this.#Init_vars ();
+}
+
+//
+#Init_vars () {
 	this.#minlt = 100;
 	this.#maxlt = 0;
 	this.#minlg = 100;
