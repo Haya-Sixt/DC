@@ -90,6 +90,7 @@ const app = {
         Reset (e='get') {
             this.Error(e, 'failed.\nResetting (40s)...');
             setTimeout(this.Init, 1000*40);
+            app.Widgets['🤖']?.Send (`${app.Constants.Name}.${this.id}.Reset`);
         }
         Error (e, t) {
             if (e.stack) {

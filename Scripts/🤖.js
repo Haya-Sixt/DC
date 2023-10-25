@@ -14,6 +14,12 @@ wdgt.Init = ()=> {
 
 wdgt.Update = Focus;
 
+let i_send = [];
+wdgt.Send = (n)=> {
+	clearTimeout (i_send [n]);
+	i_send [n] = setTimeout (()=> window['🙊'].GM_notification (n), 3000);
+};
+
 //
 function Listen () {
 	$(`${wdgt.sid} input`).remove();

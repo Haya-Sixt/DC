@@ -15,7 +15,7 @@ let map;
 wdgt.Update = ()=> {
 	$(wdgt.sid).html('');
 	
-	const a = [], hyphen = ' - ', comma = ', ';
+	const a = [], am = [], hyphen = ' - ', comma = ', ';
 	for (const e of wdgt.data) {
 		// 1 hours expired
 		const startedAt = parseInt(new Date(e.alertDate).getTime () / 1000);
@@ -73,12 +73,13 @@ wdgt.Update = ()=> {
 	if (a.length && !map) map = $app.Widgets['🗺️'].Add (wdgt.id);
 	//
 	$app.Widgets['🔔'].Clear (wdgt.id);
-	map?.Clear ();
 	//
 	for (const k in a) {
 		$app.Widgets['🔔'].Info (a[k].cat, a[k].napa, a[k].startedAt, 6 * 60 * 60, wdgt.id);
-		a[k].napa.split (comma).forEach ((e)=> map?.Add (e, a[k].cat));
+		a[k].napa.split (comma).forEach ((e)=> am.push ({p: e, ic: a[k].cat}));
 	}
+	map?.Add (am);
+	!am.length && map?.Clear ();
 };
 
 //
