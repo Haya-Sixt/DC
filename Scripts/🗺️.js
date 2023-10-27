@@ -15,7 +15,7 @@ wdgt.Update = ()=> {
 	//T.Init ();
 };
 
-wdgt.Add = (id)=> {
+wdgt.Set = (id)=> {
 	return new T (id);
 }
 
@@ -106,16 +106,16 @@ async #Init () {
 }
 
 //
-async Add (p, ic) {
+async Set (p, ic) {
 	/**/
 	await this.#WaitFor (()=> this.#map); 
 	await this.#WaitFor (()=> this.#service); 
-	if (!this.#map || !this.#service) return setTimeout ((t, p, ic)=> t.Add(p, ic), 1000, this, p, ic); // 🗒: '()=>' needed
+	if (!this.#map || !this.#service) return setTimeout ((t, p, ic)=> t.Set(p, ic), 1000, this, p, ic); // 🗒: '()=>' needed
 	/**/
 	
 	if (typeof p == 'object') {
 		// add to markers
-		for (const e of p) this.#AddPlace (e.p, e.ic);
+		for (const e of p) this.#Add (e.p, e.ic);
 		
 		// remove from markers
 		for (const i in this.#markers) {
@@ -127,14 +127,16 @@ async Add (p, ic) {
 		this.#Init_vars ();
 		for (const m of this.#markers) this.#LatLng (m.r);
 	}
-	else this.#AddPlace (p, ic);
+	else this.#Add (p, ic);
 	
 	//
-	this.#Center ();
+	
+	if (this.#markers.length) this.#Center ()
+	else this.#Clear ();
 }
 
 //
-#AddPlace (p, ic) {
+#Add (p, ic) {
 	if (this.#markers.find((e)=> e.p == p && e.ic == ic)) return;
 	
 	this.#e.show ();
@@ -242,19 +244,15 @@ async Add (p, ic) {
 } 
 
 //
-Clear () {
-	while (this.#markers.length) 
-		this.#markers.pop().m.setMap(null);
-	this.#Init_vars ();
-	this.#e.hide ();
-}
-
-//
-#Clear (i) {
+#Clear (i = -1) {
+	if (i == -1) while (!this.#Clear (++i));
 	this.#markers [i].m.setMap(null);
 	delete this.#markers [i]; 
-	if (i == this.#markers.length - 1) this.#markers = this.#markers.filter ((m)=> m);
-	!this.#markers.filter ((m)=> m).length && this.#e.hide ();
+	if (i == this.#markers.length - 1 && !( this.#markers = this.#markers.filter ((m)=> m) ).length) {
+		this.#e.hide ();
+		this.#Init_vars ();
+		return true; 
+	}
 }
 
 //

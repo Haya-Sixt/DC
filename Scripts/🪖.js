@@ -78,8 +78,7 @@ wdgt.Update = ()=> {
 		$app.Widgets['🔔'].Info (a[k].cat, a[k].napa, a[k].startedAt, 6 * 60 * 60, wdgt.id);
 		a[k].napa.split (comma).forEach ((e)=> am.push ({p: e, ic: a[k].cat}));
 	}
-	map?.Add (am);
-	!am.length && map?.Clear ();
+	map?.Set (am);
 };
 
 //
