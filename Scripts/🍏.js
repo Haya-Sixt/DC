@@ -93,8 +93,8 @@ const app = {
             app.Widgets['🤖']?.Send (`${app.Constants.Name}.${this.id}.Reset`);
         }
         Error (e, t) {
-        	console.log (${this.id, t, e);
-        	try { if (e.stack) e = decodeURIComponent (e.stack.replace('\n','').match (new RegExp (`.*:[0-9]{1,4}:[0-9]{1,4}\\)`, 'gum'))[0].replace (location.href.split('/').slice(0,-1).join('/'), '')) }
+        	console.log (this.id, t, e);
+        	try { if (e.stack) e = decodeURIComponent (e.stack.replace('\n','').match (new RegExp (`.*:[0-9]{1,4}:[0-9]{1,4}\\)`, 'gum'))[0].replace('/Scripts/','').replace (location.href.split('/').slice(0,-1).join('/'), '')) }
         	catch { 
                 const a = e.stack.split('\n'); 
                 e = a.filter((s, i)=> i < 1 || i == a.length - 1).join('\n').replaceAll(location.origin, '').replaceAll('<anonymous>', '').replaceAll('/DC/Scripts/', '');
