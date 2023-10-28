@@ -68,7 +68,7 @@ wdgt.Update = ()=> {
 			else ac.napa += `${comma}${napa}`;
 		});
 	}
-	
+	$app.Widgets['🗺️'].test (wdgt.id); // TEST
 	//
 	if (a.length && !map) map = $app.Widgets['🗺️'].Add (wdgt.id);
 	//

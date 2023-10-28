@@ -15,7 +15,7 @@ wdgt.Update = ()=> {
 	//T.Init ();
 };
 
-wdgt.Set = (id)=> {
+wdgt.Add = (id)=> { 
 	return new T (id);
 }
 

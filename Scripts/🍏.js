@@ -93,14 +93,15 @@ const app = {
             app.Widgets['🤖']?.Send (`${app.Constants.Name}.${this.id}.Reset`);
         }
         Error (e, t) {
-            if (e.stack) {
-            	app.Widgets['🔔'].Alert(`${this.id} ${t}: ${e.stack}`);
+        	console.log (${this.id, t, e);
+        	try { if (e.stack) e = decodeURIComponent (e.stack.replace('\n','').match (new RegExp (`.*:[0-9]{1,4}:[0-9]{1,4}\\)`, 'gum'))[0].replace (location.href.split('/').slice(0,-1).join('/'), '')) }
+        	catch { 
                 const a = e.stack.split('\n'); 
                 e = a.filter((s, i)=> i < 1 || i == a.length - 1).join('\n').replaceAll(location.origin, '').replaceAll('<anonymous>', '').replaceAll('/DC/Scripts/', '');
                 e = decodeURIComponent(decodeURIComponent(e));
+                if (e.includes(' at XMLHttpRequest')) e = e.slice(0, e.indexOf(' at XMLHttpRequest'));
             }
-            else app.Widgets['🔔'].Alert(`${this.id} ${t}: ${e}`);
-            if (e.includes(' at XMLHttpRequest')) e = e.slice(0, e.indexOf(' at XMLHttpRequest'));
+            app.Widgets['🔔'].Alert(`${this.id} ${t}: ${e}`);
             $(this.sid).text(`${this.id} ${t}: ${e}`).addClass("error");
         }
     }
