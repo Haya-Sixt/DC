@@ -97,10 +97,10 @@
 
 }
 
-#🖥️ { display: flex; direction: ltr; color:var(--🖥️-c-t-3); font-family: sans-serif; top: 0; left: 0; width: 100vw; height: 100vh; 
-	text-shadow: var(--🖥️-c-px-2) 0 var(--🖥️-c-px-2) var(--🖥️-c-b-1), 0 var(--🖥️-c-px-2) var(--🖥️-c-px-2) var(--🖥️-c-b-1), calc(-1 * var(--🖥️-c-px-2)) 0 var(--🖥️-c-px-2) var(--🖥️-c-b-1), 0 calc(-1 * var(--🖥️-c-px-2)) var(--🖥️-c-px-2) var(--🖥️-c-b-1); }
-#🖥️c1 { direction: rtl; height: 100%; width: 100%; position: relative; top: 0; left: 0; overflow: hidden; }
-#🖥️, #⌚, #💈 span, #⏳ > div { background-color:var(--🖥️-c-b-1);}
+#🖥️ { display: flex; direction: ltr; color:var(--🖥️-c-t-3); font-family: sans-serif; top: 0; left: 0; width: 100vw; height: 100vh; }
+#🖥️, #💈 span { text-shadow: var(--🖥️-c-px-2) 0 var(--🖥️-c-px-2) var(--🖥️-c-b-1), 0 var(--🖥️-c-px-2) var(--🖥️-c-px-2) var(--🖥️-c-b-1), calc(-1 * var(--🖥️-c-px-2)) 0 var(--🖥️-c-px-2) var(--🖥️-c-b-1), 0 calc(-1 * var(--🖥️-c-px-2)) var(--🖥️-c-px-2) var(--🖥️-c-b-1); }
+#🖥️, #⌚, #⏳ > div { background-color:var(--🖥️-c-b-1);}
+#🖥️c1 { direction: rtl; height: 100%; width: 100%; position: relative; top: 0; left: 0; overflow: hidden; } 
 table { text-align: center; width:100%; height:var(--🖥️-c-px-1)}
 td { vertical-align: top;}
 .tdHead, .tdDay, .hdate, .dafYomi { font-size:var(--🖥️-c-px-15);}
