@@ -31,6 +31,9 @@ wdgt.Init = ()=> {
 
 wdgt.Update = ()=> {
 	const time = new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
+	//
+	if (time == '00:00' && $(wdgt.sid).text() == '23:59') location.reload (); 
+	//
 	Helpers.Css ('background-image', wdgt.sid, time);
 }
 
@@ -48,6 +51,55 @@ wdgt.Update = ()=> {
 
 
 // 3.
+(()=>{
+
+// Date Loazi
+const wdgt = new $app.Widget('📅👉');
+
+//
+wdgt.Init = ()=> {
+	let date = new Date().toLocaleDateString('he-IL', { day: '2-digit', month: '2-digit' }); // 1. #📅👉 { left:35%; top:35%; }  2. weekday: 'short'  3. .replace("יום ","").replace('.','/'); 
+	$(wdgt.sid).text(date);
+};
+
+})();
+
+
+// 4.
+(()=>{
+
+// Date Hebrew
+const wdgt = new $app.Widget('📅👈');
+
+//
+wdgt.Init = ()=> {
+	wdgt.data = { 
+		year: new Intl.DateTimeFormat('he-u-ca-hebrew',{year:'numeric'}).format(new Date()),
+		month: wdgt.Month(new Date())
+	};
+};
+	
+//
+wdgt.Update = ()=> {
+	const seven = !(wdgt.data.year % 7) ? 'שנת שמיטה' : 'שנה ' + String.fromCharCode((wdgt.data.year % 7) + 'א'.charCodeAt(0) - 1) + "'", 
+		leap = '' + ([0,3,6,8,11,14,17].includes(wdgt.data.year % 19) ? 'מעוברת' : 'פשוטה'),
+		year = `${wdgt.data.year.slice(1)}'5`;
+	
+	$(wdgt.sid).text( wdgt.data.month + '  ' + year + '  ' + seven + '  ' + leap );
+};
+
+//
+wdgt.Month = (now)=> {
+	let m = new Intl.DateTimeFormat('he-u-ca-hebrew',{month:'long'}).format(now);
+	if (m.includes('כסלו')) m = 'כסליו';
+	if (m.includes('אדר ')) m = m.slice(0, m.length-1) + "'";
+	return m;
+	};
+
+})();
+
+
+// 5.
 (()=>{
 
 // Schedule
