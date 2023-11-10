@@ -17,7 +17,7 @@ wdgt.Update = Focus;
 let i_send = [];
 wdgt.Send = (n)=> {
 	clearTimeout (i_send [n]);
-	i_send [n] = setTimeout (()=> window['🙊'].GM_notification (n), 3000);
+	i_send [n] = setTimeout (()=> window['🙊'].Notification (n), 3000);
 };
 
 //
@@ -33,12 +33,14 @@ function Listen () {
 }
 
 //
+let focus = 0;
 function Focus () {
 	const e = $(`${wdgt.sid} input`);
 	e.focus();
 	setTimeout (()=> {
-		if (e?.is(":focus")) return 
-		else Focus ();
+		if (focus > 10 * 60) window['🙊'].Close ()
+		else if (e?.is(":focus")) focus = 0
+		else Focus (++focus);
 	}, 1000);
 }
 
