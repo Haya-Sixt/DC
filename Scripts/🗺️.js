@@ -114,14 +114,23 @@ async Set (p, ic) {
 	/**/
 	
 	if (typeof p == 'object') {
+		let g;
+		
 		// add to markers
-		for (const e of p) this.#Add (e.p, e.ic);
+		for (const e of p) 
+			if (this.#Add (e.p, e.ic)) g = 1;
 		
 		// remove from markers
 		for (const i in this.#markers) {
 			const m = this.#markers [i];
-			!p.find ((e)=> e.p == m.p && e.ic == m.ic) && this.#Clear(i); 
+			if (!p.find ((e)=> e.p == m.p && e.ic == m.ic) {
+				this.#Clear(i);
+				g = 1;
+			}
 		}
+		
+		// exit if no change
+		if (!g) return;
 		
 		// 
 		this.#Init_vars ();
@@ -144,27 +153,31 @@ async Set (p, ic) {
 	const ls_id = `${B.name}️.${p}`,
 		ls = JSON.parse(localStorage.getItem (ls_id)),
 		Add = (n)=> {
+			if (!n?.length) return; // just to be safe
 			let r;
-			if (!n?.length) return; // just to be safe 
 			for (let i = 0; i < n.length; i++) 
 				if (this.#Marker (n[i], p, ic)) r = true;
 			return r;
 		};
 	
 	//
-	if (ls) Add (ls);
-	else {
-		const request = {
-			query: p,
-			fields: ["geometry.location"],
-			language: "iw",
-			locationBias: B.israel,
-		};
-		this.#service.findPlaceFromQuery(request, (n, status) => {
-			if (status === B.lib.places.PlacesServiceStatus.OK && Add (n) )
-				localStorage.setItem(ls_id, JSON.stringify(n));
-		});
+	if (ls) {
+		Add (ls);
+		return true;
 	}
+	//
+	const request = {
+		query: p,
+		fields: ["geometry.location"],
+		language: "iw",
+		locationBias: B.israel,
+	};
+	this.#service.findPlaceFromQuery(request, (n, status) => {
+		if (status === B.lib.places.PlacesServiceStatus.OK && Add (n) )
+			localStorage.setItem(ls_id, JSON.stringify(n));
+	});
+	return true;
+}
 
 //  instead of Places:
 /*
@@ -183,7 +196,6 @@ async Set (p, ic) {
 	//this.#map.setCenter(r.geometry.location);
 	//marker.setPosition(results[0].geometry.location);
 */
-}
 
 //
 #Marker (r, p, ic) {
@@ -245,7 +257,10 @@ async Set (p, ic) {
 
 //
 #Clear (i = -1) {
-	if (i == -1) while (!this.#Clear (++i));
+	if (i == -1) {
+		while (!this.#Clear (++i));
+		return;
+	}
 	this.#markers [i].m.setMap(null);
 	delete this.#markers [i]; 
 	if (i == this.#markers.length - 1 && !( this.#markers = this.#markers.filter ((m)=> m) ).length) {
