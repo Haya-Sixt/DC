@@ -123,7 +123,7 @@ async Set (p, ic) {
 		// remove from markers
 		for (const i in this.#markers) {
 			const m = this.#markers [i];
-			if (!p.find ((e)=> e.p == m.p && e.ic == m.ic) {
+			if (!p.find ((e)=> e.p == m.p && e.ic == m.ic)) {
 				this.#Clear(i);
 				g = 1;
 			}
