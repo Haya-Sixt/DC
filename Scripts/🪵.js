@@ -83,7 +83,7 @@ function Background() {
 
 //
 wdgt.Entries = function* (now, reverse = false) {
-	let a = wdgt.data.log.split('∆'); 
+	let a = wdgt.data.log.split('¿'); 
 	if (reverse) a = a.reverse();
 	for (let i=0; i < a.length; i++) {
 		let startedAt = parseInt(new Date(a[i].substring(0,16)).getTime()/1000);
