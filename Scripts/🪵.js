@@ -11,7 +11,7 @@ wdgt.Constants = { Ender: '➖'};
 //
 wdgt.Update = ()=> {
 	let rs ='', now = parseInt( new Date().getTime() / 1000 ),
-		shishi = 0;
+		shishi = 0, w;
 	
 	for (const e of wdgt.Entries(now)) { // 🗒: yield doesn't work with forEach because it's callback
 		if ( e.log.includes(wdgt.Constants.Ender) ) continue;
@@ -23,28 +23,26 @@ wdgt.Update = ()=> {
 			shishi = e.startedAt;
 	};
 
-	// ⏱️
-	rs = `${rs}<div>${$('#⏱️').text()}</div>`; 
-
-	// 🕯️🕯️
-	// 🗒: '🌋' App Must Have Delay Before 🔔. Otherwise '🏡' Won't Be Triggered (Because '🌋' Is Open).
-	$app.Vars ['🕯️'] = shishi;
-	wdgt.data ['🕯️🕯️'] = wdgt.data.shabbat;
-
-	//
+	w = '⏱️';
+	rs = `${rs}<div>${$(`#${w}`).text()}</div>`;
 	$(wdgt.sid).html(rs);
 	
-
-	// 🔋
-	if (wdgt.data.battery != "100") $app.Widgets['🚥'].Add (wdgt.id, '🔋', wdgt.data.battery)
-	else $app.Widgets['🚥'].Remove (wdgt.id, '🔋');
-
-	// 💈
-	wdgt.data ['💈'] = wdgt.data.forecast.t; 
-	Clock (now, '💈', wdgt.data.forecast.tc, 2);
 	
-	// 🌡️
-	Clock (now, '🌡️', wdgt.data.forecast.fc);
+	w = '🕯'; // 🗒: '🌋' App Must Have Delay Before 🔔. Otherwise '🏡' Won't Be Triggered (Because '🌋' Is Open).
+	$app.Vars [w] = shishi;
+	wdgt.data [`${w}${w}`] = wdgt.data.shabbat;
+
+	w = '🔋';
+	if (wdgt.data.battery != "100") $app.Widgets['🚥'].Add (wdgt.id, w, wdgt.data.battery)
+	else $app.Widgets['🚥'].Remove (wdgt.id, w);
+
+	w = '💈';
+	wdgt.data [w] = wdgt.data.forecast.t; 
+	$app.Widgets[w].Init ();
+	Clock (now, w, wdgt.data.forecast.tc, 2);
+	
+	w = '🌡';️
+	Clock (now, w, wdgt.data.forecast.fc);
 	
 	//
 	Background ();
