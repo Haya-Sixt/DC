@@ -41,7 +41,7 @@ wdgt.Update = ()=> {
 	$app.Widgets[w].Init ();
 	Clock (now, w, wdgt.data.forecast.tc, 2);
 	
-	w = '🌡';️
+	w = '🌡';
 	Clock (now, w, wdgt.data.forecast.fc);
 	
 	//
