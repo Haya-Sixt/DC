@@ -29,7 +29,7 @@ const app = {
             
             const p = '🌃';
             this[`_${p}`] = $app.Constants[p].Hide;
-            addEventListener(app.Constants.Event (app.Vars[p]), this [p]));
+            addEventListener (app.Constants.Event (app.Vars[p]), this [p]);
         }
         get Init () {
             return ()=> { 
