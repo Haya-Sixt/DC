@@ -97,7 +97,7 @@ const app = {
         get ['🌃'] () {
         	return ()=> { 
         	const p = '🌃', c = `${p}${this [`_${p}`]}`;
-        	if (app.Vars[p] == "true") $(this.sid).addClass (c)
+        	if (app.Vars[p] == "false") $(this.sid).addClass (c) // 🗒: 'true/false' ? - see 'Observer' ('dispatch' preceding 'set').
         	else $(this.sid).removeClass (c);
         	}
         }
