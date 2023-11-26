@@ -2,7 +2,7 @@
 (()=>{
 
 // Messaging from 🤖
-const wdgt = new $app.Widget('🤖');
+const wdgt = new $app.Agent('🤖');
 wdgt.repeat = { update: 1 };
 
 const c_mark = `${$app.Constants.Name}.${wdgt.id}`;

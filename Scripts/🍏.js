@@ -8,7 +8,7 @@ const app = {
         Status : { Done: 'done', NoRepeat: 'noRepeat' },
         Name: '🖥️',
         Host: location.href.match(/.*\//umg)[0],
-        ['🌃']: { Dim: 'Dim', Hide: 'Hide' },
+        ['🌃']: { Dim: 'Dim', Hide: 'Hide', None: 'None' },
     },
     Vars : { 
     	Mode: location.hash.replace('#',''),
@@ -28,7 +28,7 @@ const app = {
             app.Widgets[id] = this;
             
             const p = '🌃';
-            this[`_${p}`] = $app.Constants[p].Hide;
+            this[`_${p}`] = app.Constants[p].Hide;
             addEventListener (app.Constants.Event (app.Constants.Var(p)), this [p]);
         }
         get Init () {
@@ -124,6 +124,15 @@ const app = {
         }
     }
 };
+
+//
+app.Agent = class Agent extends Widget {
+	constructor (id) {
+		super (id);
+		const p = '🌃';
+        this[`_${p}`] = $app.Constants[p].None;
+    }
+}
 
 
 //
