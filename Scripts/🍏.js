@@ -8,7 +8,7 @@ const app = {
         Status : { Done: 'done', NoRepeat: 'noRepeat' },
         Name: '🖥️',
         Host: location.href.match(/.*\//umg)[0],
-        ['🌃'] { Dim: 'Dim', Hide: 'Hide' },
+        ['🌃']: { Dim: 'Dim', Hide: 'Hide' },
     },
     Vars : { 
     	Mode: location.hash.replace('#',''),
