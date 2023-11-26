@@ -162,7 +162,7 @@ function Init () {
 	        	const r = Reflect.set (target, prop, value);
 	        	if (r) {
 		            target[`_${prop}`] = app.Constants.Status.Done;
-		            dispatchEvent (new Event( app.Constants.Event (app.Constants.Var(prop)) )), 250); // 🗒: let 'set'
+		            dispatchEvent (new Event( app.Constants.Event (app.Constants.Var(prop)) ));
 	            }
 	            return r;
 	        }
