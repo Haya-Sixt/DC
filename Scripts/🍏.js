@@ -126,11 +126,11 @@ const app = {
 };
 
 //
-app.Agent = class Agent extends Widget {
+app.Agent = class Agent extends app.Widget {
 	constructor (id) {
 		super (id);
 		const p = '🌃';
-        this[`_${p}`] = $app.Constants[p].None;
+        this[`_${p}`] = app.Constants[p].None;
     }
 }
 
