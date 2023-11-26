@@ -98,7 +98,7 @@ const app = {
         	return ()=> { 
         	const p = '🌃', c = `${p}${this [`_${p}`]}`;
         	if (app.Vars[p] == "true") $(this.sid).addClass (c)
-        	$(this.sid).removeClass (c);
+        	else $(this.sid).removeClass (c);
         	}
         }
         set ['🌃'] (v) {
