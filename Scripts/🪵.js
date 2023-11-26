@@ -44,6 +44,9 @@ wdgt.Update = ()=> {
 	w = '🌡';
 	Clock (now, w, wdgt.data.forecast.fc);
 	
+	w = '🌃';
+	$app.Vars [w] = wdgt.data.night;
+	
 	//
 	Background ();
 };

@@ -7,12 +7,14 @@ const app = {
 	    Var: (v = '')=> `V.${v}`,
         Status : { Done: 'done', NoRepeat: 'noRepeat' },
         Name: '🖥️',
-        Host: location.href.match(/.*\//umg)[0]
+        Host: location.href.match(/.*\//umg)[0],
+        ['🌃'] { Dim: 'Dim', Hide: 'Hide' },
     },
     Vars : { 
     	Mode: location.hash.replace('#',''),
         '🕯️': 0,
-        '📆': ''
+        '📆': '',
+        '🌃': 'false',
     },
     Widgets: [],
     Widget: class Widget {
@@ -24,6 +26,10 @@ const app = {
 
             $('<div>').attr('id', id).addClass('wdgt').html(`${id}...`).appendTo(`#${app.Constants.Name}c1`); // 🗒: ⌚ must have this #text node.
             app.Widgets[id] = this;
+            
+            const p = '🌃';
+            this[`_${p}`] = $app.Constants[p].Hide;
+            addEventListener(app.Constants.Event (app.Vars[p]), this [p]));
         }
         get Init () {
             return ()=> { 
@@ -87,6 +93,16 @@ const app = {
         set Update (f) {
             this.update = f;
         }
+        
+        get ['🌃'] () {
+        	const p = '🌃', c = `${p}${this [`_${p}`]}`;
+        	if (app.Vars[p] == "true") $(this.sid).addClass (c)
+        	$(this.sid).removeClass (c);
+        }
+        set ['🌃'] (v) {
+            this ['_🌃'] = v;
+        }
+        
         Reset (e='get') {
             this.Error(e, 'failed.\nResetting (40s)...');
             setTimeout(this.Init, 1000*40);
