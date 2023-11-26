@@ -97,7 +97,7 @@ const app = {
         get ['🌃'] () {
         	return ()=> { 
         	const p = '🌃', c = `${p}${this [`_${p}`]}`;
-        	if (app.Vars[p] == "false") $(this.sid).addClass (c) // 🗒: 'true/false' ? - see 'Observer' ('dispatch' preceding 'set').
+        	if (app.Vars[p] == "true") $(this.sid).addClass (c)
         	else $(this.sid).removeClass (c);
         	}
         }
@@ -159,9 +159,12 @@ function Init () {
 	            return Reflect.get(target, prop);
 	        },
 	        set: function(target, prop, value) {
-	            target[`_${prop}`] = app.Constants.Status.Done;
-	            dispatchEvent(new Event( app.Constants.Event (app.Constants.Var(prop)) ));
-	            return Reflect.set(target, prop, value);
+	        	const r = Reflect.set (target, prop, value);
+	        	if (r) {
+		            target[`_${prop}`] = app.Constants.Status.Done;
+		            dispatchEvent (new Event( app.Constants.Event (app.Constants.Var(prop)) )), 250); // 🗒: let 'set'
+	            }
+	            return r;
 	        }
 	    });
 	}
