@@ -48,7 +48,7 @@
 .🗺️ .marker { color: var(--🖥️-c-ts-1) !important; background-color: rgba(var(--🖥️-c-ts-1_rgb), 0.2); margin: 0;  padding: 0; border-radius: var(--🖥️-c-px-32); filter: drop-shadow(var(--🖥️-c-px-2) var(--🖥️-c-px-4) var(--🖥️-c-px-6) var(--🖥️-c-be-1)) !important; 
 	__text-shadow: var(--🖥️-c-px-2) 0 var(--🖥️-c-px-2) var(--🖥️-c-b-1), 0 var(--🖥️-c-px-2) var(--🖥️-c-px-2) var(--🖥️-c-b-1), calc(-1 * var(--🖥️-c-px-2)) 0 var(--🖥️-c-px-2) var(--🖥️-c-b-1), 0 calc(-1 * var(--🖥️-c-px-2)) var(--🖥️-c-px-2) var(--🖥️-c-b-1) !important; }
 .🌃Hide { visibility: hidden; }
-.🌃Dim { filter: opacity(0.2); }
+.🌃Dim { filter: opacity(0.1); }
 #⌚ { top: -2%; left:0.8%; width: 45.5%; height: 36%; } /* 🗒: w/h needed, bg is black */
 #📅👉 { left:40%; top:36%; }
 #📅👈 { left:0%; top:35.2%; } 

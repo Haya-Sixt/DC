@@ -14,6 +14,20 @@ wdgt.Update = ()=> {
 	$(wdgt.sid).text(`${wdgt.data} ${wdgt.id}`);
 };
 
+//
+wdgt.Add = (w, k)=> {
+	const wk = ` ${w}.${k}`;
+	wdgt.Init ();
+	wdgt.data += wk;
+	Refresh ();
+}
+
+//
+function Refresh () {
+	if (wdgt.status != $app.Constants.Status.Done ) return;
+	wdgt.Update ();
+}
+
 })();
 
 

@@ -33,11 +33,12 @@ function Listen () {
 }
 
 //
-let focus = 0;
+let i_focus, focus = 0;
 function Focus () {
+	clearTimeout (i_focus);
 	const e = $(`${wdgt.sid} input`);
 	e.focus();
-	setTimeout (()=> {
+	i_focus = setTimeout (()=> {
 		if (focus > 10 * 60) window['🙊'].Close ()
 		else if (e?.is(":focus")) focus = 0
 		else Focus (++focus);
@@ -55,7 +56,12 @@ function Paste (ev) {
 
 //
 function Dispatch (v) {
-	if ($app.Widgets[v]) $app.Widgets[v].Init ()
+	if ($app.Widgets[v]) {
+		$app.Widgets[v].Init ();
+		v = v.split (' ');
+		v = `${ v[0] }${ v.length == 1 ? '' : '...' }`;
+		$app.Widgets['⏱️'].Add (v, wdgt.id);
+	}
 	else $app.Widgets['🔔'].Info (`${wdgt.id}.Dispatch: ${v}`);
 }
 
