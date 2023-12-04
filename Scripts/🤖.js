@@ -4,7 +4,7 @@
 // Messaging from 🤖
 const wdgt = new $app.Widget ('🤖');
 wdgt.repeat = { update: 1 };
-wdgt.['🌃'] = $app.Constants['🌃'].None;
+wdgt['🌃'] = $app.Constants['🌃'].None;
 
 const c_mark = `${$app.Constants.Name}.${wdgt.id}`;
 

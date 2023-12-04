@@ -37,7 +37,7 @@ function Refresh () {
 // Time
 const wdgt = new $app.Widget ('⌚');
 wdgt.repeat = { update: 1 };
-wdgt.['🌃'] = $app.Constants['🌃'].Dim;
+wdgt['🌃'] = $app.Constants['🌃'].Dim;
 
 //
 wdgt.Init = ()=> {

@@ -43,7 +43,7 @@
 .markIconText > *:nth-child(2) { transform:scale(1.2); left:-6%; 
 	text-shadow: var(--🖥️-c-px-5) 0 var(--🖥️-c-px-5) var(--🖥️-c-b-1), 0 var(--🖥️-c-px-5) var(--🖥️-c-px-5) var(--🖥️-c-b-1), calc(-1 * var(--🖥️-c-px-5)) 0 var(--🖥️-c-px-5) var(--🖥️-c-b-1), 0 calc(-1 * var(--🖥️-c-px-5)) var(--🖥️-c-px-5) var(--🖥️-c-b-1), 0 0 var(--🖥️-c-px-40) var(--🖥️-c-b-1), 0 0 var(--🖥️-c-px-30) var(--🖥️-c-bs-2); }
 .markIconText > * { position:relative; top:-1%; z-index:1000; font-size: var(--🖥️-c-px-35); color:var(--🖥️-c-te-2); filter: grayscale(0%) brightness(100%); } 
-.🗺️ { width:20vw; height: 100%; border-radius: var(--🖥️-c-px-15); }
+.🗺️ { width:25vw; height: 100%; border-radius: var(--🖥️-c-px-15); }
 .🗺️ .gmnoprint, .gm-control-active, a { display: none !important; } 
 .🗺️ .marker { color: var(--🖥️-c-ts-1) !important; background-color: rgba(var(--🖥️-c-ts-1_rgb), 0.2); margin: 0;  padding: 0; border-radius: var(--🖥️-c-px-32); filter: drop-shadow(var(--🖥️-c-px-2) var(--🖥️-c-px-4) var(--🖥️-c-px-6) var(--🖥️-c-be-1)) !important; 
 	__text-shadow: var(--🖥️-c-px-2) 0 var(--🖥️-c-px-2) var(--🖥️-c-b-1), 0 var(--🖥️-c-px-2) var(--🖥️-c-px-2) var(--🖥️-c-b-1), calc(-1 * var(--🖥️-c-px-2)) 0 var(--🖥️-c-px-2) var(--🖥️-c-b-1), 0 calc(-1 * var(--🖥️-c-px-2)) var(--🖥️-c-px-2) var(--🖥️-c-b-1) !important; }
