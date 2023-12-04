@@ -17,85 +17,20 @@ const app = {
         '🌃': 'false',
     },
     Widgets: [],
-    Widget: class Widget {
-        constructor (id) {
+    UIComponent: class T {
+    	constructor (id, options = {}) {
             this.id = id;
             this.sid = `#${id}`;
-            this.status = this.init = this.update = this.url = this.dependency = null;
-            this.repeat = {init: 0, update: 0};
-
-            $('<div>').attr('id', id).addClass('wdgt').html(`${id}...`).appendTo(`#${app.Constants.Name}c1`); // 🗒: ⌚ must have this #text node.
-            app.Widgets[id] = this;
+            
+            $('<div>').attr('id', id).appendTo (`#${app.Constants.Name}${ typeof options?.appendTo == 'undefined' ? 'c1' : options.appendTo }`);
             
             const p = '🌃';
             this[`_${p}`] = app.Constants[p].Hide;
             addEventListener (app.Constants.Event (app.Constants.Var(p)), this [p]);
         }
-        get Init () {
-            return ()=> { 
-            try {
-            const ResolveDependency = ()=> {
-                if (!this.dependency || this.status == app.Constants.Status.Done) return true;
-                const f = this.dependency.filter(d=> (d.startsWith(app.Constants.Var()) ? app.Vars[`_${d.replace(app.Constants.Var(), '')}`] : app.Widgets[d].status) != app.Constants.Status.Done);
-                if (f.length) return false
-                else return true;
-            },
-            Get = (url, i=0)=> {
-                let u = `${app.Vars.Mode}.json`;
-                if (url instanceof Array) u = url[i]
-                else if (url) u = url;
-                if (!u.startsWith('http')) {
-                	const db = u.endsWith('json') && app.Vars.Mode=='' ? '../' : '';
-                	u = `${$app.Constants.Host}${db}📑/${this.id}${u}`;
-            	}
-                $.get( u )
-                .done((d)=> { 
-                    try {
-                    if (url instanceof Array) {
-                        if (!i) this.data = [];
-                        this.data.push(d);
-                        if (i < url.length - 1) return Get (url, i+1);
-                    }
-                    else this.data = d;
-                    this.repeat.init && setTimeout(this.Init, 1000*60*this.repeat.init);
-                    this.Update();
-                    } catch (e) { this.Reset(e) }
-                })
-                .fail(()=> this.Reset());
-            };
-            //
-            $(this.sid).removeClass("error");
-            if (!ResolveDependency ()) return;
-            this.status = null; // to be able to dispatch again 
-            if (this.init) {
-                this.init();
-                this.repeat.init && setTimeout(this.Init, 1000*60*this.repeat.init);
-                this.Update();
-            }
-            else Get (this.url && this.url()); // 🗒: Url is a function (and not just a var), to be evaluated after Dependencies
-            } catch (e) { this.Error(e, 'Init') } }
-        }
-        set Init (f) {
-            this.init = f;
-        }
-        get Update () {
-            return ()=>{ try {
-            $(this.sid).removeClass("error");
-            let i_update
-            this.repeat.update && (i_update = setTimeout(this.Update, 1000*60*this.repeat.update));
-            this.update && (this.update() == app.Constants.Status.NoRepeat) && clearTimeout(i_update);
-            if (this.status != app.Constants.Status.Done) {
-                this.status = app.Constants.Status.Done;
-                dispatchEvent(new Event( app.Constants.Event (this.id) ));
-            }
-            } catch (e) { this.Error(e, 'Update') } }
-        }
-        set Update (f) {
-            this.update = f;
-        }
-        
+        //
         get ['🌃'] () {
-        	return ()=> { 
+        	return ()=> {
         	const p = '🌃', c = `${p}${this [`_${p}`]}`;
         	if (app.Vars[p] == "true") $(this.sid).addClass (c)
         	else $(this.sid).removeClass (c);
@@ -103,36 +38,103 @@ const app = {
         }
         set ['🌃'] (v) {
             this ['_🌃'] = v;
-        }
-        
-        Reset (e='get') {
-            this.Error(e, 'failed.\nResetting (40s)...');
-            setTimeout(this.Init, 1000*40);
-            app.Widgets['🤖']?.Send (`${app.Constants.Name}.${this.id}.Reset`);
-        }
-        Error (e, t) {
-        	console.log (this.id, t, e);
-        	try { if (e.stack) e = decodeURIComponent (e.stack.replace('\n','').match (new RegExp (`.*:[0-9]{1,4}:[0-9]{1,4}\\)`, 'gum'))[0].replace('/Scripts/','').replace (location.href.split('/').slice(0,-1).join('/'), '')) }
-        	catch { 
-                const a = e.stack.split('\n'); 
-                e = a.filter((s, i)=> i < 1 || i == a.length - 1).join('\n').replaceAll(location.origin, '').replaceAll('<anonymous>', '').replaceAll('/DC/Scripts/', '');
-                e = decodeURIComponent(decodeURIComponent(e));
-                if (e.includes(' at XMLHttpRequest')) e = e.slice(0, e.indexOf(' at XMLHttpRequest'));
-            }
-            app.Widgets['🔔'].Alert(`${this.id} ${t}: ${e}`);
-            $(this.sid).text(`${this.id} ${t}: ${e}`).addClass("error");
-        }
-    }
+        } 
+    },
 };
 
-//
-app.Agent = class Agent extends app.Widget {
-	constructor (id) {
-		super (id);
-		const p = '🌃';
-        this[`_${p}`] = app.Constants[p].None;
-    }
-}
+app.Widget = class T extends app.UIComponent {
+	constructor (id, options = {}) {
+	    super (id, options);
+	    app.Widgets[id] = this;
+	    
+	    this.status = this.init = this.update = this.url = this.dependency = null;
+	    this.repeat = {init: 0, update: 0};
+	
+	    $(this.sid).addClass('wdgt');//.html(`${id}...`);
+	}
+	//
+	get Init () {
+	    return ()=> { 
+	    try {
+	    const ResolveDependency = ()=> {
+	        if (!this.dependency || this.status == app.Constants.Status.Done) return true;
+	        const f = this.dependency.filter(d=> (d.startsWith(app.Constants.Var()) ? app.Vars[`_${d.replace(app.Constants.Var(), '')}`] : app.Widgets[d].status) != app.Constants.Status.Done);
+	        if (f.length) return false
+	        else return true;
+	    },
+	    Get = (url, i=0)=> {
+	        let u = `${app.Vars.Mode}.json`;
+	        if (url instanceof Array) u = url[i]
+	        else if (url) u = url;
+	        if (!u.startsWith('http')) {
+	        	const db = u.endsWith('json') && app.Vars.Mode=='' ? '../' : '';
+	        	u = `${$app.Constants.Host}${db}📑/${this.id}${u}`;
+	    	}
+	        $.get( u )
+	        .done((d)=> { 
+	            try {
+	            if (url instanceof Array) {
+	                if (!i) this.data = [];
+	                this.data.push(d);
+	                if (i < url.length - 1) return Get (url, i+1);
+	            }
+	            else this.data = d;
+	            this.repeat.init && setTimeout(this.Init, 1000*60*this.repeat.init);
+	            this.Update();
+	            } catch (e) { this.Reset(e) }
+	        })
+	        .fail(()=> this.Reset());
+	    };
+	    //
+	    $(this.sid).removeClass("error");
+	    if (!ResolveDependency ()) return;
+	    this.status = null; // to be able to dispatch again 
+	    if (this.init) {
+	        this.init();
+	        this.repeat.init && setTimeout(this.Init, 1000*60*this.repeat.init);
+	        this.Update();
+	    }
+	    else Get (this.url && this.url()); // 🗒: Url is a function (and not just a var), to be evaluated after Dependencies
+	    } catch (e) { this.Error(e, 'Init') } }
+	}
+	set Init (f) {
+	    this.init = f;
+	}
+	//
+	get Update () {
+	    return ()=>{ try {
+	    $(this.sid).removeClass("error");
+	    let i_update
+	    this.repeat.update && (i_update = setTimeout(this.Update, 1000*60*this.repeat.update));
+	    this.update && (this.update() == app.Constants.Status.NoRepeat) && clearTimeout(i_update);
+	    if (this.status != app.Constants.Status.Done) {
+	        this.status = app.Constants.Status.Done;
+	        dispatchEvent(new Event( app.Constants.Event (this.id) ));
+	    }
+	    } catch (e) { this.Error(e, 'Update') } }
+	}
+	set Update (f) {
+	    this.update = f;
+	}
+	//
+	Reset (e='get') {
+	    this.Error(e, 'failed.\nResetting (40s)...');
+	    setTimeout(this.Init, 1000*40);
+	    app.Widgets['🤖']?.Send (`${app.Constants.Name}.${this.id}.Reset`);
+	}
+	Error (e, t) {
+		console.log (this.id, t, e);
+		try { if (e.stack) e = decodeURIComponent (e.stack.replace('\n','').match (new RegExp (`.*:[0-9]{1,4}:[0-9]{1,4}\\)`, 'gum'))[0].replace('/Scripts/','').replace (location.href.split('/').slice(0,-1).join('/'), '')) }
+		catch { 
+	        const a = e.stack.split('\n'); 
+	        e = a.filter((s, i)=> i < 1 || i == a.length - 1).join('\n').replaceAll(location.origin, '').replaceAll('<anonymous>', '').replaceAll('/DC/Scripts/', '');
+	        e = decodeURIComponent(decodeURIComponent(e));
+	        if (e.includes(' at XMLHttpRequest')) e = e.slice(0, e.indexOf(' at XMLHttpRequest'));
+	    }
+	    app.Widgets['🔔'].Alert(`${this.id} ${t}: ${e}`);
+	    $(this.sid).text(`${this.id} ${t}: ${e}`).addClass("error");
+	}
+} // Widget
 
 
 //

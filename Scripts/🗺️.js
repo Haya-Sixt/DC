@@ -20,44 +20,37 @@ wdgt.Add = (id)=> {
 }
 
 
-// 🗺️ base
-class B {
+// 🗺️
+class T extends $app.UIComponent {
 
+//
 static name = "🗺️";
 static israel = 0;
 static lib = 0;
 
 //
+// 🗒: It's after T - 'class T {...}  T.init ()'.
 static async Init () {
 	(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",p="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+p);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[p]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
-		key: localStorage.getItem(B.name), // Blue
+		key: localStorage.getItem(T.name), // Blue
 		v: "weekly",
 		region: "IL",
 		language: "iw",
 	});
 
 	//
-	B.lib = google.maps;
-	const { Map } = await B.lib.importLibrary("maps");
-	const { Places } = await B.lib.importLibrary("places");
+	T.lib = google.maps;
+	const { Map } = await T.lib.importLibrary("maps");
+	const { Places } = await T.lib.importLibrary("places");
 	
-	B.israel = new B.lib.LatLng (31.94117, 35.00818);
+	T.israel = new T.lib.LatLng (31.94117, 35.00818);
 }
 
-} // B
-
-B.Init ();
-
-// 🗺️
-class T extends B {
-	
-#id = "";
+//
 #e = null; // 🗒: 'sid' failed with show/hide.
 #map = null;
 #service = null;
 #markers = [];
-
-//
 #minlt = null;
 #maxlt = null;
 #minlg = null;
@@ -66,8 +59,8 @@ class T extends B {
 
 //
 constructor (id) {
-	super ();
-	this.#id = `${B.name}️.${id}`;
+	super (`${T.name}️.${id}`, { appendTo: '' });
+	this.#e = $(document.getElementById (this.id)).addClass(T.name).hide();
 	this.#Init_vars ();
 	this.#Init ();
 }
@@ -80,28 +73,27 @@ async #WaitFor (o) {
 }
   
 async #Init () {
-	this.#e = $("<div>").attr("id", this.#id).addClass(B.name).hide().appendTo(`#${$app.Constants.Name}`);
 	
 	/**/
-	await this.#WaitFor ((o)=> B.lib.Map);
-	if (!B?.lib?.Map) return setTimeout ((t)=> t.#Init(), 1000, this); // 🗒: '()=>' needed
+	await this.#WaitFor ((o)=> T.lib.Map);
+	if (!T?.lib?.Map) return setTimeout ((t)=> t.#Init(), 1000, this); // 🗒: '()=>' needed
 	/**/
 	
-	this.#map = new B.lib.Map(document.getElementById (this.#id), {
-		center: B.israel, 
+	this.#map = new T.lib.Map (document.getElementById (this.id), {
+		center: T.israel, 
 		zoom: 7,
 		mapTypeId: "hybrid", // terrain, hybrid, satellite
 		disableDefaultUI: true, // - doesn't work
 	});
 	
 	/**/
-	await this.#WaitFor (()=> B.lib.places.PlacesService); 
-	const PS = (t, B)=> {
-		if (B.lib.places.PlacesService) return t.#service = new B.lib.places.PlacesService(t.#map);
-		setTimeout ((t, B)=> PS, 1000, this, B); 
+	await this.#WaitFor (()=> T.lib.places.PlacesService); 
+	const PS = (t, T)=> {
+		if (T.lib.places.PlacesService) return t.#service = new T.lib.places.PlacesService(t.#map);
+		setTimeout ((t, T)=> PS, 1000, this, T); 
 		return false;
 	};
-	PS (this, B);
+	PS (this, T);
 	/**/
 }
 
@@ -150,7 +142,7 @@ async Set (p, ic) {
 	
 	this.#e.show ();
 	
-	const ls_id = `${B.name}️.${p}`,
+	const ls_id = `${T.name}️.${p}`,
 		ls = JSON.parse(localStorage.getItem (ls_id)),
 		Add = (n)=> {
 			if (!n?.length) return; // just to be safe
@@ -170,10 +162,10 @@ async Set (p, ic) {
 		query: p,
 		fields: ["geometry.location"],
 		language: "iw",
-		locationBias: B.israel,
+		locationBias: T.israel,
 	};
 	this.#service.findPlaceFromQuery(request, (n, status) => {
-		if (status === B.lib.places.PlacesServiceStatus.OK && Add (n) )
+		if (status === T.lib.places.PlacesServiceStatus.OK && Add (n) )
 			localStorage.setItem(ls_id, JSON.stringify(n));
 	});
 	return true;
@@ -181,12 +173,12 @@ async Set (p, ic) {
 
 //  instead of Places:
 /*
-	new B.lib.Geocoder()
+	new T.lib.Geocoder()
 	.geocode(p)
 	.then((result) => {
 		const { results } = result;
 		map.setCenter(results[0].geometry.location);
-		const marker = new B.lib.Marker();
+		const marker = new T.lib.Marker();
 		marker.setPosition(results[0].geometry.location);
 		marker.setMap(this.#map);
 	})
@@ -279,5 +271,8 @@ async Set (p, ic) {
 }
 
 } // T
+
+//
+T.Init (); 
 
 })();
