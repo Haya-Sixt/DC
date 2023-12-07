@@ -9,7 +9,7 @@ const wdgt = new $app.Widget ('🤖'),
 //
 wdgt.Init = ()=> {
 	$(wdgt.sid).html(`<div style="position: absolute; top: -100vh;">${c_mark}</div>`);
-	Listener ();
+	setTimeout (()=> Listener, 3000);
 }
 
 //
