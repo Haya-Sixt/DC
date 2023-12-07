@@ -9,7 +9,7 @@ const wdgt = new $app.Widget ('🤖'),
 //
 wdgt.Init = ()=> {
 	$(wdgt.sid).html(`<div style="position: absolute; top: -100vh;">${c_mark}</div>`);
-	setTimeout (()=> Listener, 3000);
+	Listener;
 }
 
 //
@@ -18,6 +18,7 @@ wdgt.Update = Inactive;
 
 //
 function Listener () {
+	try {
 	const Init = ()=> window['🙊'].SetValue (wdgt.id, '');
 	Init ();
 	window['🙊'].AddValueChangeListener (wdgt.id, (k, oldV, v, remote)=> {
@@ -25,6 +26,7 @@ function Listener () {
 		Init ();
 		Dispatch (v);
 	});
+	} catch { setTimeout (Listener, 3000) }
 }
 
 
