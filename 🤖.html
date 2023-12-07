@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html style="background-color: black;">
+
+<head>
+<meta charset="UTF-8">
+</head>
+
+<body>
+
+</body>
+
+<script>
+// 🗒: script isn't in 'head', to let 🐵 be first
+const name = '🤖';
+
+//
+function Reciever () {
+	const p = new URL (location)?.searchParams;
+	if (!p?.get (name)) return;
+	window['🙊'].SetValue (name, { v: p?.get (name), t: p?.get ('t') });
+	open(location, '_self').close();
+	window.close();
+	setInterval(()=> window.history.back(), 200);
+}
+//
+Reciever ();
+
+</script>
+		
+</html>
