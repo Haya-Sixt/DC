@@ -59,27 +59,21 @@ static async Init () {
 
 //
 constructor (id) {
-	super (`${T.name}️.${id}`, { appendTo: '' });
+	super (`${T.name}️_${id}`, { appendTo: '' });
 	this.#e = $(document.getElementById (this.id)).addClass(T.name).hide();
 	this.#Init_vars ();
 	this.#Init ();
 }
 
-/*
-async #WaitFor (o) {
-	await new Promise(resolve => {
-		const R = ()=> setTimeout(()=> { o ? resolve() : R() }, 1000);
-		R ();
-	});
-}
-*/
+//
 async #WaitFor (o) {
 	return new Promise ((resolve)=> {
 		const R = ()=> setTimeout (()=> { o ? resolve() : R() }, 1000);
 		R ();
 	})
 }
-  
+
+//
 async #Init () {
 	
 	/**/

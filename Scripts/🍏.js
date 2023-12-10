@@ -25,7 +25,7 @@ const app = {
             $('<div>').attr('id', id).appendTo (`#${app.Constants.Name}${ typeof options?.appendTo == 'undefined' ? 'c1' : options.appendTo }`);
             
             const p = '🌃';
-            this[`_${p}`] = app.Constants[p].Hide;
+            this[`_${p}`] = typeof options?.[p] == 'undefined' ? app.Constants[p].Hide : options[p];
             addEventListener (app.Constants.Event (app.Constants.Var(p)), this [p]);
         }
         //
@@ -42,6 +42,7 @@ const app = {
     },
 };
 
+//
 app.Widget = class T extends app.UIComponent {
 	constructor (id, options = {}) {
 	    super (id, options);
@@ -50,7 +51,7 @@ app.Widget = class T extends app.UIComponent {
 	    this.status = this.init = this.update = this.url = this.dependency = null;
 	    this.repeat = {init: 0, update: 0};
 	
-	    $(this.sid).addClass('wdgt');//.html(`${id}...`);
+	    $(this.sid).addClass('wdgt');
 	}
 	//
 	get Init () {
@@ -120,7 +121,7 @@ app.Widget = class T extends app.UIComponent {
 	Reset (e='get') {
 	    this.Error(e, 'failed.\nResetting (40s)...');
 	    setTimeout(this.Init, 1000*40);
-	    app.Widgets['🤖']?.Send (`${app.Constants.Name}.${this.id}.Reset`);
+	    app.Service['🤖']?.Send (`${app.Constants.Name}.${this.id}.Reset`);
 	}
 	Error (e, t) {
 		console.log (this.id, t, e);
@@ -135,6 +136,16 @@ app.Widget = class T extends app.UIComponent {
 	    $(this.sid).text(`${this.id} ${t}: ${e}`).addClass("error");
 	}
 } // Widget
+
+
+//
+app.Service = class T extends app.Widget {
+	constructor (id, options = {}) {
+		const p = '🌃';
+		if (typeof options?.[p] == 'undefined') options[p] = app.Constants[p].None;
+	    super (id, options);
+	}
+}
 
 
 //
@@ -178,7 +189,7 @@ function Init () {
 	    ['🔔','⏳','📅','🌡️','🪵','🚥','⏱️','📒','🗺️','🪖','🤖']
 	    .forEach((e)=> { const script = document.createElement('script'); script.type = 'text/javascript'; script.src = app.Constants.Host + 'Scripts/' + e + '.js'; document.head.appendChild(script); } ); 
 	}
-}
+} // Init
 
 
 //

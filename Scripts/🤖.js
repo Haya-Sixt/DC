@@ -2,14 +2,14 @@
 (()=>{
 
 // Back-end communication
-const wdgt = new $app.Widget ('🤖'),
+const wdgt = new $app.Service ('🤖'),
 	c_mark = `${$app.Constants.Name}.${wdgt.id}`;
 
 
 //
 wdgt.Init = ()=> {
 	$(wdgt.sid).html(`<div style="position: absolute; top: -100vh;">${c_mark}</div>`);
-	Listener;
+	Listener ();
 }
 
 //
