@@ -5,7 +5,7 @@ ps -ef | grep rclone
 kill {pid}
 
 ---------pull----------
-sh /storage/emulated/0/Documents/Apps/MacroDroid/🖥️/scripts/🐈‍⬛.sh 🖥️/DC
+sh /storage/emulated/0/Documents/Apps/🤖/🖥️/scripts/🐈‍⬛.sh 🖥️/DC
 
 --------commit---------
 
