@@ -65,18 +65,26 @@ constructor (id) {
 	this.#Init ();
 }
 
+/*
 async #WaitFor (o) {
 	await new Promise(resolve => {
 		const R = ()=> setTimeout(()=> { o ? resolve() : R() }, 1000);
 		R ();
 	});
 }
+*/
+async #WaitFor (o) {
+	return new Promise ((resolve)=> {
+		const R = ()=> setTimeout (()=> { o ? resolve() : R() }, 1000);
+		R ();
+	})
+}
   
 async #Init () {
 	
 	/**/
 	await this.#WaitFor ((o)=> T.lib.Map);
-	if (!T?.lib?.Map) return setTimeout ((t)=> t.#Init(), 1000, this); // 🗒: '()=>' needed
+	//if (!T?.lib?.Map) return setTimeout ((t)=> t.#Init(), 1000, this); // 🗒: '()=>' needed
 	/**/
 	
 	this.#map = new T.lib.Map (document.getElementById (this.id), {
@@ -88,12 +96,12 @@ async #Init () {
 	
 	/**/
 	await this.#WaitFor (()=> T.lib.places.PlacesService); 
-	const PS = (t, T)=> {
-		if (T.lib.places.PlacesService) return t.#service = new T.lib.places.PlacesService(t.#map);
-		setTimeout ((t, T)=> PS, 1000, this, T); 
-		return false;
-	};
-	PS (this, T);
+	//const PS = (t, T)=> {
+		//if (T.lib.places.PlacesService) return t.#service = new T.lib.places.PlacesService(t.#map);
+		//setTimeout ((t, T)=> PS, 1000, this, T); 
+		//return false;
+	//};
+	//PS (this, T);
 	/**/
 }
 
@@ -102,7 +110,7 @@ async Set (p, ic) {
 	/**/
 	await this.#WaitFor (()=> this.#map); 
 	await this.#WaitFor (()=> this.#service); 
-	if (!this.#map || !this.#service) return setTimeout ((t, p, ic)=> t.Set(p, ic), 1000, this, p, ic); // 🗒: '()=>' needed
+	//if (!this.#map || !this.#service) return setTimeout ((t, p, ic)=> t.Set(p, ic), 1000, this, p, ic); // 🗒: '()=>' needed
 	/**/
 	
 	if (typeof p == 'object') {

@@ -18,22 +18,26 @@ wdgt.Update = Inactive;
 
 //
 function Listener () {
-	try {
-	const Init = ()=> window['🙊'].SetValue (wdgt.id, '');
-	Init ();
-	window['🙊'].AddValueChangeListener (wdgt.id, (k, oldV, v, remote)=> {
-		if (!v) return; 
-		Init ();
-		Dispatch (v);
+	const ws = new WebSocket(`ws://${location.host}`);
+
+	setTimeout (()=> { if (ws.readyState != 1) wdgt.Reset (ws) }, 5000);
+	
+	ws.addEventListener("message", (ev) => {
+	  Dispatch (decodeURIComponent (ev.data));
 	});
-	} catch { setTimeout (Listener, 3000) }
+	
+	ws.addEventListener("disconnect", () => {
+	  wdgt.Reset ("disconnect");
+	});
 }
 
 
 //
 function Dispatch (v) {
-	let t = v.t; 
-	v = v.v;
+	try {
+	v = v.split ('&t=');
+	let t = v [1]; 
+	v = v [0];
 	
 	if (v?.startsWith ($app.Constants.Var ())) {
 		const a = v.replace ($app.Constants.Var (), '').split ('=');
@@ -48,6 +52,7 @@ function Dispatch (v) {
 	else $app.Widgets['🔔'].Info (`${wdgt.id}.Dispatch: ${v}`);
 	
 	$(`${wdgt.sid} div`).html (`${c_mark}.${t}`);
+	} catch (ex) { wdgt.Error ('Dispatch', ex) }
 }
 
 
@@ -75,6 +80,19 @@ function Inactive () {
 
 
 /*
+
+//
+function Listener () {
+	try {
+	const Init = ()=> window['🙊'].SetValue (wdgt.id, '');
+	Init ();
+	window['🙊'].AddValueChangeListener (wdgt.id, (k, oldV, v, remote)=> {
+		if (!v) return; 
+		Init ();
+		Dispatch (v);
+	});
+	} catch { setTimeout (Listener, 3000) }
+}
 
 wdgt.Init = ()=> {
 	...
