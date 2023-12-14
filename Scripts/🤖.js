@@ -65,14 +65,15 @@ wdgt.Send = (n)=> {
 
 
 //
-let i_inactive, inactive = 0;
+let inactive = 0, closed = 0;
 function Inactive () {
-	clearTimeout (i_inactive);
-	i_inactive = setTimeout (()=> {
-		if (inactive > 10) window['🙊'].Close ()
-		else if ($(":focus").length) inactive = 0
-		else Inactive (++inactive);
-	}, 60 * 1000);
+	if (inactive > 10) {
+		if (closed++) return;
+		$app.Widgets['🔔'].Info (`${wdgt.id}.Inactive: ${$(":focus").length}`);
+		//window['🙊'].Close ()
+		}
+	else if ($(":focus").length) inactive = 0
+	else inactive++;
 }
 
 })(); 
