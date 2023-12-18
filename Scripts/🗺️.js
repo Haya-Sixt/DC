@@ -277,4 +277,18 @@ async Set (p, ic) {
 //
 T.Init (); 
 
+//
+//for (let i=0; localStorage.length >i;i++) if (localStorage.key (i) != '🗺️') document.getElementById ("ls").textContent += `\n{k:'${localStorage.key (i)}',v:'${localStorage.getItem(localStorage.key (i))}'},`;
+/* <div id="ls">
+{k:'🗺️️.רמת גן',v:'[{"geometry":{"location":{"lat":32.068424,"lng":34.824785}},"html_attributions":[]}]'},
+{k:'🗺️️.רחובות',v:'[{"geometry":{"location":{"lat":31.8943652,"lng":34.8115292}},"html_attributions":[]}]'},
+{k:'🗺️️.חולון',v:'[{"geometry":{"location":{"lat":32.015833,"lng":34.787384}},"html_attributions":[]}]'},
+{k:'🗺️️.אשקלון',v:'[{"geometry":{"location":{"lat":31.6687885,"lng":34.5742523}},"html_attributions":[]}]'},
+{k:'🗺️️.עכו',v:'[{"geometry":{"location":{"lat":32.933052,"lng":35.082678}},"html_attributions":[]}]'},
+{k:'🗺️️.באר שבע',v:'[{"geometry":{"location":{"lat":31.2521018,"lng":34.7867691}},"html_attributions":[]}]'},
+{k:'🗺️️.תל אביב',v:'[{"geometry":{"location":{"lat":32.0852999,"lng":34.78176759999999}},"html_attributions":[]}]'},
+{k:'🗺️️.צפת',v:'[{"geometry":{"location":{"lat":32.964648,"lng":35.495997}},"html_attributions":[]}]'},
+{k:'🗺️️.פתח תקווה',v:'[{"geometry":{"location":{"lat":32.084041,"lng":34.887762}},"html_attributions":[]}]'},
+{k:'🗺️️.רמלה',v:'[{"geometry":{"location":{"lat":31.931566,"lng":34.872938}},"html_attributions":[]}]'},</div>  */
+
 })();

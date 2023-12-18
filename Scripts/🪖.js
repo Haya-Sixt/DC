@@ -15,7 +15,7 @@ let map;
 wdgt.Update = ()=> {
 	$(wdgt.sid).html('');
 	
-	const a = [], am = [], hyphen = ' - ', comma = ', ';
+	const a = [], am = [], hyphen = ' -', comma = ', ';
 	for (const e of wdgt.data) {
 		// 1 hours expired
 		const startedAt = parseInt(new Date(e.alertDate).getTime () / 1000);
@@ -49,7 +49,7 @@ wdgt.Update = ()=> {
 				.replace ('הדרומי ','')
 				.replace ('צפוני ','')
 				.replace ('מטווח ','');
-			if (d.includes(hyphen)) d = d.replace (d.slice(d.indexOf(hyphen)), '');
+			if (d.includes(hyphen)) d = d.replace (d.slice(d.indexOf(hyphen)), ''); // 'אשדוד -יא,יב,טו,יז,מרינה,סיט' 
 			
 			// again  normalize 'd'. remove words. e.g: מטווח ניר עוז
 			let i = 0, ix, napa; 
