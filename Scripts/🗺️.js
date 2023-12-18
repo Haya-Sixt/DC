@@ -278,7 +278,7 @@ async Set (p, ic) {
 T.Init (); 
 
 //
-//for (let i=0; localStorage.length >i;i++) if (localStorage.key (i) != '🗺️') document.getElementById ("ls").textContent += `\n{k:'${localStorage.key (i)}',v:'${localStorage.getItem(localStorage.key (i))}'},`;
+//for (let i=0; localStorage.length >i;i++) document.getElementById ("ls").textContent += `\n{k:'${localStorage.key (i)}',v:'${localStorage.getItem(localStorage.key (i))}'},`;
 /* <div id="ls">
 {k:'🗺️️.רמת גן',v:'[{"geometry":{"location":{"lat":32.068424,"lng":34.824785}},"html_attributions":[]}]'},
 {k:'🗺️️.רחובות',v:'[{"geometry":{"location":{"lat":31.8943652,"lng":34.8115292}},"html_attributions":[]}]'},
