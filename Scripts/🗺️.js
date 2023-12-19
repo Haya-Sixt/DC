@@ -107,6 +107,8 @@ async Set (p, ic) {
 	//if (!this.#map || !this.#service) return setTimeout ((t, p, ic)=> t.Set(p, ic), 1000, this, p, ic); // 🗒: '()=>' needed
 	/**/
 	
+	this.#e.text().includes('אופס! משהו השתבש') && location.reload (); // d id="🗺️️_🪖" class="🗺️" » d » d class="gm-err-container 
+	
 	if (typeof p == 'object') {
 		let g;
 		
