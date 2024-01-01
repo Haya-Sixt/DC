@@ -18,15 +18,22 @@ const app = {
     },
     Widgets: [],
     UIComponent: class T {
+//    	static constructor ?  {
+//    		const p = '🌃', c = `--${app.Constants.Name}️-${p}-`, cH = `${c}${app.Constants[p].Hide}`, ...Dim; 
+//    		addEventListener (app.Constants.Event (app.Constants.Var(p)), ()=> {
+//    			if (app.Vars[p] == "true") Helper.setVar...
+//    		});
+//		},
     	constructor (id, options = {}) {
             this.id = id;
             this.sid = `#${id}`;
             
             $('<div>').attr('id', id).appendTo (`#${app.Constants.Name}${ typeof options?.appendTo == 'undefined' ? 'c1' : options.appendTo }`);
             
-            const p = '🌃';
+            const p = '🌃', c = `${p}${ typeof options?.[p] == 'undefined' ? app.Constants[p].Hide : options[p] }`; 
             this[`_${p}`] = typeof options?.[p] == 'undefined' ? app.Constants[p].Hide : options[p];
             addEventListener (app.Constants.Event (app.Constants.Var(p)), this [p]);
+            this[p] ();
         }
         //
         get ['🌃'] () {

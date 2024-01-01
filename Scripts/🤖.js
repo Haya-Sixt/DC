@@ -1,7 +1,7 @@
 //
 (()=>{
 
-// Back-end communication
+// inter system communication
 const wdgt = new $app.Service ('🤖'),
 	c_mark = `${$app.Constants.Name}.${wdgt.id}`;
 
@@ -49,7 +49,7 @@ function Dispatch (v) {
 		v = `${ v[0] }${ v.length == 1 ? '' : '...' }`;
 		$app.Widgets['⏱️'].Add (v, wdgt.id);
 	}
-	else $app.Widgets['🔔'].Info (`${wdgt.id}.Dispatch: ${v}`);
+	else $app.Widgets['🔔'].Info (`${v} (${wdgt.id})`);
 	
 	$(`${wdgt.sid} div`).html (`${c_mark}.${t}`);
 	} catch (ex) { wdgt.Error ('Dispatch', ex) }

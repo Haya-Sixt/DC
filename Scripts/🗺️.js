@@ -15,7 +15,11 @@ wdgt.Update = ()=> {
 	//T.Init ();
 };
 
-wdgt.Add = (id)=> { 
+wdgt.Add = (id)=> {
+	//const o = {
+		//Set: ()=> {...},
+		//map: new T (id),
+	//}; 
 	return new T (id);
 }
 
@@ -90,6 +94,7 @@ async #Init () {
 	
 	/**/
 	await this.#WaitFor (()=> T.lib.places.PlacesService); 
+	this.#service = new T.lib.places.PlacesService(this.#map);
 	//const PS = (t, T)=> {
 		//if (T.lib.places.PlacesService) return t.#service = new T.lib.places.PlacesService(t.#map);
 		//setTimeout ((t, T)=> PS, 1000, this, T); 
