@@ -112,7 +112,7 @@ wdgt.Init = ()=> {
 
 	for (const e of $app.Widgets['🪵'].Entries(now, true)) {
 		if (e.log.includes($app.Widgets['🪵'].Constants.Ender)) {
-			const m = new RegExp(`<div name.* data=.*?\\s${e.log.split($app.Widgets['🪵'].Constants.Ender)[1].split(' ')[0]}\\s.*?${spacer}`,`umg`);
+			const m = new RegExp(`<div name="[^"]" data=.*?\\s${e.log.split($app.Widgets['🪵'].Constants.Ender)[1].split(' ')[0]}\\s.*?${spacer}`,`umg`);
 			rs = rs.replace(m, '');
 		}
 		if ( !e.log.includes("[") ) continue;
