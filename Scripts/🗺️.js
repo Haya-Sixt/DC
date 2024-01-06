@@ -16,20 +16,18 @@ wdgt.Update = ()=> {
 };
 
 wdgt.Add = (id)=> {
-	//return new T (id);
-	////* // disabled bc 'try-catch' of async...
 	const e = {
 		m: new T (id),
 		Set: (...args)=> e.m.Set (args).catch (()=> e.Reset (args)),
 		Reset: (args)=> {
 			const t = 5, A = (m = '')=> $app.Widgets['🔔'].Alert (`${wdgt.id}.Reset${m ? `: ${m}` : ''}`);
 			try {
-			A ();
+			//A ();
 			T.Init (); 
 			setTimeout (()=> 
 				(e.m = new T (id)).Set (args).catch (()=> {
-					A (`Failed twice. Reload in ${t}s`);
-					setTimeout (()=> location.reload (), t * 1000); // 🗒: needed '()=>'. Otherwise 'Illegal Invocation'
+					//A (`Failed twice. Reload in ${t}s`);
+					//setTimeout (()=> location.reload (), t * 1000); // 🗒: needed '()=>'. Otherwise 'Illegal Invocation'
 				})
 			, t * 1000);
 			} catch (er) { A (er) }
