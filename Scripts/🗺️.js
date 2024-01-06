@@ -16,11 +16,26 @@ wdgt.Update = ()=> {
 };
 
 wdgt.Add = (id)=> {
-	//const o = {
-		//Set: ()=> {...},
-		//map: new T (id),
-	//}; 
-	return new T (id);
+	//return new T (id);
+	////* // disabled bc 'try-catch' of async...
+	const e = {
+		m: new T (id),
+		Set: (...args)=> e.m.Set (args).catch (()=> e.Reset (args)),
+		Reset: (args)=> {
+			const t = 5, A = (m = '')=> $app.Widgets['🔔'].Alert (`${wdgt.id}.Reset${m ? `: ${m}` : ''}`);
+			try {
+			A ();
+			T.Init (); 
+			setTimeout (()=> 
+				(e.m = new T (id)).Set (args).catch (()=> {
+					A (`Failed twice. Reload in ${t}s`);
+					setTimeout (()=> location.reload (), t * 1000); // 🗒: needed '()=>'. Otherwise 'Illegal Invocation'
+				})
+			, t * 1000);
+			} catch (er) { A (er) }
+		},
+	}; 
+	return e; 
 }
 
 
@@ -112,7 +127,7 @@ async Set (p, ic) {
 	//if (!this.#map || !this.#service) return setTimeout ((t, p, ic)=> t.Set(p, ic), 1000, this, p, ic); // 🗒: '()=>' needed
 	/**/
 	
-	this.#e.text().includes('אופס! משהו השתבש') && location.reload (); // d id="🗺️️_🪖" class="🗺️" » d » d class="gm-err-container 
+	//if (this.#e.text().includes('אופס! משהו השתבש')) location.reload (); // d id="🗺️️_🪖" class="🗺️" » d » d class="gm-err-container 
 	
 	if (typeof p == 'object') {
 		let g;

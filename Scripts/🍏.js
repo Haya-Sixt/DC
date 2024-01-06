@@ -28,6 +28,7 @@ const app = {
             this.id = id;
             this.sid = `#${id}`;
             
+            $(this.sid).remove (); // e.g. 🗺️
             $('<div>').attr('id', id).appendTo (`#${app.Constants.Name}${ typeof options?.appendTo == 'undefined' ? 'c1' : options.appendTo }`);
             
             const p = '🌃', c = `${p}${ typeof options?.[p] == 'undefined' ? app.Constants[p].Hide : options[p] }`; 
