@@ -15,7 +15,7 @@ let map;
 wdgt.Update = ()=> {
 	$(wdgt.sid).html('');
 	
-	const a = [], am = [], hyphen = ' -', comma = ', ';
+	const a = [], hyphen = ' -';
 	for (const e of wdgt.data) {
 		// 1 hours expired
 		const startedAt = parseInt(new Date(e.alertDate).getTime () / 1000);
@@ -58,14 +58,14 @@ wdgt.Update = ()=> {
 				else i += ix + 1; // ' '
 			
 			// find 'found alerted napa' in 'n'
-			if (napa) napa = n[napa]
+			if (napa) napa = $app.Widgets['🗺️'].napot [napa]
 			else return; // napa = e.data;
 			
 			// adding 'found napa' to 'found alerted cat in a'
 			const ac = a.find (({cat})=> c == cat);
-			if (ac?.napa?.includes(napa)) return;
-			if (!ac) a.push ({ cat: c, napa: napa, startedAt: startedAt })
-			else ac.napa += `${comma}${napa}`;
+			if (ac?.napot?.find (({n})=> napa.n == n)) return;
+			if (!ac) a.push ({ cat: c, napot: [napa], startedAt: startedAt })
+			else ac.napot.push (napa);
 		});
 	}
 	
@@ -74,44 +74,13 @@ wdgt.Update = ()=> {
 	//
 	$app.Widgets['🔔'].Clear (wdgt.id);
 	//
-	for (const k in a) {
-		$app.Widgets['🔔'].Info (a[k].cat, a[k].napa, a[k].startedAt, 6 * 60 * 60, wdgt.id);
-		a[k].napa.split (comma).forEach ((e)=> am.push ({p: e, ic: a[k].cat}));
-	}
-	map?.Set (am);
+	for (const k in a) $app.Widgets['🔔'].Info (a[k].cat, a[k].napot.reduce((a,e)=> `${a ? `${a}, ` : ''}${e.n}`, ''), a[k].startedAt, 6 * 60 * 60, wdgt.id);
+	map?.Napot (a);
 };
 
 //
 // converter location » napa
 //
-
-//
-let n = [];
-n[77]='חברון';
-n[62]='באר שבע';
-n[24]='עכו';
-n[11]='ירושלים';
-n[42]='פתח תקווה';
-n[23]='עפולה';
-n[29]='הגולן';
-n[22]='כנרת';
-n[61]='אשקלון';
-n[43]='רמלה';
-n[41]='השרון';
-n[32]='חדרה';
-n[73]='טול כרם';
-n[76]='בית לחם';
-n[21]='צפת';
-n[75]='יריחו'; // ירדן
-n[74]='ראמאללה'
-n[44]='רחובות';
-n[53]='חולון';
-n[52]='רמת גן';
-n[72]='שכם';
-n[25]='נצרת';
-n[31]='חיפה';
-n[51]='תל אביב';
-n[71]="ג'נין";
 
 //
 let y = []; 

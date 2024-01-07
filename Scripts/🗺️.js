@@ -17,24 +17,51 @@ wdgt.Update = ()=> {
 
 wdgt.Add = (id)=> {
 	const e = {
+		ls_id: `${wdgt.id}.🦺`,
 		m: new T (id),
-		Set: (...args)=> e.m.Set (args).catch (()=> e.Reset (args)),
-		Reset: (args)=> {
-			const t = 5, A = (m = '')=> $app.Widgets['🔔'].Alert (`${wdgt.id}.Reset${m ? `: ${m}` : ''}`);
-			try {
-			//A ();
-			T.Init (); 
-			setTimeout (()=> 
-				(e.m = new T (id)).Set (args).catch (()=> {
-					//A (`Failed twice. Reload in ${t}s`);
-					//setTimeout (()=> location.reload (), t * 1000); // 🗒: needed '()=>'. Otherwise 'Illegal Invocation'
-				})
-			, t * 1000);
-			} catch (er) { A (er) }
+		Napot: (args)=> {
+			e.m.Napot (args).catch (()=> e.Reset (args));
+			sessionStorage.removeItem (e.ls_id); 
+		},
+		Reset: (args)=> { 
+			//const t = 3, A = (m = '')=> $app.Widgets['🔔'].Alert (`${wdgt.id}.Reset${m ? `: ${m}` : ''}`);
+			//try { //A (); //T.Init (); //setTimeout (()=> //(e.m = new T (id)).Set (args).catch (()=> { //A (`Failed twice. Reload in ${t}s`); //setTimeout (()=> 
+			if (sessionStorage.getItem (e.ls_id)) return; sessionStorage.setItem (e.ls_id, true);
+			location.reload ()//, t * 1000); // 🗒: needed '()=>'. Otherwise 'Illegal Invocation'
+			//}) //, t * 1000); //} catch (er) { A (er) }
 		},
 	}; 
 	return e; 
 }
+
+//
+wdgt.napot = {
+	77:{n:'חברון',lat:31.532569,lng:35.09982600000001},
+	62:{n:'באר שבע',lat:31.2521018,lng:34.7867691},
+	24:{n:'עכו',lat:32.933052,lng:35.082678},
+	11:{n:'ירושלים',lat:31.768319,lng:35.21371},
+	42:{n:'פתח תקווה',lat:32.084041,lng:34.887762},
+	23:{n:'עפולה',lat:32.610493,lng:35.287922},
+	29:{n:'הגולן',lat:33.01558540000001,lng:35.784354},
+	22:{n:'כנרת',lat:32.723787,lng:35.565242},
+	61:{n:'אשקלון',lat:31.6687885,lng:34.5742523},
+	43:{n:'רמלה',lat:31.931566,lng:34.872938},
+	41:{n:'השרון',lat:32.3235643,lng:34.9286096},
+	32:{n:'חדרה',lat:32.4340458,lng:34.9196518},
+	73:{n:'טול כרם',lat:32.3194054,lng:35.0239857},
+	76:{n:'בית לחם',lat:32.734558,lng:35.191271},
+	21:{n:'צפת',lat:32.964648,lng:35.495997},
+	75:{n:'יריחו',lat:31.8611058,lng:35.4617583}, // Jordan
+	74:{n:'ראמאללה',lat:31.9037641,lng:35.2034184},
+	44:{n:'רחובות',lat:31.8943652,lng:34.8115292},
+	53:{n:'חולון',lat:32.015833,lng:34.787384},
+	52:{n:'רמת גן',lat:32.068424,lng:34.824785},
+	72:{n:'שכם',lat:32.2226678,lng:35.2621461}, // Nablus
+	25:{n:'נצרת',lat:32.699635,lng:35.303546},
+	31:{n:'חיפה',lat:32.7940463,lng:34.989571},
+	51:{n:'תל אביב',lat:32.0852999,lng:34.78176759999999},
+	71:{n:"ג'נין",lat:32.4646353,lng:35.2938591},
+};
 
 
 // 🗺️
@@ -58,7 +85,7 @@ static async Init () {
 	//
 	T.lib = google.maps;
 	const { Map } = await T.lib.importLibrary("maps");
-	const { Places } = await T.lib.importLibrary("places");
+	//const { Places } = await T.lib.importLibrary("places");
 	
 	T.israel = new T.lib.LatLng (31.94117, 35.00818);
 }
@@ -66,7 +93,7 @@ static async Init () {
 //
 #e = null; // 🗒: 'sid' failed with show/hide.
 #map = null;
-#service = null;
+//#service = null;
 #markers = [];
 #minlt = null;
 #maxlt = null;
@@ -92,11 +119,7 @@ async #WaitFor (o) {
 
 //
 async #Init () {
-	
-	/**/
 	await this.#WaitFor ((o)=> T.lib.Map);
-	//if (!T?.lib?.Map) return setTimeout ((t)=> t.#Init(), 1000, this); // 🗒: '()=>' needed
-	/**/
 	
 	this.#map = new T.lib.Map (document.getElementById (this.id), {
 		center: T.israel, 
@@ -105,124 +128,66 @@ async #Init () {
 		disableDefaultUI: true, // - doesn't work
 	});
 	
-	/**/
-	await this.#WaitFor (()=> T.lib.places.PlacesService); 
-	this.#service = new T.lib.places.PlacesService(this.#map);
-	//const PS = (t, T)=> {
-		//if (T.lib.places.PlacesService) return t.#service = new T.lib.places.PlacesService(t.#map);
-		//setTimeout ((t, T)=> PS, 1000, this, T); 
-		//return false;
-	//};
-	//PS (this, T);
-	/**/
+	//await this.#WaitFor (()=> T.lib.places.PlacesService); 
+	//this.#service = new T.lib.places.PlacesService(this.#map);
 }
 
 //
-async Set (p, ic) {
-	/**/
+async Napot (a) {
 	await this.#WaitFor (()=> this.#map); 
-	await this.#WaitFor (()=> this.#service); 
-	//if (!this.#map || !this.#service) return setTimeout ((t, p, ic)=> t.Set(p, ic), 1000, this, p, ic); // 🗒: '()=>' needed
-	/**/
+	//await this.#WaitFor (()=> this.#service);
 	
-	//if (this.#e.text().includes('אופס! משהו השתבש')) location.reload (); // d id="🗺️️_🪖" class="🗺️" » d » d class="gm-err-container 
+	//this.#e.text().includes('אופס! משהו השתבש') && location.reload (); // d id="🗺️️_🪖" class="🗺️" » d » d class="gm-err-container 
 	
-	if (typeof p == 'object') {
-		let g;
-		
-		// add to markers
-		for (const e of p) 
-			if (this.#Add (e.p, e.ic)) g = 1;
-		
-		// remove from markers
-		for (const i in this.#markers) {
-			const m = this.#markers [i];
-			if (!p.find ((e)=> e.p == m.p && e.ic == m.ic)) {
-				this.#Clear(i);
-				g = 1;
-			}
+	let g;
+	
+	// add to markers
+	for (const ac of a)
+		for (const e of ac.napot) 
+			if (this.#Add (e.n, ac.cat, e)) g = 1;
+	
+	// remove from markers
+	for (const i in this.#markers) {
+		const m = this.#markers [i];
+		if (!a.find ((e)=> e.cat == m.ic && e.napot.some ((e)=> e.n == m.n))) {
+			this.#Clear(i);
+			g = 1;
 		}
-		
-		// exit if no change
-		if (!g) return;
-		
-		// 
-		this.#Init_vars ();
-		for (const m of this.#markers) this.#LatLng (m.r);
 	}
-	else this.#Add (p, ic);
+	
+	// exit if no change
+	if (!g) return;
+	
+	// 
+	this.#Init_vars ();
+	for (const m of this.#markers) this.#LatLng (m.l);
 	
 	//
-	
 	if (this.#markers.length) this.#Center ()
 	else this.#Clear ();
 }
 
 //
-#Add (p, ic) {
-	if (this.#markers.find((e)=> e.p == p && e.ic == ic)) return;
+#Add (n, ic, l) { 
+	if (this.#markers.find ((e)=> e.n == n && e.ic == ic)) return;
 	
 	this.#e.show ();
 	
-	const ls_id = `${T.name}️.${p}`,
-		ls = JSON.parse(localStorage.getItem (ls_id)),
-		Add = (n)=> {
-			if (!n?.length) return; // just to be safe
-			let r;
-			for (let i = 0; i < n.length; i++) 
-				if (this.#Marker (n[i], p, ic)) r = true;
-			return r;
-		};
-	
-	//
-	if (ls) {
-		Add (ls);
-		return true;
-	}
-	//
-	const request = {
-		query: p,
-		fields: ["geometry.location"],
-		language: "iw",
-		locationBias: T.israel,
-	};
-	this.#service.findPlaceFromQuery(request, (n, status) => {
-		if (status === T.lib.places.PlacesServiceStatus.OK && Add (n) )
-			localStorage.setItem(ls_id, JSON.stringify(n));
-	});
-	return true;
+	if (this.#Marker (n, ic, l)) return true;
 }
-
-//  instead of Places:
-/*
-	new T.lib.Geocoder()
-	.geocode(p)
-	.then((result) => {
-		const { results } = result;
-		map.setCenter(results[0].geometry.location);
-		const marker = new T.lib.Marker();
-		marker.setPosition(results[0].geometry.location);
-		marker.setMap(this.#map);
-	})
-	.catch((e) => {
-		alert("Geocode was not successful for the following reason: " + e);
-	}); 
-	//this.#map.setCenter(r.geometry.location);
-	//marker.setPosition(results[0].geometry.location);
-*/
-
+	
 //
-#Marker (r, p, ic) {
-	if (!r?.geometry?.location) return;
+#Marker (n, ic, l) {
+	if (!l) return;
 	
 	const h = 32, image = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="${h}" height="${h}"><text dx="-1" dy="26" style="font: ${h-4}px sans-serif;" >${ic}</text></svg>`;
 	
 	this.#markers.push({
-		r: r,
-		p: p, 
+		n: n, 
 		ic: ic,
+		l: l,
 		m: new google.maps.Marker({
-			position: r.geometry.location, 
+			position: l, 
 			map: this.#map,
 			icon: image,
 			/*label: {
@@ -232,14 +197,14 @@ async Set (p, ic) {
 			optimized: true,
 		})
 	});
-	this.#LatLng (r);
+	this.#LatLng (l);
 	return true;
 }
 	
 //
-#LatLng (r) {
-	const lt = typeof r.geometry.location.lat == 'number' ? r.geometry.location.lat : r.geometry.location.lat (), 
-		lg = typeof r.geometry.location.lng == 'number' ? r.geometry.location.lng : r.geometry.location.lng ();
+#LatLng (l) {
+	const lt = typeof l.lat == 'number' ? l.lat : l.lat (), 
+		lg = typeof l.lng == 'number' ? l.lng : l.lng ();
 	if (this.#minlt > lt) this.#minlt = lt;
 	if (this.#minlg > lg) this.#minlg = lg;
 	if (this.#maxlt < lt) this.#maxlt = lt; 
@@ -297,6 +262,38 @@ async Set (p, ic) {
 //
 T.Init (); 
 
+})();
+
+
+// #Add () {
+	//const ls_id = `${T.name}️.${p}`,
+		//ls = JSON.parse(localStorage.getItem (ls_id)),
+		//Add = (n)=> {
+			//if (!n?.length) return; // just to be safe
+			//let r;
+			//for (let i = 0; i < n.length; i++) 
+				//if (this.#Marker (n[i], p, ic)) r = true;
+			//return r;
+		//};
+	
+	//
+	//if (!ls) return;
+	//Add (ls);
+	
+	//const request = { //query: p, //fields: ["geometry.location"], //language: "iw", //locationBias: T.israel, //};
+	//this.#service.findPlaceFromQuery(request, (n, status) => {
+		//if (status === T.lib.places.PlacesServiceStatus.OK && Add (n) )
+			//localStorage.setItem(ls_id, JSON.stringify(n));
+	//});
+	//return true;
+//}
+
+// instead of Places:
+//new T.lib.Geocoder().geocode(p).then((result) => {
+//const { results } = result; map.setCenter(results[0].geometry.location); const marker = new T.lib.Marker(); marker.setPosition(results[0].geometry.location); marker.setMap(this.#map); })
+//.catch((e) => { alert("Geocode was not successful for the following reason: " + e); });
+
+
 //
 //for (let i=0; localStorage.length >i;i++) document.getElementById ("ls").textContent += `\n{k:'${localStorage.key (i)}',v:'${localStorage.getItem(localStorage.key (i))}'},`;
 /* <div id="ls">
@@ -311,4 +308,3 @@ T.Init ();
 {k:'🗺️️.פתח תקווה',v:'[{"geometry":{"location":{"lat":32.084041,"lng":34.887762}},"html_attributions":[]}]'},
 {k:'🗺️️.רמלה',v:'[{"geometry":{"location":{"lat":31.931566,"lng":34.872938}},"html_attributions":[]}]'},</div>  */
 
-})();
