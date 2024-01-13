@@ -112,7 +112,7 @@ wdgt.Init = ()=> {
 
 	for (const e of $app.Widgets['🪵'].Entries(now, true)) {
 		if (e.log.includes($app.Widgets['🪵'].Constants.Ender)) {
-			const m = new RegExp(`<div name="[^"]" data=.*?\\s${e.log.split($app.Widgets['🪵'].Constants.Ender)[1].split(' ')[0]}\\s.*?${spacer}`,`umg`);
+			const m = new RegExp(`<div [^>]*?data=.*?\\s${e.log.split($app.Widgets['🪵'].Constants.Ender)[1].split(' ')[0]}\\s.*?${spacer}`,`mu`);
 			rs = rs.replace(m, '');
 		}
 		if ( !e.log.includes("[") ) continue;
@@ -129,7 +129,7 @@ wdgt.Init = ()=> {
 		duration = endsAt - e.startedAt;
 		//
 		if (now >= endsAt) $(`#🪵 div[data="${e.log}"]`).show()
-		else rs += `<div name="${wdgt.id}" data="${e.log}" startedat="${e.startedAt}" duration="${duration}"><div>${e.log}</div><div></div></div>${spacer}`;
+		else rs += `<div data="${e.log}" name="${wdgt.id}" startedat="${e.startedAt}" duration="${duration}"><div>${e.log}</div><div></div></div>${spacer}`;
 	}
 	
 	$(wdgt.sid).html(rs);
