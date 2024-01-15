@@ -10,11 +10,12 @@ wdgt.Init = ()=> {
 };
 
 //
-wdgt.Start = (...args)=> T.Start (args); 
+wdgt.Start = (...args)=> T.Start (...args); 
 	
 //
 class T {
 
+static #name = '⏳';
 static #template = `<ul class="cdc_flip cdc_dgtPlay">
 	<li class="cdc_before">
 		<div class="cdc_up">
@@ -50,9 +51,14 @@ static Start (mmss) {
 	
 	T.#Stop(true);
 	
-	if ($("#⏳").length) $("#⏳").remove();
-	$("<div>").attr("id","⏳").appendTo("#🪵").html('<div class="cdc_container"></div>');
-		
+	//if ($("#⏳").length) $("#⏳").remove();
+	//$("<div>").attr("id","⏳").appendTo("#🪵").html('<div class="cdc_container"></div>');
+	
+	//$(`#🚥 div[${ $app.Widgets ['🚥'].Add (T.#name) }]`)
+	//	.html (`<div class="cdc_container"></div>`); 
+	
+	$("#⏳").html('<div class="cdc_container"></div>');
+	
 	var html = '', n_s_before = T.#n_s;
 	T.#Play(); 
 	for (var i = 0; i < n_s_before.length; i++) {
@@ -61,9 +67,9 @@ static Start (mmss) {
 			.replaceAll("dgt_active", parseInt(T.#n_s.charAt(i)));
 	}
 
-	$("#⏳ .cdc_container").html(html);
+	$("div.cdc_container").html(html);
 
-	$("#⏳ .cdc_container").show('slow');
+	$("div.cdc_container").show('slow');
 		
 	T.#i_Play = setInterval(T.#Play, 1000); 
 	
@@ -74,16 +80,16 @@ static Start (mmss) {
 static #Play() {
 	try {
 	let minus1 = T.#Timefy(parseInt(T.#n_s)-1);
-	if (!$("#⏳").length) return T.Start (minus1);
+	//if (!$("#⏳").length) return T.Start (minus1); // 🪵 refresh
 	
 	if (minus1.length < T.#n_s.length) 
-		$(".cdc_container .cdc_" + (T.#n_s.length - minus1.length - 1) + "Play").hide('slow');
+		$("div.cdc_container .cdc_" + (T.#n_s.length - minus1.length - 1) + "Play").hide('slow');
 	
 	for (var i = minus1.length-1; i >= 0; i--) {
 		var n_s_i = i + (T.#n_s.length - minus1.length);
 		if (T.#n_s.charAt(n_s_i) != minus1.charAt(i)) {
 						$(".cdc_container .cdc_" + n_s_i + "Play li").toggleClass("cdc_active cdc_before");
-			$(".cdc_container .cdc_" + n_s_i + "Play .cdc_active .cdc_inn").text(
+			$("div.cdc_container .cdc_" + n_s_i + "Play .cdc_active .cdc_inn").text(
 			  minus1.charAt(i)
 			); 
 
@@ -101,10 +107,19 @@ static #Stop(force) {
 		return;
 		
 	clearInterval(T.#i_Play);
+	T.#i_Play = 0;
 	T.#beep();
   
 	if (!force) 
-		setTimeout(()=>$("#⏳ .cdc_container").hide('slow'), 3000);
+		setTimeout (()=> {
+			if (parseInt(T.#n_s)) return;
+			$("div.cdc_container").hide('slow');
+			setTimeout (()=> {
+				if (parseInt(T.#n_s)) $("div.cdc_container").show('slow') // 🦺
+				else $("div.cdc_container").remove ();
+				//else $app.Widgets ['🚥'].Remove (T.#name)
+			}, 500);
+		}, 3000);
 }
 
 static #Timefy(n) {
