@@ -7,7 +7,7 @@
 #📆 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><text x="0%" y="95%" font-size="var(--🖥️-c-px-126)" opacity="0.5"></text></svg>'); } /*text is been eval by js*/
 .📆val { color:var(--🖥️-c-ts-2); }
 .📆name { text-shadow: var(--🖥️-c-px-5) 0 var(--🖥️-c-px-5) var(--🖥️-c-b-1), 0 var(--🖥️-c-px-5) var(--🖥️-c-px-5) var(--🖥️-c-b-1), calc(-1 * var(--🖥️-c-px-5)) 0 var(--🖥️-c-px-5) var(--🖥️-c-b-1), 0 calc(-1 * var(--🖥️-c-px-5)) var(--🖥️-c-px-5) var(--🖥️-c-b-1); } 
-#⏳ { opacity:0.5; }
+#⏳ { opacity:0.8; }
 #🗓️ { overflow: hidden; border-top: var(--🖥️-c-px-15) solid var(--🖥️-c-b-1); 
 	background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" style="background-color:var(--🖥️-c-b-1)"><text x="-3%" y="92%" font-size="var(--🖥️-c-px-180)" opacity="0.2"></text></svg>'); } /*text is been eval by js*/
 #🗓️ div.omer { font-size:var(--🖥️-c-px-12); }  
@@ -66,7 +66,7 @@
 #🪵 { top:54%; height:41.5%; } 
 .🪵🚥 { height: calc(41.5% - var(--🖥️-c-px-35) - var(--🖥️-c-px-12)) !important; } 
 #🪵Progress { left:20%; width:60%; height:0%; } 
-#🚥, #⏳ { top: calc(54% + 41.5% - var(--🖥️-c-px-35) - var(--🖥️-c-px-2)); } 
+#🚥, #⏳ { bottom: 1%; } 
 
 #⏱️, #🚥:empty, #⏳:empty { display: none; } 
 
@@ -191,6 +191,9 @@ imo { font-size:var(--🖥️-c-px-22); }
 --🖥️-c-px-126: 8rem;
 --🖥️-c-px-63: 4rem;
 --🖥️-c-px-60: 3.75rem;
+--🖥️-c-px-53: 3.31rem; /*🧮*/
+--🖥️-c-px-50: 3.12rem; /*🧮*/
+--🖥️-c-px-45: 2.81rem; /*🧮*/
 --🖥️-c-px-40: 2.5rem;
 --🖥️-c-px-35: 2.2rem;
 --🖥️-c-px-32: 2rem;

@@ -1,37 +1,13 @@
 
-/* 🏡 (A205U) */
-@media screen and (min-device-width: 730px) {
-
-#___🚥 { flex-wrap: wrap; } 
-___div:has(> div.cdc_container) { position: unset; width: 100%; } 
-div.cdc_container ul.cdc_flip { height: 86px; }  
-
-}
-
-
-/* 📱 (RN10S) */
-@media screen and (max-device-width: 730px) {
-	
-___div:has (> div.cdc_container) { display: none; }  
-	
-}
-
-
 div.cdc_container { 
-    font: normal 11px "Helvetica Neue", Helvetica, sans-serif;
+    font: normal 0 "Helvetica Neue", Helvetica, sans-serif;
     user-select: none;
     color: #888;
     text-shadow: 0 1px 0 rgba(0, 0, 0, .3);
-    _text-align: center;
-    _position: absolute;
-    _left: 50%;
-    _top: 50%;
-    _margin: -35px 0 0 -53px; 
     margin-top: auto; 
     width: 100%;
     display: flex;
     justify-content: center;
-    
 }
  
 div.cdc_container * {
@@ -65,9 +41,10 @@ div.cdc_container * {
     float: left;
     margin: 1.5%;
     width: 30%;
-    font-size: 80px;
+    height: var(--🖥️-c-px-45); /* 🗒: '%' doesn't work */
+    font-size: var(--🖥️-c-px-50);
     font-weight: bold;
-    line-height: 84px;
+    line-height: var(--🖥️-c-px-53);
     border-radius: 6px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, .7);
 }
@@ -79,12 +56,7 @@ div.cdc_container * {
     top: 0;
     width: 100%;
     height: 100%;
-
-}
-
-.cdc_container ul.cdc_flip li {
     display: block;
-    height: 100%;
     perspective: 200px;
 }
 
@@ -110,14 +82,15 @@ div.cdc_container * {
 }
 
 .cdc_container ul.cdc_flip li div.cdc_up:after {
-  content: "";
-  position:absolute;
-  top:44px;
-  left:0;
-  z-index: 5;
+	content: "";
+	position:absolute;
+	___top:44px;
+	___top:50%;
+	left:0;
+	z-index: 5;
     width: 100%;
-  height: 3px;
-  background-color: rgba(0,0,0,.4);
+    height: 3px;
+    background-color: rgba(0,0,0,.4);
 }
 
 .cdc_container ul.cdc_flip li div.cdc_down {
