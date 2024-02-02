@@ -56,13 +56,13 @@
 #📅👈 { left:0%; top:35.2%; } 
 #🌡️ { width:36%; height:34%; left:43%; top:10%; } 
 #💈 { width:2%; height:33%; top:3%; left: 78% } 
-#📆, #⏳ { left:82%; } 
+#📆, #___⏳ { left:82%; } 
 #📆 { top:3%; } 
-#⏳ { width:calc(100% - 82%); }
+#___⏳ { width:calc(100% - 82%); }
 #🗓️ { top:41.5%; width:63%; left: 21%; height:53%; } 
 #⏰ { top:45%; } 
 #⏰.markIconText { top:43%; left: 4.5%; }  
-#🪵, #⏰, #🚥 { left:3%; width:17.3%; } 
+#🪵, #⏰, #🚥, #⏳ { left:3%; width:17.3%; } 
 #🪵 { top:54%; height:41.5%; } 
 .🪵🚥 { height: calc(41.5% - var(--🖥️-c-px-35) - var(--🖥️-c-px-12)) !important; } 
 #🪵Progress { left:20%; width:60%; height:0%; } 
