@@ -8,6 +8,7 @@ div.cdc_container {
     width: 100%;
     display: flex;
     justify-content: center;
+    text-align:left;
 }
  
 div.cdc_container * {
@@ -84,8 +85,6 @@ div.cdc_container * {
 .cdc_container ul.cdc_flip li div.cdc_up:after {
 	content: "";
 	position:absolute;
-	___top:44px;
-	___top:50%;
 	left:0;
 	z-index: 5;
     width: 100%;
