@@ -73,7 +73,7 @@ const wdgt = new $app.Widget('📅👉');
 
 //
 wdgt.Init = ()=> {
-	let date = new Date().toLocaleDateString('he-IL', { day: '2-digit', month: '2-digit' }); // 1. #📅👉 { left:35%; top:35%; }  2. weekday: 'short'  3. .replace("יום ","").replace('.','/'); 
+	let date = new Date().toLocaleDateString('he-IL', { day: '2-digit', month: '2-digit' }).replace('.','/'); 
 	$(wdgt.sid).text(date);
 };
 

@@ -84,7 +84,7 @@
 #🗓️ { border-top: var(--🖥️-c-px-25) solid var(--🖥️-c-b-1); }
 #🗓️ div.omer { font-size: var(--🖥️-c-px-11); } 
 #📅👉, #⏰ { font-size: var(--🖥️-c-px-21); }
-#📅👈, #💈 span { font-size: var(--🖥️-c-px-20); } 
+#📅👈 { font-size: var(--🖥️-c-px-20); } 
 #⏰ { border-radius: var(--🖥️-c-px-20); border: var(--🖥️-c-px-1) solid var(--🖥️-c-b-2); padding:0 var(--🖥️-c-px-6) 0 var(--🖥️-c-px-6); }
 #⏰ span { position: relative; top: calc(-1 * var(--🖥️-c-px-21) / 14); } 
 
@@ -93,9 +93,9 @@
 #🗓️ { width:95%; top:calc(38% + var(--🖥️-c-px-1)); } 
 #📅👉 { right:2.5%; }
 #📅👈 { top:9%; right:2.5%; }
-#⏰ { top:11.8%; left:40%; } 
-#🌡️ { width:72%; height:19%; top:20%; right:-3%; } 
-#⏱️ { top:12.15%; right:2.5%; } 
+#⏰ { top:13.8%; left:38%; } 
+#🌡️ { width:72%; height:19%; top:24%; right:-3%; } 
+#⏱️ { top:14.15%; right:2.5%; } 
 
 #🪵, #🪵Progress, #🚥, #⌚, #💈, #📒, #🔔, #⏳, #🛟, #🤖, .🗺️ { display: none; }  
 
