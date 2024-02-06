@@ -8,7 +8,7 @@ div.cdc_container {
     width: 100%;
     display: flex;
     justify-content: center;
-    text-align:left;
+    direction: ltr;
 }
  
 div.cdc_container * {
