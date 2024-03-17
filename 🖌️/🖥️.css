@@ -97,7 +97,8 @@
 #⏰ { top:11.5%; left:38%; } 
 #🌡️ { width:72%; height:19%; top:20%; right:-3%; } 
 
-#🪵, #🪵Progress, #🚥, #⌚, #💈, #📒, #🔔, #⏳, #🛟, #🤖, .🗺️ { display: none; }  
+#🪵, #🪵Progress, #🚥, #⌚, #💈, #📒, #🔔, #⏳, #🛟, #🤖 { display: none; } 
+.🗺️ { display: none !important; } /* overcome jquery show/hide*/
 
 }
 

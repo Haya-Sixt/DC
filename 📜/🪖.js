@@ -12,7 +12,7 @@ let map;
 // CORS wdgt.url = ()=> `https://www.oref.org.il//Shared/Ajax/GetAlarmsHistory.aspx?lang=he&mode=0`;
 
 //
-wdgt.Update = ()=> {
+wdgt.Update = async ()=> {
 	$(wdgt.sid).html('');
 	
 	const a = [], hyphen = ' -';
@@ -70,11 +70,10 @@ wdgt.Update = ()=> {
 	}
 	
 	//
-	if (a.length && !map) map = $app.Widgets['🗺️'].Add (wdgt.id);
-	//
 	$app.Widgets['🔔'].Clear (wdgt.id);
-	//
 	for (const k in a) $app.Widgets['🔔'].Info (a[k].cat, a[k].napot.reduce((a,e)=> `${a ? `${a}, ` : ''}${e.n}`, ''), a[k].startedAt, 6 * 60 * 60, wdgt.id);
+	//
+	if (a.length && !map) map = await $app.Widgets['🗺️'].Add (wdgt.id);
 	map?.Napot (a);
 };
 

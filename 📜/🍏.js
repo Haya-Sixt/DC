@@ -9,6 +9,7 @@ const app = {
         Name: '🖥️',
         Host: location.href.match(/.*\//umg)[0],
         ['🌃']: { Dim: 'Dim', Hide: 'Hide', None: 'None' },
+        Libs: { '📜': '📜/' },
     },
     Vars : { 
     	Mode: location.hash.replace('#',''),
@@ -28,7 +29,7 @@ const app = {
             this.id = id;
             this.sid = `#${id}`;
             
-            $(this.sid).remove (); // e.g. 🗺️
+            //$(this.sid).remove (); // e.g. 🗺️
             $('<div>').attr('id', id).appendTo (`#${app.Constants.Name}${ typeof options?.appendTo == 'undefined' ? 'c1' : options.appendTo }`);
             
             const p = '🌃', c = `${p}${ typeof options?.[p] == 'undefined' ? app.Constants[p].Hide : options[p] }`; 
@@ -111,11 +112,11 @@ app.Widget = class T extends app.UIComponent {
 	}
 	//
 	get Update () {
-	    return ()=>{ try {
+	    return async ()=>{ try {
 	    $(this.sid).removeClass("error");
 	    let i_update
 	    this.repeat.update && (i_update = setTimeout(this.Update, 1000*60*this.repeat.update));
-	    this.update && (this.update() == app.Constants.Status.NoRepeat) && clearTimeout(i_update);
+	    this.update && (await this.update() == app.Constants.Status.NoRepeat) && clearTimeout(i_update);
 	    if (this.status != app.Constants.Status.Done) {
 	        this.status = app.Constants.Status.Done;
 	        dispatchEvent(new Event( app.Constants.Event (this.id) ));
@@ -133,10 +134,10 @@ app.Widget = class T extends app.UIComponent {
 	}
 	Error (e, t) {
 		console.log (this.id, t, e);
-		try { if (e.stack) e = decodeURIComponent (e.stack.replace('\n','').match (new RegExp (`.*:[0-9]{1,4}:[0-9]{1,4}\\)`, 'gum'))[0].replace('/📜/','').replace (location.href.split('/').slice(0,-1).join('/'), '')) }
+		try { if (e.stack) e = decodeURIComponent (e.stack.replace('\n','').match (new RegExp (`.*:[0-9]{1,4}:[0-9]{1,4}\\)`, 'gum'))[0].replace (`/${app.Constants.Libs ['📜']}`, '').replace (location.href.split('/').slice(0,-1).join('/'), '')) }
 		catch { 
 	        const a = e.stack.split('\n'); 
-	        e = a.filter((s, i)=> i < 1 || i == a.length - 1).join('\n').replaceAll(location.origin, '').replaceAll('<anonymous>', '').replaceAll('/DC/📜/', '');
+	        e = a.filter((s, i)=> i < 1 || i == a.length - 1).join('\n').replaceAll(location.origin, '').replaceAll('<anonymous>', '').replaceAll(`/DC/${app.Constants.Libs ['📜']}`, '');
 	        e = decodeURIComponent(decodeURIComponent(e));
 	        if (e.includes(' at XMLHttpRequest')) e = e.slice(0, e.indexOf(' at XMLHttpRequest'));
 	    }
@@ -195,7 +196,7 @@ function Init () {
 	    [app.Constants.Name,'⏳'].forEach((e)=> { const link = document.createElement('link'); link.rel = 'stylesheet'; link.type = 'text/css'; link.href = app.Constants.Host + '🖌️/' + e + '.css'; document.head.appendChild(link); } ); 
 	    // 🗒: To edit in MixPlorer, add '//'
 	    ['🔔','⏳','📅','🌡️','🪵','🚥','⏱️','📒','🗺️','🪖','🤖']
-	    .forEach((e)=> { const script = document.createElement('script'); script.type = 'text/javascript'; script.src = app.Constants.Host + '📜/' + e + '.js'; document.head.appendChild(script); } ); 
+	    .forEach((e)=> { const script = document.createElement('script'); script.type = 'text/javascript'; script.src = `${app.Constants.Host}${app.Constants.Libs ['📜']}${e}.js`; document.head.appendChild(script); } ); 
 	}
 } // Init
 

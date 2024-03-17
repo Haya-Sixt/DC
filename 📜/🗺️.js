@@ -2,37 +2,74 @@
 //
 (()=>{
 
+
 // Map 
 const wdgt = new $app.Widget('🗺️');
 
 //
 wdgt.Init = ()=> {
-	$(wdgt.sid).html('');
+	$(wdgt.sid).html ('');
 };
 
 //
-wdgt.Update = ()=> {
-	//T.Init ();
+wdgt.Update = async ()=> {
+	// TEST
+	//const map = await wdgt.Add ('🪖');
+	//map.Napot ([{ cat: '🚀', napot: [wdgt.napot[51]] }]);
 };
 
-wdgt.Add = (id)=> {
+//
+wdgt.Add = async (id)=> {
+	id = `${wdgt.id}_${id}`;
+	
+	if (!$(`#${id}`).length) {
+		top.$ = $;
+		top.$app = $app;
+		
+		new $app.UIComponent (id, { appendTo: '' });
+		const ifr = $(`#${id}`)
+			.addClass(wdgt.id)
+			.hide ()
+			.append ('<iframe>')
+			.children().first ()
+			.attr ('width', '100%')
+			.attr ('height', '100%')
+			.attr ('frameborder', '0')
+			.attr ('scrolling', 'no')
+			.attr ('allowtransparency', 'true'),
+		  b = ifr.contents ()
+			//.html('<!DOCTYPE html>')
+			.find ('body')
+			.addClass (wdgt.id)
+			.attr ('onload', `${Iframe.toString ()} Iframe('${id}')`),
+		  h = b.attr ('style', 'background-color: transparent;')
+			.parent ().find ('head')
+			.append ($(`link[href$="/${$app.Constants.Name}.css"]`).clone());
+			//.append ('<script>').children().first ().attr ('type', 'text/javascript').html (Iframe.toString ());
+			
+		b.trigger('load'); //Iframe.apply(b[0].ownerDocument);
+	}
+	await WaitFor ((o)=> wdgt?.data?.[id]);
+    
 	const e = {
-		ls_id: `${wdgt.id}.🦺`,
-		m: new T (id),
-		Napot: (args)=> {
-			e.m.Napot (args).catch (()=> e.Reset (args));
-			sessionStorage.removeItem (e.ls_id); 
-		},
-		Reset: (args)=> { 
-			//const t = 3, A = (m = '')=> $app.Widgets['🔔'].Alert (`${wdgt.id}.Reset${m ? `: ${m}` : ''}`);
-			//try { //A (); //T.Init (); //setTimeout (()=> //(e.m = new T (id)).Set (args).catch (()=> { //A (`Failed twice. Reload in ${t}s`); //setTimeout (()=> 
-			if (sessionStorage.getItem (e.ls_id)) return; sessionStorage.setItem (e.ls_id, true);
-			location.reload ()//, t * 1000); // 🗒: needed '()=>'. Otherwise 'Illegal Invocation'
-			//}) //, t * 1000); //} catch (er) { A (er) }
+		m: wdgt.data [id], 
+		Napot: (args)=> e.m.Napot (args).catch (()=> e.Reset (args)),
+		Reset: (args)=> {
+			const t = 60;
+			$app.Widgets['🔔'].Alert (`${wdgt.id}.Napot.Reset in ${t} sec`);
+			setTimeout (()=> $(`#${id}`).children().first ().contents ()[0].location.reload (), t * 1000);
 		},
 	}; 
 	return e; 
 }
+
+//
+async function WaitFor (o) {
+	return new Promise ((resolve)=> {
+		const R = ()=> setTimeout (()=> { o ? resolve () : R() }, 1000);
+		R ();
+	})
+} 
 
 //
 wdgt.napot = {
@@ -64,36 +101,38 @@ wdgt.napot = {
 };
 
 
+// 🗒: '"' not allowed! (due to function.toString) 
+function Iframe (id, $ = top.$, $app = top.$app) {
+
 // 🗺️
-class T extends $app.UIComponent {
+class T {
 
 //
-static name = "🗺️";
+static name = '🗺️';
 static israel = 0;
 static lib = 0;
 
 //
 // 🗒: It's after T - 'class T {...}  T.init ()'.
 static async Init () {
-	(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",p="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+p);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[p]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
-		key: sessionStorage.getItem(T.name), // Blue
-		v: "weekly",
-		region: "IL",
-		language: "iw",
+	(g=>{var h,a,k,p='The Google Maps JavaScript API',c='google',l='importLibrary',p='__ib__',m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement('script'));e.set('libraries',[...r]+'');for(k in g)e.set(k.replace(/[A-Z]/g,t=>'_'+t[0].toLowerCase()),g[k]);e.set('callback',c+'.maps.'+p);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[p]=f;a.onerror=()=>h=n(Error(p+' could not load.'));a.nonce=m.querySelector('script[nonce]')?.nonce||'';m.head.append(a)}));d[l]?console.warn(p+' only loads once. Ignoring:',g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
+		key: top.sessionStorage.getItem(T.name), // Blue
+		v: 'weekly',
+		region: 'IL',
+		language: 'iw',
 	});
 
 	//
 	T.lib = google.maps;
-	const { Map } = await T.lib.importLibrary("maps");
-	//const { Places } = await T.lib.importLibrary("places");
+	const { Map } = await T.lib.importLibrary('maps');
+	//const { Places } = await T.lib.importLibrary('places');
 	
 	T.israel = new T.lib.LatLng (31.94117, 35.00818);
 }
 
 //
-#e = null; // 🗒: 'sid' failed with show/hide.
+#sid = null; // 🗒: 'sid' failed with show/hide.
 #map = null;
-//#service = null;
 #markers = [];
 #minlt = null;
 #maxlt = null;
@@ -102,9 +141,8 @@ static async Init () {
 #i_zoom = null; 
 
 //
-constructor (id) {
-	super (`${T.name}️_${id}`, { appendTo: '' });
-	this.#e = $(document.getElementById (this.id)).addClass(T.name).hide();
+constructor () {
+	this.#sid = `#${id}`;
 	this.#Init_vars ();
 	this.#Init ();
 }
@@ -121,10 +159,10 @@ async #WaitFor (o) {
 async #Init () {
 	await this.#WaitFor ((o)=> T.lib.Map);
 	
-	this.#map = new T.lib.Map (document.getElementById (this.id), {
+	this.#map = new T.lib.Map (document.body, {
 		center: T.israel, 
 		zoom: 7,
-		mapTypeId: "hybrid", // terrain, hybrid, satellite
+		mapTypeId: 'hybrid', // terrain, hybrid, satellite
 		disableDefaultUI: true, // - doesn't work
 	});
 	
@@ -134,12 +172,15 @@ async #Init () {
 
 //
 async Napot (a) {
+	let g; 
+	
 	await this.#WaitFor (()=> this.#map); 
 	//await this.#WaitFor (()=> this.#service);
 	
-	//this.#e.text().includes('אופס! משהו השתבש') && location.reload (); // d id="🗺️️_🪖" class="🗺️" » d » d class="gm-err-container 
-	
-	let g;
+	if ( $(document.body).text ().includes ('אופס! משהו השתבש')
+			|| $('.gm-err-container').length ) {
+		throw ''; 
+	}
 	
 	// add to markers
 	for (const ac of a)
@@ -171,7 +212,7 @@ async Napot (a) {
 #Add (n, ic, l) { 
 	if (this.#markers.find ((e)=> e.n == n && e.ic == ic)) return;
 	
-	this.#e.show ();
+	$(this.#sid).show ();
 	
 	if (this.#Marker (n, ic, l)) return true;
 }
@@ -180,7 +221,7 @@ async Napot (a) {
 #Marker (n, ic, l) {
 	if (!l) return;
 	
-	const h = 32, image = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="${h}" height="${h}"><text dx="-1" dy="26" style="font: ${h-4}px sans-serif;" >${ic}</text></svg>`;
+	const h = 32, image = `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='${h}' height='${h}'><text dx='-1' dy='26' style='font: ${h-4}px sans-serif;' >${ic}</text></svg>`;
 	
 	this.#markers.push({
 		n: n, 
@@ -190,10 +231,7 @@ async Napot (a) {
 			position: l, 
 			map: this.#map,
 			icon: image,
-			/*label: {
-				text: p,
-				className: "marker",
-			},*/
+			//label: { text: p, className: 'marker' },
 			optimized: true,
 		})
 	});
@@ -243,7 +281,7 @@ async Napot (a) {
 	this.#markers [i].m.setMap(null);
 	delete this.#markers [i]; 
 	if (i == this.#markers.length - 1 && !( this.#markers = this.#markers.filter ((m)=> m) ).length) {
-		this.#e.hide ();
+		$(this.#sid).hide ();
 		this.#Init_vars ();
 		return true; 
 	}
@@ -259,52 +297,15 @@ async Napot (a) {
 
 } // T
 
+
 //
-T.Init (); 
+T.Init ();
+//
+const wdgt = $app.Widgets ['🗺️'];
+if (!wdgt.data) wdgt.data = [];
+$app.Widgets ['🗺️'].data [id] = new T ();
+
+} // Iframe
+
 
 })();
-
-
-// #Add () {
-	//const ls_id = `${T.name}️.${p}`,
-		//ls = JSON.parse(localStorage.getItem (ls_id)),
-		//Add = (n)=> {
-			//if (!n?.length) return; // just to be safe
-			//let r;
-			//for (let i = 0; i < n.length; i++) 
-				//if (this.#Marker (n[i], p, ic)) r = true;
-			//return r;
-		//};
-	
-	//
-	//if (!ls) return;
-	//Add (ls);
-	
-	//const request = { //query: p, //fields: ["geometry.location"], //language: "iw", //locationBias: T.israel, //};
-	//this.#service.findPlaceFromQuery(request, (n, status) => {
-		//if (status === T.lib.places.PlacesServiceStatus.OK && Add (n) )
-			//localStorage.setItem(ls_id, JSON.stringify(n));
-	//});
-	//return true;
-//}
-
-// instead of Places:
-//new T.lib.Geocoder().geocode(p).then((result) => {
-//const { results } = result; map.setCenter(results[0].geometry.location); const marker = new T.lib.Marker(); marker.setPosition(results[0].geometry.location); marker.setMap(this.#map); })
-//.catch((e) => { alert("Geocode was not successful for the following reason: " + e); });
-
-
-//
-//for (let i=0; localStorage.length >i;i++) document.getElementById ("ls").textContent += `\n{k:'${localStorage.key (i)}',v:'${localStorage.getItem(localStorage.key (i))}'},`;
-/* <div id="ls">
-{k:'🗺️️.רמת גן',v:'[{"geometry":{"location":{"lat":32.068424,"lng":34.824785}},"html_attributions":[]}]'},
-{k:'🗺️️.רחובות',v:'[{"geometry":{"location":{"lat":31.8943652,"lng":34.8115292}},"html_attributions":[]}]'},
-{k:'🗺️️.חולון',v:'[{"geometry":{"location":{"lat":32.015833,"lng":34.787384}},"html_attributions":[]}]'},
-{k:'🗺️️.אשקלון',v:'[{"geometry":{"location":{"lat":31.6687885,"lng":34.5742523}},"html_attributions":[]}]'},
-{k:'🗺️️.עכו',v:'[{"geometry":{"location":{"lat":32.933052,"lng":35.082678}},"html_attributions":[]}]'},
-{k:'🗺️️.באר שבע',v:'[{"geometry":{"location":{"lat":31.2521018,"lng":34.7867691}},"html_attributions":[]}]'},
-{k:'🗺️️.תל אביב',v:'[{"geometry":{"location":{"lat":32.0852999,"lng":34.78176759999999}},"html_attributions":[]}]'},
-{k:'🗺️️.צפת',v:'[{"geometry":{"location":{"lat":32.964648,"lng":35.495997}},"html_attributions":[]}]'},
-{k:'🗺️️.פתח תקווה',v:'[{"geometry":{"location":{"lat":32.084041,"lng":34.887762}},"html_attributions":[]}]'},
-{k:'🗺️️.רמלה',v:'[{"geometry":{"location":{"lat":31.931566,"lng":34.872938}},"html_attributions":[]}]'},</div>  */
-
