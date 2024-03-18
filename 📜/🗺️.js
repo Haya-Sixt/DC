@@ -12,74 +12,51 @@ wdgt.Init = ()=> {
 };
 
 //
-wdgt.Update = async ()=> {
-	// TEST
-	//const map = await wdgt.Add ('🪖');
-	//map.Napot ([{ cat: '🚀', napot: [wdgt.napot[51]] }]);
+wdgt.Update = ()=> {
+	// TEST (🗒: needs to disable in 🪖)
+	//wdgt.Add ('🪖');
+	//wdgt.data ['🪖'].Napot ([{ cat: '🚀', napot: [wdgt.napot[51]] }]);
 };
 
 //
-wdgt.Add = async (id)=> {
-	id = `${wdgt.id}_${id}`;
+wdgt.Add = (id)=> {
+	const sid = `${wdgt.id}_${id}`;
 	
-	if (!$(`#${id}`).length) {
-		top.$ = $;
-		top.$app = $app;
-		
-		new $app.UIComponent (id, { appendTo: '' });
-		const ifr = $(`#${id}`)
-			.addClass(wdgt.id)
-			.hide ()
-			.append ('<iframe>')
-			.children().first ()
-			.attr ('width', '100%')
-			.attr ('height', '100%')
-			.attr ('frameborder', '0')
-			.attr ('scrolling', 'no')
-			.attr ('allowtransparency', 'true'),
-		  b = ifr.contents ()
-			//.html('<!DOCTYPE html>')
-			.find ('body')
-			.addClass (wdgt.id)
-			.attr ('onload', `${Iframe.toString ()} Iframe('${id}')`),
-		  h = b.attr ('style', 'background-color: transparent;')
-			.parent ().find ('head')
-			.append ($(`link[href$="/${$app.Constants.Name}.css"]`).clone());
-			//.append ('<script>').children().first ().attr ('type', 'text/javascript').html (Iframe.toString ());
-			
-		b.trigger('load'); //Iframe.apply(b[0].ownerDocument);
-	}
-	await WaitFor ((o)=> wdgt?.data?.[id]);
-    
-	const e = {
-		m: wdgt.data [id], 
-		Napot: (args)=> e.m.Napot (args).catch (()=> e.Reset (args)),
-		Reset: (args)=> {
-			const t = 60;
-			$app.Widgets['🔔'].Alert (`${wdgt.id}.Napot.Reset in ${t} sec`);
-			setTimeout (()=> $(`#${id}`).children().first ().contents ()[0].location.reload (), t * 1000);
-		},
+	if ( $(`#${sid} > iframe`).contents ().find ('a').length ) return;
+	
+	top.$ = $;
+	top.$app = $app;
+	top.Helpers = Helpers;
+	
+	Map (sid); 
+	
+	wdgt.data [id] = {
+		Napot: (args)=> wdgt.data [`_${sid}`].Napot (args)
+		.catch (async (er)=> {
+			const t = 30; 
+			$app.Widgets['🔔'].Alert (`${wdgt.id} Reset in ${t} sec (${er})`, t);
+			await Helpers.WaitFor (t);
+			Map (sid);
+		}),
 	}; 
-	return e; 
 }
 
 //
-async function WaitFor (o) {
-	return new Promise ((resolve)=> {
-		const R = ()=> setTimeout (()=> { o ? resolve () : R() }, 1000);
-		R ();
-	})
-} 
+wdgt.Remove = (id)=> {
+	const sid = `${wdgt.id}_${id}`;
+	if (wdgt.data) wdgt.data [id] = wdgt.data [`_${sid}`] = null;
+	$(`#${sid}`).remove ();
+}
 
 //
 wdgt.napot = {
-	77:{n:'חברון',lat:31.532569,lng:35.09982600000001},
+	77:{n:'חברון',lat:31.532569,lng:35.0998260},
 	62:{n:'באר שבע',lat:31.2521018,lng:34.7867691},
 	24:{n:'עכו',lat:32.933052,lng:35.082678},
 	11:{n:'ירושלים',lat:31.768319,lng:35.21371},
 	42:{n:'פתח תקווה',lat:32.084041,lng:34.887762},
 	23:{n:'עפולה',lat:32.610493,lng:35.287922},
-	29:{n:'הגולן',lat:33.01558540000001,lng:35.784354},
+	29:{n:'הגולן',lat:33.0155854,lng:35.784354},
 	22:{n:'כנרת',lat:32.723787,lng:35.565242},
 	61:{n:'אשקלון',lat:31.6687885,lng:34.5742523},
 	43:{n:'רמלה',lat:31.931566,lng:34.872938},
@@ -96,20 +73,49 @@ wdgt.napot = {
 	72:{n:'שכם',lat:32.2226678,lng:35.2621461}, // Nablus
 	25:{n:'נצרת',lat:32.699635,lng:35.303546},
 	31:{n:'חיפה',lat:32.7940463,lng:34.989571},
-	51:{n:'תל אביב',lat:32.0852999,lng:34.78176759999999},
+	51:{n:'תל אביב',lat:32.0852999,lng:34.7817675},
 	71:{n:"ג'נין",lat:32.4646353,lng:35.2938591},
 };
 
 
-// 🗒: '"' not allowed! (due to function.toString) 
-function Iframe (id, $ = top.$, $app = top.$app) {
-
+//
+async function Map (id) {
+	new $app.UIComponent (id, { appendTo: '' });
+	const ifr = $(`#${id}`)
+		.addClass(wdgt.id)
+		.hide ()
+		.append ('<iframe>')
+		.children().first ()
+		.attr ('width', '100%')
+		.attr ('height', '100%')
+		.attr ('frameborder', '0')
+		.attr ('scrolling', 'no')
+		.attr ('allowtransparency', 'true'),
+	  b = ifr.contents ()
+		.find ('body')
+		.addClass (wdgt.id)
+		.attr ('onload', `${Load.toString ().replaceAll ('"', "'")} Load('${id}')`),
+	  h = b.attr ('style', 'background-color: transparent;')
+		.parent ().find ('head')
+		.append ($(`link[href$="/${$app.Constants.Name}.css"]`).clone());
+		// 🗒: .append ('<script>').children().first ().attr ('type', 'text/javascript').html (Iframe.toString ()); // failed (Also with .html('<!DOCTYPE html>'))
+		
+	b.trigger('load'); // 🗒: Iframe.apply(b[0].ownerDocument);
+	await Helpers.WaitFor (()=> wdgt?.data?.[`_${id}`]);
+	
+	// 🗒: "Uncaught in promise" - if (!wdgt?.data?.[id]) throw `${wdgt.id}.Map failed`;
+	
+	
+	// 🗒: '"' not allowed! (due to function.toString) 
+	// 🗒: How To Debug ? - use errors (e.g: T.israel = 0), and DevTools...
+	function Load (id) {
+	
 // 🗺️
 class T {
 
 //
 static name = '🗺️';
-static israel = 0;
+static israel = { lat: 31.94117, lng: 35.00818 };
 static lib = 0;
 
 //
@@ -125,13 +131,11 @@ static async Init () {
 	//
 	T.lib = google.maps;
 	const { Map } = await T.lib.importLibrary('maps');
-	//const { Places } = await T.lib.importLibrary('places');
-	
-	T.israel = new T.lib.LatLng (31.94117, 35.00818);
+	const { AdvancedMarkerElement } = await T.lib.importLibrary('marker');
 }
 
 //
-#sid = null; // 🗒: 'sid' failed with show/hide.
+#sid = null; 
 #map = null;
 #markers = [];
 #minlt = null;
@@ -148,39 +152,24 @@ constructor () {
 }
 
 //
-async #WaitFor (o) {
-	return new Promise ((resolve)=> {
-		const R = ()=> setTimeout (()=> { o ? resolve() : R() }, 1000);
-		R ();
-	})
-}
-
-//
 async #Init () {
-	await this.#WaitFor ((o)=> T.lib.Map);
+	await top.Helpers.WaitFor (()=> T.lib.Map);
 	
 	this.#map = new T.lib.Map (document.body, {
 		center: T.israel, 
 		zoom: 7,
+		mapId: `mapId_${this.#sid}`,
 		mapTypeId: 'hybrid', // terrain, hybrid, satellite
 		disableDefaultUI: true, // - doesn't work
 	});
-	
-	//await this.#WaitFor (()=> T.lib.places.PlacesService); 
-	//this.#service = new T.lib.places.PlacesService(this.#map);
 }
 
 //
 async Napot (a) {
 	let g; 
 	
-	await this.#WaitFor (()=> this.#map); 
-	//await this.#WaitFor (()=> this.#service);
-	
-	if ( $(document.body).text ().includes ('אופס! משהו השתבש')
-			|| $('.gm-err-container').length ) {
-		throw ''; 
-	}
+	await top.Helpers.WaitFor (()=> this.#map);
+	await top.Helpers.WaitFor (()=> T.lib.marker.AdvancedMarkerElement);
 	
 	// add to markers
 	for (const ac of a)
@@ -206,13 +195,19 @@ async Napot (a) {
 	//
 	if (this.#markers.length) this.#Center ()
 	else this.#Clear ();
+	
+	await top.Helpers.WaitFor (5);
+	if ( top.$(document.body).text ().includes ('אופס! משהו השתבש')
+			|| top.$('.gm-err-container').length ) {
+		throw `something went wrong...`; 
+	} 
 }
 
 //
 #Add (n, ic, l) { 
 	if (this.#markers.find ((e)=> e.n == n && e.ic == ic)) return;
 	
-	$(this.#sid).show ();
+	top.$(this.#sid).show ();
 	
 	if (this.#Marker (n, ic, l)) return true;
 }
@@ -221,20 +216,19 @@ async Napot (a) {
 #Marker (n, ic, l) {
 	if (!l) return;
 	
-	const h = 32, image = `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='${h}' height='${h}'><text dx='-1' dy='26' style='font: ${h-4}px sans-serif;' >${ic}</text></svg>`;
-	
+	const h = 32, svg = `<svg xmlns='http://www.w3.org/2000/svg' width='${h}' height='${h}'><text dx='-1' dy='26' style='font: ${h-4}px sans-serif;' >${ic}</text></svg>`,
+		c = new DOMParser().parseFromString (svg, 'image/svg+xml').documentElement;
+
 	this.#markers.push({
 		n: n, 
 		ic: ic,
 		l: l,
-		m: new google.maps.Marker({
-			position: l, 
+		m: new T.lib.marker.AdvancedMarkerElement ({
 			map: this.#map,
-			icon: image,
-			//label: { text: p, className: 'marker' },
-			optimized: true,
+			position: l, 
+			content: c,
 		})
-	});
+	}); 
 	this.#LatLng (l);
 	return true;
 }
@@ -281,7 +275,7 @@ async Napot (a) {
 	this.#markers [i].m.setMap(null);
 	delete this.#markers [i]; 
 	if (i == this.#markers.length - 1 && !( this.#markers = this.#markers.filter ((m)=> m) ).length) {
-		$(this.#sid).hide ();
+		top.$(this.#sid).hide ();
 		this.#Init_vars ();
 		return true; 
 	}
@@ -298,14 +292,13 @@ async Napot (a) {
 } // T
 
 
-//
-T.Init ();
-//
-const wdgt = $app.Widgets ['🗺️'];
-if (!wdgt.data) wdgt.data = [];
-$app.Widgets ['🗺️'].data [id] = new T ();
-
-} // Iframe
+		T.Init ();
+		//
+		const wdgt = top.$app.Widgets ['🗺️'];
+		if (!wdgt.data) wdgt.data = [];
+		top.$app.Widgets ['🗺️'].data [`_${id}`] = new T ();
+	} // Load
+} // Map
 
 
 })();

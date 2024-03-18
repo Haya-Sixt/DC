@@ -6,13 +6,11 @@ const wdgt = new $app.Widget('🪖');
 wdgt.dependency = ['🗺️'];
 wdgt.repeat = { init: 10 };
 
-let map;
-
 //
 // CORS wdgt.url = ()=> `https://www.oref.org.il//Shared/Ajax/GetAlarmsHistory.aspx?lang=he&mode=0`;
 
 //
-wdgt.Update = async ()=> {
+wdgt.Update = ()=> {
 	$(wdgt.sid).html('');
 	
 	const a = [], hyphen = ' -';
@@ -72,9 +70,12 @@ wdgt.Update = async ()=> {
 	//
 	$app.Widgets['🔔'].Clear (wdgt.id);
 	for (const k in a) $app.Widgets['🔔'].Info (a[k].cat, a[k].napot.reduce((a,e)=> `${a ? `${a}, ` : ''}${e.n}`, ''), a[k].startedAt, 6 * 60 * 60, wdgt.id);
-	//
-	if (a.length && !map) map = await $app.Widgets['🗺️'].Add (wdgt.id);
-	map?.Napot (a);
+	// 
+	 
+	const w = $app.Widgets['🗺️'];
+	if (!a.length) return w.Remove (wdgt.id);
+	!w?.data?.[wdgt.id] && w.Add (wdgt.id);
+	w.data [wdgt.id].Napot (a);
 };
 
 //

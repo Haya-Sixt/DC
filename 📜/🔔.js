@@ -31,18 +31,18 @@ static Info (e, ...args) {
 //
 static Alert (e, ...args) {
 	T.#Box (0, 30, e, ...args);
+	console.log (T.#sid, e, ...args);
 }
 
 //
 static #Box (mode, duration, e, ...args) {
-	const name = (mode ? 'info' : 'alert'), now = parseInt( new Date().getTime() / 1000 );
+	const name = (mode ? 'info' : 'alert'), now = new Date().getTime();
 	//
-	if (typeof e != 'object') e = {
-		title: e, 
-		text: args.length ? args[0] : '', 
-		startedAt: args.length > 1 ? args[1] : now, 
-		duration: args.length > 2 ? args[2] : duration, 
-		group: args.length > 3 ? args[3] : ''}; 
+	if (typeof e != 'object') e = { title: e };
+	if (!e.text) e.text = (args.length > 1 || (args.length == 1 && typeof args[0] != 'number')) ? args[0] : '';
+	if (!e.startedAt) e.startedAt = args.length > 2 ? args[1] : parseInt( now / 1000 );
+	if (!e.duration) e.duration = args.length > 2 ? args[2] : ( (e.startedAt == now && typeof args[args.length - 1] == 'number') ? args[args.length - 1] : duration);
+	if (!e.group) e.group = args.length > 3 ? args[3] : ''; 
 	//
 	if (e.title && e.text) e.title += `<br>`;
 	let tt = (e.title+e.text).replaceAll('"',"'");
@@ -55,7 +55,7 @@ static #Box (mode, duration, e, ...args) {
 		p = `<div style="background-image: linear-gradient(to right, rgba(250, 20, 80, 0.6) 0%, rgba(100, 100, 241, 0.6) 0% );"></div></div>`;
 
 	$(T.#sid).html(`${$(T.#sid).html()}${r}${p}`);
-	T.#Progress ();
+	T.#Progress (); 
 }
 
 //
@@ -85,7 +85,7 @@ static #Progress () {
 	
 	$(del).each((i, t)=> { t.remove () });
 
-	(notes.length - del.length) > 0 && setTimeout(()=> T.#Progress(), 1000*61);
+	(notes.length - del.length) > 0 && setTimeout(()=> T.#Progress(), 1000 * 5);
 } 
 
 //

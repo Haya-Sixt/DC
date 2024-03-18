@@ -29,7 +29,7 @@ const app = {
             this.id = id;
             this.sid = `#${id}`;
             
-            //$(this.sid).remove (); // e.g. 🗺️
+            $(this.sid).remove (); // e.g. 🗺️
             $('<div>').attr('id', id).appendTo (`#${app.Constants.Name}${ typeof options?.appendTo == 'undefined' ? 'c1' : options.appendTo }`);
             
             const p = '🌃', c = `${p}${ typeof options?.[p] == 'undefined' ? app.Constants[p].Hide : options[p] }`; 
@@ -64,7 +64,7 @@ app.Widget = class T extends app.UIComponent {
 	}
 	//
 	get Init () {
-	    return ()=> { 
+	    return async ()=> { 
 	    try {
 	    const ResolveDependency = ()=> {
 	        if (!this.dependency || this.status == app.Constants.Status.Done) return true;
@@ -100,7 +100,7 @@ app.Widget = class T extends app.UIComponent {
 	    if (!ResolveDependency ()) return;
 	    this.status = null; // to be able to dispatch again 
 	    if (this.init) {
-	        this.init();
+	        await this.init();
 	        this.repeat.init && setTimeout(this.Init, 1000*60*this.repeat.init);
 	        this.Update();
 	    }
@@ -202,20 +202,20 @@ function Init () {
 
 
 //
-function On () {
-    for (const [k, w] of Object.entries(app.Widgets)) {
-        w.dependency && w.dependency.forEach(d=> addEventListener(app.Constants.Event (d), w.Init));
-        w.Init();
-    }
-}
-
-
-//
 function Load () {
     const s = document.readyState;
     if (s == "interactive") Init ()
-    else if (s == "complete") On ();
+    else if (s == "complete") Complete ();
+    
+	//
+	function Complete  () {
+	    for (const [k, w] of Object.entries(app.Widgets)) {
+	        w.dependency && w.dependency.forEach(d=> addEventListener(app.Constants.Event (d), w.Init));
+	        w.Init();
+	    }
+	} 
 }
+
 
 //
 document.addEventListener("readystatechange", Load);
@@ -295,4 +295,23 @@ class Helpers {
             Var ();
         }
     }
+    
+	//
+	static async WaitFor (o, steps = 15) {
+		if (typeof o == 'number') {
+			steps = o;
+			o = ()=> false;
+		}
+		return new Promise ((resolve)=> {
+			const Resolve = ()=> {
+					let ok;
+					if (!steps) ok = 1;
+					try { ok || (ok = o ()) } catch { }
+					if (ok) resolve ()
+					else Repeat (--steps);
+				}, 
+				Repeat = (steps)=> setTimeout (Resolve, 1000);
+			Resolve ();
+		})
+	}  
 }
