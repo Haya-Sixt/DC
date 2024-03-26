@@ -19,12 +19,6 @@ const app = {
     },
     Widgets: [],
     UIComponent: class T {
-//    	static constructor ?  {
-//    		const p = '🌃', c = `--${app.Constants.Name}️-${p}-`, cH = `${c}${app.Constants[p].Hide}`, ...Dim; 
-//    		addEventListener (app.Constants.Event (app.Constants.Var(p)), ()=> {
-//    			if (app.Vars[p] == "true") Helper.setVar...
-//    		});
-//		},
     	constructor (id, options = {}) {
             this.id = id;
             this.sid = `#${id}`;
@@ -165,9 +159,6 @@ function Init () {
 
 	//
 	function App () {
-	    //const e = document.createElement('div');
-	    //e.id = app.Constants.Name;
-	    //document.body.appendChild(e);
 	    const a = $("<div>").attr("id", app.Constants.Name),
 	    	c1 = $("<div>").attr("id", `${app.Constants.Name}c1`);
 	    a.appendTo('body');
