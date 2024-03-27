@@ -211,7 +211,8 @@ wdgt.dependency = ['🪵'];
 
 // 
 wdgt.Init = ()=> {
-	wdgt.data = parseFloat($app.Widgets['🪵'].data[wdgt.id]).toFixed(2);
+	wdgt.data = parseInt($app.Widgets['🪵'].data[wdgt.id]);
+	$(wdgt.sid ).html(); 
 };
 
 //

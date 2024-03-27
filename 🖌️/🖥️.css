@@ -53,8 +53,8 @@
 #⌚.🌃Dim { width: 68.25%; height: 54%; }
 #📅👉 { left:40%; top:36%; }
 #📅👈 { left:0%; top:35.2%; } 
-#🌡️ { width:30vw; height:calc(30vw / 4 * 3); left:46%; top:10%; } 
-#💈 { width:2%; height:33%; top:3%; left: 78% } 
+#🌡️ { width:28vw; left:50%; top:0; }
+#💈 { width:2.7%; top:5%; left: 79.5% } 
 #📆 { left:82%; top:3%; } 
 #🗓️ { top:41.5%; width:63%; left: 21%; height:53%; } 
 #⏰ { top:45%; } 
@@ -89,12 +89,12 @@
 
 #📆, #📅👉 { top:5%; }
 #📆, #🗓️ { left:2.5%; } 
-#🗓️ { width:95%; top:38%; } 
+#🗓️ { width:95%; top:40%; } 
 #📅👉 { right:2.5%; }
 #📅👈 { top:8%; right:2.5%; }
 #⏱️ { top:11.85%; right:2.5%; } 
 #⏰ { top:11.5%; left:38%; } 
-#🌡️ { width:60vw; height:calc(60vw / 4 * 3); top:20%; right:0; } 
+#🌡️ { width:60vw; top:18%; right:3%; } 
 
 #🪵, #🪵Progress, #🚥, #⌚, #💈, #📒, #🔔, #⏳, #🛟, #🤖 { display: none; } 
 .🗺️ { display: none !important; } /* overcome jquery show/hide*/
@@ -139,11 +139,11 @@ imo { font-size:var(--🖥️-c-px-22); }
 #⏳, #🔔 {z-index: 8}
 #🪵Progress {z-index: 7}
 #📅👉, #📅👈, #🚥 {z-index: 6}
-#⌚, #💈 {z-index: 5}
+#⌚ {z-index: 5}
 #📆, .dafYomi {z-index: 4}
-#🪵, #⏱️, #⏰ {z-index: 3}
+#🪵, #⏱️, #⏰, #🌡, #💈 {z-index: 3}
 #🗓️ {z-index: 2}
-#🌡, #🗺️️ {z-index: 1}
+#🗺️️ {z-index: 1}
 #🖥️, #🪖, 📒 {z-index: 0}
 
 
