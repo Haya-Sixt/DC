@@ -144,7 +144,7 @@ class Chart {
 		  for (let j = 0; j < 2; j++) {
 		  	const l = d.labelFormatter (i, dp, j);
 		  	Lable (g, l, i, d.labelFontSize, Y(dp [i].y [j], -2));
-		  	Lable (g, "🔘", i, strokeW/3 , Y(dp [i].y [j], 5/strokeW));
+		  	Lable (g, "⚫", i, strokeW/3 , Y(dp [i].y [j], 5/strokeW));
 			}
 	}
 		
