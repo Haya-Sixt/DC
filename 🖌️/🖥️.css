@@ -8,8 +8,7 @@
 .📆val { color:var(--🖥️-c-ts-2); }
 .📆name { text-shadow: var(--🖥️-c-px-5) 0 var(--🖥️-c-px-5) var(--🖥️-c-b-1), 0 var(--🖥️-c-px-5) var(--🖥️-c-px-5) var(--🖥️-c-b-1), calc(-1 * var(--🖥️-c-px-5)) 0 var(--🖥️-c-px-5) var(--🖥️-c-b-1), 0 calc(-1 * var(--🖥️-c-px-5)) var(--🖥️-c-px-5) var(--🖥️-c-b-1); } 
 #⏳ { opacity:0.8; }
-#🗓️ { overflow: hidden; border-top: var(--🖥️-c-px-15) solid var(--🖥️-c-b-1); 
-	background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" style="background-color:var(--🖥️-c-b-1)"><text x="-3%" y="92%" font-size="var(--🖥️-c-px-180)" opacity="0.2"></text></svg>'); } /*text is been eval by js*/
+#🗓️ { overflow: hidden; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" style="background-color:var(--🖥️-c-b-1)"><text x="-3%" y="92%" font-size="var(--🖥️-c-px-180)" opacity="0.2"></text></svg>'); } /*text is been eval by js*/
 #🗓️ div.omer { font-size:var(--🖥️-c-px-12); }  
 #⌚ { background-repeat: no-repeat; background-size: contain; background-position: center; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="77" height="25" fill="var(--🖥️-c-ts-1)"><style>.time{font-family:sans-serif;animation-name:time;animation-duration:12s;animation-iteration-count:infinite;}.colon{animation-name:colon;animation-duration:2s;animation-timing-function:ease;animation-iteration-count:infinite}@keyframes time{0%{fill:rgba(var(--🖥️-c-ts-1_rgb),0.839);}50%{fill:rgba(var(--🖥️-c-ts-2_rgb),0.459);}100%{fill:rgba(var(--🖥️-c-ts-1_rgb),0.839);}}@keyframes colon{0%{opacity:0;}50%{opacity:1;}100%{opacity:0;}}</style><text x="-2" y="24" font-size="32" class="time"></text><rect class="colon" x="36" y="0" width="5" height="25" fill="var(--🖥️-c-b-1)"></rect></svg>'); } /*text is been eval by js*/
 #📅👉 { font-size: var(--🖥️-c-px-23); } 
@@ -75,12 +74,11 @@
 /* 📱 (RN10S) */
 @media screen and (max-device-width: 730px) {
 
-.📆name, .📆val, #⏱️ { font-size: var(--🖥️-c-px-19); }
+.📆name, .📆val { font-size: var(--🖥️-c-px-20); }
 .📆name, #📅👉, #⏰ { color: var(--🖥️-c-t-4); }
 #📆 { background-image: unset !important; }
 .📆val { color:var(--🖥️-c-td-1); } 
-#⏱️ { color: var(--🖥️-c-t-2); }
-#🗓️ { border-top: var(--🖥️-c-px-25) solid var(--🖥️-c-b-1); }
+#⏱️ { color: var(--🖥️-c-t-2); font-size: var(--🖥️-c-px-19); }
 #🗓️ div.omer { font-size: var(--🖥️-c-px-11); } 
 #📅👉, #⏰ { font-size: var(--🖥️-c-px-21); }
 #📅👈 { font-size: var(--🖥️-c-px-20); } 
