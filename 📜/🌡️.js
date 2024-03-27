@@ -212,7 +212,7 @@ wdgt.dependency = ['🪵'];
 // 
 wdgt.Init = ()=> {
 	wdgt.data = parseInt($app.Widgets['🪵'].data[wdgt.id]);
-	$(wdgt.sid ).html(); 
+	$(wdgt.sid ).html(''); 
 };
 
 //
