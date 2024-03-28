@@ -91,13 +91,12 @@ class Chart {
 	}
 	 
 	Render () {
-		const ct = this.ct, axisY = ct.axisY, axisX = ct.axisX, vb = {w: 400, get h() {return 300}, get d() {return vb.h/10}, get icons () {return {h: 1.5*vb.d}}, get graph () {return {h: 7.5*vb.d}}, get axisX () {return {h: vb.d}}}, 
+		const ct = this.ct, axisY = ct.axisY, axisX = ct.axisX, d_main = ct.data.find ((e)=> e.type == 'Spline'), vb = {w: 400, get h() {return 300}, get d() {return vb.h/10}, get cw() {return vb.w/(d_main.dataPoints.length*2)}, get icons () {return {h: 1.5*vb.d}}, get graph () {return {h: 7.5*vb.d}}, get axisX () {return {h: vb.d}}}, 
 		  svg = ct.svg = $('<svg>').appendTo (ct.sid).attr ("xmlns", "http://www.w3.org/2000/svg").attr ("viewBox", `0 0 ${vb.w} ${vb.h}`).attr ("style", "display: block; width: 100%; height: 100%;"),
-		  d_main = ct.data.find ((e)=> e.type == 'Spline'),
 		  G = (c)=> $('<g>').appendTo (svg).addClass (c),
 		  X = (i)=> { return (i*2+1)*vb.cw },
-		  Lable = (g, l, i, size, y, dx)=> l && $("<text>").appendTo (g).html (l).attr ("x", X(i) + (size/2)).attr ("y", y).attr ("font-size", size).attr ("dx", dx ? dx : 0); 
-		  
+		  Lable = (g, l, i, size, y, dx)=> l && $("<text>").appendTo (g).html (l).attr ("x", X(i) + (size/2)).attr ("y", y).attr ("font-size", size).attr ("dx", dx ? dx : 0);
+		
 		Icons (d_main);
 		
 		ct.data.forEach ((d)=>{
@@ -122,9 +121,6 @@ class Chart {
 			Stop = (i, mn)=> $("<stop>").appendTo (LG(mn, 1)).attr ("offset", `${X(i)/vb.w*100}%`).attr ("stop-color", GredientConverter.toTemperature(dp[i].y[mn])),
 			Y = (deg, ltr)=> { return  vb.icons.h + vb.graph.h - (deg - axisY.minimum)/(axisY.maximum - axisY.minimum)*vb.graph.h + ltr*strokeW/2},
 			D = (i, mn, ltr = -1, m)=> m === 1 ? `M ${vb.cw} ${Y(dp[0].y[mn], ltr)}${D (i, mn, ltr, 2)}` : ` S ${X(i) + (!m ? ltr*vb.cw : 0)} ${Y(dp[i].y[mn], ltr)} ${X(i) + (m === 2 ? vb.cw/-2 : 0)} ${Y(dp[i].y[mn], ltr)}`;
-		
-		//
-		vb.cw = vb.w/(dp.length*2); 
 		
 		// 
 		for (let i = 0; i < dp.length; i++)
@@ -171,13 +167,7 @@ class Chart {
 	function Icons (d) {
 		const dp = d.dataPoints, g = G ('Icons'),
 		  c_icons = [['☀️',['c01']],
-			['🌤️',['c02']],
-			['⛅',['c']],
-			['☁️',['a']],
-			['🌦',['r01','r04','r05','t01','t02']],
-			['🌧️',['d','f','r','u']],
-			['⛈️',['t']],
-			['🌨️',['s']]],
+			['🌤️',['c02']], ['⛅',['c']], ['☁️',['a']], ['🌦',['r01','r04','r05','t01','t02']], ['🌧️',['d','f','r','u']], ['⛈️',['t']], ['🌨️',['s']]],
 		  Icon = (c) => {
 				for (let i = 0; i < c_icons.length; i++) {
 					for (let j = 0; j < c_icons[i][1].length; j++) {
