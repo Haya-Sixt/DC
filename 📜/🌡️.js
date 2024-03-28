@@ -93,19 +93,19 @@ class Chart {
 	Render () {
 		const ct = this.ct, axisY = ct.axisY, axisX = ct.axisX, vb = {w: 400, get h() {return 300}, get d() {return vb.h/10}, get icons () {return {h: 1.5*vb.d}}, get graph () {return {h: 7.5*vb.d}}, get axisX () {return {h: vb.d}}}, 
 		  svg = ct.svg = $('<svg>').appendTo (ct.sid).attr ("xmlns", "http://www.w3.org/2000/svg").attr ("viewBox", `0 0 ${vb.w} ${vb.h}`).attr ("style", "display: block; width: 100%; height: 100%;"),
+		  d_main = ct.data.find ((e)=> e.type == 'Spline'),
 		  G = (c)=> $('<g>').appendTo (svg).addClass (c),
 		  X = (i)=> { return (i*2+1)*vb.cw },
 		  Lable = (g, l, i, size, y, dx)=> l && $("<text>").appendTo (g).html (l).attr ("x", X(i) + (size/2)).attr ("y", y).attr ("font-size", size).attr ("dx", dx ? dx : 0); 
-		   
-		let spl_d;
+		  
+		Icons (d_main);
+		
 		ct.data.forEach ((d)=>{
-			d.type == "Spline" && Spline (spl_d = d);
+			d.type == "Spline" && Spline (d);
 			d.type == "Column" && Column (d);
 		});
 		
-		AxisX (spl_d);
-		
-		Icons (spl_d);
+		AxisX (d_main);
 		
 		DimTodayColumn ();
 		
