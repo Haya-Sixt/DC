@@ -53,9 +53,9 @@
 #📅👉 { left:40%; top:36%; }
 #📅👈 { left:0%; top:35.2%; } 
 #🌡️ { width:26vw; left:51%; top:2%; }
-#💈 { width:2.6%; top:7%; left: 79% } 
+#💈 { width:2.6%; top:5.5%; left: 79% } 
 #📆 { left:82%; top:3%; } 
-#🗓️ { top:41.5%; width:63%; left: 21%; height:53%; } 
+#🗓️ { top:45%; width:63%; left: 21%; height:53%; } 
 #⏰ { top:45%; } 
 #⏰.markIconText { top:43%; left: 4.5%; }  
 #🪵, #⏰, #🚥, #⏳ { left:3%; width:17.3%; } 
@@ -74,10 +74,10 @@
 /* 📱 (RN10S) */
 @media screen and (max-device-width: 730px) {
 
-.📆name, .📆val { font-size: var(--🖥️-c-px-20); }
+.📆name, .📆val { font-size: var(--🖥️-c-px-21); }
 .📆name, #📅👉, #⏰ { color: var(--🖥️-c-t-4); }
 #📆 { background-image: unset !important; }
-.📆val { color:var(--🖥️-c-td-1); } 
+.📆val { color:var(--🖥️-c-td-1); }
 #⏱️ { color: var(--🖥️-c-t-2); font-size: var(--🖥️-c-px-19); }
 #🗓️ div.omer { font-size: var(--🖥️-c-px-11); } 
 #📅👉, #⏰ { font-size: var(--🖥️-c-px-21); }
@@ -87,12 +87,12 @@
 
 #📆, #📅👉 { top:5%; }
 #📆, #🗓️ { left:2.5%; } 
-#🗓️ { width:95%; top:40%; } 
+#🗓️ { width:95%; top:46%; } 
 #📅👉 { right:2.5%; }
-#📅👈 { top:8%; right:2.5%; }
-#⏱️ { top:11.85%; right:2.5%; } 
-#⏰ { top:11.5%; left:38%; } 
-#🌡️ { width:60vw; top:18%; right:3%; } 
+#📅👈 { top:8.6%; right:2.5%; }
+#⏱️ { top:13%; right:2.5%; } 
+#⏰ { top:12.85%; left:38%; } 
+#🌡️ { width:60vw; top:20%; right:3%; } 
 
 #🪵, #🪵Progress, #🚥, #⌚, #💈, #📒, #🔔, #⏳, #🛟, #🤖 { display: none; } 
 .🗺️ { display: none !important; } /* overcome jquery show/hide*/
