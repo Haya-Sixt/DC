@@ -62,8 +62,8 @@ function Configure () {
 		sid: wdgt.sid,
 		
 		axisY: {
-			minimum: axisY_min-1,
-			maximum: axisY_max+3,
+			minimum: axisY_min-4,
+			maximum: axisY_max+6,
 		},
 		axisX: {
 			labelFontSize: 30,
