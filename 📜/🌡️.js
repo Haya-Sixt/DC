@@ -92,7 +92,7 @@ class Chart {
 	 
 	Render () {
 		const ct = this.ct, axisY = ct.axisY, axisX = ct.axisX, d_main = ct.data.find ((e)=> e.type == 'Spline'), vb = {w: 400, get h() {return 300}, get d() {return vb.h/10}, get cw() {return vb.w/(d_main.dataPoints.length*2)}, get icons () {return {h: 1.5*vb.d}}, get graph () {return {h: 7.5*vb.d}}, get axisX () {return {h: vb.d}}}, 
-		  svg = ct.svg = $('<svg>').appendTo (ct.sid).attr ("xmlns", "http://www.w3.org/2000/svg").attr ("viewBox", `0 0 ${vb.w} ${vb.h}`).attr ("style", "display: block; width: 100%; height: 100%;"),
+		  svg = ct.svg = $('<svg>').attr ("xmlns", "http://www.w3.org/2000/svg").attr ("viewBox", `0 0 ${vb.w} ${vb.h}`).attr ("style", "display: block; width: 100%; height: 100%;"),
 		  G = (c)=> $('<g>').appendTo (svg).addClass (c),
 		  X = (i)=> { return (i*2+1)*vb.cw },
 		  Lable = (g, l, i, size, y, dx)=> l && $("<text>").appendTo (g).html (l).attr ("x", X(i) + (size/2)).attr ("y", y).attr ("font-size", size).attr ("dx", dx ? dx : 0);
@@ -108,17 +108,18 @@ class Chart {
 		
 		DimTodayColumn ();
 		
-	    $(ct.sid).html(`${$(ct.sid ).html()}<div class='${ct.sid.slice (1)}overlay'></div>`); 
+		//
+	    $(ct.sid).html(`${ct.svg.prop('outerHTML')}<div class='${ct.sid.slice (1)}overlay'></div>`); 
 	    
 	    
 	//
 	function Spline (d) {
 		const dp = d.dataPoints, g = G ('Spline'), 
-			strokeW = 20, dm = [], LG = (mn, sid)=> `${sid ? ct.sid : ct.sid.slice (1)}_def_lg${mn}`,
+			strokeW = 20, dm = [], LG = (mn, o)=> o ? (mn ? lg1 : lg0) : `${ct.sid.slice (1)}_def_lg${mn}`,
 			lg0 = $("<linearGradient>").attr ("id",LG(0)).attr ("x1","0").attr ("x2","100%").attr ("y1","0").attr ("y2","0").appendTo ($("<defs>").appendTo (g)),
 			lg1 = lg0.clone ().attr ("id",LG(1)).appendTo (lg0.parent ()),
-			Path = (mn)=> $("<path>").appendTo (g).attr ("d", dm [mn]).attr ("fill",`url(${LG(mn, 1)})`).attr ("stroke-width", 0), 
-			Stop = (i, mn)=> $("<stop>").appendTo (LG(mn, 1)).attr ("offset", `${X(i)/vb.w*100}%`).attr ("stop-color", GredientConverter.toTemperature(dp[i].y[mn])),
+			Path = (mn)=> $("<path>").appendTo (g).attr ("d", dm [mn]).attr ("fill",`url(#${LG(mn)})`).attr ("stroke-width", 0), 
+			Stop = (i, mn)=> $("<stop>").appendTo (LG (mn, 1)).attr ("offset", `${X(i)/vb.w*100}%`).attr ("stop-color", GredientConverter.toTemperature(dp[i].y[mn])),
 			Y = (deg, ltr)=> { return  vb.icons.h + vb.graph.h - (deg - axisY.minimum)/(axisY.maximum - axisY.minimum)*vb.graph.h + ltr*strokeW/2},
 			D = (i, mn, ltr = -1, m)=> m === 1 ? `M ${vb.cw} ${Y(dp[0].y[mn], ltr)}${D (i, mn, ltr, 2)}` : ` S ${X(i) + (!m ? ltr*vb.cw : 0)} ${Y(dp[i].y[mn], ltr)} ${X(i) + (m === 2 ? vb.cw/-2 : 0)} ${Y(dp[i].y[mn], ltr)}`;
 		
