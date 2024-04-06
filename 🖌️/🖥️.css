@@ -1,6 +1,6 @@
 
 /* 🏡 (A205U) */
-@media screen and (min-device-width: 730px) {
+@media (min-device-width: 730px) {
 
 .📆name, #📅👉, #⏰ { color: var(--🖥️-c-ts-1); }
 .📆name, .📆val { font-size: var(--🖥️-c-px-26); filter: grayscale(50%) brightness(50%);}
@@ -69,8 +69,8 @@
 @keyframes 🔔 { 0% {backdrop-filter: unset;} 50% {backdrop-filter: grayscale(50%);} 100% {backdrop-filter: unset;} } 
 @keyframes 🚥 { 50% {filter: drop-shadow(var(--🖥️-c-px-2) var(--🖥️-c-px-4) var(--🖥️-c-px-6) var(--🖥️-c-be-1));} }
 
-#🖥️c1 { container-type: size; container-name: 🖥️c1_narrow; }
-@container 🖥️c1_narrow (max-width: 99vw) and (orientation: landscape) {
+#🖥️c1 { container: 🖥️c1_narrow / size }
+@container 🖥️c1_narrow (max-width: 99vw) {
 	#🌡️ { width:30.6%; left:50%; } 
 	#💈 { display: none; } 
 }
@@ -78,7 +78,7 @@
 }
 
 /* 📱 (RN10S) */
-@media screen and (max-device-width: 730px) {
+@media (max-device-width: 730px) {
 
 .📆name, .📆val { font-size: var(--🖥️-c-px-21); }
 .📆name, #📅👉, #⏰ { color: var(--🖥️-c-t-4); }
