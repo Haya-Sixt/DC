@@ -49,8 +49,8 @@ function Data () {
 	function Pop (p) {
 		const pop = [null, '☂️', '☔', '⚡', '❄️'];
 		p = pop[ Math.ceil( p / (100 / (pop.length - 1) ) ) ];
-		if (p) $app.Widgets['🚥']?.Add (wdgt.id, p)
-		else $app.Widgets['🚥']?.Remove (wdgt.id)
+		$app.Widgets['🚥']?.Remove (wdgt.id);
+		p && $app.Widgets['🚥']?.Add (wdgt.id, p);
 	}
 }
 
