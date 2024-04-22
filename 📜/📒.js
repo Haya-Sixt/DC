@@ -18,13 +18,19 @@ wdgt.Update = ()=> {
 
 
 //
-function Zmanit (h) {
-	const T = (t)=> $app.Widgets['📆'].data[t],
-		d = new Date(T('👑') * 1000), 
-		m = parseFloat(parseFloat ((T('🙏') - T('👑')) / 60).toFixed(1));
-		h -= 4;
-	d.setMinutes(d.getMinutes() + (m * h));
-	return `${d.getHours()}:${d.getMinutes()}`;
+function Zmanit (t) {
+	const c = '{{Zmanit_';
+	t.includes (c) && t.matchAll (`${c}.*?}}`).toArray().forEach ((e)=> {
+		t = t.replace (e[0], ((e)=> {
+			const T = (t)=> $app.Widgets['📆'].data[t],
+				d = new Date(T('👑') * 1000), 
+				m = parseFloat(parseFloat ((T('🙏') - T('👑')) / 60).toFixed(1)),
+				h = e.slice(c.length).slice(0, -2) - 4;
+			d.setMinutes(d.getMinutes() + (m * h));
+			return `${d.getHours()}:${d.getMinutes()}`;
+		}));
+	});
+	return t;
 }
 
 
@@ -84,7 +90,7 @@ wdgt.Entries = function* () {
 		//
 		yield {			
 			title: e[0],
-			text: e[1].substring(0, e[1].indexOf('📒')).replaceAll('<br>','  ').trim(),
+			text: Zmanit (e[1].substring(0, e[1].indexOf('📒')).replaceAll('<br>','  ').trim()),
 			startedAt: startedAt,
 			duration: duration 
 		};
