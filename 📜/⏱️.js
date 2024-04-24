@@ -45,9 +45,9 @@ wdgt.Init = ()=> {
 };
 
 wdgt.Update = ()=> {
-	const time = new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
+	const time = new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' }).replace (':', ' ');
 	//
-	if (time == '00:01' && $(wdgt.sid).text() == '00:00') location.reload (); 
+	if (time == '00 01' && $(wdgt.sid).text() == '00 00') location.reload (); 
 	//
 	Helpers.Css ('background-image', wdgt.sid, time);
 }
