@@ -14,7 +14,7 @@ wdgt.Init = ()=> {
 	gallery = [];
 	counter = 0;
 	
-	const Add = async (dir)=> (await (await fetch (`/ls DC/${wdgt.id}/${dir}`)).json()).forEach ((e)=> gallery.push (e)),
+	const Add = async (dir)=> (await (await fetch (`/ls ${wdgt.id}/${dir}`)).json()).forEach ((e)=> gallery.push (e)),
 		a = [], c = $('#🗓️ .tdCurrent:not(tdCurrentHeb)').text().match(Helpers.Emoji());
 	if (!c) return; 
 	let m = $('#🗓️ .tdCurrentHeb').text().match(Helpers.Emoji());
