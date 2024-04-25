@@ -13,9 +13,8 @@ const app = {
     },
     Vars : { 
     	Mode: location.hash.replace('#',''),
-        '🕯️': 0,
+        '🕯️': 0, '🕯️🕯️': 'false', '🌃': 'false',
         '📆': '',
-        '🌃': 'false',
     },
     Widgets: [],
     UIComponent: class T {
@@ -156,7 +155,7 @@ function Init () {
     App ();
     Observers ();
     Resources ();
-
+    
 	//
 	function App () {
 	    const a = $("<div>").attr("id", app.Constants.Name),
@@ -172,8 +171,9 @@ function Init () {
 	            return Reflect.get(target, prop);
 	        },
 	        set: function(target, prop, value) {
-	        	const r = Reflect.set (target, prop, value);
-	        	if (r) {
+	        	const eq = target [prop] === value,
+	        		r = Reflect.set (target, prop, value);
+	        	if (r && (!eq || target[`_${prop}`] != app.Constants.Status.Done)) {
 		            target[`_${prop}`] = app.Constants.Status.Done;
 		            dispatchEvent (new Event( app.Constants.Event (app.Constants.Var(prop)) ));
 	            }
@@ -183,21 +183,13 @@ function Init () {
 	}
 	
 	//
-	function Resources () {
-	    [app.Constants.Name,'⏳'].forEach((e)=> { const link = document.createElement('link'); link.rel = 'stylesheet'; link.type = 'text/css'; link.href = app.Constants.Host + '🖌️/' + e + '.css'; document.head.appendChild(link); } ); 
-	    // 🗒: To edit in MixPlorer, add '//'
-	    ['🔔','⏳','📅','🌡️','🪵','🚥','⏱️','📒','🗺️','🪖','🤖']
-	    .forEach((e)=> { const script = document.createElement('script'); script.type = 'text/javascript'; script.src = `${app.Constants.Host}${app.Constants.Libs ['📜']}${e}.js`; document.head.appendChild(script); } ); 
+	async function Resources () {
+	    [app.Constants.Name,'⏳'].forEach((e)=> { const link = document.createElement('link'); link.rel = 'stylesheet'; link.type = 'text/css'; link.href = `🖌️/${e}.css`; document.head.appendChild(link); } ); 
+	    const a = [];
+	    (await (await fetch (`/ls DC/${app.Constants.Libs ['📜']}`)).json()).forEach ((e)=> { e = e.replace ('/DC/', ''); if (document.head.querySelector (`script[src$="${e}"]`) ) return; const script = document.createElement('script'); a.push (new Promise ((resolve)=> { script.onload = ()=> resolve(1) })); script.type = 'text/javascript'; script.src = e; document.head.appendChild(script); } ); 
+		Promise.all (a).then (Complete);
 	}
-} // Init
-
-
-//
-function Load () {
-    const s = document.readyState;
-    if (s == "interactive") Init ()
-    else if (s == "complete") Complete ();
-    
+	
 	//
 	function Complete  () {
 	    for (const [k, w] of Object.entries(app.Widgets)) {
@@ -205,12 +197,10 @@ function Load () {
 	        w.Init();
 	    }
 	} 
-}
-
+} // Init
 
 //
-document.addEventListener("readystatechange", Load);
-Load (); // because of 'defer' (needed for the <html bgcolor>) 
+Init ();
 
 return app;
 })();

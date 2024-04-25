@@ -30,7 +30,7 @@ wdgt.Update = ()=> {
 	
 	w = '🕯️'; // 🗒: '🌋' App Must Have Delay Before 🔔. Otherwise '🏡' Won't Be Triggered (Because '🌋' Is Open).
 	$app.Vars [w] = shishi; // TODO; convert in 🤖 to numeric. (🗒 there's already wdgt.data.shishi) 
-	wdgt.data [`${w}${w}`] = wdgt.data.shabbat;
+	$app.Vars [`${w}${w}`] = wdgt.data.shabbat;
 
 	w = '🔋';
 	if (wdgt.data.battery != "100") $app.Widgets['🚥'].Add (wdgt.id, w, wdgt.data.battery)
@@ -64,7 +64,7 @@ function Clock (now, w, c, hours = 7) {
 //
 function Background() {
 	let c = '', cs;
-	if ( wdgt.data['🕯️🕯️'] == "true" ) c += '🕯️🕯️';
+	if ( $app.Vars ['🕯️🕯️'] == "true" ) c += '🕯️🕯️';
 	if ( c == '') c = '🌴'
 	else c = dx(c);
 	

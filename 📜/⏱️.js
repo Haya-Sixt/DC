@@ -52,16 +52,6 @@ wdgt.Update = ()=> {
 	Helpers.Css ('background-image', wdgt.sid, time);
 }
 
-//#⌚ { color: var(--🖥️-c-ts-1); }
-//#⌚ { font-size: var(--🖥️-c-px-155); text-align:center; animation-name: ⌚; animation-duration: 12s; animation-iteration-count: infinite; } /* #⌚ svg { font-size: var(--🖥️-c-px-11); font-weight: 400; animation-name: ⌚; animation-duration: 12s; animation-iteration-count: infinite; } */
-//#⌚Colon { position: relative; width: 6%; height: 65%; left: -47%; top: -83%; animation-name: ⌚Colon; animation-duration: 2s; animation-timing-function: ease; animation-iteration-count: infinite; } /* svg: top -65% */
-//@keyframes ⌚ { 0% {color: rgba(var(--🖥️-c-ts-1_rgb), 0.839);} 50% {color: rgba(var(--🖥️-c-ts-2_rgb), 0.459);} 100% {color: rgba(var(--🖥️-c-ts-1_rgb), 0.839);} } /* svg: @keyframes ⌚ { 0% {filter: sepia(1) opacity(0.8);} 50% {filter: sepia(1) opacity(0.5);} 100% {filter: sepia(1) opacity(0.8);} } */ 
-//@keyframes ⌚Colon { 0% {backdrop-filter: brightness(0.7);} 50% {backdrop-filter: brightness(0);} 100% {backdrop-filter: brightness(0.7);} } 
-// init. colon 
-//$("<div>").attr('id',`${wdgt.id}Colon`).appendTo($(wdgt.sid));
-// update
-//document.querySelector(wdgt.sid).firstChild.textContent = time; 
-
 })();
 
 
@@ -127,7 +117,7 @@ wdgt.Init = ()=> {}
 
 //
 wdgt.Update = ()=> {
-	Current() || Next() || $(wdgt.sid).html('&nbsp;');;
+	Current() || Next() || $(wdgt.sid).html('&nbsp;');
 };
 
 function Current() {

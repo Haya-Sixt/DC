@@ -283,7 +283,7 @@ function Mark() {
 	if (first ) {
 		first.addClass('markIconText'); 
 	}
-	wdgt.data.current = current;
+	$app.Vars ['📆'] = wdgt.data.current = current;
 	
 	//
 	CurrentBySunset ();
@@ -298,7 +298,7 @@ function CurrentBySunset () {
 		a = Array.from(document.querySelectorAll('#🗓️ td.tdDay')),
 		x = a.findIndex((e)=> e.classList.contains('tdCurrent')),
 		h = a [x + ( wdgt.data['🌇'] > new Date().getTime() / 1000 ? 0 : 1)];
-	if (h != a[x]) a[x].classList.remove(c);
+	if (h != a[x]) a[x].classList.remove(c); 
 	h.classList.add(c);
 	
 	const cs = h.textContent.match(Helpers.Emoji()) ?? [];
@@ -307,9 +307,6 @@ function CurrentBySunset () {
 
 function Background () {
 	Helpers.Css ('background-image', wdgt.sid, wdgt.data.current);
-//		const circle = `<circle cx='calc(${x} + 2.37em)' cy='calc(${y} - 1.3em)'`, radius = 2.1,
-//		  def = `<defs><clipPath id='cp'>${circle} r='${radius}em'/></clipPath><clipPath id='bg_cp'>${circle} r='calc(${radius}em + 1em)'/></clipPath><filter id='bg_f'><feGaussianBlur in='SourceGraphic' stdDeviation='8'/></filter></defs>`;
-//		c = `${def}${text} dx='-0.1em' clip-path='url(%23bg_cp)' filter='url(%23bg_f)' opacity='0.4'>${cs}</text>${text} clip-path='url(%23cp)' opacity='0.6'>${cs}`;
 }
 
 })();
