@@ -16,7 +16,8 @@ wdgt.Init = ()=> {
 	gallery = [];
 	counter = 0;
 	
-	const Add = ()=> fetch (`/ls 🖼️/${wdgt.id}`).then (r=> r.json().then (r=> r.forEach (e=> gallery.push (e)) ) );
+	const max_days = 7, m = /(?<=IMG-)\d*(?=-WA\d.)/,
+		Add = ()=> fetch (`/ls 🖼️/${wdgt.id}`).then (r=> r.json().then (r=> r.forEach (e=> (new Date () - Date.parse (e.match (m)?.toString()?.split('')?.toSpliced(6, 0, '/')?.toSpliced(4, 0, '/')?.join(''))) / (24 * 60 * 60 * 1000) < max_days && gallery.push (e)) ) );
 	if ($app.Vars ['🕯️🕯️'] != "true") return;
 	
 	Add ().then (Carousel);
