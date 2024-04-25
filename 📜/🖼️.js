@@ -30,7 +30,8 @@ wdgt.Update = ()=> { };
 
 //
 function Carousel () { 
-	const P = (v)=> $('#🖥️c1')[0].style.setProperty ('--🖥️-c1-🖼️', v ? `url(${v})` : ''); 
+	const c = $(wdgt.sid).parent ().attr ('id'),
+		P = (v)=> $(`#${c}`).css (`--${$app.Constants.Name}-${c}-${wdgt.id}`, v ? `url(${v})` : ''); 
 	if (!gallery.length) return P (''); 
 	if (gallery.length > counter) P (gallery [counter++]);
 	if (gallery.length <= counter) counter = 0;

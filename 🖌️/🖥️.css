@@ -46,6 +46,10 @@
 .🗺️ > iframe { border-radius: var(--🖥️-c-px-15); }
 .🗺️ :is(.gmnoprint, .gm-control-active, a, .gm-err-container) { display: none !important; } 
 .🗺️ > div:has(a[href$="maps-no-account"]), .🗺️ div [style^="background-color: rgba(0, 0, 0, 0.5)"] { display: none; } 
+#👁️‍🗨️:not(:empty) { width: 10vw; height: 100vh; --🖥️-👁️‍🗨️ : ; container: 👁️‍🗨️/ size; /* needed */ }
+:is(#👁️‍🗨️:not(:empty), #👁️‍🗨️ > div):before { background-position-y: -18vw; filter: invert(1) sepia(0.2) brightness(0.5); background-image: var(--🖥️-👁️‍🗨️ ); content: ""; position: absolute; right: 0; height: 100%; background-repeat: no-repeat; }
+#👁️‍🗨️:not(:empty):before { background-size: 40vw 85vw; width: 100%; } 
+#👁️‍🗨️ > div:before { width: calc(100% - 40vw / 7.2); background-size: 20vw 85vw; background-position-x: 100%; }
 .🌃Hide { visibility: hidden; }
 .🌃Dim { filter: opacity(0.035); }
 #⌚ { top: -2%; left:0.8%; width: 45.5%; height: 36%; } /* 🗒: w/h needed, bg is black */
@@ -69,12 +73,12 @@
 @keyframes 🔔 { 0% {backdrop-filter: unset;} 50% {backdrop-filter: grayscale(50%);} 100% {backdrop-filter: unset;} } 
 @keyframes 🚥 { 50% {filter: drop-shadow(var(--🖥️-c-px-2) var(--🖥️-c-px-4) var(--🖥️-c-px-6) var(--🖥️-c-be-1));} }
 
-#🖥️c1 { container: 🖥️c1 / size; --🖥️-c1-🖼️: ; transition: all 3s ease; 
-	background-position-y: 20%; background-image: var(--🖥️-c1-🖼️); background-repeat: no-repeat; background-size: cover; }  
+#🖥️c1 { container: 🖥️c1 / size; --🖥️-🖥️c1-🖼️: ; transition: all 3s ease; 
+	background-position-y: 20%; background-image: var(--🖥️-🖥️c1-🖼️); background-repeat: no-repeat; background-size: cover; }  
 @container 🖥️c1 (max-width: 99vw) {
 	#🌡️ { width:30.6%; left:50%; } 
 	#💈 { display: none; } }
-@container 🖥️c1 not style(--🖥️-c1-🖼️:) { *:not(#⌚) { background-image: none !important; } .📆name { text-shadow: unset; } }
+@container 🖥️c1 not style(--🖥️-🖥️c1-🖼️:) { *:not(#⌚) { background-image: none !important; } .📆name { text-shadow: unset; } }
 
 }
 
@@ -138,7 +142,7 @@ imo { font-size:var(--🖥️-c-px-22); }
 .error { border-radius: var(--🖥️-c-px-10); border: var(--🖥️-c-be-3) var(--🖥️-c-px-1) solid !important; } 
 /*.tdShabat {}*/
 .wdgt, .📆name, .📆val, #🗓️ div.omer { white-space: nowrap; } 
-#🖥️, .wdgt, .dafYomi, .🌡️overlay, .hideOut { position: absolute; }
+#🖥️, #🖥️ > div .wdgt, .dafYomi, .🌡️overlay, .hideOut { position: absolute; }
 
 #🤖 {z-index: 9}
 #⏳, #🔔 {z-index: 8}
@@ -148,7 +152,7 @@ imo { font-size:var(--🖥️-c-px-22); }
 #📆, .dafYomi {z-index: 4}
 #🪵, #⏱️, #⏰, #🌡, #💈 {z-index: 3}
 #🗓️ {z-index: 2}
-#🗺️️ {z-index: 1}
+#🗺️️, #👁️‍🗨️  {z-index: 1}
 #🖥️, #🪖, 📒 {z-index: 0}
 
 
