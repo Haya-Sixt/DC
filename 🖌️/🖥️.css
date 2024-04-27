@@ -10,7 +10,7 @@
 #⏳ { opacity:0.8; }
 #🗓️ { overflow: hidden; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" style="background-color:var(--🖥️-c-b-1)"><text x="-3%" y="92%" font-size="var(--🖥️-c-px-180)" opacity="0.2"></text></svg>'); } /*text is been eval by js*/
 #🗓️ div.omer { font-size:var(--🖥️-c-px-12); }  
-#⌚ { background-repeat: no-repeat; background-size: contain; background-position: center; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="77" height="25" fill="var(--🖥️-c-ts-1)"><style>*{font-family:sans-serif;fill:rgba(var(--🖥️-c-ts-1_rgb),0.839);}.time{animation-name:time;animation-duration:12s;animation-iteration-count:infinite;}.colon{animation-name:colon;animation-duration:2s;animation-timing-function:ease;animation-iteration-count:infinite}@keyframes time{50%{fill:rgba(var(--🖥️-c-ts-2_rgb),0.459);}100%{fill:rgba(var(--🖥️-c-ts-1_rgb),0.839);}}@keyframes colon{0%{opacity:0;}50%{opacity:0.5;}100%{opacity:0;}}</style><text x="-2" y="24" font-size="32" class="time"></text><g class="colon"><circle cx="38" cy="6" r="2" /><circle cx="38" cy="19" r="2" /></g></svg>'); } /*text is been eval by js*/
+#⌚ { background-repeat: no-repeat; background-size: contain; background-position: center; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="77" height="25" fill="var(--🖥️-c-ts-1)"><style>*{font-family:sans-serif;fill:rgba(var(--🖥️-c-ts-1_rgb),0.839);text-shadow: 1px 1px 1px rgba(var(--🖥️-c-td-1_rgb),0.839);}.time{animation-name:time;animation-duration:12s;animation-iteration-count:infinite;}.colon{animation-name:colon;animation-duration:2s;animation-timing-function:ease;animation-iteration-count:infinite}@keyframes time{50%{fill:rgba(var(--🖥️-c-ts-2_rgb),0.459);}100%{fill:rgba(var(--🖥️-c-ts-1_rgb),0.839);}}@keyframes colon{0%{opacity:0;}50%{opacity:0.5;}100%{opacity:0;}}</style><text x="-2" y="24" font-size="32" class="time"></text><g class="colon"><circle cx="38" cy="6" r="2" /><circle cx="38" cy="19" r="2" /></g></svg>'); } /*text is been eval by js*/
 #📅👉 { font-size: var(--🖥️-c-px-23); } 
 #📅👈 { font-size: var(--🖥️-c-px-23); } 
 #⏰ { font-size: var(--🖥️-c-px-23); text-align:left; padding:0 0 0 var(--🖥️-c-px-3); }
@@ -35,7 +35,7 @@
 	text-shadow: var(--🖥️-c-px-2) var(--🖥️-c-px-2) var(--🖥️-c-px-4) var(--🖥️-c-b-1), calc(-1 * var(--🖥️-c-px-2)) calc(-1 * var(--🖥️-c-px-2)) var(--🖥️-c-px-14) var(--🖥️-c-b-1); 
 	box-shadow: 0 var(--🖥️-c-px-4) var(--🖥️-c-px-8) 0 rgba(var(--🖥️-c-b-1_rgb), 0.2), 0 var(--🖥️-c-px-6) var(--🖥️-c-px-20) 0 rgba(var(--🖥️-c-b-1_rgb), 0.188); } 
 #🔔 > div[name="info"] { color: var(--🖥️-c-t-1); background-image: linear-gradient(to bottom right, var(--🖥️-c-be-1), var(--🖥️-c-be-2) ); } 
-#🔔 > div[name="alert"] { color: var(--🖥️-c-ts-2); background-color: var(--🖥️-c-be-1); border: var(--🖥️-c-px-3) solid rgba(var(--🖥️-c-b-1_rgb), 0.702); } 
+#🔔 > div[name="alert"] { color: var(--🖥️-c-ts-2); background-color: var(--🖥️-c-be-1); border: var(--🖥️-c-px-1) solid rgba(var(--🖥️-c-b-1_rgb), 0.702); } 
 #🔔 > div::first-line { font-size: var(--🖥️-c-px-22); }
 #🔔 > div > div:last-child { width: 97%; height: var(--🖥️-c-px-4); border-radius : var(--🖥️-c-px-4); border: var(--🖥️-c-px-2) solid rgba(var(--🖥️-c-b-1_rgb), 0.702); } 	
 .markIconText > *:first-child { transform:scale(1.3); left:2%; }
@@ -78,7 +78,7 @@
 @container 🖥️c1 (max-width: 99vw) {
 	#🌡️ { width:30.6%; left:50%; } 
 	#💈 { display: none; } }
-@container 🖥️c1 not style(--🖥️-🖥️c1-🖼️:) { *:not(#⌚) { background-image: none !important; } .📆name { text-shadow: unset; } }
+@container 🖥️c1 not style(--🖥️-🖥️c1-🖼️:) { *:not(:is(#⌚, .🪵Progress, #🔔 > div > div:last-child)) { background-image: unset !important; } #🔔 > div { opacity: 0.5; border: var(--🖥️-c-px-1) solid rgba(var(--🖥️-c-b-1_rgb), 0.702); } #🔔 > div > div:last-child, .tdHead { opacity: 0.5; } #🖥️c1 > *:not(#🌡️):not(#🗓), #🌡️ g:not(#DimTodayColumn) { opacity: 0.7; } * { background-color: unset !important; text-shadow: none !important; ___text-shadow: 1px 1px 1px rgba(var(--🖥️-c-td-1_rgb),0.839) !important; } } /* 🗒: text-shadow 'unset' isn't working (therefore it's 'none') */
 
 }
 
