@@ -46,10 +46,10 @@
 .🗺️ > iframe { border-radius: var(--🖥️-c-px-15); }
 .🗺️ :is(.gmnoprint, .gm-control-active, a, .gm-err-container) { display: none !important; } 
 .🗺️ > div:has(a[href$="maps-no-account"]), .🗺️ div [style^="background-color: rgba(0, 0, 0, 0.5)"] { display: none; } 
-#👁️‍🗨️:not(:empty) { width: 10vw; height: 100vh; --🖥️-👁️‍🗨️ : ; container: 👁️‍🗨️/ size; /* needed */ }
-:is(#👁️‍🗨️:not(:empty), #👁️‍🗨️ > div):before { background-position-y: -18vw; filter: invert(1) sepia(0.2) brightness(0.5); background-image: var(--🖥️-👁️‍🗨️ ); content: ""; position: absolute; right: 0; height: 100%; background-repeat: no-repeat; }
-#👁️‍🗨️:not(:empty):before { background-size: 40vw 85vw; width: 100%; } 
-#👁️‍🗨️ > div:before { width: calc(100% - 40vw / 7.2); background-size: 20vw 85vw; background-position-x: 100%; }
+#👁️‍🗨️:not(:empty) { width: 4em; right: calc(4em / 1.5); height: 100vh; --🖥️-👁️‍🗨️ : ; container: 👁️‍🗨️/ size; /* needed */ position: relative; }
+:is(#👁️‍🗨️:not(:empty), #👁️‍🗨️ > div):before { background-position-y: -6rem; background-image: var(--🖥️-👁️‍🗨️ ); content: ""; position: absolute; height: 100%; background-repeat: no-repeat; }
+#👁️‍🗨️:not(:empty):before { background-size: 20rem 38rem; width: 3.4rem; background-position-x: -0.5rem; filter: invert(1) sepia(1) brightness(0.4); } 
+#👁️‍🗨️ > div:before { width: 2.3rem; background-size: 15rem 38rem; filter: invert(1) brightness(0.2); background-position-x: 100%; right: -1rem; }
 .🌃Hide { visibility: hidden; }
 .🌃Dim { filter: opacity(0.035); }
 #⌚ { top: -2%; left:0.8%; width: 45.5%; height: 36%; } /* 🗒: w/h needed, bg is black */
