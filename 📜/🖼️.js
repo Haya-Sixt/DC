@@ -16,7 +16,7 @@ wdgt.Init = ()=> {
 	if ($app.Vars ['🌃'] == 'true') return Carousel ();
 	
 	const Add = async (dir)=> (await (await fetch (`/ls ${wdgt.id}/${dir}`)).json()).forEach ((e)=> gallery.push (e)),
-		a = [], c = $('#🗓️ .tdCurrent:not(tdCurrentHeb)').text().match(Helpers.Emoji());
+		a = [], c = $('#🗓️ .tdCurrent:not(.tdCurrentHeb)').text().match(Helpers.Emoji());
 	if (!c) return Carousel (); 
 	
 	let m = $('#🗓️ .tdCurrentHeb').text().match(Helpers.Emoji());
@@ -24,7 +24,7 @@ wdgt.Init = ()=> {
 	
 	//m = '🫓,🕯️🕯️'; // TEST
 	
-	if ($app.Vars ['🕯️🕯️'] == "true") m = `${m ? `${m},`: ``}🕯️🕯️`;
+	if ($app.Vars ['🕯️🕯️'] == "true") m = `${m ? `${m},` : ``}🕯️🕯️`;
 	
 	m && m.split (',').forEach ((e)=> a.push (Add (e)));
 	Promise.all (a).then (Carousel);
