@@ -16,19 +16,23 @@ wdgt.Init = ()=> {
 	if ($app.Vars ['🌃'] == 'true') return Carousel ();
 	
 	const Add = async (dir)=> (await (await fetch (`/ls ${wdgt.id}/${dir}`)).json()).forEach ((e)=> gallery.push (e)),
-		a = [], c = $('#🗓️ .tdCurrent:not(.tdCurrentHeb)').text().match(Helpers.Emoji()),
-		parasha = $('#🗓️ .tdCurrentHeb .parasha').text ();
+		R = (e, f)=> = e?.reduce((s, e)=> `${s},${f ()},`, ''), a = [], 
+		c = $('#🗓️ .tdCurrent:not(.tdCurrentHeb)').text().match(Helpers.Emoji()),
+		parasha = [ $('#🗓️ .tdCurrentHeb .parasha').text () ];
 	if (!c) return Carousel (); 
 	
+	// holiday 
 	let m = $('#🗓️ .tdCurrentHeb').text().match(Helpers.Emoji());
-	m && (m = m.reduce((s, e)=> (s == '' ? '' : `${s},`) + ((c ?? ' ').includes(e) ? '' : e), ''));
-	
-	if (parasha) parasha = `📖/${parasha}`;
-	if ($app.Vars ['🕯️🕯️'] == "true") m = `${m},${parasha},🕯️🕯️`; 
+	m = R (m, ()=> (c ?? ' ').includes (e) ? '' : e);
+	if ($app.Vars ['🕯️🕯️'] == "true") m = `${m},🕯️🕯️`;
+	// shabbat
+	if (m?.includes (',🌊,')) parasha.push ('בשלח');
+	if (m?.includes (',🫓,')) { parasha.push ('וארא'); parasha.push ('בא') }
+	parasha = R (parasha, ()=> `📖/${e}`);
 	
 	//m = '🫓,📖/אחרי מות,🕯️🕯️'; // TEST
 	
-	m && m.split (',').forEach ((e)=> e && a.push (Add (e)));
+	`${m},${parasha}`.split (',').forEach ((e)=> e && a.push (Add (e)));
 	Promise.all (a).then (Carousel);
 }
 
