@@ -20,12 +20,13 @@ wdgt.Init = ()=> {
 		c = $('#🗓️ .tdCurrent:not(.tdCurrentHeb)').text().match(Helpers.Emoji());
 	if (!c) return Carousel (); 
 	
-	// holiday 
+	// shabbat 
 	let m = $('#🗓️ .tdCurrentHeb').text().match(Helpers.Emoji()),
 		parasha = [ $('#🗓️ .tdCurrentHeb .parasha').text () ]; 
 	m = R (m, (e)=> (c ?? ' ').includes (e) ? '' : e);
 	if ($app.Vars ['🕯️🕯️'] == "true") m = `${m},🕯️🕯️`;
-	// shabbat
+	// holiday 
+	if (m?.includes (',🌱,')) parasha.push ('כי תבוא');
 	if (m?.includes (',🌊,')) parasha.push ('בשלח');
 	if (m?.includes (',🫓,')) { parasha.push ('וארא'); parasha.push ('בא') }
 	parasha = R (parasha, (e)=> `📖/${e}`);
