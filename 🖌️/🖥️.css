@@ -58,8 +58,8 @@
 #📅👈 { left:0%; top:35.2%; } 
 #🌡️ { width:26%; left:51%; top:2%; }
 #💈 { width:2.6%; top:5.5%; left: 79% } 
-#📆 { left:calc(100% - var(--🖥️-c-px-26) * 6); top:3%; } /* left 82% */
-#🗓️ { top:45%; width:calc(100% - var(--🖥️-c-px-26) * 6 - 21% + 1.5%); left: 21%; height:53%; } /* width 64% */
+#📆 { left:calc(100% - var(--🖥️-c-px-26) * 6.2); top:3%; } /* left 82% */
+#🗓️ { top:45%; width:calc(100% - var(--🖥️-c-px-26) * 6.2 - 21% + 1.5%); left: 21%; height:53%; } /* width 64% */
 #⏰ { top:45%; } 
 #⏰.markIconText { top:43%; left: 4.5%; }  
 #🪵, #⏰, #🚥, #⏳ { left:3%; width:17.3%; } 
