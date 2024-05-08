@@ -17,7 +17,7 @@
 #⌚ { background-repeat: no-repeat; background-size: contain; background-position: center; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="77" height="25" fill="var(--🖥️-c-ts-1)"><style>*{font-family:sans-serif;fill:rgba(var(--🖥️-c-ts-1_rgb),0.839);text-shadow: 1px 1px 1px rgba(var(--🖥️-c-td-1_rgb),0.839);}.time{animation-name:time;animation-duration:12s;animation-iteration-count:infinite;}.colon{animation-name:colon;animation-duration:2s;animation-timing-function:ease;animation-iteration-count:infinite}@keyframes time{50%{fill:rgba(var(--🖥️-c-ts-2_rgb),0.459);}100%{fill:rgba(var(--🖥️-c-ts-1_rgb),0.839);}}@keyframes colon{0%{opacity:0;}50%{opacity:0.5;}100%{opacity:0;}}</style><text x="-2" y="24" font-size="32" class="time"></text><g class="colon"><circle cx="38" cy="6" r="2" /><circle cx="38" cy="19" r="2" /></g></svg>'); } /*text is been eval by js*/
 #📅👉 { font-size: var(--🖥️-c-px-23); } 
 #📅👈 { font-size: var(--🖥️-c-px-23); } 
-#⏰ { font-size: var(--🖥️-c-px-23); text-align:left; padding:0 0 0 var(--🖥️-c-px-3); }
+#⏰ { font-size: var(--🖥️-c-px-23); text-align:left; padding-left: var(--🖥️-c-px-cam); }
 #⏰ span { position: relative; top: calc(-1 * var(--🖥️-c-px-22) / 14); } 
 #🪵, #🪵Progress { color: var(--🖥️-c-tbs-1); direction:ltr; } 
 #🪵, #⏰:not(.markIconText) { border: var(--🖥️-c-px-1) solid var(--🖥️-c-t-2); border-radius: var(--🖥️-c-px-20); overflow: hidden; }
@@ -60,13 +60,14 @@
 #💈 { width:2.6%; top:5.5%; left: 79% } 
 #📆 { left:calc(100% - var(--🖥️-c-px-26) * 6.2); top:3%; } /* left 82% */
 #🗓️ { top:45%; width:calc(100% - var(--🖥️-c-px-26) * 6.2 - 21% + 1.5%); left: 21%; height:53%; } /* width 64% */
-#⏰ { top:45%; } 
+#⏰ { top:45%; width:calc(20.3% - var(--🖥️-c-px-cam)); } 
 #⏰.markIconText { top:43%; left: 4.5%; }  
-#🪵, #⏰, #🚥, #⏳ { left:3%; width:17.3%; } 
+#🚥, #⏳, #🪵, #⏰ { left:0%; }
+#🚥, #⏳, #🪵 { width:20.3%; } 
+#🚥, #⏳ { bottom: 1%; } 
 #🪵 { top:54%; height:41.5%; } 
 .🪵🚥 { height: calc(41.5% - var(--🖥️-c-px-35) - var(--🖥️-c-px-12)) !important; } 
 #🪵Progress { left:20%; width:60%; height:0%; } 
-#🚥, #⏳ { bottom: 1%; } 
 
 #⏱️, #🚥:empty, #⏳:empty { display: none; } 
 
@@ -224,4 +225,5 @@ imo { font-size:var(--🖥️-c-px-22); }
 --🖥️-c-px-3: 0.19rem;
 --🖥️-c-px-2: 0.12rem;
 --🖥️-c-px-1: 0.06rem;
+--🖥️-c-px-cam: 35px;
 }
