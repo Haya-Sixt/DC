@@ -74,7 +74,7 @@
 @keyframes 🚥 { 50% {filter: drop-shadow(var(--🖥️-c-px-2) var(--🖥️-c-px-4) var(--🖥️-c-px-6) var(--🖥️-c-be-1));} }
 
 /* case: 🗺, 👁️‍🗨️: */ 
-@container 🖥️c1 (max-width: 99vw) { #🌡️ { width:30.6%; left:50%; } #💈 { display: none; } }
+@container 🖥️c1 (max-width: 99vw) { #🌡️ { width:28%; left:50%; } #💈 { display: none; } }
 /* case: 🖼️: */ 
 @container 🖥️c1 not style(--🖥️-🖥️c1-🖼️:) { *:not(:is(#⌚, .🪵Progress, #🔔 > div > div:last-child)) { background-image: unset !important; } #🔔 > div { opacity: 0.5; border: var(--🖥️-c-px-1) solid rgba(var(--🖥️-c-b-1_rgb), 0.702); } #🔔 > div > div:last-child, .tdHead { opacity: 0.5; } #🖥️c1 > *:not(#🌡️):not(#🗓), #🌡️ g:not(#DimTodayColumn) { opacity: 0.7; } * { background-color: unset !important; text-shadow: none !important; ___text-shadow: 1px 1px 1px rgba(var(--🖥️-c-td-1_rgb),0.839) !important; } } /* 🗒: text-shadow 'unset' isn't working (therefore it's 'none') */
 
