@@ -29,6 +29,7 @@ static Info (e, ...args) {
 }
 
 //
+// TODO: 🪖 font-size:small 
 static Alert (e, ...args) {
 	T.#Box (0, 30, e, ...args);
 	console.log (T.#sid, e, ...args);
@@ -36,17 +37,17 @@ static Alert (e, ...args) {
 
 //
 static #Box (mode, duration, e, ...args) {
-	const name = (mode ? 'info' : 'alert'), now = new Date().getTime();
+	const name = (mode ? 'info' : 'alert'), now = parseInt(new Date().getTime() / 1000);
 	//
 	if (typeof e != 'object') e = { title: e };
 	if (!e.text) e.text = (args.length > 1 || (args.length == 1 && typeof args[0] != 'number')) ? args[0] : '';
-	if (!e.startedAt) e.startedAt = args.length > 2 ? args[1] : parseInt( now / 1000 );
+	if (!e.startedAt) e.startedAt = args.length > 2 ? args[1] : now;
 	if (!e.duration) e.duration = args.length > 2 ? args[2] : ( (e.startedAt == now && typeof args[args.length - 1] == 'number') ? args[args.length - 1] : duration);
 	if (!e.group) e.group = args.length > 3 ? args[3] : ''; 
 	//
 	if (e.title && e.text) e.title += `<br>`;
+	if (!mode) e.title = `⚠️ ${e.title}`; 
 	let tt = (e.title+e.text).replaceAll('"',"'");
-	if (!mode) tt = `⚠️ ${tt}`;
 	
 	// prevent duplicates
 	if ($(`${T.#sid} > div[tt="${tt}"]`).length) return;

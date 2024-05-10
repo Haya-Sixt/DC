@@ -14,6 +14,7 @@ wdgt.Update = ()=> {
 	$(wdgt.sid).html('');
 	
 	const a = [], hyphen = ' -';
+	let nonapa = '';
 	for (const e of wdgt.data) {
 		// 1 hours expired
 		const startedAt = parseInt(new Date(e.alertDate).getTime () / 1000);
@@ -30,13 +31,13 @@ wdgt.Update = ()=> {
 		const F = (f)=> {
 			for (const e in y) if (f (e)) return y[e]; // y.find/filter... fail in such big array.
 		},
-		Y = (d)=> {
+		Y = (d, strict)=> {
 			let n = y[d];
 			if (!n) n = F ((e)=> e.includes(`(${d})`));
 			if (!n) n = F ((e)=> e.startsWith(`${d}-`));
 			if (!n) n = F ((e)=> e.includes(`-${d}-`));
 			if (!n) n = F ((e)=> e.endsWith(`-${d}`));
-			if (!n) n = F ((e)=> e.includes(`${d.replaceAll('-', ' ')}`)); // e.g: 'בת-ים'
+			if (!n && !strict) n = F ((e)=> e.includes(`${d.replaceAll('-', ' ')}`)); // e.g: 'בת-ים'
 			return n;
 		}; 
 		
@@ -46,18 +47,21 @@ wdgt.Update = ()=> {
 			d = d.replace ('אזור תעשייה ','')
 				.replace ('הדרומי ','')
 				.replace ('צפוני ','')
-				.replace ('מטווח ','');
+				.replace ('מטווח ','')
+				.replace ('קריית ','קרית ')
+				.replace ('מעיין ','מעין ')
+				.replace ('תל חי','כפר גלעדי'); 
 			if (d.includes(hyphen)) d = d.replace (d.slice(d.indexOf(hyphen)), ''); // 'אשדוד -יא,יב,טו,יז,מרינה,סיט' 
 			
 			// again  normalize 'd'. remove words. e.g: מטווח ניר עוז
 			let i = 0, ix, napa; 
-			while ( !( napa = Y ( d.slice (i) ) ) )
+			while ( !( napa = Y ( d.slice (i), (i && d.slice (i).indexOf (' ') == -1) ) ) ) // be strict (Y) after slicing ( e.g. תל חי ≈ חי ≠ עמיחי) 
 				if ( (ix = d.slice (i).indexOf (' ')) == -1) break
 				else i += ix + 1; // ' '
 			
 			// find 'found alerted napa' in 'n'
 			if (napa) napa = $app.Widgets['🗺️'].napot [napa]
-			else return; // napa = e.data;
+			else return (nonapa += `, ${d}`);
 			
 			// adding 'found napa' to 'found alerted cat in a'
 			const ac = a.find (({cat})=> c == cat);
@@ -70,6 +74,7 @@ wdgt.Update = ()=> {
 	//
 	$app.Widgets['🔔'].Clear (wdgt.id);
 	for (const k in a) $app.Widgets['🔔'].Info (a[k].cat, a[k].napot.reduce((a,e)=> `${a ? `${a}, ` : ''}${e.n}`, ''), a[k].startedAt, 6 * 60 * 60, wdgt.id);
+	if (nonapa) $app.Widgets['🔔'].Alert (wdgt.id, `<span style='font-size:small'>no napa found<br>${nonapa.slice(1)}</span>`, 3);
 	// 
 	 
 	const w = $app.Widgets['🗺️'];
