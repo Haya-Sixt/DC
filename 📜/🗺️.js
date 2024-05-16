@@ -173,8 +173,10 @@ async Napot (a) {
 	
 	// add to markers
 	for (const ac of a)
-		for (const e of ac.napot) 
+		for (const e of ac.napot) {
+			console.log (this.#sid, e?.n, ac?.cat, e); // debug 16.6.24 'l undefined'
 			if (this.#Add (e.n, ac.cat, e)) g = 1;
+		}
 	
 	// remove from markers
 	for (const i in this.#markers) {
