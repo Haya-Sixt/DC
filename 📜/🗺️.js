@@ -174,7 +174,6 @@ async Napot (a) {
 	// add to markers
 	for (const ac of a)
 		for (const e of ac.napot) {
-			console.log (this.#sid, e?.n, ac?.cat, e); // debug 16.6.24 'l undefined'
 			if (this.#Add (e.n, ac.cat, e)) g = 1;
 		}
 	
@@ -192,7 +191,10 @@ async Napot (a) {
 	
 	// 
 	this.#Init_vars ();
-	for (const m of this.#markers) this.#LatLng (m.l);
+	for (const m of this.#markers) {
+		console.log (this.#sid, 'Add.LatLng', m?.lat);
+		this.#LatLng (m.l);
+		}
 	
 	//
 	if (this.#markers.length) this.#Center ()
@@ -206,7 +208,8 @@ async Napot (a) {
 }
 
 //
-#Add (n, ic, l) { 
+#Add (n, ic, l) {
+	console.log (this.#sid, 'Add', n, ic, l?.lat);
 	if (this.#markers.find ((e)=> e.n == n && e.ic == ic)) return;
 	
 	top.$(this.#sid).show ();
@@ -216,6 +219,7 @@ async Napot (a) {
 	
 //
 #Marker (n, ic, l) {
+	console.log (this.#sid, 'Marker', n, ic, l?.lat);
 	if (!l) return;
 	
 	const h = 32, svg = `<svg xmlns='http://www.w3.org/2000/svg' width='${h}' height='${h}'><text dx='-1' dy='26' style='font: ${h-4}px sans-serif;' >${ic}</text></svg>`,
@@ -237,6 +241,7 @@ async Napot (a) {
 	
 //
 #LatLng (l) {
+	console.log (this.#sid, 'LatLng', l?.lat);
 	const lt = typeof l.lat == 'number' ? l.lat : l.lat (), 
 		lg = typeof l.lng == 'number' ? l.lng : l.lng ();
 	if (this.#minlt > lt) this.#minlt = lt;

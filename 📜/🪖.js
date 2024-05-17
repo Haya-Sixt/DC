@@ -13,8 +13,45 @@ wdgt.repeat = { init: 10 };
 wdgt.Update = ()=> {
 	$(wdgt.sid).html('');
 	
-	const a = [], hyphen = ' -';
-	let nonapa = '';
+	const a = [], hyphen = ' -', sj = 'י', dj = sj.repeat (2),
+		DS = (v) => v.replaceAll (dj, sj), // קריית, מעיין, ריחאנייה
+		// normalize 'y'. e.g: ' מודיעין-מכבים-רעות  '
+		F = (f, ds)=> {
+			for (let e in y) { // y.find/filter... fail in such big array.
+				if (ds) e = DS (ds = e);
+				if (!f (e)) continue;
+				// for efficiency
+				if (ds) {
+					y [e] = y [ds];
+					delete y [ds];
+					console.log (`${wdgt.id}: DS (y [${e}]) updated  (for efficiency)`);
+				}
+				return y [e];
+			}
+		},
+		Y = (d, strict, ds) => {
+			let n = y[d];
+			if (!n) n = F ((e)=> e.includes(`(${d})`), ds);
+			if (!n) n = F ((e)=> e.startsWith(`${d}-`), ds);
+			if (!n) n = F ((e)=> e.includes(`-${d}-`), ds);
+			if (!n) n = F ((e)=> e.endsWith(`-${d}`), ds);
+			if (!n && !strict) n = F ((e)=> e.includes(`${d.replaceAll('-', ' ')}`), ds); // e.g: 'בת-ים'
+			return n;
+		},
+		// normalize 'd'. 
+		// remove words. e.g: מטווח ניר עוז
+		// 'ds' is for removal of double letter
+		N = (d, ds) => {
+			let i = 0, ix; 
+			napa = '';
+			if (ds) d = d.replaceAll (dj, sj); // קריית, מעיין, ריחאנייה 
+			while ( !( napa = Y ( d.slice (i), (i && d.slice (i).indexOf (' ') == -1), ds ) ) ) // be strict (Y) after slicing ( e.g. תל חי ≈ חי ≠ עמיחי) 
+				if ( (ix = d.slice (i).indexOf (' ')) == -1) break
+				else i += ix + 1; // ' '
+			return napa;
+		}; 
+			
+	let napa, nonapa = '';
 	for (const e of wdgt.data) {
 		// 1 hours expired
 		const startedAt = parseInt(new Date(e.alertDate).getTime () / 1000);
@@ -26,20 +63,6 @@ wdgt.Update = ()=> {
 			.replace ("חדירת מחבלים",'🚷')
 			.replace ("חדירת כלי טיס עוין", '🛸')
 			.replace ("אזהרה", '⚠️');
-			
-		// normalize 'y'. e.g: ' מודיעין-מכבים-רעות  '
-		const F = (f)=> {
-			for (const e in y) if (f (e)) return y[e]; // y.find/filter... fail in such big array.
-		},
-		Y = (d, strict)=> {
-			let n = y[d];
-			if (!n) n = F ((e)=> e.includes(`(${d})`));
-			if (!n) n = F ((e)=> e.startsWith(`${d}-`));
-			if (!n) n = F ((e)=> e.includes(`-${d}-`));
-			if (!n) n = F ((e)=> e.endsWith(`-${d}`));
-			if (!n && !strict) n = F ((e)=> e.includes(`${d.replaceAll('-', ' ')}`)); // e.g: 'בת-ים'
-			return n;
-		}; 
 		
 		// find 'alerted city' in 'y' 
 		e.data.split (', ').forEach ((d)=> { // e.g: "שדרות, איבים, ניר עם"
@@ -48,16 +71,11 @@ wdgt.Update = ()=> {
 				.replace ('הדרומי ','')
 				.replace ('צפוני ','')
 				.replace ('מטווח ','')
-				.replace ('קריית ','קרית ')
-				.replace ('מעיין ','מעין ')
 				.replace ('תל חי','כפר גלעדי'); 
 			if (d.includes(hyphen)) d = d.replace (d.slice(d.indexOf(hyphen)), ''); // 'אשדוד -יא,יב,טו,יז,מרינה,סיט' 
 			
-			// again  normalize 'd'. remove words. e.g: מטווח ניר עוז
-			let i = 0, ix, napa; 
-			while ( !( napa = Y ( d.slice (i), (i && d.slice (i).indexOf (' ') == -1) ) ) ) // be strict (Y) after slicing ( e.g. תל חי ≈ חי ≠ עמיחי) 
-				if ( (ix = d.slice (i).indexOf (' ')) == -1) break
-				else i += ix + 1; // ' '
+			// again  normalize 'd'
+			!N (d) && N (d, 1);
 			
 			// find 'found alerted napa' in 'n'
 			if (napa) napa = $app.Widgets['🗺️'].napot [napa]
