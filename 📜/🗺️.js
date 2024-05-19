@@ -192,9 +192,9 @@ async Napot (a) {
 	// 
 	this.#Init_vars ();
 	for (const m of this.#markers) {
-		console.log (this.#sid, 'Add.LatLng', m?.lat);
+		console.log (this.#sid, 'Add.LatLng', m?.l?.lat);
 		this.#LatLng (m.l);
-		}
+	}
 	
 	//
 	if (this.#markers.length) this.#Center ()
