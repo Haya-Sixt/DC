@@ -88,24 +88,24 @@ wdgt.Update = ()=> {
 			else ac.napot.push (napa);
 		});
 	}
-	
+	nonapa = 'פי גלילות'
 	//
 	$app.Widgets['🔔'].Clear (wdgt.id);
 	for (const k in a) $app.Widgets['🔔'].Info (a[k].cat, a[k].napot.reduce((a,e)=> `${a ? `${a}, ` : ''}${e.n}`, ''), a[k].startedAt, 6 * 60 * 60, wdgt.id);
+	//
 	if (nonapa) (()=> {
-		const ls_id = `${wdgt.id}_🔔️nonapa`, n = [], t = 'no napa found', b = nonapa.slice(1), 
+		const ls_id = `${wdgt.id}_🔔️nonapa`, a = [], t = 'no napa found', b = nonapa.slice(1);
 		$app.Widgets['🔔'].Alert (wdgt.id, `<span style='font-size:small'>${t}<br>${b}</span>`, 3);
 		// 📱
 		b.split (c_nonapa).forEach (e=> {
 			const ls = localStorage.getItem (ls_id);
 			if (ls?.includes (e)) return;
-			n.push (e);
-			localStorage.setItem (ls_id, `&{e}&{c_nonapa}&{ls}`);
-		}
-		if (n.length) window['🙊'].Notification (n.join (c_nonapa));
-	});
-	// 
-	 
+			a.push (e);
+			localStorage.setItem (ls_id, ls ? `${e}${c_nonapa}${ls}` : e);
+		});
+		if (a.length) window['🙊'].Notification (a.join (c_nonapa), t);
+	})();
+	//
 	const w = $app.Widgets['🗺️'];
 	if (!a.length) return w.Remove (wdgt.id);
 	!w?.data?.[wdgt.id] && w.Add (wdgt.id);
