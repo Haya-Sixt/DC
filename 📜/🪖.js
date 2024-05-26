@@ -13,7 +13,7 @@ wdgt.repeat = { init: 10 };
 wdgt.Update = ()=> {
 	$(wdgt.sid).html('');
 	
-	const a = [], hyphen = ' -', sj = 'י', dj = sj.repeat (2),
+	const a = [], hyphen = ' -', sj = 'י', dj = sj.repeat (2), c_nonapa = ', ',
 		DS = (v) => v.replaceAll (dj, sj), // קריית, מעיין, ריחאנייה
 		// normalize 'y'. e.g: ' מודיעין-מכבים-רעות  '
 		F = (f, ds)=> {
@@ -51,7 +51,7 @@ wdgt.Update = ()=> {
 			return napa;
 		}; 
 			
-	let napa, nonapa = '';
+	let napa, nonapa = '', nonapa_delimiter;
 	for (const e of wdgt.data) {
 		// 1 hours expired
 		const startedAt = parseInt(new Date(e.alertDate).getTime () / 1000);
@@ -79,7 +79,7 @@ wdgt.Update = ()=> {
 			
 			// find 'found alerted napa' in 'n'
 			if (napa) napa = $app.Widgets['🗺️'].napot [napa]
-			else return (nonapa += `, ${d}`);
+			else return (nonapa += `${c_nonapa}${d}`);
 			
 			// adding 'found napa' to 'found alerted cat in a'
 			const ac = a.find (({cat})=> c == cat);
@@ -92,7 +92,18 @@ wdgt.Update = ()=> {
 	//
 	$app.Widgets['🔔'].Clear (wdgt.id);
 	for (const k in a) $app.Widgets['🔔'].Info (a[k].cat, a[k].napot.reduce((a,e)=> `${a ? `${a}, ` : ''}${e.n}`, ''), a[k].startedAt, 6 * 60 * 60, wdgt.id);
-	if (nonapa) $app.Widgets['🔔'].Alert (wdgt.id, `<span style='font-size:small'>no napa found<br>${nonapa.slice(1)}</span>`, 3);
+	if (nonapa) (()=> {
+		const ls_id = `${wdgt.id}_🔔️nonapa`, n = [], t = 'no napa found', b = nonapa.slice(1), 
+		$app.Widgets['🔔'].Alert (wdgt.id, `<span style='font-size:small'>${t}<br>${b}</span>`, 3);
+		// 📱
+		b.split (c_nonapa).forEach (e=> {
+			const ls = localStorage.getItem (ls_id);
+			if (ls?.includes (e)) return;
+			n.push (e);
+			localStorage.setItem (ls_id, `&{e}&{c_nonapa}&{ls}`);
+		}
+		if (n.length) window['🙊'].Notification (n.join (c_nonapa));
+	});
 	// 
 	 
 	const w = $app.Widgets['🗺️'];
