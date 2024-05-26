@@ -50,6 +50,8 @@ wdgt.Remove = (id)=> {
 
 //
 wdgt.napot = {
+	5101:{n:'רמת השרון',lat:32.139518,lng:34.841331},
+	5102:{n:'הרצליה',lat:32.169978,lng:34.834319},
 	77:{n:'חברון',lat:31.532569,lng:35.0998260},
 	62:{n:'באר שבע',lat:31.2521018,lng:34.7867691},
 	24:{n:'עכו',lat:32.933052,lng:35.082678},
@@ -280,7 +282,7 @@ async Napot (a) {
 		return;
 	}
 	this.#markers [i].m.setMap(null);
-	delete this.#markers [i]; 
+	this.#markers.splice (i, 1); 
 	if (i == this.#markers.length - 1 && !( this.#markers = this.#markers.filter ((m)=> m) ).length) {
 		top.$(this.#sid).hide ();
 		this.#Init_vars ();
