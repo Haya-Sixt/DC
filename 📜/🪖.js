@@ -103,7 +103,7 @@ wdgt.Update = ()=> {
 			a.push (e);
 			localStorage.setItem (ls_id, ls ? `${e}${c_nonapa}${ls}` : e);
 		});
-		if (a.length) window['🙊'].Notification (a.join (c_nonapa), t);
+		if (a.length) window['🙊'].Notification (a.join (c_nonapa), `${$app.Constants.Name}.${wdgt.id} ${t}`);
 	})();
 	//
 	const w = $app.Widgets['🗺️'];
