@@ -45,7 +45,7 @@
 .🗺️ > iframe { border-radius: var(--🖥️-c-px-15); }
 .🗺️ :is(.gmnoprint, .gm-control-active, a, .gm-err-container) { display: none !important; } 
 .🗺️ > div:has(a[href$="maps-no-account"]), .🗺️ div [style^="background-color: rgba(0, 0, 0, 0.5)"] { display: none; } 
-#👁️‍🗨️:not(:empty) { width: 4em; right: calc(4em / 1.2); height: 100vh; --🖥️-👁️‍🗨️ : ; container: 👁️‍🗨️/ size; /* needed */ position: relative; }
+#👁️‍🗨️:not(:empty) { width: 4em; right: calc(4em / 1.5); height: 100vh; --🖥️-👁️‍🗨️ : ; container: 👁️‍🗨️/ size; /* needed */ position: relative; }
 :is(#👁️‍🗨️:not(:empty), #👁️‍🗨️ > div):before { background-position-y: -6rem; background-image: var(--🖥️-👁️‍🗨️ ); content: ""; position: absolute; height: 100%; background-repeat: no-repeat; }
 #👁️‍🗨️:not(:empty):before { background-size: 20rem 38rem; width: 3.4rem; background-position-x: -0.2rem; filter: invert(1) sepia(1) brightness(0.4); } 
 #👁️‍🗨️ > div:before { width: 3.5rem; right: -2.5rem; background-size: 15rem 38rem; filter: invert(1) brightness(0.2); background-position-x: 100%; }
