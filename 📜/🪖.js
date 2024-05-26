@@ -88,7 +88,7 @@ wdgt.Update = ()=> {
 			else ac.napot.push (napa);
 		});
 	}
-	nonapa = 'פי גלילות'
+	
 	//
 	$app.Widgets['🔔'].Clear (wdgt.id);
 	for (const k in a) $app.Widgets['🔔'].Info (a[k].cat, a[k].napot.reduce((a,e)=> `${a ? `${a}, ` : ''}${e.n}`, ''), a[k].startedAt, 6 * 60 * 60, wdgt.id);
