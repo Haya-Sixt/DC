@@ -13,7 +13,7 @@ wdgt.repeat = { init: 10 };
 wdgt.Update = ()=> {
 	$(wdgt.sid).html('');
 	
-	const a = [], hyphen = ' -', sj = 'י', dj = sj.repeat (2), c_nonapa = ', ',
+	const hyphen = ' -', sj = 'י', dj = sj.repeat (2), c_nonapa = ', ',
 		DS = (v) => v.replaceAll (dj, sj), // קריית, מעיין, ריחאנייה
 		// normalize 'y'. e.g: ' מודיעין-מכבים-רעות  '
 		F = (f, ds)=> {
@@ -51,7 +51,7 @@ wdgt.Update = ()=> {
 			return napa;
 		}; 
 			
-	let napa, nonapa = '', nonapa_delimiter;
+	let a = [], napa, nonapa = '', nonapa_delimiter;
 	for (const e of wdgt.data) {
 		// 1 hours expired
 		const startedAt = parseInt(new Date(e.alertDate).getTime () / 1000);
@@ -88,11 +88,21 @@ wdgt.Update = ()=> {
 			else ac.napot.push (napa);
 		});
 	}
+	// Grouping
+	const c_by_n = [], pivot = [];
+	for (const c of a) 
+		for (const n of c.napot) 
+			c_by_n [n] = `${c_by_n[n]?.includes (c.cat) ? c_by_n [n] : `${c_by_n [n] ?? ''} ${c.cat}`}`.trimLeft();
+	for (const n in c_by_n) {
+		const c = c_by_n[n], f = pivot.find (e=> e.cat == c);
+		f ? f.napot.push (n) : pivot.push ({cat: c, napot: [n]});
+	}
+	a = pivot;
 	
-	//
+	// ℹ
 	$app.Widgets['🔔'].Clear (wdgt.id);
 	for (const k in a) $app.Widgets['🔔'].Info (a[k].cat, a[k].napot.reduce((a,e)=> `${a ? `${a}, ` : ''}${e.n}`, ''), a[k].startedAt, 6 * 60 * 60, wdgt.id);
-	//
+	// ⚠
 	if (nonapa) (()=> {
 		const ls_id = `${wdgt.id}_🔔️nonapa`, a = [], t = 'no napa found', b = nonapa.slice(1);
 		$app.Widgets['🔔'].Alert (wdgt.id, `<span style='font-size:small'>${t}<br>${b}</span>`, 3);
@@ -105,6 +115,7 @@ wdgt.Update = ()=> {
 		});
 		if (a.length) window['🙊'].Notification (a.join (c_nonapa), `${$app.Constants.Name}.${wdgt.id} ${t}`);
 	})();
+	
 	//
 	const w = $app.Widgets['🗺️'];
 	if (!a.length) return w.Remove (wdgt.id);
