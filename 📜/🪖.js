@@ -78,12 +78,11 @@ wdgt.Update = ()=> {
 			!N (d) && N (d, 1);
 			
 			// find 'found alerted napa' in 'n'
-			if (napa) napa = $app.Widgets['🗺️'].napot [napa]
-			else return (nonapa += `${c_nonapa}${d}`);
+			if (!napa) return (nonapa += `${c_nonapa}${d}`);
 			
 			// adding 'found napa' to 'found alerted cat in a'
 			const ac = a.find (({cat})=> c == cat);
-			if (ac?.napot?.find (({n})=> napa.n == n)) return;
+			if (ac?.napot?.find ((e)=> napa == e)) return;
 			if (!ac) a.push ({ cat: c, napot: [napa], startedAt: startedAt })
 			else ac.napot.push (napa);
 		});
@@ -92,16 +91,15 @@ wdgt.Update = ()=> {
 	const c_by_n = [], pivot = [];
 	for (const c of a) 
 		for (const n of c.napot) 
-			c_by_n [n] = `${c_by_n[n]?.includes (c.cat) ? c_by_n [n] : `${c_by_n [n] ?? ''} ${c.cat}`}`.trimLeft();
+			c_by_n [n] = {cat: `${c_by_n[n]?.cat?.includes (c.cat) ? c_by_n [n].cat : `${c_by_n [n]?.cat ?? ''}${c.cat}`}`, startedAt: (!c_by_n[n] || c_by_n[n].startedAt < c.startedAt) ? c.startedAt : c_by_n[n].startedAt};
 	for (const n in c_by_n) {
-		const c = c_by_n[n], f = pivot.find (e=> e.cat == c);
-		f ? f.napot.push (n) : pivot.push ({cat: c, napot: [n]});
+		const c = c_by_n[n], f = pivot.find (e=> e.cat == c.cat);
+		f ? f.napot.push (n) : pivot.push ({cat: c.cat, startedAt: c.startedAt, napot: [n]});
 	}
-	a = pivot;
 	
 	// ℹ
 	$app.Widgets['🔔'].Clear (wdgt.id);
-	for (const k in a) $app.Widgets['🔔'].Info (a[k].cat, a[k].napot.reduce((a,e)=> `${a ? `${a}, ` : ''}${e.n}`, ''), a[k].startedAt, 6 * 60 * 60, wdgt.id);
+	((a)=> { for (const k in a) $app.Widgets['🔔'].Info (a[k].cat, a[k].napot.reduce((a,e)=> `${a ? `${a}, ` : ''}${$app.Widgets ['🗺️'].napot [e].n}`, ''), a[k].startedAt, 6 * 60 * 60, wdgt.id) })(pivot);   
 	// ⚠
 	if (nonapa) (()=> {
 		const ls_id = `${wdgt.id}_🔔️nonapa`, a = [], t = 'no napa found', b = nonapa.slice(1);
