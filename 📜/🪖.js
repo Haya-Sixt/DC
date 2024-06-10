@@ -103,15 +103,16 @@ wdgt.Update = ()=> {
 	// ⚠
 	if (nonapa) (()=> {
 		const ls_id = `${wdgt.id}_🔔️nonapa`, a = [], t = 'no napa found', b = nonapa.slice(1);
-		$app.Widgets['🔔'].Alert (wdgt.id, `<span style='font-size:small'>${t}<br>${b}</span>`, 3);
-		// 📱
+		let ls = localStorage.getItem (ls_id); 
 		b.split (c_nonapa).forEach (e=> {
-			const ls = localStorage.getItem (ls_id);
 			if (ls?.includes (e)) return;
 			a.push (e);
-			localStorage.setItem (ls_id, ls ? `${e}${c_nonapa}${ls}` : e);
+			ls = `${e}${c_nonapa}${ls ?? ''}`;
 		});
-		if (a.length) window['🙊'].Notification (a.join (c_nonapa), `${$app.Constants.Name}.${wdgt.id} ${t}`);
+		if (!a.length) return;
+		localStorage.setItem (ls_id, ls);
+		window['🙊'].Notification (a.join (c_nonapa), `${$app.Constants.Name}.${wdgt.id} ${t}`);
+		$app.Widgets['🔔'].Alert (wdgt.id, `<span style='font-size:small'>${t}<br>${b}</span>`, 3);
 	})();
 	
 	//
