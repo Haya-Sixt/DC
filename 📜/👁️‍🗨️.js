@@ -56,11 +56,11 @@ function New () {
 
 function Close () {
 	Listen ();
-	$(`${wdgt.id}_web`).remove ();
+	$(`#echo ${wdgt.id}_web`).remove ();
 }
 
 function Listen (on) {
-	const L = ()=> {
+	const L = (ev)=> {
 		if (!ev.data.startsWith (wdgt.id)) return;
 		ev.data.endsWith ('_new') && New ();
 		ev.data.endsWith ('_close') && Close ();
