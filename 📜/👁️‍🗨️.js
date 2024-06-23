@@ -15,7 +15,7 @@ wdgt.Init = ()=> {
 	clearTimeout (i_carousel);
 	gallery = [];
 	counter = 0;
-	if ($app.Vars ['📆'] == '🥋') Web ();
+	/*if ($app.Vars ['📆'] == '🥋')*/ Web ();
 	if ($app.Vars ['🌃'] == 'true') return Carousel ();
 	
 	const max_days = 7, m = /(?<=IMG-)\d*(?=-WA\d.)/,
@@ -42,7 +42,7 @@ function Carousel () {
 let isNew;
 function Web () {
 	isNew = window['🙊'].GetValue (wdgt.id, 0);
-	window['🙊'].OpenInTab ("https://web.whatsapp.com/", { "active": false, "setParent": true } ))
+	window['🙊'].OpenInTab ("https://web.whatsapp.com/", { active: false, setParent: true } )
     	.onclose = Done;
 	window.focus ();
 }
