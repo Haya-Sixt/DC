@@ -15,6 +15,7 @@ wdgt.Init = ()=> {
 	clearTimeout (i_carousel);
 	gallery = [];
 	counter = 0;
+	if ($app.Vars ['📆'] == '🥋') Web ();
 	if ($app.Vars ['🌃'] == 'true') return Carousel ();
 	
 	const max_days = 7, m = /(?<=IMG-)\d*(?=-WA\d.)/,
@@ -37,5 +38,35 @@ function Carousel () {
 	if (gallery.length > 1) i_carousel = setTimeout (Carousel, 3 * 60 * 1000);
 }
 
+//
+function Web () {
+	Listen (1);
+	$('<iframe>')
+		.hide ()
+		.appendTo (wdgt.sid)
+		.attr ('id', `${wdgt.id}_web`)
+		.attr ('width', '100%')
+		.attr ('height', '100%')
+		.attr ('src', 'https://web.whatsapp.com/');
+}
+
+function New () {
+	$app.Service['🤖']?.Send (`${app.Constants.Name}.${wdgt.id}.New`);
+}
+
+function Close () {
+	Listen ();
+	$(`${wdgt.id}_web`).remove ();
+}
+
+function Listen (on) {
+	const L = ()=> {
+		if (!ev.data.startsWith (wdgt.id)) return;
+		ev.data.endsWith ('_new') && New ();
+		ev.data.endsWith ('_close') && Close ();
+	} 
+	top.window.removeEventListener ('message', L);
+	on && top.window.addEventListener ('message', L);
+}
 
 })();
