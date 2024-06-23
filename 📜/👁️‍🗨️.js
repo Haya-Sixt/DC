@@ -15,7 +15,7 @@ wdgt.Init = ()=> {
 	clearTimeout (i_carousel);
 	gallery = [];
 	counter = 0;
-	/*if ($app.Vars ['📆'] == '🥋')*/ Web ();
+	if ($app.Vars ['📆'] == '🥋') Web ();
 	if ($app.Vars ['🌃'] == 'true') return Carousel ();
 	
 	const max_days = 7, m = /(?<=IMG-)\d*(?=-WA\d.)/,
