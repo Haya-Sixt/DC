@@ -39,34 +39,17 @@ function Carousel () {
 }
 
 //
+let isNew;
 function Web () {
-	Listen (1);
-	$('<iframe>')
-		.hide ()
-		.appendTo (wdgt.sid)
-		.attr ('id', `${wdgt.id}_web`)
-		.attr ('width', '100%')
-		.attr ('height', '100%')
-		.attr ('src', 'https://web.whatsapp.com/');
+	isNew = window['🙊'].GetValue (wdgt.id, 0);
+	window['🙊'].OpenInTab ("https://web.whatsapp.com/", { "active": false, "setParent": true } ))
+    	.onclose = Done;
+	window.focus ();
 }
 
-function New () {
-	$app.Service['🤖']?.Send (`${app.Constants.Name}.${wdgt.id}.New`);
-}
-
-function Close () {
-	Listen ();
-	$(`#echo ${wdgt.id}_web`).remove ();
-}
-
-function Listen (on) {
-	const L = (ev)=> {
-		if (!ev.data.startsWith (wdgt.id)) return;
-		ev.data.endsWith ('_new') && New ();
-		ev.data.endsWith ('_close') && Close ();
-	} 
-	top.window.removeEventListener ('message', L);
-	on && top.window.addEventListener ('message', L);
+//
+function Done () {
+	if (isNew !== window['🙊'].GetValue (wdgt.id, 0)) $app.Service['🤖']?.Send (`${app.Constants.Name}.${wdgt.id}.New`); 
 }
 
 })();
