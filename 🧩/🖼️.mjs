@@ -1,7 +1,10 @@
+//import wdgt from "./🧩/🧩.Widget.mjs"
 export default ()=> [
 
 // Background Image
-()=> { 
+(async ()=> {
+	const m = await import ('./🧩.mjs')
+	
 	
 wdgt.dependency = [$app.Formats.Var('🌃'), $app.Formats.Var('🕯️🕯️'), $app.Formats.Var('📆')];
 
@@ -56,6 +59,6 @@ function Carousel () {
 }
 
 
-}
+})
 
 ] // export

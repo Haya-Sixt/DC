@@ -159,7 +159,7 @@ function Init () {
     Resources ();
     
     function Consts () {
-    	const P = (i, trailer = '/')=> `${decodeURIComponent (p [i])}${trailer}`, p = new URL (document.querySelector ('script[type="module"]').src).pathname.slice (1, -3).split ('/');
+    	const P = (i, trailer = '/')=> `${decodeURIComponent (p [i])}${trailer}`, p = new URL (document.querySelector ('script[type="module"]').src).pathname.slice (1, -4).split ('/');
     	app.Consts.Libs.Repo = P (0); 
     	app.Consts.Libs.Widget = P (1); 
     	app.Name = P (2, '');  
@@ -193,16 +193,21 @@ function Init () {
 	
 	//
 	async function Resources () {
-		const V = (r)=> !document.head.querySelector (`script[src$="${r}"]`) && !r.endsWith (`/${app.Name}.js`),
+		const V = (r)=>  r.endsWith (`.mjs`) && !document.head.querySelector (`script[src$="${r}"]`) && !r.endsWith (`/${app.Name}.mjs`) && !r.endsWith (`/🧩.mjs`), 
 			//S = r=> { if (V (r)) return; const e = document.createElement('script'); e.type = 'text/javascript'; e.src = r; document.head.appendChild (e); return new Promise (resolve=> e.addEventListener ('load', resolve)) },
 			L = r=> { const e = document.createElement('link'); e.rel = 'stylesheet'; e.type = 'text/css'; e.href = r; document.head.appendChild (e) },
-			W = r=> V (r) && import (r)
+			W = r=> V (r) /*&& (window.$app = app) && (window.$wdgt = new app.Widget (r.split ('/').at (-1).split ('.') [0]) )*/ && import (r)
 				.then (e => {
+					//window.$app = app
 					e.default ().forEach (w=> {
-					//e.$app = app;
-					const wdgt = new app.Widget (r.split ('/').at (-1).split ('.') [0]); 
+					window.$app = app;
+					window.wdgt = new app.Widget (r.split ('/').at (-1).split ('.') [0]); 
+					//w.wdgt = wdgt
+					w () 
 					//w.call ({wdgt: wdgt }) 
-					eval (`(${w}) ()`);
+					//eval (`(${w}) ()`);
+					//w.call (w)
+					//w.call ((()=>{}))
 					});
 				}),
 			R = async (r, f)=> {
