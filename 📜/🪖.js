@@ -51,7 +51,7 @@ wdgt.Update = ()=> {
 		if ( (parseInt (new Date().getTime() / 1000) - startedAt) / (60 * 60) > 1) continue;
 		
 		// find 'alerted cat' in 'a'
-		const c = e.category_desc.trim ()
+		const c = e.title.trim ()
 			.replace ("ירי רקטות וטילים", '🚀')
 			.replace ("חדירת מחבלים",'🚷')
 			.replace ("חדירת כלי טיס עוין", '🛸')
