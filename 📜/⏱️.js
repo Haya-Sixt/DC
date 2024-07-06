@@ -11,14 +11,14 @@ wdgt.Init = ()=> {
 
 //
 wdgt.Update = ()=> {
-	$(wdgt.sid).text(`${wdgt.data} ${wdgt.id}`);
+	$(wdgt.sid).text (`${wdgt.data} ${wdgt.id}`);
 };
 
 //
 wdgt.Add = (w, k)=> {
-	const wk = ` ${w}.${k}`;
+	//const wk = ` ${w}.${k}`;
 	wdgt.Init ();
-	wdgt.data += wk;
+	//wdgt.data += wk;
 	Refresh ();
 }
 

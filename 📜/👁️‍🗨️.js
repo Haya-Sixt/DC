@@ -39,17 +39,18 @@ function Carousel () {
 }
 
 //
-let isNew;
+//let isNew;
 function Web () {
-	isNew = window['🙊'].GetValue (wdgt.id, 0);
-	window['🙊'].OpenInTab ("https://web.whatsapp.com/", { active: false, setParent: true } )
-    	.onclose = Done;
-	window.focus ();
+//	isNew = window['🙊'].GetValue (wdgt.id, 0);
+	window['🙊']? // 🗒: '?' bcs it's sometimes undefined 
+		.OpenInTab ("https://web.whatsapp.com/", { active: false, setParent: true } )
+//		.onclose = Done;
+//	window.focus ();
 }
 
 //
-function Done () {
-	if (isNew !== window['🙊'].GetValue (wdgt.id, 0)) $app.Service['🤖']?.Send (`${app.Constants.Name}.${wdgt.id}.New`); 
-}
+//function Done () {
+//	if (isNew !== window['🙊'].GetValue (wdgt.id, 0)) $app.Service['🤖']?.Send (`${app.Constants.Name}.${wdgt.id}.New`); 
+//}
 
 })();
