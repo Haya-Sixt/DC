@@ -3,13 +3,15 @@
 
 // inter system communication
 const wdgt = new $app.Service ('🤖'),
-	c_mark = `${$app.Constants.Name}.${wdgt.id}`;
+	c_tag = `${$app.Constants.Name}.${wdgt.id}`,
+	tab_id = Date.now ();
 
 
 //
 wdgt.Init = ()=> {
-	$(wdgt.sid).html(`<div style="position: absolute; top: -100vh;">${c_mark}</div>`);
-	Listener ();
+	$(wdgt.sid).html(`<div style="position: absolute; top: -100vh;">${c_tag}</div>`);
+	WS ();
+	window['🙊'].SaveTab ({id: tab_id});
 }
 
 //
@@ -17,7 +19,7 @@ wdgt.Update = Inactive;
 
 
 //
-function Listener () {
+function WS () {
 	const ws = new WebSocket(`ws://${location.host}`);
 
 	setTimeout (()=> { if (ws.readyState != 1) wdgt.Reset (ws) }, 5000);
@@ -51,7 +53,7 @@ function Dispatch (v) {
 	}
 	else $app.Widgets['🔔'].Info (`${v} (${wdgt.id})`);
 	
-	$(`${wdgt.sid} div`).html (`${c_mark}.${t}`);
+	$(`${wdgt.sid} div`).html (`${c_tag}.${t}`);
 	} catch (ex) { wdgt.Error ('Dispatch', ex) }
 }
 
@@ -65,15 +67,23 @@ wdgt.Send = (n)=> {
 
 
 //
-let inactive = 0, closed = 0;
+//let inactive = 0, closed;
 function Inactive () {
-	if (inactive > 10) {
-		if (closed++) return;
+	window['🙊'].GetTabs (ts=> {  //console.log (`${wdgt.id}.Inactive.GetTabs`, ts);
+		// is there any newer tab?
+		if ( ! Object.values (ts)?.find (e=> e.id > tab_id) ) return;
+		// close
+		window['🙊'].SaveTab ({id: null});
 		$app.Widgets['🔔'].Info (`${wdgt.id}.Inactive: ${$(":focus").length}`);
 		window['🙊'].Close ()
-		}
-	else if ($(":focus").length) inactive = 0
-	else inactive++;
+	});     
+	
+	//if ($(":focus").length || closed) inactive = closed = 0 
+	//else if (inactive > 10) {
+	//	$app.Widgets['🔔'].Info (`${wdgt.id}.Inactive: ${$(":focus").length}`);
+	//    window['🙊'].Close ()
+	//}
+	//else inactive++;
 }
 
 })(); 

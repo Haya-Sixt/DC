@@ -146,8 +146,10 @@ app.Service = class T extends app.Widget {
 		const p = '🌃';
 		if (typeof options?.[p] == 'undefined') options[p] = app.Constants[p].None;
 	    super (id, options);
+	    if (typeof options?.repeat?.update == 'undefined') this.repeat.update = 1;
 	}
 }
+
 
 
 //
