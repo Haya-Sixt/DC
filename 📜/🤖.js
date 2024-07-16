@@ -11,9 +11,9 @@ const wdgt = new $app.Service ('🤖'),
 wdgt.Init = ()=> {
 	$(wdgt.sid).html(`<div style="position: absolute; top: -100vh;">${c_tag}</div>`);
 	WS ();
-	window['🙊'].SaveTab ({id: tab_id});
+	setTimeout (()=> window['🙊'].SaveTab ({id: tab_id}), 3000); // 🗒: 'setTimeout' bcs 🏁 with 🙊
 }
-
+ 
 //
 wdgt.Update = Inactive;
 
