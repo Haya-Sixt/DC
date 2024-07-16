@@ -62,7 +62,7 @@ function Dispatch (v) {
 let i_send = [];
 wdgt.Send = (n)=> {
 	clearTimeout (i_send [n]);
-	i_send [n] = setTimeout (()=> window['🙊'].Notification (n), 3000);
+	i_send [n] = setTimeout (()=> window['🙊'].Notification (n), 3000); // 🗒: 'setTimeout' bcs 🏁 with 🙊
 };
 
 
