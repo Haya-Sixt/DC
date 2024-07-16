@@ -69,14 +69,14 @@ wdgt.Send = (n)=> {
 //
 //let inactive = 0, closed;
 function Inactive () {
-	window['🙊'].GetTabs (ts=> {  //console.log (`${wdgt.id}.Inactive.GetTabs`, ts);
+	setTimeout (()=> window['🙊'].GetTabs (ts=> {  //console.log (`${wdgt.id}.Inactive.GetTabs`, ts);
 		// is there any newer tab?
 		if ( ! Object.values (ts)?.find (e=> e.id > tab_id) ) return;
 		// close
 		window['🙊'].SaveTab ({id: null});
 		$app.Widgets['🔔'].Info (`${wdgt.id}.Inactive: ${$(":focus").length}`);
 		window['🙊'].Close ()
-	});     
+	}), 3000); // needed 
 	
 	//if ($(":focus").length || closed) inactive = closed = 0 
 	//else if (inactive > 10) {
