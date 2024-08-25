@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@picovoice/porcupine-node": "~3.0.3",
+    "@picovoice/pvrecorder-node": "~1.2.2",
+    "commander": "^6.1.0",
+    "@picovoice/porcupine-web": "~3.0.3"
+    "bumblebee-hotword-node": "^0.2.1"
+  }
+}

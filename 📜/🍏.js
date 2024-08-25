@@ -188,7 +188,7 @@ function Init () {
 	async function Resources () {
 	    [app.Constants.Name,'⏳'].forEach((e)=> { const link = document.createElement('link'); link.rel = 'stylesheet'; link.type = 'text/css'; link.href = `🖌️/${e}.css`; document.head.appendChild(link); } ); 
 	    const a = [];
-	    (await (await fetch (`/ls DC/${app.Constants.Libs ['📜']}`)).json()).forEach ((e)=> { e = e.replace ('/DC/', ''); if (document.head.querySelector (`script[src$="${e}"]`) ) return; const script = document.createElement('script'); a.push (new Promise ((resolve)=> { script.onload = ()=> resolve(1) })); script.type = 'text/javascript'; script.src = e; document.head.appendChild(script); } ); 
+	    (await (await fetch (`/ls DC/${app.Constants.Libs ['📜']}`)).json()).forEach ((e)=> { e = e.slice (e.indexOf ('/DC/') + 4); if (document.head.querySelector (`script[src$="${e}"]`) ) return; const script = document.createElement('script'); a.push (new Promise ((resolve)=> { script.onload = ()=> resolve(1) })); script.type = 'text/javascript'; script.src = e; document.head.appendChild(script); } ); 
 		Promise.all (a).then (Complete);
 	}
 	
@@ -198,7 +198,7 @@ function Init () {
 	        w.dependency && w.dependency.forEach(d=> addEventListener(app.Constants.Event (d), w.Init));
 	        w.Init();
 	    }
-	} 
+	}
 } // Init
 
 //
