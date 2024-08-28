@@ -37,7 +37,7 @@ static Alert (e, ...args) {
 
 //
 static #Box (mode, duration, e, ...args) {
-	const name = (mode ? 'info' : 'alert'), now = parseInt(new Date().getTime() / 1000);
+	const name = (mode ? 'info' : 'alert'), now = parseInt(Date.now () / 1000);
 	//
 	if (typeof e != 'object') e = { title: e };
 	if (!e.text) e.text = (args.length > 1 || (args.length == 1 && typeof args[0] != 'number')) ? args[0] : '';
