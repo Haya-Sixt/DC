@@ -5,6 +5,9 @@
 // Ask Assistant
 const wdgt = new $app.Widget('🔮', { appendTo: '' });
 
+// Debug
+setTimeout (Ask, 5000)
+
 //
 wdgt.Init = manual=> {
 	if ($app.Vars ['🕯️🕯️'] == "true") return;
@@ -14,9 +17,11 @@ wdgt.Init = manual=> {
 			window ['🙊'].SetValue (k, '');
 			window ['🙊'].AddValueChangeListener (`${wdgt.id}.${k}`, (k, oldV, v, remote)=> {
 				const n = typeof v == 'number';
-				$app.Widgets['🔔'].Info (wdgt.id, n ? k : v, (n ? 5 : parseInt(v.split (' ').length / 5) + 5) * 1000);
+				if (n) window ['🙊'].Focus ()
+				else $app.Widgets['🔔'].Info (wdgt.id, v, parseInt (v.split (' ').length / 5) + 5);
 			});
 		};
+	
 	R ('🎤')
 	R ('💬')
 	$(wdgt.sid).html ('');
@@ -26,6 +31,7 @@ wdgt.Init = manual=> {
 wdgt.Update = ()=> {}
 
 function Ask () {
+	$app.Widgets['🔔'].Info (`${wdgt.id} Loading...`, "", 20);
 	window['🙊'].OpenInTab ("https://copilot.microsoft.com", { active: false, setParent: true } );
 }
 
