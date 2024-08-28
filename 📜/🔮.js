@@ -6,9 +6,9 @@
 const wdgt = new $app.Widget('🔮', { appendTo: '' });
 
 //
-wdgt.Init = e=> {
+wdgt.Init = manual=> {
 	if ($app.Vars ['🕯️🕯️'] == "true") return;
-	if (e == '🤖') return Ask ();
+	if (manual == '🤖') return Ask ();
 	// init
 	const R = k=> {
 			window ['🙊'].SetValue (k, '');

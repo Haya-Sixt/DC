@@ -56,7 +56,7 @@ app.Widget = class T extends app.UIComponent {
 	    $(this.sid).addClass('wdgt');
 	}
 	//
-	get Init () {
+	get Init (manual) {
 	    return async ()=> { 
 	    try {
 	    const ResolveDependency = ()=> {
@@ -82,8 +82,8 @@ app.Widget = class T extends app.UIComponent {
 	                if (i < url.length - 1) return Get (url, i+1);
 	            }
 	            else this.data = d;
-	            this.repeat.init && setTimeout(this.Init, 1000*60*this.repeat.init);
-	            this.Update();
+	            this.repeat.init && setTimeout(this.Init, 1000*60*this.repeat.init, manual);
+	            this.Update(manual);
 	            } catch (e) { this.Reset(e) }
 	        })
 	        .fail(()=> this.Reset());
@@ -93,9 +93,9 @@ app.Widget = class T extends app.UIComponent {
 	    if (!ResolveDependency ()) return;
 	    this.status = null; // to be able to dispatch again 
 	    if (this.init) {
-	        await this.init();
-	        this.repeat.init && setTimeout(this.Init, 1000*60*this.repeat.init);
-	        this.Update();
+	        await this.init(manual);
+	        this.repeat.init && setTimeout(this.Init, 1000*60*this.repeat.init, manual);
+	        this.Update(manual);
 	    }
 	    else Get (this.url && this.url()); // 🗒: Url is a function (and not just a var), to be evaluated after Dependencies
 	    } catch (e) { this.Error(e, 'Init') } }
@@ -104,12 +104,12 @@ app.Widget = class T extends app.UIComponent {
 	    this.init = f;
 	}
 	//
-	get Update () {
+	get Update (manual) {
 	    return async ()=>{ try {
 	    $(this.sid).removeClass("error");
 	    let i_update
-	    this.repeat.update && (i_update = setTimeout(this.Update, 1000*60*this.repeat.update));
-	    this.update && (await this.update() == app.Constants.Status.NoRepeat) && clearTimeout(i_update);
+	    this.repeat.update && (i_update = setTimeout(this.Update, 1000*60*this.repeat.update, manual));
+	    this.update && (await this.update(manual) == app.Constants.Status.NoRepeat) && clearTimeout(i_update);
 	    if (this.status != app.Constants.Status.Done) {
 	        this.status = app.Constants.Status.Done;
 	        dispatchEvent(new Event( app.Constants.Event (this.id) ));
