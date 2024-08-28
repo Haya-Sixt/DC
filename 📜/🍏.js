@@ -56,8 +56,8 @@ app.Widget = class T extends app.UIComponent {
 	    $(this.sid).addClass('wdgt');
 	}
 	//
-	get Init (manual) {
-	    return async ()=> { 
+	get Init () {
+	    return async (manual)=> { 
 	    try {
 	    const ResolveDependency = ()=> {
 	        if (!this.dependency || this.status == app.Constants.Status.Done) return true;
@@ -104,8 +104,8 @@ app.Widget = class T extends app.UIComponent {
 	    this.init = f;
 	}
 	//
-	get Update (manual) {
-	    return async ()=>{ try {
+	get Update () {
+	    return async (manual)=>{ try {
 	    $(this.sid).removeClass("error");
 	    let i_update
 	    this.repeat.update && (i_update = setTimeout(this.Update, 1000*60*this.repeat.update, manual));
