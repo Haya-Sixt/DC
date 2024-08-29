@@ -93,7 +93,7 @@ wdgt.Update = ()=> {
 	}
 	
 	// ℹ
-	$app.Widgets['🔔'].Clear (wdgt.id);
+	$app.Widgets ['🔔'].Clear (wdgt.id);
 	((a)=> { for (const k in a) $app.Widgets['🔔'].Info (a[k].cat, a[k].napot.reduce((a,e)=> `${a ? `${a}, ` : ''}${$app.Widgets ['🗺️'].napot [e].n}`, ''), a[k].startedAt, 6 * 60 * 60, wdgt.id) })(pivot);   
 	// ⚠
 	if (nonapa) (()=> {
@@ -106,12 +106,12 @@ wdgt.Update = ()=> {
 		});
 		if (!a.length) return;
 		localStorage.setItem (ls_id, ls);
-		window['🙊'].Notification (a.join (c_nonapa), `${$app.Constants.Name}.${wdgt.id} ${t}`);
-		$app.Widgets['🔔'].Alert (wdgt.id, `<span style='font-size:small'>${t}<br>${b}</span>`, 3);
+		window ['🙊'].Notification (a.join (c_nonapa), `${$app.Constants.Name}.${wdgt.id} ${t}`);
+		$app.Widgets ['🔔'].Alert (wdgt.id, `<span style='font-size:small'>${t}<br>${b}</span>`, 3);
 	})();
 	
 	//
-	const w = $app.Widgets['🗺️'];
+	const w = $app.Widgets ['🗺️'];
 	if (!a.length) return w.Remove (wdgt.id);
 	!w?.data?.[wdgt.id] && w.Add (wdgt.id);
 	w.data [wdgt.id].Napot (a);

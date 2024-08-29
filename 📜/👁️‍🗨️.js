@@ -39,16 +39,8 @@ function Carousel () {
 }
 
 //
-//let isNew;
 function Web () {
-//	isNew = window['🙊'].GetValue (wdgt.id, 0);
-	setTimeout (()=> window['🙊'].OpenInTab ("https://web.whatsapp.com/", { active: false, setParent: true } ), 3000); // 🗒: 'setTimeout' bcs 🏁 with 🙊
-//		.onclose = Done;
+	window ['🙊'].OpenInTab ("https://web.whatsapp.com/", { active: false, setParent: true })
 }
-
-//
-//function Done () {
-//	if (isNew !== window['🙊'].GetValue (wdgt.id, 0)) $app.Service['🤖']?.Send (`${app.Constants.Name}.${wdgt.id}.New`); 
-//}
 
 })();

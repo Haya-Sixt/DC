@@ -137,7 +137,7 @@ imo { font-size:var(--🖥️-c-px-22); }
 #🌡️ .Spline text, #💈 text { fill: var(--🖥️-c-ts-2); }
 #🌡️ .AxisX { fill: var(--🖥️-c-t-2); }
 #💈 { filter: opacity(0.8); }
-.error { border-radius: var(--🖥️-c-px-10); border: var(--🖥️-c-be-3) var(--🖥️-c-px-1) solid !important; } 
+.error { position: absolute !important; border-radius: var(--🖥️-c-px-10); border: var(--🖥️-c-be-3) var(--🖥️-c-px-1) solid !important; } 
 /*.tdShabat {}*/
 .wdgt, .📆name, .📆val, #🗓️ div.omer { white-space: nowrap; } 
 #🖥️, #🖥️ > div .wdgt, .dafYomi, .🌡️overlay, .hideOut { position: absolute; }
