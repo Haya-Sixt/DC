@@ -40,7 +40,10 @@ function Carousel () {
 
 //
 function Web () {
-	window ['🙊'].OpenInTab ("https://web.whatsapp.com/", { active: false, setParent: true })
+	with (window ['🙊']) {
+		if (GetValue (wdgt.id) == new Date().getDate ()) return; // prevent 'Download again'
+		OpenInTab ("https://web.whatsapp.com/", { active: false, setParent: true })
+	}
 }
 
 })();
