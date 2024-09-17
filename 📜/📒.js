@@ -23,8 +23,8 @@ function Zmanit (t) {
 	t.includes (c) && t.matchAll (`${c}.*?}}`).toArray().forEach ((e)=> {
 		t = t.replace (e[0], ((e)=> {
 			const T = (t)=> $app.Widgets['📆'].data[t],
-				d = new Date(T('👑') * 1000), 
-				m = parseFloat(parseFloat ((T('🙏') - T('👑')) / 60).toFixed(1)),
+				d = new Date(T('🤦🏼‍♂️') * 1000), 
+				m = parseFloat(parseFloat ((T('🙏') - T('🤦🏼‍♂️')) / 60).toFixed(1)),
 				h = e.slice(c.length).slice(0, -2) - 4;
 			d.setMinutes(d.getMinutes() + (m * h));
 			return `${d.getHours()}:${d.getMinutes()}`;
