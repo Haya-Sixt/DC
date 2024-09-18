@@ -40,9 +40,11 @@ function Carousel () {
 
 //
 function Web () {
-	with (window ['🙊']) {
-		if (GetValue (wdgt.id) == new Date().getDate ()) return; // prevent 'Download again'
-		OpenInTab ("https://web.whatsapp.com/?🐵", { active: false, setParent: true })
+	with (window ['🐵']) {
+		if (GetValue (wdgt.id) == new Date().getDate ()) return; // prevent "Download again"
+		SetValue (wdgt.id, ""); // closing all 
+		//Notification (`${$app.Constants.Name}.${wdgt.id}.Web`); // prevent "Download again"
+		OpenInTab (`https://web.whatsapp.com/?${$app.Constants ['🐵']}`, { active: false, setParent: true })
 	}
 }
 

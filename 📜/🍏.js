@@ -6,10 +6,9 @@ const app = {
     	Event: (id, id2 = '')=> `${app.Constants.Name}.${id}${id2 ? '.' : ''}${id2}`, 
 	    Var: (v = '')=> `V.${v}`,
         Status : { Done: 'done', NoRepeat: 'noRepeat' },
-        Name: '🖥️',
+        Name: '🖥️', ['🐵']: '🐵', Libs: { '📜': '📜/' }, 
         Host: location.href.match(/.*\//umg)[0],
         ['🌃']: { Dim: 'Dim', Hide: 'Hide', None: 'None' },
-        Libs: { '📜': '📜/' },
     },
     Vars : { 
     	Mode: location.hash.replace('#',''),
@@ -194,7 +193,7 @@ function Init () {
 	
 	//
 	async function Ready  () {
-		await Helpers.WaitFor (()=> window ['🙊'].Ready);
+		await Helpers.WaitFor (()=> window ['🐵'].Ready);
 	    for (const [k, w] of Object.entries(app.Widgets)) {
 	        w.dependency && w.dependency.forEach(d=> addEventListener(app.Constants.Event (d), w.Init));
 	        w.Init();

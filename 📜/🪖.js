@@ -106,7 +106,7 @@ wdgt.Update = ()=> {
 		});
 		if (!a.length) return;
 		localStorage.setItem (ls_id, ls);
-		window ['🙊'].Notification (a.join (c_nonapa), `${$app.Constants.Name}.${wdgt.id} ${t}`);
+		window ['🐵'].Notification (a.join (c_nonapa), `${$app.Constants.Name}.${wdgt.id} ${t}`);
 		$app.Widgets ['🔔'].Alert (wdgt.id, `<span style='font-size:small'>${t}<br>${b}</span>`, 3);
 	})();
 	

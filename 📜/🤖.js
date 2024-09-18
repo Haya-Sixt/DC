@@ -11,7 +11,7 @@ const wdgt = new $app.Service ('🤖'),
 wdgt.Init = ()=> {
 	$(wdgt.sid).html(`<div style="position: absolute; top: -100vh;">${c_tag}</div>`);
 	WS ();
-	window ['🙊'].SaveTab ({id: tab_id});
+	window ['🐵'].SaveTab ({id: tab_id});
 }
  
 //
@@ -58,18 +58,18 @@ function Dispatch (v) {
 
 
 //
-wdgt.Send = n=> window ['🙊'].Notification (n);
+wdgt.Send = n=> window ['🐵'].Notification (n);
 
 
 //
 function Inactive () {
-	window ['🙊'].GetTabs (ts=> { 
+	window ['🐵'].GetTabs (ts=> { 
 		// is there any newer tab?
 		if ( ! Object.values (ts)?.find (e=> e.id > tab_id) ) return;
 		// close
-		window ['🙊'].SaveTab ({id: null});
+		window ['🐵'].SaveTab ({id: null});
 		$app.Widgets ['🔔'].Info (`${wdgt.id}.Inactive: ${$(":focus").length}`);
-		window ['🙊'].Close ();
+		window ['🐵'].Close ();
 	})
 }
 
