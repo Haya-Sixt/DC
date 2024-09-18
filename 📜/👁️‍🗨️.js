@@ -42,7 +42,7 @@ function Carousel () {
 function Web () {
 	with (window ['🙊']) {
 		if (GetValue (wdgt.id) == new Date().getDate ()) return; // prevent 'Download again'
-		OpenInTab ("https://web.whatsapp.com/", { active: false, setParent: true })
+		OpenInTab ("https://web.whatsapp.com/?🐵", { active: false, setParent: true })
 	}
 }
 

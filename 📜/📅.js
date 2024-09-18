@@ -283,13 +283,15 @@ function Mark() {
 	if (first ) {
 		first.addClass('markIconText'); 
 	}
-	$app.Vars ['📆'] = wdgt.data.current = current;
 	
 	//
 	CurrentBySunset ();
 
 	//
 	Background ();
+	
+	// 🗒: Setting it last, because its dependents may need ‘tdCurrentHeb’ (i.e., see in 🖼️)
+	$app.Vars ['📆'] = wdgt.data.current = current;
 } 
 
 //
