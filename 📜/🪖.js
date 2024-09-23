@@ -64,6 +64,7 @@ wdgt.Update = ()=> {
 				.replace ('הדרומי ','')
 				.replace ('צפוני ','')
 				.replace ('מטווח ','')
+				.replace ('תחנת רכבת ','') //  כפר יהושוע
 				.replace ('תל חי','כפר גלעדי')
 				.replaceAll ('יי', 'י') // קרית, מעין, ריחאניה 
 				.replace ('שדי ','שדה '); // שדי אברהם/חמד
@@ -116,6 +117,23 @@ wdgt.Update = ()=> {
 	!w?.data?.[wdgt.id] && w.Add (wdgt.id);
 	w.data [wdgt.id].Napot (a);
 };
+
+//
+//  Search "מועצה" in results Title
+//  🗒: The body might include "המועצה לצרכנות" etc.
+//  i.e: כפר הנוער ימין אורד , אזור תעשיה שער נעמן, גבעת וולפסון, כלא דמון, כפר גמילה מלכישוע 
+//  i.e: תחנת רכבת כפר יהושוע, כפר תקווה, אתר ההנצחה גולני, בית אלפא וחפציבה, בית סוהר קישון 
+//
+//* const u = `https://www.google.com/search?q=${/*encodeURIComponent(`גבעת וולפסון`)*/""}`; 
+//  fetch (u)
+//* fetch(`https://www.google.com/search?q="ישובים במחוז"+"גבעת וולפסון"`)
+//* const q = /*בית סוהר קישון*/`גבעת וולפסון`/*`כפר גמילה מלכישוע`*/, 
+//    u = `https://www.google.com/search?q="ישובים במחוז"+"${q}"`/*&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBCTE2MzM5ajBqMagCALACAA&sourceid=chrome-mobile&ie=UTF-8`*/, 
+//    r = await fetch (u), 
+//    t = r.ok ? await r.text () : "";
+//  console.log (u); console.log (t)
+
+
 
 //
 // converter location » napa
