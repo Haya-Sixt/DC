@@ -39,12 +39,19 @@ function Carousel () {
 }
 
 //
+let web, i_web;
 function Web () {
 	with (window ['🐵']) {
-		if (GetValue (wdgt.id) == new Date().getDate ()) return; // prevent "Download again"
-		SetValue (wdgt.id, ""); // closing all 
-		//Notification (`${$app.Constants.Name}.${wdgt.id}.Web`); // prevent "Download again"
-		OpenInTab (`https://web.whatsapp.com/?${$app.Constants ['🐵']}`, { active: false, setParent: true })
+		// prevent "Download again". (previous code used - Notif (`...Web`) )
+		if (GetValue (wdgt.id) == new Date().getDate ()) return;
+		// closing all 
+		SetValue (wdgt.id, ""); 
+		// 🦺
+		clearTimeout (i_web);
+		i_web = setTimeout (()=> web?.close (), 20*60*1000);
+		//
+		web?.close ();
+		web = OpenInTab (`https://web.whatsapp.com/?${$app.Constants ['🐵']}`, { active: false, setParent: true })
 	}
 }
 

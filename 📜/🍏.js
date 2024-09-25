@@ -122,7 +122,7 @@ app.Widget = class T extends app.UIComponent {
 	Reset (e='get') {
 	    this.Error(e, 'failed.\nResetting (40s)...');
 	    setTimeout(this.Init, 1000*40);
-	    app.Service['🤖']?.Send (`${app.Constants.Name}.${this.id}.Reset`);
+	    app.Service['🤖']?.Send (`${this.id}.Reset`);
 	}
 	Error (e, t) {
 		console.log (this.id, t, e);
