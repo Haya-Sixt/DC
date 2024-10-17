@@ -47,6 +47,15 @@ wdgt.Entries = function* () {
 		let startedAt = 0, x, c;
 		
 		//
+		// to do: 17.10.24
+		//   on the next day, it appears also (between 🥋 and 🌇)
+		//
+		//a   ["ברכת לבנה 🌗","(ולהסתפר 💇 גם)<br>
+		//a   📒 (📅י\"ד,📆🥋) [6h]"]
+		//
+		
+		
+		//
 		c = '📅';
 		x = condC.indexOf(`,${c}`);
 		if (x != -1) {
