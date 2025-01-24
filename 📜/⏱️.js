@@ -121,18 +121,22 @@ wdgt.Update = ()=> {
 };
 
 function Current() {
-	var now = parseInt( new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' }).replace(':','') ), 
-		firstMark = null,
+	const now = parseInt( new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' }).replace(':','') ), 
 		match = $('#🗓️ .tdCurrent').text().match(/[0-2][0-9]:[0-5][0-9]/gm);
 	
-	match && match.forEach((m) => { 
-		var val = parseInt( m.replace(':','') );
-		if ( now <= val && !firstMark) 
-			firstMark = m;
+	wdgt.current = [];
+	match && match.forEach(m=> { 
+		const val = parseInt( m.replace(':','') );
+		if ( now <= val ) wdgt.current.push (m);
 	});
 	
-	if (firstMark) {
-		$(wdgt.sid).html('<span>'+firstMark+'</span><span>⏰</span>');
+	if (wdgt.current.length) {
+		let t = wdgt.current[0];
+		if (wdgt.current.length == 2) {
+			const T = t=> `<span style="font-size: 50%">${t}</span>`;
+			t = `${T (wdgt.current[0])},${T (wdgt.current[1])}`;
+		}
+		$(wdgt.sid).html(`<span>${t}</span><span>⏰</span>`);
 		$(wdgt.sid).addClass("markIconText");
 		return true;
 	}

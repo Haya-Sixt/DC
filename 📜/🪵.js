@@ -10,7 +10,7 @@ wdgt.Constants = { Ender: '➖'};
 
 //
 wdgt.Update = ()=> {
-	let rs ='', now = parseInt( new Date().getTime() / 1000 ),
+	let rs ='', now = parseInt( Date.now() / 1000 ),
 		shishi = 0, w;
 	
 	for (const e of wdgt.Entries(now)) { // 🗒: yield doesn't work with forEach because it's callback
@@ -29,7 +29,12 @@ wdgt.Update = ()=> {
 	
 	
 	w = '🕯️'; // 🗒: '🌋' App Must Have Delay Before 🔔. Otherwise '🏡' Won't Be Triggered (Because '🌋' Is Open).
-	$app.Vars [w] = shishi; // TODO; convert in 🤖 to numeric. (🗒 there's already wdgt.data.shishi) 
+	// TODO: convert in 🤖 to numeric. (🗒 there's already wdgt.data.shishi) 
+	if (wdgt.data.shishi.toLowerCase() == "true" && !shishi) {
+		shishi = new Date($app.Widgets['📆'].data['🌇'] * 1000);
+		shishi = parseInt (shishi.setHours(shishi.getHours()-5) / 1000);
+	}
+	$app.Vars [w] = shishi; 
 	$app.Vars [`${w}${w}`] = wdgt.data.shabbat.toLowerCase();
 
 	w = '🔋';
@@ -64,7 +69,8 @@ function Clock (now, w, c, hours = 7) {
 //
 function Background() {
 	let c = '', cs;
-	if ( $app.Vars ['🕯️🕯️'] == "true" ) c += '🕯️🕯️';
+	if ( $app.Vars ['🕯️🕯️'] == "true" ) c += '🕯️🕯️'
+	else if ( $app.Vars ['🕯️'] ) c += '🕯️';
 	if ( c == '') c = '🌴'
 	else c = dx(c);
 	
