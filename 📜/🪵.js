@@ -18,7 +18,7 @@ wdgt.Update = ()=> {
 
 		rs += `<div data="${e.log}" ${ e.log.indexOf("[") == -1 && 'style="display:none;"' }>${e.log}</div>`;
 
-		// Set shishi
+		// Set shishi (just in case MD was disabled, and I manually run the '🌋🕯'️ scene)
 		if ( e.log.substring(6).substring(0,4) == '🕯️ ' )
 			shishi = e.startedAt;
 	};
@@ -29,13 +29,6 @@ wdgt.Update = ()=> {
 	
 	
 	w = '🕯️'; // 🗒: '🌋' App Must Have Delay Before 🔔. Otherwise '🏡' Won't Be Triggered (Because '🌋' Is Open).
-	/*
-	// TODO: convert in 🤖 to numeric. (🗒 there's already wdgt.data.shishi) 
-	if (wdgt.data.shishi.toLowerCase() == "true" && !shishi) {
-		shishi = new Date($app.Widgets['📆'].data['🌇'] * 1000);
-		shishi = parseInt (shishi.setHours(shishi.getHours()-6) / 1000);
-	}
-	*/
 	shishi = Math.max (wdgt.data.shishi, shishi);
 	$app.Vars [w] = (new Date(shishi * 1000).getDate () == new Date().getDate () && now < $app.Widgets['📆'].data['🌃']) ? shishi : 0;
 	$app.Vars [`${w}${w}`] = wdgt.data.shabbat.toLowerCase();
