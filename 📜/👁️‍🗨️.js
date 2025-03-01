@@ -1,9 +1,9 @@
 
 //
-(()=>{
+false && (()=>{
 
 
-// WhatsApp 
+// WhatsApp (DISABLED)
 const wdgt = new $app.Widget('👁️‍🗨️', { appendTo: '' });
 wdgt.dependency = [$app.Constants.Var('🌃'), $app.Constants.Var('🕯️🕯️'), $app.Constants.Var('📆')]; 
 let i_carousel, gallery, counter;
