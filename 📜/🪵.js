@@ -29,12 +29,15 @@ wdgt.Update = ()=> {
 	
 	
 	w = '🕯️'; // 🗒: '🌋' App Must Have Delay Before 🔔. Otherwise '🏡' Won't Be Triggered (Because '🌋' Is Open).
+	/*
 	// TODO: convert in 🤖 to numeric. (🗒 there's already wdgt.data.shishi) 
 	if (wdgt.data.shishi.toLowerCase() == "true" && !shishi) {
 		shishi = new Date($app.Widgets['📆'].data['🌇'] * 1000);
-		shishi = parseInt (shishi.setHours(shishi.getHours()-5) / 1000);
+		shishi = parseInt (shishi.setHours(shishi.getHours()-6) / 1000);
 	}
-	$app.Vars [w] = shishi; 
+	*/
+	shishi = Math.max (wdgt.data.shishi, shishi);
+	$app.Vars [w] = (new Date(shishi * 1000).getDate () == new Date().getDate () && now < $app.Widgets['📆'].data['🌃']) ? shishi : 0;
 	$app.Vars [`${w}${w}`] = wdgt.data.shabbat.toLowerCase();
 
 	w = '🔋';
