@@ -39,12 +39,12 @@ function Emit (m) {
 //
 app.use (express.static (c_base));
 
-app.get (`${c_ws}*`, (req, res) => {
+app.get (`${c_ws}{*any}`, (req, res) => {
 	Emit (req.url.replace(c_ws, ''));
 	res.writeHead (200, { 'Content-Type': 'text/html;charset=utf-8' });
 	res.end ("👌");
 });
-app.get (`${c_ls}*`, (req, res) => {
+app.get (`${c_ls}{*any}`, (req, res) => {
 	const fs = require('fs'), path = require('path'), b = c_base.replaceAll ('/', '\\'),
 		F = dir => fs.readdirSync (dir).reduce ((files, file) => {
 			const name = path.join(dir, file), isDirectory = fs.statSync(name).isDirectory();
@@ -52,7 +52,7 @@ app.get (`${c_ls}*`, (req, res) => {
 		}, []),
 		dir = path.join(c_base, decodeURIComponent (req.url.replace (c_ls, ''))),
 		f = fs.existsSync (dir) ? F (dir) : [];
-	//console.log (c_base, b, f); 
+	console.log (c_base, b, f); 
 	res.writeHead (200, { 'Content-Type': 'text/html;charset=utf-8' });
 	res.end (JSON.stringify (f));
 });
@@ -61,11 +61,11 @@ app.get('/favicon.ico', (req, res) => {
 	res.sendFile(`${c_base}/🖼️${req.url}`);
 });
 
-app.get(`${c_nm}*`, (req, res) => {
+app.get(`${c_nm}{*any}`, (req, res) => {
 	res.sendFile(`${process.env.HOME}${req.url}`);
 });
 
-app.get("*", (req, res) => {
+app.all('{*any}', (req, res) => {
 	//console.log(`app.get(*): ${c_base}${req.url}`) //, req, res, __dirname);
 	res.sendFile(`${c_base}${req.url}`);
 });
