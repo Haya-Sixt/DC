@@ -9,7 +9,7 @@ const c_nm = '/node_modules', c_nmp = `${process.env.HOME}${c_nm}/`,
 	server = http.createServer(app),
 	wss = new ws.Server ({server: server}),
 	clients = new Map(),
-	c_base = `${__dirname.startsWith ('/') ? '/\storage/\emulated/\ 0' : 'C:/\Data'}/\🍏/\🖥️`.replace (' ', ''), 
+	c_base = `${__dirname.startsWith ('/') ? '/\storage/\emulated/\ 0' : 'C:/\Workspace'}/\🍏/\🖥️`.replace (' ', ''), 
 	c_ws = `/DC/${encodeURIComponent('🤖')}/`,
 	c_ls = `/ls${encodeURIComponent (' ')}`;
 
@@ -41,6 +41,7 @@ app.use (express.static (c_base));
 
 app.get (`${c_ws}{*any}`, (req, res) => {
 	Emit (req.url.replace(c_ws, ''));
+	//console.log ('c_ws', req.url); 
 	res.writeHead (200, { 'Content-Type': 'text/html;charset=utf-8' });
 	res.end ("👌");
 });
@@ -52,7 +53,7 @@ app.get (`${c_ls}{*any}`, (req, res) => {
 		}, []),
 		dir = path.join(c_base, decodeURIComponent (req.url.replace (c_ls, ''))),
 		f = fs.existsSync (dir) ? F (dir) : [];
-	console.log (c_base, b, f); 
+	//console.log ('c_ls', c_base, b, f); 
 	res.writeHead (200, { 'Content-Type': 'text/html;charset=utf-8' });
 	res.end (JSON.stringify (f));
 });
@@ -62,11 +63,12 @@ app.get('/favicon.ico', (req, res) => {
 });
 
 app.get(`${c_nm}{*any}`, (req, res) => {
+	//console.log('c_nm', process.env.HOME, req.url);
 	res.sendFile(`${process.env.HOME}${req.url}`);
 });
 
-app.all('{*any}', (req, res) => {
-	//console.log(`app.get(*): ${c_base}${req.url}`) //, req, res, __dirname);
+app.all(`{*any}`, (req, res) => {
+	//console.log('*', c_base, req.url);
 	res.sendFile(`${c_base}${req.url}`);
 });
 
