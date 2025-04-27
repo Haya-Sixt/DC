@@ -34,7 +34,7 @@ wdgt.Update = ()=> {
 	$app.Vars [`${w}${w}`] = wdgt.data.shabbat.toLowerCase();
 
 	w = '🔋';
-	if (wdgt.data.battery != "100") $app.Widgets['🚥'].Add (wdgt.id, w, wdgt.data.battery)
+	if (parseInt (wdgt.data.battery) < 70) $app.Widgets['🚥'].Add (wdgt.id, w, wdgt.data.battery)
 	else $app.Widgets['🚥'].Remove (wdgt.id, w);
 
 	w = '💈';
