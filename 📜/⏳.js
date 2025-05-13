@@ -5,11 +5,6 @@
 const wdgt = new $app.Widget('⏳');
 
 //
-wdgt.Init = ()=> {
-	$(wdgt.sid).html('');
-};
-
-//
 wdgt.Start = (...args)=> T.Start (...args); 
 	
 //

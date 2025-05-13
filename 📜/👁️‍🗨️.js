@@ -4,14 +4,13 @@ false && (()=>{
 
 
 // WhatsApp (DISABLED)
-const wdgt = new $app.Widget('👁️‍🗨️', { appendTo: '' });
-wdgt.dependency = [$app.Constants.Var('🌃'), $app.Constants.Var('🕯️🕯️'), $app.Constants.Var('📆')]; 
+const wdgt = new $app.Widget('👁️‍🗨️', {
+	dependency: { var: ['🌃', '🕯️🕯️', '📆'] },
+});
 let i_carousel, gallery, counter;
 
 //
-wdgt.Init = ()=> {
-	$(wdgt.sid).html('');
-	
+wdgt.Update = ()=> {
 	clearTimeout (i_carousel);
 	gallery = [];
 	counter = 0;
@@ -22,15 +21,12 @@ wdgt.Init = ()=> {
 		Add = ()=> fetch (`/ls 🖼️/${wdgt.id}`).then (r=> r.json().then (r=> r.forEach (e=> (new Date () - Date.parse (e.match (m)?.toString()?.split('')?.toSpliced(6, 0, '/')?.toSpliced(4, 0, '/')?.join(''))) / (24 * 60 * 60 * 1000) < max_days && gallery.push (e)) ) );
 	if ($app.Vars ['🕯️🕯️'] != "true") return Carousel ();
 	
-	Add ().then (Carousel);
-}
-
-//
-wdgt.Update = ()=> { };
+	Add ().then (Carousel); 
+};
 
 //
 function Carousel () { 
-	const P = (v)=> $(`${wdgt.sid}`).css (`--${$app.Constants.Name}-${wdgt.id}`, v ? `url(${v})` : '');
+	const P = (v)=> $(`${wdgt.sid}`).css (`--${$app.Const.Name}-${wdgt.id}`, v ? `url(${v})` : '');
 	if (!gallery.length) return P (''); 
 	$(wdgt.sid).html('<div></div>');
 	if (gallery.length > counter) P (gallery [counter++]);
@@ -51,7 +47,7 @@ function Web () {
 		i_web = setTimeout (()=> web?.close (), 20*60*1000);
 		//
 		web?.close ();
-		web = OpenInTab (`https://web.whatsapp.com/?${$app.Constants ['🐵']}`, { active: false, setParent: true })
+		web = OpenInTab (`https://web.whatsapp.com/?${$app.Const ['🐵']}`, { active: false, setParent: true })
 	}
 }
 

@@ -2,8 +2,8 @@
 const $app = (function () {
 
 const app = {
-    Constants : {
-    	Event: (id, id2 = '')=> `${app.Constants.Name}.${id}${id2 ? '.' : ''}${id2}`, 
+    Const : {
+    	Event: (id, id2 = '')=> `${app.Const.Name}.${id}${id2 ? '.' : ''}${id2}`, 
 	    Var: (v = '')=> `V.${v}`,
         Status : { Done: 'done', NoRepeat: 'noRepeat' },
         Name: '🖥️', ['🐵']: '🐵', Libs: { '📜': '📜/' }, 
@@ -22,11 +22,12 @@ const app = {
             this.sid = `#${id}`;
             
             $(this.sid).remove (); // e.g. 🗺️
-            $('<div>').attr('id', id).appendTo (`#${app.Constants.Name}${ typeof options?.appendTo == 'undefined' ? 'c1' : options.appendTo }`);
+            $('<div>').attr('id', id).text(id)
+            	.appendTo (`#${app.Const.Name}${ options.appendTo ?? 'c1' }`);
             
-            const p = '🌃', c = `${p}${ typeof options?.[p] == 'undefined' ? app.Constants[p].Hide : options[p] }`; 
-            this[`_${p}`] = typeof options?.[p] == 'undefined' ? app.Constants[p].Hide : options[p];
-            addEventListener (app.Constants.Event (app.Constants.Var(p)), this [p]);
+            const p = '🌃', c = `${p}${ options[p] ?? app.Const[p].Hide }`; 
+            this[`_${p}`] = typeof options?.[p] == 'undefined' ? app.Const[p].Hide : options[p];
+            addEventListener (app.Const.Event (app.Const.Var(p)), this [p]);
             this[p] ();
         }
         //
@@ -49,54 +50,60 @@ app.Widget = class T extends app.UIComponent {
 	    super (id, options);
 	    app.Widgets[id] = this;
 	    
-	    this.status = this.init = this.update = this.url = this.dependency = null;
-	    this.repeat = {init: 0, update: 0};
+	    this.status = this.init = this.update = null;
+	    
+	    this.http = options.http;
+	    this['🖌️'] = options['🖌️'];
+	    
+	    const IU = (o, iu)=> {
+	    	if (!o) return { init:null, update:null }; 
+	    	if (o instanceof Array || typeof o != 'object') return (iu ? { init:o, update:null } : { init:null, update:o });
+	    	return o;
+    	};
+	    this.repeat = IU (options.repeat, this.http);
+	    this.dependency = IU (options.dependency);
+	    this.dependency.var = IU (options.dependency?.var);
 	
 	    $(this.sid).addClass('wdgt');
 	}
 	//
 	get Init () {
-	    return async (manual)=> { 
+	    return async manual=> { 
 	    try {
-	    const ResolveDependency = ()=> {
-	        if (!this.dependency || this.status == app.Constants.Status.Done) return true;
-	        const f = this.dependency.filter(d=> (d.startsWith(app.Constants.Var()) ? app.Vars[`_${d.replace(app.Constants.Var(), '')}`] : app.Widgets[d].status) != app.Constants.Status.Done);
-	        if (f.length) return false
-	        else return true;
-	    },
-	    Get = (url, i=0)=> {
-	        let u = `${app.Vars.Mode}.json`;
-	        if (url instanceof Array) u = url[i]
-	        else if (url) u = url;
-	        if (!u.startsWith('http')) {
-	        	const db = u.endsWith('json') && app.Vars.Mode=='' ? '../' : '';
-	        	u = `${$app.Constants.Host}${db}📑/${this.id}${u}`;
-	    	}
-	        $.get( u )
-	        .done((d)=> { 
-	            try {
-	            if (url instanceof Array) {
-	                if (!i) this.data = [];
-	                this.data.push(d);
-	                if (i < url.length - 1) return Get (url, i+1);
-	            }
-	            else this.data = d;
-	            this.repeat.init && setTimeout(this.Init, 1000*60*this.repeat.init, manual);
-	            this.Update(manual);
-	            } catch (e) { this.Reset(e) }
-	        })
-	        .fail(()=> this.Reset());
+	    const Get = async w=> {    	
+	    	const U = u=> {
+		    		if (!u) u = `${app.Vars.Mode}.json`;
+			        if (!u.startsWith('http')) {
+			        	const db = u.endsWith('json') && app.Vars.Mode=='' ? '../' : '';
+			        	u = `${$app.Const.Host}${db}📑/${w.id}${u}`;
+		        	}
+		        	return u; 
+	        	};
+	    	try {
+	    		let au = (w.http !== true && w.http()); // 🗒: Url is a function (and not just a var), to be evaluated after Dependencies
+	            if (au instanceof Array) w.data = []
+	            else {
+	            	au = [au];
+	            	w.data = null; // for repeated init
+            	}
+                for (let i = 0; i < au.length; i++) {
+                	const u = U (au[i]);
+                	let d = await fetch (u);
+                	if (u.endsWith('json')) d = await d.json()
+                	else d = await (await d.blob()).text();
+                	if (w.data instanceof Array) w.data.push(d)
+                	else w.data = d;
+                };
+            } catch (e) { w.Reset(e) }
 	    };
 	    //
-	    $(this.sid).removeClass("error");
-	    if (!ResolveDependency ()) return;
+	    if (!this.#ResolveDependency ('init')) return;
+	    $(this.sid).removeClass("error").text ('');
 	    this.status = null; // to be able to dispatch again 
-	    if (this.init) {
-	        await this.init(manual);
-	        this.repeat.init && setTimeout(this.Init, 1000*60*this.repeat.init, manual);
-	        this.Update(manual);
-	    }
-	    else Get (this.url && this.url()); // 🗒: Url is a function (and not just a var), to be evaluated after Dependencies
+	    this.http && (await Get (this));
+	    this.init && (await this.init(manual));
+	    this.repeat.init && setTimeout(this.Init, 1000*60*this.repeat.init, manual);
+	    this.Update(manual);
 	    } catch (e) { this.Error(e, 'Init') } }
 	}
 	set Init (f) {
@@ -104,14 +111,16 @@ app.Widget = class T extends app.UIComponent {
 	}
 	//
 	get Update () {
-	    return async (manual)=>{ try {
+	    return async manual=>{
+    	try {
+	    if (!this.#ResolveDependency ('update')) return;
 	    $(this.sid).removeClass("error");
 	    let i_update
 	    this.repeat.update && (i_update = setTimeout(this.Update, 1000*60*this.repeat.update, manual));
-	    this.update && (await this.update(manual) == app.Constants.Status.NoRepeat) && clearTimeout(i_update);
-	    if (this.status != app.Constants.Status.Done) {
-	        this.status = app.Constants.Status.Done;
-	        dispatchEvent(new Event( app.Constants.Event (this.id) ));
+	    this.update && (await this.update(manual) == app.Const.Status.NoRepeat) && clearTimeout(i_update);
+	    if (this.status != app.Const.Status.Done) {
+	        this.status = app.Const.Status.Done;
+	        dispatchEvent(new Event( app.Const.Event (this.id) ));
 	    }
 	    } catch (e) { this.Error(e, 'Update') } }
 	}
@@ -126,16 +135,23 @@ app.Widget = class T extends app.UIComponent {
 	}
 	Error (e, t) {
 		console.log (this.id, t, e);
-		try { if (e.stack) e = decodeURIComponent (e.stack.replace('\n','').match (new RegExp (`.*:[0-9]{1,4}:[0-9]{1,4}\\)`, 'gum'))[0].replace (`/${app.Constants.Libs ['📜']}`, '').replace (location.href.split('/').slice(0,-1).join('/'), '')) }
+		try { if (e.stack) e = decodeURIComponent (e.stack.replace('\n','').match (new RegExp (`.*:[0-9]{1,4}:[0-9]{1,4}\\)`, 'gum'))[0].replace (`/${app.Const.Libs ['📜']}`, '').replace (location.href.split('/').slice(0,-1).join('/'), '')) }
 		catch { 
 	        const a = e.stack.split('\n'); 
-	        e = a.filter((s, i)=> i < 1 || i == a.length - 1).join('\n').replaceAll(location.origin, '').replaceAll('<anonymous>', '').replaceAll(`/DC/${app.Constants.Libs ['📜']}`, '');
+	        e = a.filter((s, i)=> i < 1 || i == a.length - 1).join('\n').replaceAll(location.origin, '').replaceAll('<anonymous>', '').replaceAll(`/DC/${app.Const.Libs ['📜']}`, '');
 	        e = decodeURIComponent(decodeURIComponent(e));
 	        if (e.includes(' at XMLHttpRequest')) e = e.slice(0, e.indexOf(' at XMLHttpRequest'));
 	    }
 	    app.Widgets['🔔'].Alert(`${this.id} ${t}: ${e}`);
 	    $(this.sid).text(`${this.id} ${t}: ${e}`).addClass("error");
 	}
+	#ResolveDependency (iu) {
+        if (this.status == app.Const.Status.Done
+        	|| (!this.dependency[iu]?.filter (d=> app.Widgets[d].status != app.Const.Status.Done)?.length
+        		&& !this.dependency.var[iu]?.filter (d=> app.Vars[`_${d}`] != app.Const.Status.Done)?.length) ) {
+    		return true;
+        }
+    }
 } // Widget
 
 
@@ -143,9 +159,12 @@ app.Widget = class T extends app.UIComponent {
 app.Service = class T extends app.Widget {
 	constructor (id, options = {}) {
 		const p = '🌃';
-		if (typeof options?.[p] == 'undefined') options[p] = app.Constants[p].None;
+		if (!options[p]) options[p] = app.Const[p].None;
+		if (!options.appendTo) options.appendTo = '';
+		options['🖌️'] = ''; // 🗒️: also in 🚥
 	    super (id, options);
-	    if (typeof options?.repeat?.update == 'undefined') this.repeat.update = 1;
+	    //
+	    if (!this.repeat.update) this.repeat.update = 1;
 	}
 }
 
@@ -159,8 +178,8 @@ function Init () {
     
 	//
 	function App () {
-	    const a = $("<div>").attr("id", app.Constants.Name),
-	    	c1 = $("<div>").attr("id", `${app.Constants.Name}c1`);
+	    const a = $("<div>").attr("id", app.Const.Name),
+	    	c1 = $("<div>").attr("id", `${app.Const.Name}c1`);
 	    a.appendTo('body');
 	    c1.appendTo(a);
 	}
@@ -174,9 +193,9 @@ function Init () {
 	        set: function(target, prop, value) {
 	        	const eq = target [prop] === value,
 	        		r = Reflect.set (target, prop, value);
-	        	if (r && (!eq || target[`_${prop}`] != app.Constants.Status.Done)) {
-		            target[`_${prop}`] = app.Constants.Status.Done;
-		            dispatchEvent (new Event( app.Constants.Event (app.Constants.Var(prop)) ));
+	        	if (r && (!eq || target[`_${prop}`] != app.Const.Status.Done)) {
+		            target[`_${prop}`] = app.Const.Status.Done;
+		            dispatchEvent (new Event( app.Const.Event (app.Const.Var(prop)) ));
 	            }
 	            return r;
 	        }
@@ -185,17 +204,19 @@ function Init () {
 	
 	//
 	async function Resources () {
-	    [app.Constants.Name,'⏳'].forEach((e)=> { const link = document.createElement('link'); link.rel = 'stylesheet'; link.type = 'text/css'; link.href = `🖌️/${e}.css`; document.head.appendChild(link); } ); 
+	    [app.Const.Name,'⏳'].forEach(e=> { const link = document.createElement('link'); link.rel = 'stylesheet'; link.type = 'text/css'; link.href = `🖌️/${e}.css`; document.head.appendChild(link); } ); 
 	    const a = [];
-	    (await (await fetch (`/ls DC/${app.Constants.Libs ['📜']}`)).json()).forEach ((e)=> { e = e.slice (e.indexOf ('/DC/') + 4); if (document.head.querySelector (`script[src$="${e}"]`) ) return; const script = document.createElement('script'); a.push (new Promise ((resolve)=> { script.onload = ()=> resolve(1) })); script.type = 'text/javascript'; script.src = e; document.head.appendChild(script); } ); 
+	    (await (await fetch (`/ls DC/${app.Const.Libs ['📜']}`)).json()).forEach ((e)=> { e = e.slice (e.indexOf ('/DC/') + 4); if (document.head.querySelector (`script[src$="${e}"]`) ) return; const script = document.createElement('script'); a.push (new Promise ((resolve)=> { script.onload = ()=> resolve(1) })); script.type = 'text/javascript'; script.src = e; document.head.appendChild(script); } ); 
 		Promise.all (a).then (Ready);
 	}
 	
 	//
 	async function Ready  () {
 		await Helpers.WaitFor (()=> window ['🐵'].Ready);
+		const L = (w, iu, cb, v)=> w.dependency[iu]?.forEach (d=> addEventListener (app.Const.Event (v ? app.Const.Var (d) : d), cb)) || (!v && L (w, iu, cb, true));
 	    for (const [k, w] of Object.entries(app.Widgets)) {
-	        w.dependency && w.dependency.forEach(d=> addEventListener(app.Constants.Event (d), w.Init));
+	        L (w, 'init', e=> w.Init (e));
+	        L (w, 'update', e=> w.Update (e));
 	        w.Init();
 	    }
 	}

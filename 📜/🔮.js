@@ -3,7 +3,7 @@
 (()=>{
 
 // Ask Assistant
-const wdgt = new $app.Widget('🔮', { appendTo: '' });
+const wdgt = new $app.Service('🔮');
 
 // Debug
 //setTimeout (Ask, 5000)
@@ -25,11 +25,8 @@ wdgt.Init = manual=> {
 	
 	R ('🎤')
 	R ('💬')
-	$(wdgt.sid).html ('');
 };
 
-//
-wdgt.Update = ()=> {}
 
 let ask, i_ask;
 function Ask () {
@@ -41,7 +38,7 @@ function Ask () {
 	i_ask = setTimeout (()=> ask?.close (), 2*60*1000);
 	//
 	ask?.close ();
-	ask = window ['🐵'].OpenInTab (`https://copilot.microsoft.com/?${$app.Constants ['🐵']}`, { active: false, setParent: true } );
+	ask = window ['🐵'].OpenInTab (`https://copilot.microsoft.com/?${$app.Const ['🐵']}`, { active: false, setParent: true } );
 }
 
 

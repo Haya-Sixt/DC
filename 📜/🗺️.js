@@ -4,19 +4,14 @@
 
 
 // Map 
-const wdgt = new $app.Widget('🗺️');
+const wdgt = new $app.Service('🗺️');
 
 //
-wdgt.Init = ()=> {
-	$(wdgt.sid).html ('');
-};
-
-//
-wdgt.Update = ()=> {
+//wdgt.Update = ()=> {
 	// TEST (🗒: needs to disable in 🪖)
 	//wdgt.Add ('🪖');
 	//wdgt.data ['🪖'].Napot ([{ cat: '🚀', napot: [wdgt.napot[51]] }]);
-};
+//};
 
 //
 wdgt.Add = (id)=> {
@@ -99,7 +94,7 @@ async function Map (id) {
 		.attr ('onload', `${Load.toString ().replaceAll ('"', "'")} Load('${id}')`),
 	  h = b.attr ('style', 'background-color: transparent;')
 		.parent ().find ('head')
-		.append ($(`link[href$="/${$app.Constants.Name}.css"]`).clone());
+		.append ($(`link[href$="/${$app.Const.Name}.css"]`).clone());
 		// 🗒: .append ('<script>').children().first ().attr ('type', 'text/javascript').html (Iframe.toString ()); // failed (Also with .html('<!DOCTYPE html>'))
 		
 	b.trigger('load'); // 🗒: Iframe.apply(b[0].ownerDocument);

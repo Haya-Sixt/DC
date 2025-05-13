@@ -2,11 +2,13 @@
 (()=>{
 
 // Log
-const wdgt = new $app.Widget('🪵');
-wdgt.dependency = ['📆','⏱️'];
-wdgt.repeat = { init: 3 };
+const wdgt = new $app.Widget('🪵', {
+	http: true,
+	dependency: ['📆','⏱️'],
+	repeat: 3,
+});
 
-wdgt.Constants = { Ender: '➖'};
+wdgt.Const = { Ender: '➖'};
 
 //
 wdgt.Update = ()=> {
@@ -14,7 +16,7 @@ wdgt.Update = ()=> {
 		shishi = 0, w;
 	
 	for (const e of wdgt.Entries(now)) { // 🗒: yield doesn't work with forEach because it's callback
-		if ( e.log.includes(wdgt.Constants.Ender) ) continue;
+		if ( e.log.includes(wdgt.Const.Ender) ) continue;
 
 		rs += `<div data="${e.log}" ${ e.log.indexOf("[") == -1 && 'style="display:none;"' }>${e.log}</div>`;
 
@@ -103,9 +105,10 @@ wdgt.Entries = function* (now, reverse = false) {
 (()=>{
 
 // Progress Bar
-const wdgt = new $app.Widget('🪵Progress');
-wdgt.dependency = ['🪵'];
-wdgt.repeat = { update: 1 };
+const wdgt = new $app.Widget('🪵Progress', {
+	dependency: { init: ['🪵'] },
+	repeat: 1, 
+});
 
 //
 wdgt.Init = ()=> {
@@ -113,8 +116,8 @@ wdgt.Init = ()=> {
 	let rs = '';
 
 	for (const e of $app.Widgets['🪵'].Entries(now, true)) {
-		if (e.log.includes($app.Widgets['🪵'].Constants.Ender)) {
-			const m = new RegExp(`<div [^>]*?data=.*?\\s${e.log.split($app.Widgets['🪵'].Constants.Ender)[1].split(' ')[0]}\\s.*?${spacer}`,`mu`);
+		if (e.log.includes($app.Widgets['🪵'].Const.Ender)) {
+			const m = new RegExp(`<div [^>]*?data=.*?\\s${e.log.split($app.Widgets['🪵'].Const.Ender)[1].split(' ')[0]}\\s.*?${spacer}`,`mu`);
 			rs = rs.replace(m, '');
 		}
 		if ( !e.log.includes("[") ) continue;
@@ -180,7 +183,7 @@ wdgt.Update = ()=> {
 		} 
 	});
 
-	if (!topOffset) return $app.Constants.Status.NoRepeat;
+	if (!topOffset) return $app.Const.Status.NoRepeat;
 
 	//
 	function Class (t) {

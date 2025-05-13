@@ -2,17 +2,17 @@
 (()=> {
 
 // פיקוד העורף
-const wdgt = new $app.Widget('🪖');
-wdgt.dependency = ['🗺️'];
-wdgt.repeat = { init: 10 };
+const wdgt = new $app.Service ('🪖', {
+	http: true,
+	dependency: ['🗺️'],
+	repeat: { init: 10 },
+});
 
 //
 // CORS wdgt.url = ()=> `https://www.oref.org.il//Shared/Ajax/GetAlarmsHistory.aspx?lang=he&mode=0`;
 
 //
 wdgt.Update = ()=> {
-	$(wdgt.sid).html('');
-	
 	const hyphen = ' -', c_nonapa = ', ',
 		LK = (v) => v.replaceAll ('-', ' '), // הר-חלוץ
 		F = (f, lucky)=> {

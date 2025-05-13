@@ -3,14 +3,12 @@
 (()=>{
 
 // Calendar
-const wdgt = new $app.Widget('🗓️');
-wdgt.dependency = ['📅👈'];
-
-//
-wdgt.url = ()=> [
-	`/${wdgt.id}_${$app.Widgets['📅👈'].data.year}_${$app.Widgets['📅👈'].data.month}.htm`,
-	`/${wdgt.id}_${Next().year}_${Next().month}.htm`
-];
+const wdgt = new $app.Widget('🗓️', {
+	dependency: {init:['📅👈']},
+	http: ()=> [
+		`/${wdgt.id}_${$app.Widgets['📅👈'].data.year}_${$app.Widgets['📅👈'].data.month}.htm`,
+		`/${wdgt.id}_${Next().year}_${Next().month}.htm`],
+});
 
 //
 function Next() {
@@ -203,11 +201,11 @@ function hebDay() {
 (()=>{
 
 // Times
-const wdgt = new $app.Widget('📆');
-wdgt.dependency = ['🗓️'];
+const wdgt = new $app.Widget('📆', {
+	dependency: ['🗓️'],
+	http: ()=> `/times_${$app.Widgets['📅👈'].data.year}_${$app.Widgets['📅👈'].data.month}.htm`,
+});
 
-//
-wdgt.url = ()=> `/times_${$app.Widgets['📅👈'].data.year}_${$app.Widgets['📅👈'].data.month}.htm`;
 
 //
 wdgt.Update = ()=> {

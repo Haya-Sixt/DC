@@ -24,7 +24,7 @@ wdgt.Add = (w, k)=> {
 
 //
 function Refresh () {
-	if (wdgt.status != $app.Constants.Status.Done ) return;
+	if (wdgt.status != $app.Const.Status.Done ) return;
 	wdgt.Update ();
 }
 
@@ -35,22 +35,12 @@ function Refresh () {
 (()=>{
 
 // Time
-const wdgt = new $app.Widget ('⌚');
-wdgt.repeat = { update: 1 };
-wdgt['🌃'] = $app.Constants['🌃'].Dim;
+const wdgt = new $app.Widget ('⌚', {
+	'🌃': $app.Const['🌃'].Dim,
+	repeat: 1,
+});
 
-//
-wdgt.Init = ()=> {
-	$(wdgt.sid).text(''); 
-};
-
-wdgt.Update = ()=> {
-	const time = new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' }).replace (':', ' ');
-	//
-	if (time == '00 01' && wdgt.data == '00 00') location.reload (); 
-	//
-	Helpers.Css ('background-image', wdgt.sid, (wdgt.data = time));
-}
+wdgt.Update = ()=> Helpers.Css ('background-image', wdgt.sid, new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' }).replace (':', ' '));
 
 })();
 
@@ -59,12 +49,18 @@ wdgt.Update = ()=> {
 (()=>{
 
 // Date Loazi
-const wdgt = new $app.Widget('📅👉');
+const wdgt = new $app.Widget('📅👉', {
+	'🖌️': '⌚',
+});
 
 //
 wdgt.Init = ()=> {
-	let date = new Date().toLocaleDateString('he-IL', { day: '2-digit', month: '2-digit' }).replace('.','/'); 
-	$(wdgt.sid).text(date);
+	wdgt.data = new Date().toLocaleDateString('he-IL', { day: '2-digit', month: '2-digit' }).replace('.','/'); 
+};
+
+//
+wdgt.Update = ()=> {
+	$(wdgt.sid).text(wdgt.data);
 };
 
 })();
@@ -74,7 +70,9 @@ wdgt.Init = ()=> {
 (()=>{
 
 // Date Hebrew
-const wdgt = new $app.Widget('📅👈');
+const wdgt = new $app.Widget('📅👈', {
+	'🖌️': '⌚',
+});
 
 //
 wdgt.Init = ()=> {
@@ -108,12 +106,11 @@ wdgt.Month = (now)=> {
 (()=>{
 
 // Schedule
-const wdgt = new $app.Widget('⏰');
-wdgt.repeat = { update: 10 };
-wdgt.dependency = ['📆'];
-
-//
-wdgt.Init = ()=> {}
+const wdgt = new $app.Widget('⏰', {
+	dependency: ['📆'],
+	repeat: 10,
+	'🖌️': '🪵',
+});
 
 //
 wdgt.Update = ()=> {

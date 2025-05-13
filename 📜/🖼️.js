@@ -2,14 +2,13 @@
 (()=>{
 
 // Background 
-const wdgt = new $app.Widget('🖼️');
-wdgt.dependency = [$app.Constants.Var('🌃'), $app.Constants.Var('🕯️🕯️'), $app.Constants.Var('📆')]; 
+const wdgt = new $app.Service('🖼️', {
+	dependency: { var: ['🌃', '🕯️🕯️', '📆'] }, 
+});
 let i_carousel, gallery, counter;
 
 //
 wdgt.Init = ()=> {
-	$(wdgt.sid).html('');   
-	
 	clearTimeout (i_carousel);
 	gallery = [];
 	counter = 0;
@@ -38,12 +37,9 @@ wdgt.Init = ()=> {
 }
 
 //
-wdgt.Update = ()=> { };
-
-//
 function Carousel () { 
 	const c = $(wdgt.sid).parent ().attr ('id'),
-		P = (v)=> $(`#${c}`).css (`--${$app.Constants.Name}-${c}-${wdgt.id}`, v ? `url("${v}")` : ''); 
+		P = (v)=> $(`#${c}`).css (`--${$app.Const.Name}-${c}-${wdgt.id}`, v ? `url("${v}")` : ''); 
 	if (!gallery.length) return P (''); 
 	if (gallery.length > counter) P (gallery [counter++]);
 	if (gallery.length <= counter) counter = 0;

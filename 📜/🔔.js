@@ -1,13 +1,8 @@
 //
 (()=>{
 
-// Countdown 
-const wdgt = new $app.Widget('🔔');
-
-//
-wdgt.Init = ()=> {
-	$(wdgt.sid).html('');
-};
+// Popup
+const wdgt = new $app.Service('🔔');
 
 //
 wdgt.Info = (...args)=> T.Info (...args); 

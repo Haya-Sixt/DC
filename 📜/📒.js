@@ -1,10 +1,12 @@
-// 1.
+//
 (()=>{
 
 // Notes
-const wdgt = new $app.Widget('📒');
-wdgt.dependency = ['📆', $app.Constants.Var('🕯️')];
-wdgt.repeat = { update: 3 };
+const wdgt = new $app.Service('📒', {
+	http: true,
+	dependency: { update: ['📆'], var: ['🕯️'] },
+	repeat: 3,
+});
 
 //
 wdgt.Update = ()=> { 

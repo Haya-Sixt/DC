@@ -2,12 +2,12 @@
 (()=>{
 
 // Status icons
-const wdgt = new $app.Widget('🚥'), // 🗒: No need for wdgt.dependency = ['🪵'];
+const wdgt = new $app.Widget('🚥', {
+	dependency: ['🪵'],
+}), 
 	WK = (w, k = '')=> encodeURIComponent (`${w}_${k}`).replaceAll ('%','_').replaceAll ("'",'"'); // 🗒: '.' instead of '_' is error in '<div wk '
 let data = [];
 
-wdgt.Init = ()=> {
-}
 
 //
 wdgt.Update = ()=> {
@@ -65,7 +65,7 @@ wdgt.Remove = (w, k)=> {
 
 //
 function Refresh () {
-	if (wdgt.status != $app.Constants.Status.Done ) return;
+	if (wdgt.status != $app.Const.Status.Done ) return;
 	wdgt.Update ();
 }
 

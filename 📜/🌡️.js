@@ -3,7 +3,10 @@
 (()=>{
 
 // Forecast
-const wdgt = new $app.Widget('🌡️');
+const wdgt = new $app.Widget('🌡️', {
+	http: true, 
+	// repeat️: been initiated by '$app.Service ('🤖')'
+});
 	
 let chart, splineBuilder, columnBuilder, axisY_max = -100, axisY_min = 100;
 
@@ -197,13 +200,13 @@ class Chart {
 (()=>{
 
 // Temperature
-const wdgt = new $app.Widget('💈');
-wdgt.dependency = ['🪵'];
+const wdgt = new $app.Widget('💈', {
+	dependency: { init: ['🪵'] },
+});
 
 // 
 wdgt.Init = ()=> {
 	wdgt.data = parseInt($app.Widgets['🪵'].data[wdgt.id]);
-	$(wdgt.sid ).html(''); 
 };
 
 //
