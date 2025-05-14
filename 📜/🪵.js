@@ -110,7 +110,7 @@ const wdgt = new $app.Widget ('🚥', {
 	'🖌️': '🪵',
 }), 
 	WK = (w, k = '')=> encodeURIComponent (`${w}_${k}`).replaceAll ('%','_').replaceAll ("'",'"'); // 🗒: '.' instead of '_' is error in '<div wk '
-let data = [];
+let data = [], reposition = 1;
 
 
 //
@@ -121,7 +121,6 @@ wdgt.Update = ()=> {
 				vs = v ? `<span>${v}<span>` : '', h = `${k}${vs}`;
 			if (!e.length) $('<div>').attr (wk, v).html (h).appendTo (wdgt.sid)
 			else if (e.attr (wk) !== v) e.attr (wk, v).html (h);
-			//$(wdgt.sid).html('')
 	  };
 	
 	// Removed
@@ -135,9 +134,12 @@ wdgt.Update = ()=> {
 		Add (wk, o.k, o.v);
 	}
 
-	// Resize 🪵
-	//if (!$(c).length) $('#🪵').removeClass ('🪵🚥')
-	//else $('#🪵').addClass ('🪵🚥');
+	// 🖌️
+	if (!data.length) return (reposition = 1);
+	if (!reposition) return;
+	reposition = 0; 
+	$(wdgt.sid).css('bottom', $('#🪵').css('bottom'))
+		.css('left', $('#🪵').css('left'));
 }
 
 

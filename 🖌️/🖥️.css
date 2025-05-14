@@ -29,10 +29,11 @@
 .🛞 { font-size: var(--🖥️-c-px-32); text-shadow: var(--🖥️-c-px-4) var(--🖥️-c-px-4) var(--🖥️-c-px-4) var(--🖥️-c-b-1); padding: 0; border: var(--🖥️-c-px-1) solid var(--🖥️-c-b-1); border-radius: var(--🖥️-c-px-15); background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" style="background-color:var(--🖥️-c-t-1)"></svg>'); background-color: var(--🖥️-c-bs-2); background-repeat: no-repeat; display: flex; flex-wrap: no-wrap; }
 .🛞 div:first-child { flex: 100%; text-overflow: ellipsis; overflow: hidden; }
 .🛞 div:last-child { flex: var(--🖥️-c-px-1); white-space: nowrap; }
-#🚥 { font-size: var(--🖥️-c-px-35); display: flex; flex-direction: row; justify-content: space-around; __padding : var(--🖥️-c-px-3); }   
+#🚥:not(:empty) { font-size: var(--🖥️-c-px-35); display: flex; flex-direction: row; justify-content: space-around; 
+__padding : var(--🖥️-c-px-3); } /* 🗒️ ':not(:empty)' bcs '.wdgt:empty' */
 #🚥 > div { background-color: var(--🖥️-c-be-1); border: var(--🖥️-c-px-1) solid var(--🖥️-c-be-3); animation-name: 🚥; animation-duration: 2s; animation-iteration-count: infinite; } 
 #🚥 > div > span { position: absolute; left: 0; color: var(--🖥️-c-te-2); }
-#🔔 { display: flex; flex-flow: row wrap; height: 100%; width: 100%; pointer-events: none; 
+#🔔:not(:empty) { display: flex; flex-flow: row wrap; height: 100%; width: 100%; pointer-events: none; 
 	align-items: center;justify-content: center; align-content: center; padding-top: 10%; 
 	animation-name: 🔔; animation-duration: 12s; animation-iteration-count: infinite; } 
 #🔔 > div { border-radius : var(--🖥️-c-px-25); margin: 1% 20% 0 20%; padding: 1% 2% 1% 2%; white-space: normal; text-align: center; font-size: var(--🖥️-c-px-20); 
@@ -50,13 +51,13 @@
 :is(#👁️‍🗨️:not(:empty), #👁️‍🗨️ > div):before { background-position-y: -6rem; background-image: var(--🖥️-👁️‍🗨️ ); content: ""; position: absolute; height: 100%; background-repeat: no-repeat; }
 #👁️‍🗨️:not(:empty):before { background-size: 20rem 38rem; width: 3.4rem; background-position-x: -0.2rem; filter: invert(1) sepia(1) brightness(0.4); } 
 #👁️‍🗨️ > div:before { width: 3.5rem; right: -2.5rem; background-size: 15rem 38rem; filter: invert(1) brightness(0.2); background-position-x: 100%; }
-.🌃Hide, #🚥:empty, #⏳:empty { visibility: hidden; }
+.🌃Hide { visibility: hidden; }
 .🌃Dim { filter: opacity(0.035); }
 
 :root {
 --🖥️-🖌️-0: calc(100% - var(--🖥️-c-px-26) * 6.2);
 --🖥️-🖌️-00: 43%;
---🖥️-🖌️-⌚w: 49%;
+--🖥️-🖌️-⌚w: 45%;
 --🖥️-🖌️-⌚h: 34%;
 --🖥️-🖌️-📅👈: 36%;
 --🖥️-🖌️-🌡️: 30%;
@@ -81,7 +82,7 @@
 #⏰.markIconText { height:calc(var(--🖥️-🖌️-⏰) - 2%); left:calc(var(--🖥️-c-px-cam) / 2); }  
 #🪵 { top:calc(var(--🖥️-🖌️-00) + var(--🖥️-🖌️-⏰)); height:var(--🖥️-🖌️-🪵h); } 
 #🚥 { bottom:0%; height: var(--🖥️-🖌️-🚥); }
-#🖥️w:not(:has(#🚥:empty)) > #🪵 { height: calc(var(--🖥️-🖌️-🪵h) - var(--🖥️-🖌️-🚥) - 3%); } 
+#🖥️w:not(:has(#🚥:empty)) > #🪵 { height: calc(var(--🖥️-🖌️-🪵h) - var(--🖥️-🖌️-🚥)); } 
 #🗓️ { left:var(--🖥️-🖌️-🪵w); width:calc(var(--🖥️-🖌️-0) - var(--🖥️-🖌️-🪵w)); height:calc(100% - var(--🖥️-🖌️-00)); } /* width 64% */
 #🛞 { left:20%; width:60%; height:0%; } 
 #⏳ { bottom: 1%; } 
@@ -134,6 +135,7 @@
 #🖥️ { display: flex; direction: ltr; color:var(--🖥️-c-t-3); font-family: sans-serif; top: 0; left: 0; width: 100vw; height: 100vh; 
 	text-shadow: var(--🖥️-c-px-2) 0 var(--🖥️-c-px-2) var(--🖥️-c-b-1), 0 var(--🖥️-c-px-2) var(--🖥️-c-px-2) var(--🖥️-c-b-1), calc(-1 * var(--🖥️-c-px-2)) 0 var(--🖥️-c-px-2) var(--🖥️-c-b-1), 0 calc(-1 * var(--🖥️-c-px-2)) var(--🖥️-c-px-2) var(--🖥️-c-b-1); }
 #🖥️w { direction: rtl; height: 100%; width: 100%; position: relative; top: 0; left: 0; overflow: hidden; } 
+#🖥️s { top: -9999%; }
 table { text-align: center; width:100%; height:var(--🖥️-c-px-1)}
 td { vertical-align: top;}
 .tdHead, .tdDay, .hdate, .dafYomi { font-size:var(--🖥️-c-px-15);}
@@ -161,7 +163,8 @@ imo { font-size:var(--🖥️-c-px-22); }
 .error { position: absolute !important; border-radius: var(--🖥️-c-px-10); border: var(--🖥️-c-be-3) var(--🖥️-c-px-1) solid !important; } 
 /*.tdShabat {}*/
 .wdgt, .📆name, .📆val, #🗓️ div.omer { white-space: nowrap; } 
-#🖥️, .wdgt, .dafYomi, .🌡️overlay, .hideOut { position: absolute; }
+#🖥️, #🖥️s, .wdgt, .dafYomi, .🌡️overlay, .hideOut { position: absolute; }
+.wdgt:empty { display: none; }
 
 /* 🗒️ '100's convention is needed at widget 🖌️ */
 #🔔 {z-index: 102}

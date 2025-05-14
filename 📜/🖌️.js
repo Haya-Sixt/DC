@@ -6,6 +6,7 @@ const wdgt = new $app.Service ('🖌️', {
 	repeat: 60,
 });
 
+
 wdgt.Init = Orientation;
 
 //
@@ -18,7 +19,8 @@ wdgt.Update = ()=> {
 function Rearrange () {
 	const CmpH = (a, b)=> a.height - b.height, 
 		EQ = (a, b)=> Math.abs (a-b) < 5,
-		P = (v, hw)=> v * 100 / (hw ? $(`#${$app.Const.Name}`).height() : $(`#${$app.Const.Name}`).width()),
+		NF = v=> Number (parseFloat (v).toFixed (2)),
+		P = (v, hw)=> NF (v * 100 / (hw ? $(`#${$app.Const.Name}`).height() : $(`#${$app.Const.Name}`).width())),
 		a = [], sub = {}, col = [];
 	
 	// create array 'sub' of sub widgets,
@@ -53,7 +55,7 @@ function Rearrange () {
 		}
 	});
 	
-	console.log ('A', a);
+//console.log (wdgt.id, 'A', a);
 		
 	// group by height. 
 	a.forEach ((e, i, a)=> {
@@ -91,81 +93,57 @@ function Rearrange () {
 		}
 	});
 	
-	console.log ('B', row.a[0]);
-	Switch (row.a[0]); 
-}
+//console.log (wdgt.id, 'B', row.a[0]);
+	
+	const css = { start: '<style> @media (min-device-width: 730px) {', end: '}</style>', E: e=> `${e.sid} { top:${e.top}%; left:${e.left}%; }`, a: [], };
+	
+	Switch (row.a[0]);
+    
+	$(wdgt.sid).html (`${css.start}${css.a.reduce ((a, e)=> `${a}${css.E (e)}`, '')}${css.end}`);
 
-function Switch (e, h = 0, w = 0) {
-	const CmpL = (a, b)=> a.left - b.left, 
-		CmpT = (a, b)=> a.top - b.top,
-		A = e=> e[wdgt.id] ?? e.a,
-		CSS = e=> {
-			e.h = h
-			e.w = w
-			//console.log (e.id, )
+	//
+	function Switch (e, h = 0, w = 0) {
+		const CmpL = (a, b)=> a.left - b.left, 
+			CmpT = (a, b)=> a.top - b.top,
+			A = e=> e[wdgt.id] ?? e.a,
+			CSS = e=> {
+				//e.h = h; e.w = w
+				e.top = NF (h + e.top + (e.dy ?? 0));
+				e.left = NF (w + e.left + (e.dx ?? 0));
+				//window ['🐵'].AddStyle (`@media (min-device-width: 730px) { ${e.sid} { top:${e.top}%; left:${e.left}%; __zoom:0.5; __height:${e.height-1}%; __width:${e.width-1}%; } }`);
+				css.a.push (e);
+			},
+			a = A(e);
 		
-			e.top = h + e.top + (e.dy ?? 0);
-			e.left = w + e.left + (e.dx ?? 0);
-			//$(e.sid).css('top', `${e.top}%`).css('left', `${e.left}%`);
-			window ['🐵'].AddStyle (`@media (min-device-width: 730px) { ${e.sid} { top:${e.top}%; left:${e.left}%; __zoom:0.5; __height:${e.height-1}%; __width:${e.width-1}%; } }`);
-		}/*,
-		MoveToEnd = (i, ac, c, lt, f, d, wh)=> {
-			const ad = [a[i], ...ac.filter (e=> e[lt] >= Math.min (a[i][lt], c[lt]) && e[lt] <= Math.max (a[i][lt], c[lt]) )];
-			ad.sort (f);
-			for (let i = 0; i < ad.length - 1; i++) {
-				ad[0][d] += ad[i+1][wh];
-				ad[i+1][d] -= ad[0][wh];
+		// leaf - set css
+		if (!a) return CSS (e); 
+		
+		// randomize the columns/rows
+		const ar = Array(a.length).fill().map ((_, i) => i).sort(() => Math. random() - 0.5);
+		a.sort (e.t == 'c' ? CmpL : CmpT);
+		let cw = 0, ch = 0;
+		for (let i = 0; i < ar.length; i++) {
+			let dx = 0, dy = 0; 
+			for (let j = 0; j < ar[i]; j++) {
+				dx += a[j].width;
+				dy += a[j].height;
 			}
-		}*/,
-		a = A(e);
-	
-	// leaf - set css
-	if (!a) return CSS (e); 
-	
-	// randomize the columns/rows
-	const ar = Array(a.length).fill().map ((_, i) => i).sort(() => Math. random() - 0.5);
-	a.sort (e.t == 'c' ? CmpL : CmpT);
-	let cw = 0, ch = 0;
-	for (let i = 0; i < ar.length; i++) {
-		let dx = 0, dy = 0; 
-		for (let j = 0; j < ar[i]; j++) {
-			dx += a[j].width;
-			dy += a[j].height;
-		}
-		if (e.t == 'c') {
-			a[ar[i]].dx = -dx + cw;
-			cw += a[ar[i]].width;
-		}
-		else {
-			a[ar[i]].dy = -dy + ch;
-			ch += a[ar[i]].height;
-		}
-		a[ar[i]].h = h
-		a[ar[i]].w = w
-	}
-	a.forEach (e=> A(e) && Switch (e, h + (e.dy ?? 0), w + (e.dx ?? 0)));
-	
-		/*
-	a.forEach (e=> { e.dx = e.dy = 0 });
-	for (let i = 0; i < a.length; i++) {
-		a[i].switch = true;
-		const ac = a.filter (e=> !e.switch);
-		if (ac.length) {
-			const c = ac [ac.length == 1 ? 0 : Math.round (Math.random (ac.length-1))];
-			
 			if (e.t == 'c') {
-				MoveToEnd (i, ac, c, 'left',CmpL,'dx','width');
+				a[ar[i]].dx = -dx + cw;
+				cw += a[ar[i]].width;
 			}
 			else {
-				MoveToEnd (i, ac, c, 'top',CmpT,'dy','height');
+				a[ar[i]].dy = -dy + ch;
+				ch += a[ar[i]].height;
 			}
+			a[ar[i]].h = h
+			a[ar[i]].w = w
 		}
-		A(a[i]) && Switch (a[i], h + a[i].dy, w + a[i].dx);
+		a.forEach (e=> A(e) && Switch (e, h + (e.dy ?? 0), w + (e.dx ?? 0)));
+		
+		// set css
+		a.forEach (e=> !A(e) && CSS (e));
 	}
-	*/
-	
-	// set css
-	a.forEach (e=> !A(e) && CSS (e));
 }
 
 //
@@ -173,6 +151,7 @@ function Orientation () {
 	const S = p=> e[0].computedStyleMap().get (p).toString().includes ('%');
 	let e;
 	for (const [k, w] of Object.entries($app.Widgets)) {
+		if (w instanceof $app.Service) continue;
 		e = $(w.sid);
 		if (S ('width') || S ('top')) e.show ()
 		else e.hide ();

@@ -9,7 +9,7 @@ const wdgt = new $app.Service ('🤖'),
 
 //
 wdgt.Init = ()=> {
-	$(wdgt.sid).html(`<div style="position: absolute; top: -100vh;">${c_tag}</div>`);
+	$(wdgt.sid).html(c_tag);
 	WS ();
 	window ['🐵'].SaveTab ({id: tab_id});
 	Maintenence ();

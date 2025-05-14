@@ -95,12 +95,53 @@ app.Widget = class T extends app.UIComponent {
 	            	au = [au];
 	            	w.data = null; // for repeated init
             	}
+console.log (`🍏.${w.id}.get`, 'au', au)
                 for (let i = 0; i < au.length; i++) {
                 	const u = U (au[i]);
                 	let d = await fetch (u);
-                	if (u.endsWith('json')) d = await d.json()
-                	else d = await (await d.blob()).text();
-                	if (w.data instanceof Array) w.data.push(d)
+console.log (`🍏.${w.id}.get`, u, 'await fetch', d)
+                	if (u.endsWith('json')) {
+						d = await d.json()
+console.log (`🍏.${w.id}.get`, 'await d.json', d)
+                	}
+					else {
+						d = await (await d.blob()).text();
+console.log (`🍏.${w.id}.get`, 'await d.blob', d.slice (0,80))
+                	}
+
+
+try {
+console.log (`🍏.${w.id}.get testing a retry`)
+let d2 = await fetch (u);
+if (u.endsWith('json')) {
+						d2 = await d2.json()
+console.log (`🍏.${w.id}.get`, 'await d.json', d2)
+                	}
+					else {
+						d2 = await (await d2.blob()).text();
+console.log (`🍏.${w.id}.get`, 'await d.blob', d2.slice (0,80))
+                	}
+}
+catch (e) { console.log (`🍏.${w.id}.get testing a retry failed`, e) }
+
+
+try {
+console.log (`🍏.${w.id}.get testing a reverse retry`)
+let d3 = await fetch (u);
+if (!u.endsWith('json')) {
+						d3 = await d3.json()
+console.log (`🍏.${w.id}.get`, 'await d.json', d3)
+                	}
+					else {
+						d3 = await (await d3.blob()).text();
+console.log (`🍏.${w.id}.get`, 'await d.blob', d3.slice (0,80)) 
+                	}
+}
+catch (e) { console.log (`🍏.${w.id}.get testing a reverse retry failed`, e) }
+
+
+
+					if (w.data instanceof Array) w.data.push(d)
                 	else w.data = d;
                 };
             } catch (e) { w.Reset(e) }
