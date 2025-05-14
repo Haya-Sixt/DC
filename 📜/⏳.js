@@ -2,7 +2,7 @@
 (()=>{
 
 // Countdown 
-const wdgt = new $app.Widget('⏳');
+const wdgt = new $app.Service ('⏳');
 
 //
 wdgt.Start = (...args)=> T.Start (...args); 

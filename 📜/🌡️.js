@@ -94,11 +94,12 @@ class Chart {
 	}
 	 
 	Render () {
-		const ct = this.ct, axisY = ct.axisY, axisX = ct.axisX, d_main = ct.data.find ((e)=> e.type == 'Spline'), vb = {w: 400, get h() {return 300}, get d() {return vb.h/10}, get cw() {return vb.w/(d_main.dataPoints.length*2)}, get icons () {return {h: 1.5*vb.d}}, get graph () {return {h: 7.5*vb.d}}, get axisX () {return {h: vb.d}}}, 
-		  svg = ct.svg = $('<svg>').attr ("xmlns", "http://www.w3.org/2000/svg").attr ("viewBox", `0 0 ${vb.w} ${vb.h}`).attr ("style", "display: block; width: 100%; height: 100%;"),
-		  G = (c)=> $('<g>').appendTo (svg).addClass (c),
-		  X = (i)=> { return (i*2+1)*vb.cw },
-		  Lable = (g, l, i, size, y, dx)=> l && $("<text>").appendTo (g).html (l).attr ("x", X(i) + (size/2)).attr ("y", y).attr ("font-size", size).attr ("dx", dx ? dx : 0);
+		const ct = this.ct, axisY = ct.axisY, axisX = ct.axisX, d_main = ct.data.find ((e)=> e.type == 'Spline'), 
+			vb = {w: 460, get h() {return 280}, get d() {return vb.h/10}, get cw() {return vb.w/(d_main.dataPoints.length*2)}, get icons () {return {h: 1.5*vb.d}}, get graph () {return {h: 7.5*vb.d}}, get axisX () {return {h: vb.d}}},
+			svg = ct.svg = $('<svg>').attr ("xmlns", "http://www.w3.org/2000/svg").attr ("viewBox", `0 0 ${vb.w} ${vb.h}`).attr ("style", "display: block; width: 100%; height: 100%;"),
+			G = (c)=> $('<g>').appendTo (svg).addClass (c),
+			X = (i)=> { return (i*2+1)*vb.cw },
+			Lable = (g, l, i, size, y, dx)=> l && $("<text>").appendTo (g).html (l).attr ("x", X(i) + (size/2)).attr ("y", y).attr ("font-size", size).attr ("dx", dx ? dx : 0);
 		
 		Icons (d_main);
 		
@@ -150,7 +151,7 @@ class Chart {
 		
 	//
 	function Column (d) {
-		const dp = d.dataPoints, g = G ('Column'), paddingW = 0.3,
+		const dp = d.dataPoints, g = G ('Column'), paddingW = 0.4,
 			Y = (deg)=> { return  vb.icons.h + vb.graph.h - (deg - axisY.minimum)/(axisY.maximum - axisY.minimum)*vb.graph.h}, 
 			Rect = (i, mn, mx)=> (mn != mx) && $("<rect>").appendTo (g).attr ("x", X(i) - vb.cw*(1-paddingW)).attr ("width", vb.cw*(2-paddingW*2)).attr ("y", Y(mx)).attr ("height", Y(mn) - Y(mx)).attr ("rx", 10).attr ("opacity", 0.6).attr ("fill", d.color).attr ("stroke-width",0);
 			
@@ -163,7 +164,7 @@ class Chart {
 	function AxisX (d) {
 		const dp = d.dataPoints, g = G ('AxisX');
 		for (let i = 0; i < dp.length; i++) {
-			Lable (g, dp [i].label, i, axisX.labelFontSize, vb.h-4);
+			Lable (g, dp [i].label, i, axisX.labelFontSize, vb.h-20);
 		}
 	}
 	

@@ -22,8 +22,16 @@ const app = {
             this.sid = `#${id}`;
             
             $(this.sid).remove (); // e.g. 🗺️
+            //const e = 
             $('<div>').attr('id', id).text(id)
-            	.appendTo (`#${app.Const.Name}${ options.appendTo ?? 'c1' }`);
+            	.appendTo (options.appendTo ?? `#${app.Const.Name}`);
+            
+            //if (options.appendTo) {
+            //	const id = options.appendTo, ids = id.startsWith('.') ? id : `#${id}`;
+            //	if (!(this.appendTo = $(ids))) this.appendTo = $('<div>').attr('id', id);
+            //}
+            //if (!this.appendTo) this.appendTo = $(`#${app.Const.Name}`);
+            //e.appendTo (this.appendTo);
             
             const p = '🌃', c = `${p}${ options[p] ?? app.Const[p].Hide }`; 
             this[`_${p}`] = typeof options?.[p] == 'undefined' ? app.Const[p].Hide : options[p];
@@ -47,6 +55,7 @@ const app = {
 //
 app.Widget = class T extends app.UIComponent {
 	constructor (id, options = {}) {
+	    if (!options.appendTo) options.appendTo = `#${app.Const.Name}w`;
 	    super (id, options);
 	    app.Widgets[id] = this;
 	    
@@ -160,9 +169,8 @@ app.Service = class T extends app.Widget {
 	constructor (id, options = {}) {
 		const p = '🌃';
 		if (!options[p]) options[p] = app.Const[p].None;
-		if (!options.appendTo) options.appendTo = '';
-		options['🖌️'] = ''; // 🗒️: also in 🚥
-	    super (id, options);
+		if (!options.appendTo) options.appendTo = `#${app.Const.Name}s`;
+		super (id, options);
 	    //
 	    if (!this.repeat.update) this.repeat.update = 1;
 	}
@@ -178,10 +186,11 @@ function Init () {
     
 	//
 	function App () {
-	    const a = $("<div>").attr("id", app.Const.Name),
-	    	c1 = $("<div>").attr("id", `${app.Const.Name}c1`);
-	    a.appendTo('body');
-	    c1.appendTo(a);
+	    const a = $("<div>").attr("id", app.Const.Name), 
+	    	w = $("<div>").attr("id", `${app.Const.Name}w`)
+	    	s = $("<div>").attr("id", `${app.Const.Name}s`);
+	    a.appendTo('body')
+	    	.append(w).append(s);
 	}
 	
 	//

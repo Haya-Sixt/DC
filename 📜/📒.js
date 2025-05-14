@@ -10,8 +10,6 @@ const wdgt = new $app.Service('📒', {
 
 //
 wdgt.Update = ()=> { 
-	$(wdgt.sid).html('');
-
 	StatusIcons ();
 	for (const e of wdgt.Entries())  // 🗒: yield doesn't work with forEach because it's callback
 		if (e.text == '') StatusIcons (e.title)
