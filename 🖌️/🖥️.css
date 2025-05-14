@@ -15,7 +15,7 @@
 #⏳ { opacity:0.8; }
 #🗓️ { margin: 0 var(--🖥️-c-px-2); overflow: hidden; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" style="background-color:var(--🖥️-c-b-1)"><text x="-3%" y="92%" font-size="var(--🖥️-c-px-180)" opacity="0.2"></text></svg>'); } 
 #🗓️ div.omer { font-size:var(--🖥️-c-px-12); }  
-#⌚ { background-repeat: no-repeat; background-size: contain; background-position: center; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="77" height="25" fill="var(--🖥️-c-ts-1)"><style>*{font-family:sans-serif;fill:rgba(var(--🖥️-c-ts-1_rgb),0.839);text-shadow: 1px 1px 1px rgba(var(--🖥️-c-td-1_rgb),0.839);}.time{animation-name:time;animation-duration:12s;animation-iteration-count:infinite;}.colon{animation-name:colon;animation-duration:2s;animation-timing-function:ease;animation-iteration-count:infinite}@keyframes time{50%{fill:rgba(var(--🖥️-c-ts-2_rgb),0.459);}100%{fill:rgba(var(--🖥️-c-ts-1_rgb),0.839);}}@keyframes colon{0%{opacity:0;}50%{opacity:0.5;}100%{opacity:0;}}</style><text x="-2" y="24" font-size="32" class="time"></text><g class="colon"><circle cx="38" cy="6" r="2" /><circle cx="38" cy="19" r="2" /></g></svg>'); }
+#⌚ { display: block !important; background-repeat: no-repeat; background-size: contain; background-position: center; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="77" height="25" fill="var(--🖥️-c-ts-1)"><style>*{font-family:sans-serif;fill:rgba(var(--🖥️-c-ts-1_rgb),0.839);text-shadow: 1px 1px 1px rgba(var(--🖥️-c-td-1_rgb),0.839);}.time{animation-name:time;animation-duration:12s;animation-iteration-count:infinite;}.colon{animation-name:colon;animation-duration:2s;animation-timing-function:ease;animation-iteration-count:infinite}@keyframes time{50%{fill:rgba(var(--🖥️-c-ts-2_rgb),0.459);}100%{fill:rgba(var(--🖥️-c-ts-1_rgb),0.839);}}@keyframes colon{0%{opacity:0;}50%{opacity:0.5;}100%{opacity:0;}}</style><text x="-2" y="24" font-size="32" class="time"></text><g class="colon"><circle cx="38" cy="6" r="2" /><circle cx="38" cy="19" r="2" /></g></svg>'); }
 #⌚.🌃Dim { width: 68.25%; height: 54%; }
 #📅👉, #📅👈 { font-size: var(--🖥️-c-px-23); text-align:left; } 
 #⏰ { font-size: var(--🖥️-c-px-23); text-align:left; padding-left: var(--🖥️-c-px-cam); }
@@ -164,7 +164,7 @@ imo { font-size:var(--🖥️-c-px-22); }
 /*.tdShabat {}*/
 .wdgt, .📆name, .📆val, #🗓️ div.omer { white-space: nowrap; } 
 #🖥️, #🖥️s, .wdgt, .dafYomi, .🌡️overlay, .hideOut { position: absolute; }
-.wdgt:empty { display: none; }
+.🖌️, .wdgt:empty { display: none; }
 
 /* 🗒️ '100's convention is needed at widget 🖌️ */
 #🔔 {z-index: 102}

@@ -153,8 +153,8 @@ function Orientation () {
 	for (const [k, w] of Object.entries($app.Widgets)) {
 		if (w instanceof $app.Service) continue;
 		e = $(w.sid);
-		if (S ('width') || S ('top')) e.show ()
-		else e.hide ();
+		if (S ('width') || S ('top')) e.removeClass (wdgt.id)
+		else e.addClass (wdgt.id);
 	}
 }
 
