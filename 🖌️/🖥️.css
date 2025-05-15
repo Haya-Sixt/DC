@@ -2,7 +2,7 @@
 /* 🏡 (A205U  *. 460dpi  *. Settings|Display|Full screen apps|🥝) */
 @media (min-device-width: 730px) {
 
-#🖥️ { width: 100vw; height: 100vh; zoom: 0.95; padding-top: 2vh; padding-right: 2vw; } /*  A5_pro */
+#🖥️ { width: 100vw; height: 100vh; __zoom: 0.95; padding-top: 2vh; __padding-right: 2vw; } /*  A5_pro */
 #🖥️w { background-position-y: 20%; container: 🖥️w / size; --🖥️-🖥️w-🖼️: ; transition: all 3s ease; background-image: var(--🖥️-🖥️w-🖼️); background-repeat: no-repeat; background-size: cover; }  
 .📆name, #📅👉, #⏰ { color: var(--🖥️-c-ts-1); }
 .📆name, .📆val { font-size: var(--🖥️-c-px-26); filter: grayscale(50%) brightness(50%);}
