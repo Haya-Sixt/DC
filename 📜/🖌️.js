@@ -3,6 +3,7 @@
 
 // screen saver
 const wdgt = new $app.Service ('🖌️', {
+	dependency: { var: ['🌃',] },
 	repeat: 60,
 });
 
@@ -11,6 +12,7 @@ wdgt.Init = Orientation;
 
 //
 wdgt.Update = ()=> {
+	if ($app.Vars['🌃'] =='true') return;
 	if (!screen.orientation.type.includes('landscape')) return setTimeout (()=> wdgt.Update (), 10*1000);
 	setTimeout (Rearrange, 3*1000); 
 }
@@ -55,7 +57,7 @@ function Rearrange () {
 		}
 	});
 	
-//console.log (wdgt.id, 'A', a);
+console.log (wdgt.id, 'A', a);
 		
 	// group by height. 
 	a.forEach ((e, i, a)=> {
@@ -93,7 +95,7 @@ function Rearrange () {
 		}
 	});
 	
-//console.log (wdgt.id, 'B', row.a[0]);
+console.log (wdgt.id, 'B', row.a[0]);
 	
 	const css = { start: '<style> @media (min-device-width: 730px) {', end: '}</style>', E: e=> `${e.sid} { top:${e.top}%; left:${e.left}%; }`, a: [], };
 	
