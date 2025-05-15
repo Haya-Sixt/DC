@@ -77,7 +77,7 @@ app.Widget = class T extends app.UIComponent {
 	}
 	//
 	get Init () {
-	    return async manual=> { 
+	    return async op=> { 
 	    try {
 	    const Get = async w=> {    	
 	    	const U = u=> {
@@ -122,7 +122,7 @@ console.log (`🍏.${w.id}.get`, 'await d.json', d2)
 console.log (`🍏.${w.id}.get`, 'await d.blob', d2.slice (0,80))
                 	}
 }
-catch (e) { console.log (`🍏.${w.id}.get testing a retry failed`, e) }
+catch (e) { console.error (`🍏.${w.id}.get testing a retry failed`, e) }
 
 
 try {
@@ -137,7 +137,7 @@ console.log (`🍏.${w.id}.get`, 'await d.json', d3)
 console.log (`🍏.${w.id}.get`, 'await d.blob', d3.slice (0,80)) 
                 	}
 }
-catch (e) { console.log (`🍏.${w.id}.get testing a reverse retry failed`, e) }
+catch (e) { console.error (`🍏.${w.id}.get testing a reverse retry failed`, e) }
 
 
 
@@ -151,9 +151,9 @@ catch (e) { console.log (`🍏.${w.id}.get testing a reverse retry failed`, e) }
 	    $(this.sid).removeClass("error").text ('');
 	    this.status = null; // to be able to dispatch again 
 	    this.http && (await Get (this));
-	    this.init && (await this.init(manual));
-	    this.repeat.init && setTimeout(this.Init, 1000*60*this.repeat.init, manual);
-	    this.Update(manual);
+	    this.init && (await this.init(op));
+	    this.repeat.init && setTimeout(this.Init, 1000*60*this.repeat.init, op);
+	    this.Update(op);
 	    } catch (e) { this.Error(e, 'Init') } }
 	}
 	set Init (f) {
@@ -161,13 +161,13 @@ catch (e) { console.log (`🍏.${w.id}.get testing a reverse retry failed`, e) }
 	}
 	//
 	get Update () { 
-	    return async (manual, op)=>{
+	    return async (op)=>{
     	try {
 	    if (op?.dependency !==false && !this.#ResolveDependency ('update')) return;
 	    $(this.sid).removeClass("error");
 	    let i_update
-	    op?.dependency !==false && this.repeat.update && (i_update = setTimeout(this.Update, 1000*60*this.repeat.update, manual));
-	    this.update && (await this.update(manual) == app.Const.Status.NoRepeat) && clearTimeout(i_update);
+	    op?.dependency !==false && this.repeat.update && (i_update = setTimeout(this.Update, 1000*60*this.repeat.update, op));
+	    this.update && (await this.update(op) == app.Const.Status.NoRepeat) && clearTimeout(i_update);
 	    if (this.status != app.Const.Status.Done) {
 	        this.status = app.Const.Status.Done;
 	        dispatchEvent(new Event( app.Const.Event (this.id) ));
@@ -184,7 +184,7 @@ catch (e) { console.log (`🍏.${w.id}.get testing a reverse retry failed`, e) }
 	    app.Service['🤖']?.Send (`${this.id}.Reset`);
 	}
 	Error (e, t) {
-		console.log (this.id, t, e);
+		console.error (this.id, t, e);
 		try { if (e.stack) e = decodeURIComponent (e.stack.replace('\n','').match (new RegExp (`.*:[0-9]{1,4}:[0-9]{1,4}\\)`, 'gum'))[0].replace (`/${app.Const.Libs ['📜']}`, '').replace (location.href.split('/').slice(0,-1).join('/'), '')) }
 		catch { 
 	        const a = e.stack.split('\n'); 

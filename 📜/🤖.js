@@ -46,7 +46,7 @@ function Dispatch (v) {
 		$app.Vars [a[0]] = a[1]; 
 	}
 	else if ($app.Widgets [v]) {
-		$app.Widgets [v].Init (wdgt.id);
+		$app.Widgets [v].Init ({manual:wdgt.id});
 		v = v.split (' ');
 		v = `${ v [0] }${ v.length == 1 ? '' : '...' }`;
 		$app.Widgets ['⏱️'].Add (v, wdgt.id);

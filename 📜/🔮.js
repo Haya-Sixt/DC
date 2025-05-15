@@ -9,9 +9,9 @@ const wdgt = new $app.Service('🔮');
 //setTimeout (Ask, 5000)
 
 //
-wdgt.Init = manual=> {
+wdgt.Init = op=> {
 	if ($app.Vars ['🕯️🕯️'] == "true") return;
-	if (manual == '🤖') return Ask ();
+	if (op?.manual == '🤖') return Ask ();
 	// init
 	const R = k=> {
 			k = `${wdgt.id}.${k}`;

@@ -10,7 +10,7 @@ const wdgt = new $app.Service ('🖌️', {
 //
 wdgt.Init = ()=> {
 	Orientation ();
-	wdgt.Update (undefined, {dependency:false});
+	wdgt.Update ({dependency:false});
 }
 
 //

@@ -68,7 +68,7 @@ static Start (mmss) {
 		
 	T.#i_Play = setInterval(T.#Play, 1000); 
 	
-	} catch(e) { console.log('⏳ Init:\n' + e); }
+	} catch(e) { console.log('⏳ Init:', e); }
 }
 
 //
