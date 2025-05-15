@@ -160,13 +160,13 @@ catch (e) { console.log (`🍏.${w.id}.get testing a reverse retry failed`, e) }
 	    this.init = f;
 	}
 	//
-	get Update () {
-	    return async manual=>{
+	get Update () { 
+	    return async (manual, op)=>{
     	try {
-	    if (!this.#ResolveDependency ('update')) return;
+	    if (op?.dependency !==false && !this.#ResolveDependency ('update')) return;
 	    $(this.sid).removeClass("error");
 	    let i_update
-	    this.repeat.update && (i_update = setTimeout(this.Update, 1000*60*this.repeat.update, manual));
+	    op?.dependency !==false && this.repeat.update && (i_update = setTimeout(this.Update, 1000*60*this.repeat.update, manual));
 	    this.update && (await this.update(manual) == app.Const.Status.NoRepeat) && clearTimeout(i_update);
 	    if (this.status != app.Const.Status.Done) {
 	        this.status = app.Const.Status.Done;

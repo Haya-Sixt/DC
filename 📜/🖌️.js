@@ -7,18 +7,25 @@ const wdgt = new $app.Service ('🖌️', {
 	repeat: 60,
 });
 
-
-wdgt.Init = Orientation;
+//
+wdgt.Init = ()=> {
+	Orientation ();
+	wdgt.Update (undefined, {dependency:false});
+}
 
 //
-wdgt.Update = ()=> {
+wdgt.Update = ()=> { // Rearrange ();
 	if ($app.Vars['🌃'] =='true') return;
 	if (!screen.orientation.type.includes('landscape')) return setTimeout (()=> wdgt.Update (), 10*1000);
 	setTimeout (Rearrange, 3*1000); 
 }
 
 //
-function Rearrange () {
+function Rearrange () { //go) {
+	//if ($app.Vars['🌃'] =='true') return;
+	//if (!screen.orientation.type.includes('landscape')) return setTimeout (()=> wdgt.Update (), 10*1000);
+	//if (!go) setTimeout (Rearrange, 3*1000, 1); 
+
 	const CmpH = (a, b)=> a.height - b.height, 
 		EQ = (a, b)=> Math.abs (a-b) < 5,
 		NF = v=> Number (parseFloat (v).toFixed (2)),
