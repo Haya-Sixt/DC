@@ -2,6 +2,7 @@
 /* 🏡 (A205U  *. 460dpi  *. Settings|Display|Full screen apps|🥝) */
 @media (min-device-width: 730px) {
 
+#🖥️ { width: 98vw; height: 93vh; padding-top: 5vh; } /*  A5_pro */
 #🖥️w { background-position-y: 20%; container: 🖥️w / size; --🖥️-🖥️w-🖼️: ; transition: all 3s ease; background-image: var(--🖥️-🖥️w-🖼️); background-repeat: no-repeat; background-size: cover; }  
 .📆name, #📅👉, #⏰ { color: var(--🖥️-c-ts-1); }
 .📆name, .📆val { font-size: var(--🖥️-c-px-26); filter: grayscale(50%) brightness(50%);}
@@ -110,6 +111,7 @@ __padding : var(--🖥️-c-px-3); } /* 🗒️ ':not(:empty)' bcs '.wdgt:empty'
 /* 📱 (RN10S) */
 @media (max-device-width: 730px) {
 
+#🖥️ { width: 100vw; height: 100vh; }
 .📆name, .📆val { font-size: var(--🖥️-c-px-21); }
 .📆name, #📅👉, #⏰ { color: var(--🖥️-c-t-4); }
 #📆 { background-image: unset !important; }
@@ -132,8 +134,8 @@ __padding : var(--🖥️-c-px-3); } /* 🗒️ ':not(:empty)' bcs '.wdgt:empty'
 
 }
 
-#🖥️ { display: flex; direction: ltr; color:var(--🖥️-c-t-3); font-family: sans-serif; top: 0; left: 0; width: 100vw; height: 100vh; 
-	text-shadow: var(--🖥️-c-px-2) 0 var(--🖥️-c-px-2) var(--🖥️-c-b-1), 0 var(--🖥️-c-px-2) var(--🖥️-c-px-2) var(--🖥️-c-b-1), calc(-1 * var(--🖥️-c-px-2)) 0 var(--🖥️-c-px-2) var(--🖥️-c-b-1), 0 calc(-1 * var(--🖥️-c-px-2)) var(--🖥️-c-px-2) var(--🖥️-c-b-1); }
+
+#🖥️ { display: flex; direction: ltr; color:var(--🖥️-c-t-3); font-family: sans-serif; top: 0; left: 0; text-shadow: var(--🖥️-c-px-2) 0 var(--🖥️-c-px-2) var(--🖥️-c-b-1), 0 var(--🖥️-c-px-2) var(--🖥️-c-px-2) var(--🖥️-c-b-1), calc(-1 * var(--🖥️-c-px-2)) 0 var(--🖥️-c-px-2) var(--🖥️-c-b-1), 0 calc(-1 * var(--🖥️-c-px-2)) var(--🖥️-c-px-2) var(--🖥️-c-b-1); }
 #🖥️w { direction: rtl; height: 100%; width: 100%; position: relative; top: 0; left: 0; overflow: hidden; } 
 #🖥️s { top: -9999%; }
 table { text-align: center; width:100%; height:var(--🖥️-c-px-1)}
