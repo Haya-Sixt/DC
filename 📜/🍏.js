@@ -60,6 +60,7 @@ app.Widget = class T extends app.UIComponent {
 	    app.Widgets[id] = this;
 	    
 	    this.status = this.init = this.update = null;
+	    this.threads = {};
 	    
 	    this.http = options.http;
 	    this['🖌️'] = options['🖌️'];
@@ -77,8 +78,11 @@ app.Widget = class T extends app.UIComponent {
 	}
 	//
 	get Init () {
-	    return async op=> { 
+	    return async (op = {})=> {
+    	// 🗒️ op {manual} aren't in used (🤖->👁️‍🗨️).
 	    try {
+    	if (this.threads.Init) return setTimeout (()=> this.Init, 1000, Object.assign (op, {repeat:{init: 1}}));
+    	this.threads.Init = 1;
 	    const Get = async w=> {    	
 	    	const U = u=> {
 		    		if (!u) u = `${app.Vars.Mode}.json`;
@@ -95,21 +99,22 @@ app.Widget = class T extends app.UIComponent {
 	            	au = [au];
 	            	w.data = null; // for repeated init
             	}
-console.log (`🍏.${w.id}.get`, 'au', au)
+//console.log (`🍏.${w.id}.get`, 'au', au)
                 for (let i = 0; i < au.length; i++) {
                 	const u = U (au[i]);
+console.log (`🍏.${w.id}`, 'await fetch - before', u)
                 	let d = await fetch (u);
-console.log (`🍏.${w.id}.get`, u, 'await fetch', d)
+console.log (`🍏.${w.id}`, 'await fetch - after', d)
                 	if (u.endsWith('json')) {
 						d = await d.json()
-console.log (`🍏.${w.id}.get`, 'await d.json', d)
+//console.log (`🍏.${w.id}.get`, 'await d.json', d)
                 	}
 					else {
 						d = await (await d.blob()).text();
-console.log (`🍏.${w.id}.get`, 'await d.blob', d.slice (0,80))
+//console.log (`🍏.${w.id}.get`, 'await d.blob', d.slice (0,80))
                 	}
 
-
+/*
 try {
 console.log (`🍏.${w.id}.get testing a retry`)
 let d2 = await fetch (u);
@@ -122,7 +127,7 @@ console.log (`🍏.${w.id}.get`, 'await d.json', d2)
 console.log (`🍏.${w.id}.get`, 'await d.blob', d2.slice (0,80))
                 	}
 }
-catch (e) { console.error (`🍏.${w.id}.get testing a retry failed`, e) }
+catch (e) { !e?.message.includes(`Unexpected token '<', "<tbody><tr`) && console.error (`🍏.${w.id}.get testing a retry failed`, e) }
 
 
 try {
@@ -137,8 +142,8 @@ console.log (`🍏.${w.id}.get`, 'await d.json', d3)
 console.log (`🍏.${w.id}.get`, 'await d.blob', d3.slice (0,80)) 
                 	}
 }
-catch (e) { console.error (`🍏.${w.id}.get testing a reverse retry failed`, e) }
-
+catch (e) { !e?.message.includes(`Unexpected token '<', "<tbody><tr`) && console.error (`🍏.${w.id}.get testing a reverse retry failed`, e) }
+*/
 
 
 					if (w.data instanceof Array) w.data.push(d)
@@ -147,32 +152,36 @@ catch (e) { console.error (`🍏.${w.id}.get testing a reverse retry failed`, e)
             } catch (e) { w.Reset(e) }
 	    };
 	    //
-	    if (!this.#ResolveDependency ('init')) return;
+	    if (!this.#ResolveDependency ('init')) return (this.threads.Init = 0);
 	    $(this.sid).removeClass("error").text ('');
 	    this.status = null; // to be able to dispatch again 
 	    this.http && (await Get (this));
 	    this.init && (await this.init(op));
-	    this.repeat.init && setTimeout(this.Init, 1000*60*this.repeat.init, op);
+	    this.repeat.init && !op.repeat?.init && setTimeout(this.Init, 1000*60*this.repeat.init, op);
+	    this.threads.Init = 0;
 	    this.Update(op);
-	    } catch (e) { this.Error(e, 'Init') } }
+	    } catch (e) { this.Error(e, 'Init', 1) } }
 	}
 	set Init (f) {
 	    this.init = f;
 	}
 	//
 	get Update () { 
-	    return async (op)=>{
+	    return async (op = {})=>{
+    	if (this.threads.Update) return setTimeout (()=> this.Update, 1000, Object.assign (op, {repeat:{update: 1}}));
+    	this.threads.Update = 1;
     	try {
-	    if (op?.dependency !==false && !this.#ResolveDependency ('update')) return;
+	    if (this.threads.Init || (!this.#ResolveDependency ('init') || !this.#ResolveDependency ('update'))) return (this.threads.Update = 0);
 	    $(this.sid).removeClass("error");
 	    let i_update
-	    op?.dependency !==false && this.repeat.update && (i_update = setTimeout(this.Update, 1000*60*this.repeat.update, op));
+	    this.repeat.update && !op.repeat?.update (i_update = setTimeout(this.Update, 1000*60*this.repeat.update, op));
 	    this.update && (await this.update(op) == app.Const.Status.NoRepeat) && clearTimeout(i_update);
 	    if (this.status != app.Const.Status.Done) {
 	        this.status = app.Const.Status.Done;
 	        dispatchEvent(new Event( app.Const.Event (this.id) ));
 	    }
-	    } catch (e) { this.Error(e, 'Update') } }
+	    this.threads.Update = 0;
+	    } catch (e) { this.Error(e, 'Update', 1) } }
 	}
 	set Update (f) {
 	    this.update = f;
@@ -183,7 +192,8 @@ catch (e) { console.error (`🍏.${w.id}.get testing a reverse retry failed`, e)
 	    setTimeout(this.Init, 1000*40);
 	    app.Service['🤖']?.Send (`${this.id}.Reset`);
 	}
-	Error (e, t) {
+	Error (e, t, release) {
+		if (release) this.threads[t] = 0;
 		console.error (this.id, t, e);
 		try { if (e.stack) e = decodeURIComponent (e.stack.replace('\n','').match (new RegExp (`.*:[0-9]{1,4}:[0-9]{1,4}\\)`, 'gum'))[0].replace (`/${app.Const.Libs ['📜']}`, '').replace (location.href.split('/').slice(0,-1).join('/'), '')) }
 		catch { 
@@ -198,7 +208,7 @@ catch (e) { console.error (`🍏.${w.id}.get testing a reverse retry failed`, e)
 	#ResolveDependency (iu) {
         if (this.status == app.Const.Status.Done
         	|| (!this.dependency[iu]?.filter (d=> app.Widgets[d].status != app.Const.Status.Done)?.length
-        		&& !this.dependency.var[iu]?.filter (d=> app.Vars[`_${d}`] != app.Const.Status.Done)?.length) ) {
+        		&& !this.dependency.var[iu]?.filter (d=> !d.startsWith ('?') && app.Vars[`_${d}`] != app.Const.Status.Done)?.length) ) {
     		return true;
         }
     }
@@ -263,7 +273,7 @@ function Init () {
 	//
 	async function Ready  () {
 		await Helpers.WaitFor (()=> window ['🐵'].Ready);
-		const L = (w, iu, cb, v)=> w.dependency[iu]?.forEach (d=> addEventListener (app.Const.Event (v ? app.Const.Var (d) : d), cb)) || (!v && L (w, iu, cb, true));
+		const L = (w, iu, cb, v)=> w.dependency[iu]?.forEach (d=> addEventListener (app.Const.Event (v ? app.Const.Var (d.startsWith ('?') ? d.slice (1) : d) : d), cb)) || (!v && L (w, iu, cb, true));
 	    for (const [k, w] of Object.entries(app.Widgets)) {
 	        L (w, 'init', e=> w.Init (e));
 	        L (w, 'update', e=> w.Update (e));

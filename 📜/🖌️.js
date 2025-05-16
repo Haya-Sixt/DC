@@ -3,29 +3,22 @@
 
 // screen saver
 const wdgt = new $app.Service ('🖌️', {
-	dependency: { var: ['🌃',] },
+	dependency: { var: ['?🌃',] },
 	repeat: 60,
 });
 
 //
-wdgt.Init = ()=> {
-	Orientation ();
-	wdgt.Update ({dependency:false});
-}
+wdgt.Init = ()=> ShowHide ();
 
 //
-wdgt.Update = ()=> { // Rearrange ();
+wdgt.Update = ()=> { 
 	if ($app.Vars['🌃'] =='true') return;
 	if (!screen.orientation.type.includes('landscape')) return setTimeout (()=> wdgt.Update (), 10*1000);
 	setTimeout (Rearrange, 3*1000); 
 }
 
-//
-function Rearrange () { //go) {
-	//if ($app.Vars['🌃'] =='true') return;
-	//if (!screen.orientation.type.includes('landscape')) return setTimeout (()=> wdgt.Update (), 10*1000);
-	//if (!go) setTimeout (Rearrange, 3*1000, 1); 
-
+// 
+function Rearrange () {
 	const CmpH = (a, b)=> a.height - b.height, 
 		EQ = (a, b)=> Math.abs (a-b) < 5,
 		NF = v=> Number (parseFloat (v).toFixed (2)),
@@ -156,7 +149,7 @@ console.log (wdgt.id, 'B', row.a[0]);
 }
 
 //
-function Orientation () {
+function ShowHide () {
 	const S = p=> e[0].computedStyleMap().get (p).toString().includes ('%');
 	let e;
 	for (const [k, w] of Object.entries($app.Widgets)) {
@@ -168,6 +161,6 @@ function Orientation () {
 }
 
 //
-window.addEventListener('orientationchange', ()=> setTimeout(Orientation, 250));
+window.addEventListener('orientationchange', ()=> setTimeout(ShowHide, 250));
 
 })(); 
