@@ -102,9 +102,9 @@ app.Widget = class T extends app.UIComponent {
 //console.log (`🍏.${w.id}.get`, 'au', au)
                 for (let i = 0; i < au.length; i++) {
                 	const u = U (au[i]);
-console.log (`🍏.${w.id}`, 'await fetch - before', u)
+//console.log (`🍏.${w.id}`, 'await fetch - before', u)
                 	let d = await fetch (u);
-console.log (`🍏.${w.id}`, 'await fetch - after', d)
+//console.log (`🍏.${w.id}`, 'await fetch - after', d)
                 	if (u.endsWith('json')) {
 						d = await d.json()
 //console.log (`🍏.${w.id}.get`, 'await d.json', d)
@@ -174,7 +174,7 @@ catch (e) { !e?.message.includes(`Unexpected token '<', "<tbody><tr`) && console
 	    if (this.threads.Init || (!this.#ResolveDependency ('init') || !this.#ResolveDependency ('update'))) return (this.threads.Update = 0);
 	    $(this.sid).removeClass("error");
 	    let i_update
-	    this.repeat.update && !op.repeat?.update (i_update = setTimeout(this.Update, 1000*60*this.repeat.update, op));
+	    this.repeat.update && !op.repeat?.update && (i_update = setTimeout(this.Update, 1000*60*this.repeat.update, op));
 	    this.update && (await this.update(op) == app.Const.Status.NoRepeat) && clearTimeout(i_update);
 	    if (this.status != app.Const.Status.Done) {
 	        this.status = app.Const.Status.Done;
