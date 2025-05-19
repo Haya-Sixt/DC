@@ -43,7 +43,7 @@
 #🔔 > div[name="alert"] { color: var(--🖥️-c-ts-2); background-color: var(--🖥️-c-be-1); border: var(--🖥️-c-px-1) solid rgba(var(--🖥️-c-b-1_rgb), 0.702); } 
 #🔔 > div::first-line { font-size: var(--🖥️-c-px-22); }
 #🔔 > div > div:last-child { width: 97%; height: var(--🖥️-c-px-4); border-radius : var(--🖥️-c-px-4); border: var(--🖥️-c-px-2) solid rgba(var(--🖥️-c-b-1_rgb), 0.702); } 	
-#🖥️ > .🗺️ { width:25vw; height: 100%; }
+#🖥️ > .🗺️ { width:25%; height: 100%; }
 .🗺️ > iframe { border-radius: var(--🖥️-c-px-15); }
 .🗺️ :is(.gmnoprint, .gm-control-active, a, .gm-err-container) { display: none !important; } 
 .🗺️ > div:has(a[href$="maps-no-account"]), .🗺️ div [style^="background-color: rgba(0, 0, 0, 0.5)"] { display: none; } 
@@ -121,6 +121,7 @@
 #📅👈 { font-size: var(--🖥️-c-px-20); } 
 #⏰ { border-radius: var(--🖥️-c-px-20); border: var(--🖥️-c-px-1) solid var(--🖥️-c-b-2); padding:0 var(--🖥️-c-px-6) 0 var(--🖥️-c-px-6); }
 #⏰ span { position: relative; top: calc(-1 * var(--🖥️-c-px-21) / 14); } 
+#🔔, #🚥, #🛞, #⏳, #🖥️ > .🗺️ { display: none; }
 
 #📆, #📅👉 { top:5%; }
 #📆, #🗓️ { left:2.5%; } 

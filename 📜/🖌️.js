@@ -14,7 +14,7 @@ wdgt.Init = ()=> ShowHide ();
 wdgt.Update = ()=> { 
 	if ($app.Vars['🌃'] =='true') return;
 	if (!screen.orientation.type.includes('landscape')) return setTimeout (()=> wdgt.Update (), 10*1000);
-	setTimeout (Rearrange, 3*1000); 
+	setTimeout (Rearrange, 60*1000); 
 }
 
 // 
