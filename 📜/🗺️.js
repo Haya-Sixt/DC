@@ -77,7 +77,7 @@ wdgt.napot = {
 
 //
 async function Map (id) {
-	new $app.UIComponent (id, { appendTo: '' });
+	new $app.UIComponent (id);
 	const ifr = $(`#${id}`)
 		.addClass(wdgt.id)
 		.hide ()

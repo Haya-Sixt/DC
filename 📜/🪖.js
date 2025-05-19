@@ -2,7 +2,7 @@
 (()=> {
 
 // פיקוד העורף
-const wdgt = new $app.Service ('🪖', {
+const wdgt = new $app.Widget ('🪖', {
 	http: true,
 	dependency: ['🗺️'],
 	repeat: { init: 10 },

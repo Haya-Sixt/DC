@@ -57,8 +57,6 @@ function Rearrange () {
 		}
 	});
 	
-console.log (wdgt.id, 'A', a);
-		
 	// group by height. 
 	a.forEach ((e, i, a)=> {
 		const cx = col.findIndex (c=> EQ (c.height, e.height));
@@ -94,8 +92,6 @@ console.log (wdgt.id, 'A', a);
 			row.t = 'r';
 		}
 	});
-	
-console.log (wdgt.id, 'B', row.a[0]);
 	
 	const css = { start: '<style> @media (min-device-width: 730px) {', end: '}</style>', E: e=> `${e.sid} { top:${e.top}%; left:${e.left}%; }`, a: [], };
 	
