@@ -10,7 +10,7 @@ const wdgt = new $app.Service('📒', {
 
 //
 wdgt.Init = ()=> {
-	$app.Vars.Mode && $app.Widgets['📒'].data.notes.push (['my title',`my text📒 (📆${$app.Widgets['📆'].data.current}) [6h]`]);
+	$app.Vars.Mode && wdgt.data.notes.push (['my title',`my text${wdgt.id} (📆${$app.Widgets['📆'].data.current}) [6h]`]);
 }
 
 //
@@ -49,7 +49,7 @@ wdgt.Entries = function* () {
 
 	for (var i = 0; i < wdgt.data.notes.length; i++) {
 		const e = wdgt.data.notes[i],
-			cmd = e[1].substring( e[1].indexOf('📒') + 1 ).replaceAll(' ', ''),
+			cmd = e[1].substring( e[1].indexOf(wdgt.id) + 1 ).replaceAll(' ', ''),
 			cond = cmd.substring( cmd.indexOf('(') + 1, cmd.indexOf(')') ),
 			duration = parseHM(cmd.substring( cmd.indexOf("[") + 1, cmd.indexOf("]") )),
 			condC = `,${cond.replaceAll('+', ',').replaceAll('-', ',')},`;
@@ -61,7 +61,7 @@ wdgt.Entries = function* () {
 		if (x != -1) {
 			const cs = CS (condC, x, c),
 				dm = cs.split('_'), dmd = dm[0].replace('ʼ',"'"), dmm = dm.length > 1 ? dm[1] : '';
-			if ((dmm != '' && !$app.Widgets['📅👈'].data.month.includes(dmm)) || !($('#🗓️ td.tdCurrentHeb .hebdate').text()).includes(dmd)) continue; 
+			if ((dmm != '' && !$app.Widgets[`${c}👈`].data.month.includes(dmm)) || !($('#🗓️ td.tdCurrentHeb .hebdate').text()).includes(dmd)) continue; 
 		}
 				
 		// time
@@ -69,7 +69,7 @@ wdgt.Entries = function* () {
 		x = condC.indexOf(`,${c}`);
 		if (x != -1) {
 			const cs = CS (condC, x, c);
-			startedAt = $app.Widgets['📆'].data[cs];
+			startedAt = $app.Widgets[c].data[cs];
 			startedAt += parseHM(cond, c + cs, condC);
 			if (!startedAt || startedAt > now || startedAt + duration < now) continue;
 		}
@@ -79,7 +79,7 @@ wdgt.Entries = function* () {
 		x = condC.indexOf(`,${c}`);
 		if (x != -1) {
 			const cs = CS (condC, x, c);
-			if (!($('#🗓️ td.tdCurrentHeb').text()).includes(cs)) continue; 
+			if (!($(`#${c}️ td.tdCurrentHeb`).text()).includes(cs)) continue; 
 		}
 
 		//
