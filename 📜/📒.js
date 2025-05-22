@@ -5,7 +5,7 @@
 const wdgt = new $app.Service('📒', {
 	http: true,
 	dependency: { [$app.Vars.Mode ? 'init' : 'update']: ['📆'], var: ['🕯️',] },
-	repeat: 1,
+	repeat: 3,
 });
 
 //
@@ -94,7 +94,7 @@ wdgt.Entries = function* () {
 		//
 		yield {			
 			title: e[0],
-			text: Zmanit (e[1].substring(0, e[1].indexOf('📒')).replaceAll('<br>','  ').trim()),
+			text: Zmanit (e[1].substring(0, e[1].indexOf(wdgt.id)).replaceAll('<br>','  ').trim()),
 			startedAt: startedAt,
 			duration: duration 
 		};
