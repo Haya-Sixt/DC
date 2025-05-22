@@ -239,8 +239,8 @@ wdgt.Init = ()=> {
 	$(wdgt.sid).html(times);
 
 	// daf yomi
-	$(wdgt.sid + ' .dafYomi').width($('#🗓️ td.tdCurrent').width())
-		.appendTo('#🗓️ td.tdCurrent');  // 🗒: '.detach()' not needed
+	const cr = '#🗓️ td.tdCurrent';
+	$(`${wdgt.sid} .dafYomi`).width ( $(cr).width() ).appendTo (cr);  // 🗒: '.detach()' not needed
 
 	//
 	function td(emoji) {
