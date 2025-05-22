@@ -52,24 +52,28 @@ app.Widget = class T extends app.UIComponent {
 	    if (!options.appendTo) options.appendTo = `#${app.Const.Name}w`;
 	    super (id, options);
 	    app.Widgets[id] = this;
-	    
 	    this.status = this.init = this.update = null;
 	    this.threads = {};
-	    
 	    this.http = options.http;
 	    this['🖌️'] = options['🖌️'];
-	    
-	    const IU = (o, iu)=> {
-	    	if (!o) return { init:null, update:null }; 
-	    	if (o instanceof Array || typeof o != 'object') return (iu ? { init:o, update:null } : { init:null, update:o });
-	    	return o;
-    	};
-	    this.repeat = IU (options.repeat, this.http);
-	    this.dependency = IU (options.dependency);
-	    this.dependency.var = IU (options.dependency?.var);
-	
+	    this._options = options;
 	    $(this.sid).addClass('wdgt');
 	}
+	Ready () {
+		const IU = (o, http)=> {
+	    	if (!o) return { init:null, update:null }; 
+	    	if (o instanceof Array || typeof o != 'object') return ( ((typeof http == 'function') || this.init) ? { init:o, update:null } : { init:null, update:o });
+	    	return o;
+    	},
+    	L = (iu, cb, v)=> this.dependency[iu]?.forEach (d=> addEventListener (app.Const.Event (v ? app.Const.Var (d) : d), cb)) || (!v && L (iu, cb, true));
+	    
+    	this.repeat = IU (this._options.repeat, this.http && (()=>{}));
+	    this.dependency = IU (this._options.dependency, this.http);
+	    this.dependency.var = IU (this._options.dependency?.var, this.http);
+		
+	    L ('init', e=> this.Init (e));
+	    L ('update', e=> this.Update (e));
+    }
 	//
 	get Init () {
 	    return async (op = {})=> {
@@ -174,8 +178,10 @@ app.Service = class T extends app.Widget {
 		if (!options[p]) options[p] = app.Const[p].None;
 		if (!options.appendTo) options.appendTo = `#${app.Const.Name}s`;
 		super (id, options);
-	    //
-	    if (!this.repeat.update) this.repeat.update = 1;
+	}
+	Ready () {
+		super.Ready ();
+		if (!this.repeat.update) this.repeat.update = 1; 
 	}
 }
 
@@ -225,11 +231,9 @@ function Init () {
 	//
 	async function Ready  () {
 		await Helpers.WaitFor (()=> window ['🐵'].Ready);
-		const L = (w, iu, cb, v)=> w.dependency[iu]?.forEach (d=> addEventListener (app.Const.Event (v ? app.Const.Var (d) : d), cb)) || (!v && L (w, iu, cb, true));
-	    for (const [k, w] of Object.entries(app.Widgets)) {
-	        L (w, 'init', e=> w.Init (e));
-	        L (w, 'update', e=> w.Update (e));
-	        w.Init();
+		for (const [k, w] of Object.entries(app.Widgets)) {
+	        w.Ready ();
+	        w.Init ();
 	    }
 	}
 } // Init

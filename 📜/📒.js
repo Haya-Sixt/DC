@@ -4,8 +4,8 @@
 // Notes
 const wdgt = new $app.Service('📒', {
 	http: true,
-	dependency: { [$app.Vars.Mode ? 'init' : 'update']: ['📆'], var: ['🕯️',] },
-	repeat: 3,
+	dependency: { init:['📆'], var: {update:['🕯️']} },
+	repeat: {update:3},
 });
 
 //

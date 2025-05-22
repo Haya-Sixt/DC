@@ -4,7 +4,7 @@
 
 // Calendar
 const wdgt = new $app.Widget('🗓️', {
-	dependency: {init:['📅👈']},
+	dependency: ['📅👈'],
 	http: ()=> [
 		`/${wdgt.id}_${$app.Widgets['📅👈'].data.year}_${$app.Widgets['📅👈'].data.month}.htm`,
 		`/${wdgt.id}_${Next().year}_${Next().month}.htm`],
@@ -204,7 +204,7 @@ function hebDay() {
 const wdgt = new $app.Widget('📆', {
 	dependency: ['🗓️'],
 	http: ()=> `/times_${$app.Widgets['📅👈'].data.year}_${$app.Widgets['📅👈'].data.month}.htm`,
-	repeat: 3,
+	repeat: {update:3},
 });
 
 //
