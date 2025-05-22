@@ -253,7 +253,7 @@ wdgt.Init = ()=> {
 
 	//
 	function tdDafYomi() {
-		times += `<tr><td class="${wdgt.id}name"></td><td class="${wdgt.id}val"><div class="dafYomi">${trT[i]}</div></td></tr>`;
+		times += `<tr style="display:none"><td class="${wdgt.id}name"></td><td class="${wdgt.id}val"><div class="dafYomi">${trT[i]}</div></td></tr>`;
 	} 
 };
 
