@@ -162,11 +162,7 @@ app.Widget = class T extends app.UIComponent {
 	    $(this.sid).text(`${this.id} ${t}: ${e}`).addClass("error");
 	}
 	#ResolveDependency (iu) {
-        if (this.status == app.Const.Status.Done
-        	|| (!this.dependency[iu]?.filter (d=> app.Widgets[d].status != app.Const.Status.Done)?.length
-        		&& !this.dependency.var[iu]?.filter (d=> !d.startsWith ('?') && app.Vars[`_${d}`] != app.Const.Status.Done)?.length) ) {
-    		return true;
-        }
+        if (this.status == app.Const.Status.Done || !this.dependency[iu]?.filter (d=> app.Widgets[d].status != app.Const.Status.Done)?.length) return true;
     }
 } // Widget
 
@@ -229,7 +225,7 @@ function Init () {
 	//
 	async function Ready  () {
 		await Helpers.WaitFor (()=> window ['🐵'].Ready);
-		const L = (w, iu, cb, v)=> w.dependency[iu]?.forEach (d=> addEventListener (app.Const.Event (v ? app.Const.Var (d.startsWith ('?') ? d.slice (1) : d) : d), cb)) || (!v && L (w, iu, cb, true));
+		const L = (w, iu, cb, v)=> w.dependency[iu]?.forEach (d=> addEventListener (app.Const.Event (v ? app.Const.Var (d) : d), cb)) || (!v && L (w, iu, cb, true));
 	    for (const [k, w] of Object.entries(app.Widgets)) {
 	        L (w, 'init', e=> w.Init (e));
 	        L (w, 'update', e=> w.Update (e));

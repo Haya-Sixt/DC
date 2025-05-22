@@ -3,7 +3,7 @@
 
 // Background 
 const wdgt = new $app.Service('🖼️', {
-	dependency: { var: ['?🌃', '?🕯️🕯️', '?📆'] }, 
+	dependency: { var: ['🌃', '🕯️🕯️', '📆'] }, 
 });
 let i_carousel, gallery, counter;
 

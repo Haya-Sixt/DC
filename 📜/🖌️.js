@@ -3,7 +3,7 @@
 
 // screen saver
 const wdgt = new $app.Service ('🖌️', {
-	dependency: { var: ['?🌃',] },
+	dependency: { var: ['🌃',] },
 	repeat: 60,
 });
 
