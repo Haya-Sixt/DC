@@ -4,12 +4,17 @@
 // Notes
 const wdgt = new $app.Service('📒', {
 	http: true,
-	dependency: { update: ['📆'], var: ['🕯️'] },
+	dependency: { [$app.Vars.Mode ? 'init' : 'update']: ['📆'], var: ['?🕯️',] },
 	repeat: 3,
 });
 
 //
-wdgt.Update = ()=> { 
+wdgt.Init = ()=> {
+	$app.Vars.Mode && $app.Widgets['📒'].data.notes.push (['my title',`my text📒 (📆${$app.Widgets['📆'].data.current}) [6h]`]);
+}
+
+//
+wdgt.Update = ()=> {
 	StatusIcons ();
 	for (const e of wdgt.Entries())  // 🗒: yield doesn't work with forEach because it's callback
 		if (e.text == '') StatusIcons (e.title)
@@ -55,7 +60,7 @@ wdgt.Entries = function* () {
 		//
 		
 		
-		//
+		// date  (🎗️: 📅!=📆)
 		c = '📅';
 		x = condC.indexOf(`,${c}`);
 		if (x != -1) {
@@ -65,7 +70,7 @@ wdgt.Entries = function* () {
 			if ((dmm != '' && !$app.Widgets['📅👈'].data.month.includes(dmm)) || !($('#🗓️ td.tdCurrentHeb .hebdate').text()).includes(dmd)) continue; 
 		}
 				
-		// 
+		// time
 		c = '📆';
 		x = condC.indexOf(`,${c}`);
 		if (x != -1) {
@@ -77,7 +82,7 @@ wdgt.Entries = function* () {
 		  if (!startedAt || startedAt > now || startedAt + duration < now) continue;
 		}
 
-		//
+		// events
 		c = '🗓️';
 		x = condC.indexOf(`,${c}`);
 		if (x != -1) {

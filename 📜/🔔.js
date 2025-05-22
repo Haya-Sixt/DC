@@ -2,7 +2,7 @@
 (()=>{
 
 // Popup
-const wdgt = new $app.Service('🔔');
+const wdgt = new $app.Widget('🔔');
 
 //
 wdgt.Info = (...args)=> T.Info (...args); 

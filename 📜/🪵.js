@@ -5,7 +5,6 @@
 const wdgt = new $app.Widget('🪵', {
 	http: true,
 	dependency: ['📆','⏱️'],
-	repeat: 3,
 });
 
 wdgt.Const = { Ender: '➖'};
@@ -27,7 +26,7 @@ wdgt.Update = ()=> {
 
 	w = '⏱️';
 	rs = `${rs}<div>${$(`#${w}`).text()}</div>`;
-	$(wdgt.sid).html(rs);
+	if (rs != $(wdgt.sid).html ()) $(wdgt.sid).html(rs);
 	
 	
 	w = '🕯️'; // 🗒: '🌋' App Must Have Delay Before 🔔. Otherwise '🏡' Won't Be Triggered (Because '🌋' Is Open).

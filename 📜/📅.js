@@ -204,11 +204,11 @@ function hebDay() {
 const wdgt = new $app.Widget('📆', {
 	dependency: ['🗓️'],
 	http: ()=> `/times_${$app.Widgets['📅👈'].data.year}_${$app.Widgets['📅👈'].data.month}.htm`,
+	repeat: 3,
 });
 
-
 //
-wdgt.Update = ()=> {
+wdgt.Init = ()=> {
 	let i = 0, times = '', ldate = new Date().toLocaleDateString('he-IL').replace('.','/').replace('.','/'),
 		trH = wdgt.data.substring(wdgt.data.indexOf("<td"), wdgt.data.indexOf("</tr")), 
 		trT = wdgt.data.substring(wdgt.data.indexOf(ldate));
@@ -242,11 +242,6 @@ wdgt.Update = ()=> {
 	$(wdgt.sid + ' .dafYomi').width($('#🗓️ td.tdCurrent').width())
 		.appendTo('#🗓️ td.tdCurrent');  // 🗒: '.detach()' not needed
 
-	// Mark Current Zman
-	setInterval(Mark, 1000*60*3); 
-	Mark();
-
-
 	//
 	function td(emoji) {
 		const hm = trT[i].split(':'),
@@ -262,8 +257,9 @@ wdgt.Update = ()=> {
 	} 
 };
 
-//
-function Mark() {
+
+// Mark Current Zman
+wdgt.Update = ()=> {
 	let now = parseInt( new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' }).replace(':','') ), 
 	  first = null, current = `💤`;
 
