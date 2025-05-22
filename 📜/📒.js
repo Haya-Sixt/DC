@@ -41,7 +41,11 @@ function Zmanit (t) {
 
 //
 wdgt.Entries = function* () {
-	const now = parseInt( new Date().getTime() / 1000 );
+	const CS = (condC, x, c)=> {
+			const cs = condC.substring(x + String(`,${c}`).length);
+			return cs.substring(0, cs.indexOf(','));
+		},
+		now = parseInt( new Date().getTime() / 1000 );
 
 	for (var i = 0; i < wdgt.data.notes.length; i++) {
 		const e = wdgt.data.notes[i],
@@ -51,22 +55,12 @@ wdgt.Entries = function* () {
 			condC = `,${cond.replaceAll('+', ',').replaceAll('-', ',')},`;
 		let startedAt = 0, x, c;
 		
-		//
-		// to do: 17.10.24
-		//   on the next day, it appears also (between 🥋 and 🌇)
-		//
-		//a   ["ברכת לבנה 🌗","(ולהסתפר 💇 גם)<br>
-		//a   📒 (📅י\"ד,📆🥋) [6h]"]
-		//
-		
-		
 		// date  (🎗️: 📅!=📆)
 		c = '📅';
 		x = condC.indexOf(`,${c}`);
 		if (x != -1) {
-			let cs = condC.substring(x + String(`,${c}`).length);
-			cs = cs.substring(0, cs.indexOf(','));
-			const dm = cs.split('_'), dmd = dm[0].replace('ʼ',"'"), dmm = dm.length > 1 ? dm[1] : '';
+			const cs = CS (condC, x, c),
+				dm = cs.split('_'), dmd = dm[0].replace('ʼ',"'"), dmm = dm.length > 1 ? dm[1] : '';
 			if ((dmm != '' && !$app.Widgets['📅👈'].data.month.includes(dmm)) || !($('#🗓️ td.tdCurrentHeb .hebdate').text()).includes(dmd)) continue; 
 		}
 				
@@ -74,21 +68,17 @@ wdgt.Entries = function* () {
 		c = '📆';
 		x = condC.indexOf(`,${c}`);
 		if (x != -1) {
-			let cs = condC.substring(x + String(`,${c}`).length);
-			cs = cs.substring(0, cs.indexOf(','));
+			const cs = CS (condC, x, c);
 			startedAt = $app.Widgets['📆'].data[cs];
 			startedAt += parseHM(cond, c + cs, condC);
-		
-		  if (!startedAt || startedAt > now || startedAt + duration < now) continue;
+			if (!startedAt || startedAt > now || startedAt + duration < now) continue;
 		}
 
 		// events
 		c = '🗓️';
 		x = condC.indexOf(`,${c}`);
 		if (x != -1) {
-			let cs = condC.substring(x + String(`,${c}`).length);
-			cs = cs.substring(0, cs.indexOf(','));
-
+			const cs = CS (condC, x, c);
 			if (!($('#🗓️ td.tdCurrentHeb').text()).includes(cs)) continue; 
 		}
 
