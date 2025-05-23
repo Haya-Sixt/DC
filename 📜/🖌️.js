@@ -18,20 +18,23 @@ wdgt.Update = ()=> {
 }
 
 // 
+wdgt.Rearrange = Rearrange // for debugging 
+//
 function Rearrange () {
 	const CmpH = (a, b)=> a.height - b.height, 
 		EQ = (a, b)=> Math.abs (a-b) < 5,
 		NF = v=> Number (parseFloat (v).toFixed (2)),
-		P = (v, hw)=> NF (v * 100 / (hw ? $(`#${$app.Const.Name}`).height() : $(`#${$app.Const.Name}`).width())),
+		P = (v, hw)=> NF (v * 100 / (hw ? $(`#${$app.Const.Name}w`).height() : $(`#${$app.Const.Name}w`).width())),
 		a = [], sub = {}, col = [];
 	
 	// create array 'sub' of sub widgets,
 	// and array 'a' of only main widgets
 	for (const [k, w] of Object.entries($app.Widgets)) {
-		const BR = p=> br[p] ? br[p] : document.body[`client${p.at(0).toUpperCase()}${p.slice(1)}`] * Number (e.computedStyleMap ().get(p).toString ().replace ('%', '')) / 100,
-			e = $(w.sid)[0], br = e.getBoundingClientRect();
+		const e = $(w.sid)[0], 
+		br = e.getBoundingClientRect();
 			
 		if ((w instanceof $app.Service)
+				|| e.parentNode.id !=`${$app.Const.Name}w`
 				|| e.computedStyleMap().get ('display').toString() == 'none'
 				|| !br.height 
 				|| Number(e.computedStyleMap().get ('z-index').toString()) > 100) {
@@ -56,7 +59,7 @@ function Rearrange () {
 			a[i].top = sub[e.id].reduce((a, e)=> Math.min(a, e.top), e.top);
 		}
 	});
-	
+//console.log (a)
 	// group by height. 
 	a.forEach ((e, i, a)=> {
 		const cx = col.findIndex (c=> EQ (c.height, e.height));
@@ -94,7 +97,7 @@ function Rearrange () {
 	});
 	
 	const css = { start: '<style> @media (min-device-width: 730px) {', end: '}</style>', E: e=> `${e.sid} { top:${e.top}%; left:${e.left}%; }`, a: [], };
-	
+//console.log (row.a[0])
 	Switch (row.a[0]);
     
 	$(wdgt.sid).html (`${css.start}${css.a.reduce ((a, e)=> `${a}${css.E (e)}`, '')}${css.end}`);

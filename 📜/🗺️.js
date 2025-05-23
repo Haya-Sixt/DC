@@ -4,7 +4,7 @@
 
 
 // Map 
-const wdgt = new $app.Service('🗺️');
+const wdgt = new $app.Service ('🗺️');
 
 //
 //wdgt.Update = ()=> {
@@ -40,7 +40,7 @@ wdgt.Add = (id)=> {
 wdgt.Remove = (id)=> {
 	const sid = `${wdgt.id}_${id}`;
 	if (wdgt.data) wdgt.data [id] = wdgt.data [`_${sid}`] = null;
-	$(`#${sid}`).remove ();
+	$app.Widgets [sid].Remove (); //$(`#${sid}`).remove ();
 }
 
 //
@@ -77,7 +77,8 @@ wdgt.napot = {
 
 //
 async function Map (id) {
-	new $app.UIComponent (id);
+	const w = new $app.Widget (id, { appendTo: `#${$app.Const.Name}` });
+	w.Init ()
 	const ifr = $(`#${id}`)
 		.addClass(wdgt.id)
 		.hide ()

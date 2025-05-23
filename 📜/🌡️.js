@@ -95,7 +95,7 @@ class Chart {
 	 
 	Render () {
 		const ct = this.ct, axisY = ct.axisY, axisX = ct.axisX, d_main = ct.data.find ((e)=> e.type == 'Spline'), 
-			vb = {w: 460, get h() {return 280}, get d() {return vb.h/10}, get cw() {return vb.w/(d_main.dataPoints.length*2)}, get icons () {return {h: 1.5*vb.d}}, get graph () {return {h: 7.5*vb.d}}, get axisX () {return {h: vb.d}}},
+			vb = {w: 460, get h() {return 290}, get d() {return vb.h/10}, get cw() {return vb.w/(d_main.dataPoints.length*2)}, get icons () {return {h: 1.5*vb.d}}, get graph () {return {h: 7.5*vb.d}}, get axisX () {return {h: vb.d}}},
 			svg = ct.svg = $('<svg>').attr ("xmlns", "http://www.w3.org/2000/svg").attr ("viewBox", `0 0 ${vb.w} ${vb.h}`).attr ("style", "display: block; width: 100%; height: 100%;"),
 			G = (c)=> $('<g>').appendTo (svg).addClass (c),
 			X = (i)=> { return (i*2+1)*vb.cw },

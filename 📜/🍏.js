@@ -59,23 +59,27 @@ app.Widget = class T extends app.UIComponent {
 	    this._options = options;
 	    $(this.sid).addClass('wdgt');
 	}
-	Ready () {
+	Remove () {
+		delete app.Widgets[this.id];
+		$(this.sid).remove ();
+	}
+	_Init () {
 		const IU = (o, http)=> {
 	    	if (!o) return { init:null, update:null }; 
 	    	if (o instanceof Array || typeof o != 'object') return ( ((typeof http == 'function') || this.init) ? { init:o, update:null } : { init:null, update:o });
 	    	return o;
     	},
     	L = (iu, cb, v)=> this.dependency[iu]?.forEach (d=> addEventListener (app.Const.Event (v ? app.Const.Var (d) : d), cb)) || (!v && L (iu, cb, true));
-	    
     	this.repeat = IU (this._options.repeat, this.http && (()=>{}));
 	    this.dependency = IU (this._options.dependency, this.http);
 	    this.dependency.var = IU (this._options.dependency?.var, this.http);
-		
 	    L ('init', e=> this.Init (e));
 	    L ('update', e=> this.Update (e));
+	    this.first_Init = 1;
     }
 	//
 	get Init () {
+		if (!this.first_Init) this._Init ();
 	    return async (op = {})=> {
     	// 🗒️ op {manual} aren't in used (🤖->👁️‍🗨️).
 	    try {
@@ -179,9 +183,9 @@ app.Service = class T extends app.Widget {
 		if (!options.appendTo) options.appendTo = `#${app.Const.Name}s`;
 		super (id, options);
 	}
-	Ready () {
-		super.Ready ();
-		if (!this.repeat.update) this.repeat.update = 1; 
+	_Init () {
+		super._Init ();
+		if (!this.repeat.init && !this.repeat.update) this.repeat.update = 1; 
 	}
 }
 
@@ -231,10 +235,7 @@ function Init () {
 	//
 	async function Ready  () {
 		await Helpers.WaitFor (()=> window ['🐵'].Ready);
-		for (const [k, w] of Object.entries(app.Widgets)) {
-	        w.Ready ();
-	        w.Init ();
-	    }
+		for (const [k, w] of Object.entries(app.Widgets)) w.Init ();
 	}
 } // Init
 
