@@ -204,7 +204,7 @@ function hebDay() {
 const wdgt = new $app.Widget('📆', {
 	dependency: ['🗓️'],
 	http: ()=> `/times_${$app.Widgets['📅👈'].data.year}_${$app.Widgets['📅👈'].data.month}.htm`,
-	repeat: {update:3},
+	repeat: {update:3}, // 🗒️: affects '🪵'
 });
 
 //

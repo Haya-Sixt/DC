@@ -40,7 +40,7 @@ wdgt.Add = (id)=> {
 wdgt.Remove = (id)=> {
 	const sid = `${wdgt.id}_${id}`;
 	if (wdgt.data) wdgt.data [id] = wdgt.data [`_${sid}`] = null;
-	$app.Widgets [sid].Remove (); //$(`#${sid}`).remove ();
+	$app.Widgets [sid]?.Remove ();
 }
 
 //

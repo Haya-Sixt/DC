@@ -3,7 +3,7 @@ const $app = (function () {
 
 const app = {
     Const : {
-    	Event: (id, id2 = '')=> `${app.Const.Name}.${id}${id2 ? '.' : ''}${id2}`, 
+    	Event: (id, id2)=> `${app.Const.Name}.${id}${id2 ? `.${id2}` : ''}`, 
 	    Var: (v = '')=> `V.${v}`,
         Status : { Done: 'done', NoRepeat: 'noRepeat' },
         Name: '🖥️', ['🐵']: '🐵', Libs: { '📜': '📜/' }, 
@@ -69,7 +69,7 @@ app.Widget = class T extends app.UIComponent {
 	    	if (o instanceof Array || typeof o != 'object') return ( ((typeof http == 'function') || this.init) ? { init:o, update:null } : { init:null, update:o });
 	    	return o;
     	},
-    	L = (iu, cb, v)=> this.dependency[iu]?.forEach (d=> addEventListener (app.Const.Event (v ? app.Const.Var (d) : d), cb)) || (!v && L (iu, cb, true));
+    	L = (iu, cb, v)=> (v ? this.dependency.var : this.dependency)[iu]?.forEach (d=> addEventListener (app.Const.Event (v ? app.Const.Var (d) : d), cb)) || (!v && L (iu, cb, true));
     	this.repeat = IU (this._options.repeat, this.http && (()=>{}));
 	    this.dependency = IU (this._options.dependency, this.http);
 	    this.dependency.var = IU (this._options.dependency?.var, this.http);

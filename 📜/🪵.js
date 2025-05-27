@@ -5,6 +5,7 @@
 const wdgt = new $app.Widget('🪵', {
 	http: true,
 	dependency: ['📆','⏱️'],
+	// 🗒️: 'repeat' isn't needed, bcs '📆' 
 });
 
 wdgt.Const = { Ender: '➖'};
