@@ -68,7 +68,7 @@ app.Widget = class T extends app.UIComponent {
 	#ResolveDependency (iu) {
         if (//this.status == app.Const.Status.Done // needed. Update checks its preceding 'init'
         	//	|| 
-        		!this.dependency[iu]?.filter (d=> app.Widgets[d].status[iu] != app.Const.Status.Done)?.length) {
+        		!this.dependency[iu]?.filter (d=> app.Widgets[d].status != app.Const.Status.Done)?.length) {
 			return true
 		}
     } 
