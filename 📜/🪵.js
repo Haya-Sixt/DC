@@ -5,7 +5,8 @@
 const wdgt = new $app.Widget('🪵', {
 	http: true,
 	dependency: ['📆','⏱️'],
-	// 🗒️: 'repeat' isn't needed, bcs '📆' 
+	repeat: 3,  // 🗒️: '📆 repeat' is 'update' -> doesn't init it's status -> doesn't dispatch.  
+				// ⚠️: MD was supposed to make it redundant, but not sure if that works? 
 });
 
 wdgt.Const = { Ender: '➖'};
