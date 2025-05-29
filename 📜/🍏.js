@@ -97,14 +97,14 @@ app.Widget = class T extends app.UIComponent {
 	get Init () {
 		this.status = null; // 1. To dispatch again.  2. Block dependee 
 	    if (!this.first_Init) this._Init ();
-	    if (this.threads.Init) {
+	    //
+    	return async (op = {})=> { // 🗒️ op {manual} aren't in used (🤖->👁️‍🗨️).
+	    try {
+    	if (this.threads.Init) {
     		clearTimeout (this.threads.i_Init);
     		return (this.threads.i_Init = setTimeout (()=> this.Init, 1000, Object.assign (op, {repeat:{init: 1}})));
     	}
     	this.threads.Init = 1;
-	    //
-    	return async (op = {})=> { // 🗒️ op {manual} aren't in used (🤖->👁️‍🗨️).
-	    try {
     	const Get = async w=> {    	
 	    	const U = u=> {
 		    		if (!u) u = `${app.Vars.Mode}.json`;
@@ -155,13 +155,13 @@ app.Widget = class T extends app.UIComponent {
 	        this.status = app.Const.Status.Done;
 	        dispatchEvent(new Event( app.Const.Event (this.id) ));
 	    };
-	    if (this.threads.Update) {
+	    //
+    	return async (op = {})=>{
+    	if (this.threads.Update) {
     		clearTimeout (this.threads.i_Update);
     		return (this.threads.i_Update = setTimeout (()=> this.Update, 1000, Object.assign (op, {repeat:{update: 1}})));
     	}
     	this.threads.Update = 1;
-    	//
-    	return async (op = {})=>{
     	try {
 	    // why to check even when just repeating update (without init)? - bcs the dependee uses the dependency's data, which might be 🚧
 	    // 	i.e. 🛞 & 🪵
