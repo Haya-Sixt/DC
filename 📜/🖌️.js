@@ -17,6 +17,18 @@ wdgt.Update = ()=> {
 	setTimeout (Rearrange, 60*1000); 
 }
 
+function Participant (w, e, floating = false) {
+	const S = p=> e.computedStyleMap().get (p).toString().includes ('%'), 
+		br = e.getBoundingClientRect(), sm = e.computedStyleMap();
+	if ((w instanceof $app.Service)
+			|| e.parentNode.id !=`${$app.Const.Name}w`
+			|| (!S ('width') && !S ('top'))
+			|| (floating && Number(sm.get ('z-index').toString()) > 100)) {
+		return false;
+	}
+	return true;
+}
+
 // 
 wdgt.Rearrange = Rearrange // for debugging 
 //
@@ -33,13 +45,8 @@ function Rearrange () {
 		const e = $(w.sid)[0], 
 		br = e.getBoundingClientRect();
 			
-		if ((w instanceof $app.Service)
-				|| e.parentNode.id !=`${$app.Const.Name}w`
-				|| e.computedStyleMap().get ('display').toString() == 'none'
-				|| !br.height 
-				|| Number(e.computedStyleMap().get ('z-index').toString()) > 100) {
-			continue;
-		}
+		if (!Participant (w, e)) continue;
+		
 		const o = { id: w.id, sid: w.sid, height: P(br.height,1), width: P(br.width), top: P(br.top,1), left: P(br.left)}; 
 		if (w['🖌️']) (sub[w['🖌️']] = (sub[w['🖌️']] ?? [])).push (o)
 		else a.push (o);
@@ -149,12 +156,10 @@ function Rearrange () {
 
 //
 function ShowHide () {
-	const S = p=> e[0].computedStyleMap().get (p).toString().includes ('%');
-	let e;
 	for (const [k, w] of Object.entries($app.Widgets)) {
 		if (w instanceof $app.Service) continue;
-		e = $(w.sid);
-		if (S ('width') || S ('top')) e.removeClass (wdgt.id)
+		const e = $(w.sid);
+		if (Participant (w, e[0], true)) e.removeClass (wdgt.id)
 		else e.addClass (wdgt.id);
 	}
 }

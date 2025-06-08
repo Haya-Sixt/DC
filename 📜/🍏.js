@@ -59,7 +59,7 @@ app.Widget = class T extends app.UIComponent {
 	    this.http = options.http;
 	    this['🖌️'] = options['🖌️'];
 	    this._options = options;
-	    $(this.sid).addClass('wdgt');
+	    $(this.sid).addClass('wdgt').addClass(options.addClass);
 	}
 	Remove () {
 		delete app.Widgets[this.id];
@@ -283,7 +283,7 @@ class Helpers {
     // Otherwise, The Default Match Is To Replace <Text>. 
     // If No 'to' Is Supply, Than It Replace Var.
     static Css (prop, e, to) {
-        const delimiter = '{{,}}', Decode = ()=> { try { if (!a[1].includes (`%"`)) a[1] = decodeURIComponent(a[1]) } catch {} }; // i.e: decode into 'svg+xml,%253Csvg'. 
+        const delimiter = '{{,}}', Decode = ()=> { try { if (!a[1].includes ('%"') && !a[1].includes (' ')) a[1] = decodeURIComponent(a[1]) } catch {} }; // i.e: decode into 'svg+xml,%253Csvg'. 
         
         //
         if (!e) return Get ();

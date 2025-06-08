@@ -8,27 +8,28 @@ const wdgt = new $app.Widget('🪵', {
 	repeat: 3,
 });
 
-wdgt.Const = { Ender: '➖'};
-
 //
 wdgt.Update = ()=> {
+	const HashCode = s => s.split('').reduce((a,b)=>{a=((a<<5)-a)+b.charCodeAt(0);return a&a},0),
+		c_ender = '➖';
 	let rs ='', now = parseInt( Date.now() / 1000 ),
 		shishi = 0, w;
 	
 	for (const e of wdgt.Entries(now)) { // 🗒: yield doesn't work with forEach because it's callback
-		if ( e.log.includes(wdgt.Const.Ender) ) continue;
-
-		rs += `<div data="${e.log}" ${ e.log.indexOf("[") == -1 && 'style="display:none;"' }>${e.log}</div>`;
-
+		if ( e.log.includes(c_ender) ) continue;
+		rs += `<div ${ e.log.indexOf("[") == -1 && 'style="display:none;"' }>${e.log}</div>`;
 		// Set shishi (just in case MD was disabled, and I manually run the '🌋🕯'️ scene)
-		if ( e.log.substring(6).substring(0,4) == '🕯️ ' )
-			shishi = e.startedAt;
+		if ( e.log.substring(6).substring(0,4) == '🕯️ ' ) shishi = e.startedAt;
 	};
 
 	w = '⏱️';
 	rs = `${rs}<div>${$(`#${w}`).text()}</div>`;
-	if (rs != $(wdgt.sid).html ()) $(wdgt.sid).html(rs);
+	//
+	const hc = HashCode (rs), tag = `_log_HashCode`; 
+	hc != $(wdgt.sid).attr (tag) && $(wdgt.sid).html (rs).attr (tag, hc);
 	
+	//
+	ProggressBar (c_ender);
 	
 	w = '🕯️'; // 🗒: '🌋' App Must Have Delay Before 🔔. Otherwise '🏡' Won't Be Triggered (Because '🌋' Is Open).
 	shishi = Math.max (wdgt.data.shishi, shishi);
@@ -54,6 +55,26 @@ wdgt.Update = ()=> {
 	Background ();
 };
 
+//
+function ProggressBar (c_ender) {
+	const now = parseInt( Date.now () / 1000 ), 
+		aw = [], ae = [];
+	for (const e of wdgt.Entries(now)) {
+		e.log.includes(c_ender) && ae.push (e.log.split(c_ender)[1].split(' ')[0]);
+		if (!e.log.includes("[") || ae.find (ee=> e.log.includes (ee.log)) ) continue;
+		let endsAt = e.startedAt, duration = 0;
+		duration = e.log.substring(e.log.indexOf("[")+1, e.log.indexOf("]"));
+		const t = e.log.replace(`[${duration}]`, '');
+		if (duration.indexOf('h')!=-1) endsAt += parseInt(duration.substring(0,duration.indexOf('h')))*60*60;
+		if (duration.indexOf(' ')!=-1) duration = duration.substring(duration.indexOf(' ')+1);
+		if (duration.indexOf('m')!=-1) endsAt += parseInt(duration.substring(0,duration.indexOf('m')))*60;
+		duration = endsAt - e.startedAt;
+		aw.push ({t:t, startedAt:e.startedAt, duration:duration });
+	}
+	$app.Widgets ['🛞'].Set (aw.reverse(), wdgt.id);
+}
+
+//
 function Clock (now, w, c, hours = 7) {
 	let h = (now - c) / (60 * 60);
 	if (h > hours) {
@@ -87,12 +108,10 @@ function Background() {
 }
 
 //
-wdgt.Entries = function* (now, reverse = false) {
+wdgt.Entries = function* (now) {
 	let a = wdgt.data.log.split('¿'); 
-	if (reverse) a = a.reverse();
 	for (let i=0; i < a.length; i++) {
-		let startedAt = parseInt(new Date(a[i].substring(0,16)).getTime()/1000);
-
+		const startedAt = parseInt(new Date(a[i].substring(0,16)).getTime()/1000);
 		if (now - startedAt > 6*60*60) continue;
 		yield {log: a[i].substring(11), startedAt: startedAt};
 	}
@@ -106,97 +125,78 @@ wdgt.Entries = function* (now, reverse = false) {
 (()=>{
 
 // Progress Bar
-const c_pid = '🪵',
-wdgt = new $app.Widget('🛞', {
-	dependency: { init: [c_pid] },
-	repeat: 1, 
-});
+const wdgt = new $app.Service ('🛞');
+
+wdgt.data = [];
 
 //
-wdgt.Init = ()=> {
-	const now = parseInt( new Date().getTime() / 1000 ), spacer = `<div style="height:10px;"></div>`,
-		p = $app.Widgets [c_pid], a = p?.Entries (now, true);
-	let rs = '';
-	if (!a) {
-		wdgt.Error(`status ${p?.status}, thread ${p?.threads?.Init}`, `${c_pid} data null`);
-		return;
-	}
-	for (const e of a) {
-		if (e.log.includes($app.Widgets[c_pid].Const.Ender)) {
-			const m = new RegExp(`<div [^>]*?data=.*?\\s${e.log.split($app.Widgets[c_pid].Const.Ender)[1].split(' ')[0]}\\s.*?${spacer}`,`mu`);
-			rs = rs.replace(m, '');
-		}
-		if ( !e.log.includes("[") ) continue;
-		//
-		let endsAt = e.startedAt, duration = 0;
-		duration = e.log.substring(e.log.indexOf("[")+1, e.log.indexOf("]"));
-		e.log = e.log.replace('['+duration+']', '');
-		if (duration.indexOf('h')!=-1) 
-			endsAt += parseInt(duration.substring(0,duration.indexOf('h')))*60*60;
-		if (duration.indexOf(' ')!=-1) 
-			duration = duration.substring(duration.indexOf(' ')+1);
-		if (duration.indexOf('m')!=-1) 
-			endsAt += parseInt(duration.substring(0,duration.indexOf('m')))*60;
-		duration = endsAt - e.startedAt;
-		//
-		if (now >= endsAt) $(`#${c_pid} div[data="${e.log}"]`).show()
-		else rs += `<div data="${e.log}" name="${wdgt.id}" startedat="${e.startedAt}" duration="${duration}"><div>${e.log}</div><div></div></div>${spacer}`;
-	}
-	
+wdgt.Set = (a, g)=> {
+	wdgt.data [g]?.forEach (e=> e.Remove ());
+	wdgt.data [g] = [];
+	a.forEach (e=> {
+		const w = new $app.Widget (`${wdgt.id}_${Date.now ()}`, {
+			appendTo: `#${$app.Const.Name}`,
+			addClass: wdgt.id,
+			repeat: 1,
+		});
+		w.data = e;
+		w.Init = Init.bind (null, w);
+		w.Update = Update.bind (null, w, wdgt);
+		w.Init ();
+		wdgt.data [g].push (w);
+	});
+};
+
+//
+const Init = wdgt=> {
+	const spacer = `<div style="height:10px;"></div>`,
+		d = wdgt.data, rs = `<div data="${d.t}"><div>${d.t}</div><div></div></div>${spacer}`;
+		
 	$(wdgt.sid).html(rs);
 };
 
 //
-wdgt.Update = ()=> {
-	let a = $(`${wdgt.sid} div[name="${wdgt.id}"]`),
-	now = parseInt( new Date().getTime() / 1000 ),
-	topOffset=0;
-
-	a.each((i, t)=> {
-		var h='', m='', percent = parseInt( (now - parseInt($(t).attr('startedat'))) *100 / parseInt($(t).attr('duration')) );
-		
-		if (isNaN(percent) || percent <0) {
-			m = percent + '%';
-			percent = 100; 
-			$(t).addClass("error");
-		} 
+const Update = (wdgt, service)=> {
+	const now = parseInt( Date.now () / 1000 ), 
+		d = wdgt.data;
+	let h='', m='', percent = parseInt( (now - d.startedAt) * 100 / d.duration);
+	
+	if (isNaN(percent) || percent <0) { // probably a futuristic event... 
+		m = percent + '%';
+		percent = 100; 
+	} 
+	else {
+		if (percent>100) percent=100;
+		m = parseInt( (d.duration - now + d.startedAt) / 60 );
+		if (m<1) m=''
 		else {
-			if (percent>100) percent=100;
-			m = parseInt( (parseInt($(t).attr('duration')) - now + parseInt($(t).attr('startedat'))) / 60 );
-			if (m<1) m=''
-			else {
-				h = parseInt(m / 60);
-				if (h==0) h=''
-				else if (h*60==m) m=''
-				else m-=h*60;
-				if (h!='') h+='h';
-				if (m!='') m+='m';
-			}
-			$(t).removeClass("error");
+			h = parseInt(m / 60);
+			if (h==0) h=''
+			else if (h*60==m) m=''
+			else m-=h*60;
+			if (h!='') h+='h';
+			if (m!='') m+='m';
 		}
-		if (percent==100) {
-			$(t).hide();
-			$(`#${c_pid} div[data="${$(t).attr('data')}"]`).show();
-		} 
-		else  {
-			$(t).css('backgroundSize',`${percent}% 100%`)
-				.children().last().text(h+' '+m);
-			Class (t);
-			$(wdgt.sid).css('top',`calc(91% - ${topOffset++ * 30}px)`);
-			
-			if (m=='3m' && h=='')
-				$app.Widgets['⏳'].Start (400);
-		} 
-	});
-
-	if (!topOffset) return $app.Const.Status.NoRepeat;
-
-	//
-	function Class (t) {
-		if ($(t).hasClass(wdgt.id)) return;
-		$(t).addClass(wdgt.id);
-		Helpers.Css('background-image', t); // sets the var
 	}
+	if (percent==100 || !$(wdgt.sid).length) {
+		wdgt.Remove ();
+		return $app.Const.Status.NoRepeat;
+	} 
+	const index = $(`.${service.id}`).index(wdgt.sid) * -1, // 🗒️: index is negative
+		top = index ? $(`.${service.id}`).eq(index - 1).offset().top : $(wdgt.sid).parent().offset().top + $(wdgt.sid).parent().height();
+	
+	$(wdgt.sid).css('backgroundSize',`${percent}% 100%`)
+		.css('bottom',`calc(100% - ${top}px)`) 
+		.children().last().text(`${h} ${m}`);
+	
+	//
+	const bgi = 'background-image', tag = `${wdgt.sid}-${bgi}`;
+	if (!wdgt[tag]) {
+		wdgt[tag] = true;
+		Helpers.Css(bgi, wdgt.sid); // sets the var 
+	}
+	//
+	if (m=='3m' && h=='') $app.Widgets['⏳'].Start (400);
 };
 
 })(); 
