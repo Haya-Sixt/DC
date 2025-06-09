@@ -25,7 +25,7 @@ wdgt.Update = ()=> {
 	w = '⏱️';
 	rs = `${rs}<div>${$(`#${w}`).text()}</div>`;
 	//
-	const hc = HashCode (rs), tag = `_log_HashCode`; 
+	const hc = HashCode (rs), tag = `_log_HashCode`; // prevent flickering 
 	hc != $(wdgt.sid).attr (tag) && $(wdgt.sid).html (rs).attr (tag, hc);
 	
 	//
