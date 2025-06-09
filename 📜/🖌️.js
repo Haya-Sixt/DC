@@ -21,7 +21,7 @@ function Participant (w, e, floating = false) {
 	const S = p=> e.computedStyleMap().get (p).toString().includes ('%'), 
 		br = e.getBoundingClientRect(), sm = e.computedStyleMap();
 	if ((w instanceof $app.Service)
-			|| e.parentNode.id !=`${$app.Const.Name}w`
+			|| e.parentNode.id !=$app.Const.Col.W
 			|| (!S ('width') && !S ('top'))
 			|| (floating && Number(sm.get ('z-index').toString()) > 100)) {
 		return false;
@@ -36,7 +36,7 @@ function Rearrange () {
 	const CmpH = (a, b)=> a.height - b.height, 
 		EQ = (a, b)=> Math.abs (a-b) < 5,
 		NF = v=> Number (parseFloat (v).toFixed (2)),
-		P = (v, hw)=> NF (v * 100 / (hw ? $(`#${$app.Const.Name}w`).height() : $(`#${$app.Const.Name}w`).width())),
+		P = (v, hw)=> NF (v * 100 / (hw ? $(`#${$app.Const.Col.W}`).height() : $(`#${$app.Const.Col.W}`).width())),
 		a = [], sub = {}, col = [];
 	
 	// create array 'sub' of sub widgets,

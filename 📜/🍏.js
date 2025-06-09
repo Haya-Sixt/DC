@@ -6,7 +6,8 @@ const app = {
     	Event: (id, id2)=> `${app.Const.Name}.${id}${id2 ? `.${id2}` : ''}`, 
 	    Var: (v = '')=> `V.${v}`,
         Status : { Done: 'done', NoRepeat: 'noRepeat' },
-        Name: '🖥️', ['🐵']: '🐵', Libs: { '📜': '📜/' }, 
+        Name: '🖥️', Col: { get W() { return `${app.Const.Name}w` } , get S() { return `${app.Const.Name}s` } }, 
+        ['🐵']: '🐵', Libs: { '📜': '📜/' }, 
         Host: location.href.match(/.*\//umg)[0],
         ['🌃']: { Dim: 'Dim', Hide: 'Hide', None: 'None' },
     },
@@ -49,7 +50,7 @@ const app = {
 //
 app.Widget = class T extends app.UIComponent {
 	constructor (id, options = {}) {
-	    if (!options.appendTo) options.appendTo = `#${app.Const.Name}w`;
+	    if (!options.appendTo) options.appendTo = `#${app.Const.Col.W}`;
 	    super (id, options);
 	    app.Widgets[id] = this;
 	    this.init = this.update = null;
@@ -91,12 +92,11 @@ app.Widget = class T extends app.UIComponent {
 	    this.dependency.var = IU (this._options.dependency?.var, this.http);
 	    L ('init', e=> this.Init (e));
 	    L ('update', e=> this.Update (e));
-	    this.first_Init = 1;
     }
 	//
 	get Init () {
 		this.status = null; // 1. To dispatch again.  2. Block dependee 
-	    if (!this.first_Init) this._Init ();
+	    if (!this.repeat) this._Init ();
 	    //
     	return async (op = {})=> { // 🗒️ op {manual} aren't in used (🤖->👁️‍🗨️).
 	    try {
@@ -137,8 +137,7 @@ app.Widget = class T extends app.UIComponent {
 	    };
 	    //
 	    if (!this.#ResolveDependency ('init')) return (this.threads.Init = 0); // 🗒️: no need for 'setTimeout..', bcs the dependency will trigger this
-	    if (!this.first_Init) $(this.sid).text ('');
-	    $(this.sid).removeClass("error");
+	    if ($(this.sid).removeClass("error").text () == this.id) $(this.sid).text ('');
 	    this.http && (await Get (this));
 	    this.init && (await this.init(op));
 	    this.repeat.init && !op.repeat?.init && setTimeout(this.Init, 1000*60*this.repeat.init, op);
@@ -225,8 +224,8 @@ function Init () {
 	//
 	function App () {
 	    const a = $("<div>").attr("id", app.Const.Name), 
-	    	w = $("<div>").attr("id", `${app.Const.Name}w`)
-	    	s = $("<div>").attr("id", `${app.Const.Name}s`);
+	    	w = $("<div>").attr("id", app.Const.Col.W)
+	    	s = $("<div>").attr("id", app.Const.Col.S);
 	    a.appendTo('body')
 	    	.append(w).append(s);
 	}
