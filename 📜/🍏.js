@@ -137,7 +137,8 @@ app.Widget = class T extends app.UIComponent {
 	    };
 	    //
 	    if (!this.#ResolveDependency ('init')) return (this.threads.Init = 0); // 🗒️: no need for 'setTimeout..', bcs the dependency will trigger this
-	    $(this.sid).removeClass("error").text ('');
+	    if (!this.first_Init) $(this.sid).text ('');
+	    $(this.sid).removeClass("error");
 	    this.http && (await Get (this));
 	    this.init && (await this.init(op));
 	    this.repeat.init && !op.repeat?.init && setTimeout(this.Init, 1000*60*this.repeat.init, op);
