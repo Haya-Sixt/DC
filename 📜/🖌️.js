@@ -17,13 +17,13 @@ wdgt.Update = ()=> {
 	setTimeout (Rearrange, 60*1000); 
 }
 
-function Participant (w, e, floating = false) {
+function Participant (w, e, rearrange = false) {
 	const S = p=> e.computedStyleMap().get (p).toString().includes ('%'), 
 		br = e.getBoundingClientRect(), sm = e.computedStyleMap();
 	if ((w instanceof $app.Service)
-			|| e.parentNode.id !=$app.Const.Col.W
 			|| (!S ('width') && !S ('top'))
-			|| (floating && Number(sm.get ('z-index').toString()) > 100)) {
+			|| (rearrange && e.parentNode.id !=$app.Const.Col.W)
+			|| (!rearrange && Number(sm.get ('z-index').toString()) > 100)) {
 		return false;
 	}
 	return true;
@@ -45,7 +45,7 @@ function Rearrange () {
 		const e = $(w.sid)[0], 
 		br = e.getBoundingClientRect();
 			
-		if (!Participant (w, e)) continue;
+		if (!Participant (w, e, true)) continue;
 		
 		const o = { id: w.id, sid: w.sid, height: P(br.height,1), width: P(br.width), top: P(br.top,1), left: P(br.left)}; 
 		if (w['🖌️']) (sub[w['🖌️']] = (sub[w['🖌️']] ?? [])).push (o)
@@ -159,7 +159,7 @@ function ShowHide () {
 	for (const [k, w] of Object.entries($app.Widgets)) {
 		if (w instanceof $app.Service) continue;
 		const e = $(w.sid);
-		if (Participant (w, e[0], true)) e.removeClass (wdgt.id)
+		if (Participant (w, e[0])) e.removeClass (wdgt.id)
 		else e.addClass (wdgt.id);
 	}
 }
