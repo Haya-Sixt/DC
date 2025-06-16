@@ -170,7 +170,7 @@ imo { font-size:var(--🖥️-c-px-22); }
 /*.tdShabat {}*/
 .wdgt, .📆name, .📆val, #🗓️ div.omer { white-space: nowrap; } 
 #🖥️, #🖥️s, .wdgt, .dafYomi, .🌡️overlay, .hideOut { position: absolute; }
-.🖌️, .wdgt:empty { display: none; }
+.🖌️, .wdgt:empty, .wdgt-hide { display: none; }
 
 /* 🗒️ '100's convention is needed at widget 🖌️ */
 #🔔 {z-index: 102}

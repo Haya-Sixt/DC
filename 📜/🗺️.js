@@ -80,8 +80,7 @@ async function Map (id) {
 	const w = new $app.Widget (id, { appendTo: `#${$app.Const.Name}` });
 	w.Init ()
 	const ifr = $(`#${id}`)
-		.addClass(wdgt.id)
-		.hide ()
+		.addClass(`${wdgt.id} wdgt-hide`)
 		.append ('<iframe>')
 		.children().first ()
 		.attr ('width', '100%')
@@ -213,7 +212,7 @@ async Napot (a) {
 //console.log (this.#sid, 'Add', n, ic, l?.lat);
 	if (this.#markers.find ((e)=> e.n == n && e.ic == ic)) return;
 	
-	top.$(this.#sid).show ();
+	top.$(this.#sid).removeClass ('wdgt-hide');
 	
 	if (this.#Marker (n, ic, l)) return true;
 }
@@ -283,7 +282,7 @@ async Napot (a) {
 	this.#markers [i].m.setMap(null);
 	this.#markers.splice (i, 1); 
 	if (i == this.#markers.length - 1 && !( this.#markers = this.#markers.filter ((m)=> m) ).length) {
-		top.$(this.#sid).hide ();
+		top.$(this.#sid).addClass ('wdgt-hide');
 		this.#Init_vars ();
 		return true; 
 	}
