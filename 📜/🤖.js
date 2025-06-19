@@ -2,16 +2,18 @@
 (()=>{
 
 // inter system communication
-const wdgt = new $app.Service ('🤖'),
+const wdgt = new $app.Service ('🤖', {
+		repeat: 1,
+	}),
 	c_tag = `${$app.Const.Name}.${wdgt.id}`,
 	tab_id = Date.now ();
 
 
 //
-wdgt.Init = ()=> {
+wdgt.Init = async ()=> {
 	$(wdgt.sid).html(c_tag);
 	WS ();
-	window ['🐵'].SaveTab ({id: tab_id});
+	await window ['🐵'].SaveTab ({id: tab_id});
 	Maintenence ();
 }
  
@@ -64,11 +66,11 @@ wdgt.Send = n=> window ['🐵'].Notification (n);
 
 //
 function Inactive () {
-	window ['🐵'].GetTabs (ts=> { 
+	window ['🐵'].GetTabs (async (ts)=> { 
 		// is there any newer tab?
 		if ( ! Object.values (ts)?.find (e=> e.id > tab_id) ) return;
 		// close
-		window ['🐵'].SaveTab ({id: null});
+		await window ['🐵'].SaveTab ({id: null});
 		$app.Widgets ['🔔'].Info (`${wdgt.id}.Inactive: ${$(":focus").length}`);
 		window ['🐵'].Close ();
 	})

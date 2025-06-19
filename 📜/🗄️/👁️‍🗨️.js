@@ -10,11 +10,11 @@ const wdgt = new $app.Widget('👁️‍🗨️', {
 let i_carousel, gallery, counter;
 
 //
-wdgt.Update = ()=> {
+wdgt.Update = async ()=> {
 	clearTimeout (i_carousel);
 	gallery = [];
 	counter = 0;
-	if ($app.Vars ['📆'] == '🥋') Web ();
+	if ($app.Vars ['📆'] == '🥋') await Web ();
 	if ($app.Vars ['🌃'] == 'true') return Carousel ();
 	
 	const max_days = 7, m = /(?<=IMG-)\d*(?=-WA\d.)/,
@@ -36,12 +36,12 @@ function Carousel () {
 
 //
 let web, i_web;
-function Web () {
+async function Web () {
 	with (window ['🐵']) {
 		// prevent "Download again". (previous code used - Notif (`...Web`) )
-		if (GetValue (wdgt.id) == new Date().getDate ()) return;
+		if ( (await GetValue (wdgt.id)) == new Date().getDate ()) return;
 		// closing all 
-		SetValue (wdgt.id, ""); 
+		await SetValue (wdgt.id, ""); 
 		// 🦺
 		clearTimeout (i_web);
 		i_web = setTimeout (()=> web?.close (), 20*60*1000);

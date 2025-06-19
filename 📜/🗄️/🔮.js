@@ -9,13 +9,13 @@ const wdgt = new $app.Service('🔮');
 //setTimeout (Ask, 5000)
 
 //
-wdgt.Init = op=> {
+wdgt.Init = async (op)=> {
 	if ($app.Vars ['🕯️🕯️'] == "true") return;
-	if (op?.manual == '🤖') return Ask ();
+	if (op?.manual == '🤖') return (await Ask ());
 	// init
-	const R = k=> {
+	const R = async (k)=> {
 			k = `${wdgt.id}.${k}`;
-			window ['🐵'].SetValue (k, '');
+			await window ['🐵'].SetValue (k, '');
 			window ['🐵'].AddValueChangeListener (k, (k, oldV, v, remote)=> {
 				const qa = typeof v == 'number' ? false : (e=> { return { q: unescape (e.q), a: unescape (e.a)}}) (JSON.parse (v));
 				if (!qa) window ['🐵'].Focus ()
@@ -23,16 +23,16 @@ wdgt.Init = op=> {
 			});
 		};
 	
-	R ('🎤')
-	R ('💬')
+	await R ('🎤')
+	await R ('💬')
 };
 
 
 let ask, i_ask;
-function Ask () {
+async function Ask () {
 	$app.Widgets ['🔔'].Info (`${wdgt.id} Loading...`, "", 20);
 	// closing all  
-	SetValue (wdgt.id, ""); 
+	await SetValue (wdgt.id, ""); 
 	// 🦺
 	clearTimeout (i_ask);
 	i_ask = setTimeout (()=> ask?.close (), 2*60*1000);
