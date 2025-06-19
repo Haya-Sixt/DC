@@ -8,30 +8,30 @@ const wdgt = new $app.Service ('🖌️', {
 });
 
 //
-wdgt.Init = ()=> ShowHide ();
+wdgt.Init = ()=> {
+	ShowHide ();
+	
+    new MutationObserver(()=> {
+			if (isNaN (rearrange)) return;
+			rearrange = 0;
+			wdgt.Update ();
+		}).observe($(`#${$app.Const.Name}`)[0], { childList: true });
+}
 
 //
-wdgt.Update = ()=> { 
-	if ($app.Vars['🌃'] =='true') return;
+wdgt.Update = ()=> {
+	if (!isNaN (rearrange) && rearrange !== 0 && Date.now () - rearrange < 30*60*1000) return;
+	if ($app.Vars['🌃'] =='true') return (rearrange = 0);
 	if (!screen.orientation.type.includes('landscape')) return setTimeout (()=> wdgt.Update (), 10*1000);
-	setTimeout (Rearrange, 60*1000); 
+	clearTimeout (i_rearrange);
+	i_rearrange = setTimeout (Rearrange, (rearrange === 0 ? 5 : 60)*1000);
 }
 
-function Participant (w, e, rearrange = false) {
-	const S = p=> e.computedStyleMap().get (p).toString().includes ('%'), 
-		br = e.getBoundingClientRect(), sm = e.computedStyleMap();
-	if ((w instanceof $app.Service)
-			|| (!S ('width') && !S ('top'))
-			|| (rearrange && e.parentNode.id !=$app.Const.Col.W)
-			|| (!rearrange && Number(sm.get ('z-index').toString()) > 100)) {
-		return false;
-	}
-	return true;
-}
 
 // 
 wdgt.Rearrange = Rearrange // for debugging 
 //
+let rearrange, i_rearrange, rearrange_thread;
 function Rearrange () {
 	const CmpH = (a, b)=> a.height - b.height, 
 		EQ = (a, b)=> Math.abs (a-b) < 5,
@@ -39,6 +39,12 @@ function Rearrange () {
 		P = (v, hw)=> NF (v * 100 / (hw ? $(`#${$app.Const.Col.W}`).height() : $(`#${$app.Const.Col.W}`).width())),
 		a = [], sub = {}, col = [];
 	
+	if (!isNaN (rearrange_thread) && Date.now () - rearrange_thread < 5*1000) return setTimeout (()=> {
+			rearrange = 0; 
+			wdgt.Update ();
+		}, 5*1000);
+	rearrange_thread = Date.now ();
+		
 	// create array 'sub' of sub widgets,
 	// and array 'a' of only main widgets
 	for (const [k, w] of Object.entries($app.Widgets)) {
@@ -105,54 +111,70 @@ function Rearrange () {
 	
 	const css = { start: '<style> @media (min-device-width: 730px) {', end: '}</style>', E: e=> `${e.sid} { top:${e.top}%; left:${e.left}%; }`, a: [], };
 //console.log (row.a[0])
-	Switch (row.a[0]);
+	Switch (css, row.a[0]);
     
 	$(wdgt.sid).html (`${css.start}${css.a.reduce ((a, e)=> `${a}${css.E (e)}`, '')}${css.end}`);
-
-	//
-	function Switch (e, h = 0, w = 0) {
-		const CmpL = (a, b)=> a.left - b.left, 
-			CmpT = (a, b)=> a.top - b.top,
-			A = e=> e[wdgt.id] ?? e.a,
-			CSS = e=> {
-				//e.h = h; e.w = w
-				e.top = NF (h + e.top + (e.dy ?? 0));
-				e.left = NF (w + e.left + (e.dx ?? 0));
-				//window ['🐵'].AddStyle (`@media (min-device-width: 730px) { ${e.sid} { top:${e.top}%; left:${e.left}%; __zoom:0.5; __height:${e.height-1}%; __width:${e.width-1}%; } }`);
-				css.a.push (e);
-			},
-			a = A(e);
-		
-		// leaf - set css
-		if (!a) return CSS (e); 
-		
-		// randomize the columns/rows
-		const ar = Array(a.length).fill().map ((_, i) => i).sort(() => Math. random() - 0.5);
-		a.sort (e.t == 'c' ? CmpL : CmpT);
-		let cw = 0, ch = 0;
-		for (let i = 0; i < ar.length; i++) {
-			let dx = 0, dy = 0; 
-			for (let j = 0; j < ar[i]; j++) {
-				dx += a[j].width;
-				dy += a[j].height;
-			}
-			if (e.t == 'c') {
-				a[ar[i]].dx = -dx + cw;
-				cw += a[ar[i]].width;
-			}
-			else {
-				a[ar[i]].dy = -dy + ch;
-				ch += a[ar[i]].height;
-			}
-			a[ar[i]].h = h
-			a[ar[i]].w = w
-		}
-		a.forEach (e=> A(e) && Switch (e, h + (e.dy ?? 0), w + (e.dx ?? 0)));
-		
-		// set css
-		a.forEach (e=> !A(e) && CSS (e));
-	}
+	rearrange = Date.now ();
+	rearrange_thread = 0;
 }
+
+//
+function Participant (w, e, rearrange = false) {
+	const S = p=> e.computedStyleMap().get (p).toString().includes ('%'), 
+		br = e.getBoundingClientRect(), sm = e.computedStyleMap();
+	if ((w instanceof $app.Service)
+			|| (!S ('width') && !S ('top'))
+			|| (rearrange && e.parentNode.id !=$app.Const.Col.W)
+			|| (!rearrange && Number(sm.get ('z-index').toString()) > 100)) {
+		return false;
+	}
+	return true;
+}
+
+//
+function Switch (css, e, h = 0, w = 0) {
+	const NF = v=> Number (parseFloat (v).toFixed (2)),
+		CmpL = (a, b)=> a.left - b.left, 
+		CmpT = (a, b)=> a.top - b.top,
+		A = e=> e[wdgt.id] ?? e.a,
+		CSS = e=> {
+			//e.h = h; e.w = w
+			e.top = NF (h + e.top + (e.dy ?? 0));
+			e.left = NF (w + e.left + (e.dx ?? 0));
+			//window ['🐵'].AddStyle (`@media (min-device-width: 730px) { ${e.sid} { top:${e.top}%; left:${e.left}%; __zoom:0.5; __height:${e.height-1}%; __width:${e.width-1}%; } }`);
+			css.a.push (e);
+		},
+		a = A(e);
+	
+	// leaf - set css
+	if (!a) return CSS (e); 
+	
+	// randomize the columns/rows
+	const ar = Array(a.length).fill().map ((_, i) => i).sort(() => Math. random() - 0.5);
+	a.sort (e.t == 'c' ? CmpL : CmpT);
+	let cw = 0, ch = 0;
+	for (let i = 0; i < ar.length; i++) {
+		let dx = 0, dy = 0; 
+		for (let j = 0; j < ar[i]; j++) {
+			dx += a[j].width;
+			dy += a[j].height;
+		}
+		if (e.t == 'c') {
+			a[ar[i]].dx = -dx + cw;
+			cw += a[ar[i]].width;
+		}
+		else {
+			a[ar[i]].dy = -dy + ch;
+			ch += a[ar[i]].height;
+		}
+		a[ar[i]].h = h
+		a[ar[i]].w = w
+	}
+	a.forEach (e=> A(e) && Switch (css, e, h + (e.dy ?? 0), w + (e.dx ?? 0)));
+	
+	// set css
+	a.forEach (e=> !A(e) && CSS (e));
+} 
 
 //
 function ShowHide () {
