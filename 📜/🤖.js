@@ -3,7 +3,7 @@
 
 // inter system communication
 const wdgt = new $app.Service ('🤖', {
-		repeat: 1,
+		repeat: 10,
 	}),
 	c_tag = `${$app.Const.Name}.${wdgt.id}`,
 	tab_id = Date.now ();
