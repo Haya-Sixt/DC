@@ -53,8 +53,7 @@ app.Widget = class T extends app.UIComponent {
 	    if (!options.appendTo) options.appendTo = `#${app.Const.Col.W}`;
 	    super (id, options);
 	    app.Widgets[id] = this;
-	    this.init = this.update = null;
-	    this.status = null;
+	    this.status = this.init = this.update = null;
 	    // 💥 when triggered by 'repeat' and 'dispatch' 
 	    this.threads = {};
 	    this.http = options.http;
@@ -67,19 +66,20 @@ app.Widget = class T extends app.UIComponent {
 		$(this.sid).remove ();
 	}
 	#ResolveDependency (iu) {
-        if (//this.status == app.Const.Status.Done // needed. Update checks its preceding 'init'
-        	//	|| 
-        		!this.dependency[iu]?.filter (d=> app.Widgets[d].status != app.Const.Status.Done)?.length) {
+        if (!this.dependency[iu]?.filter (d=> app.Widgets[d].status?.update != app.Const.Status.Done)?.length) {
 			return true
 		}
     } 
 	_Init () {
 		const IU = (o, http)=> {
-	    	if (!o) return { init:null, update:null }; 
-	    	if (o instanceof Array || typeof o != 'object') return ( ((typeof http == 'function') || this.init) ? { init:o, update:null } : { init:null, update:o });
-	    	return o;
-    	},
-    	L = (iu, cb, v)=> (v ? this.dependency.var : this.dependency)[iu]?.forEach (d=> addEventListener (app.Const.Event (v ? app.Const.Var (d) : d), cb)) || (!v && L (iu, cb, true));
+		    	if (!o) return { init:null, update:null }; 
+		    	if (o instanceof Array || typeof o != 'object') return ( ((typeof http == 'function') || this.init) ? { init:o, update:null } : { init:null, update:o });
+		    	return o;
+	    	},
+	    	L = (iu, cb, v)=> (v ? this.dependency.var : this.dependency)[iu]?.forEach (d=> addEventListener (app.Const.Event (v ? app.Const.Var (d) : d), cb)) || (!v && L (iu, cb, true));
+    	// 1. To dispatch again.  2. Block dependee  
+    	this.status = IU ();
+    	if (this.repeat) return;
     	// 'repeat.update' won't trigger its dependees
     	// 	i.e. 📆 won't trigger 🪵
     	this.repeat = IU (this._options.repeat, this.http && (()=>{}));
@@ -95,8 +95,7 @@ app.Widget = class T extends app.UIComponent {
     }
 	//
 	get Init () {
-		this.status = null; // 1. To dispatch again.  2. Block dependee 
-	    if (!this.repeat) this._Init ();
+		this._Init ();
 	    //
     	return async (op = {})=> { // 🗒️ op {manual} aren't in used (🤖->👁️‍🗨️).
 	    try {
@@ -141,6 +140,7 @@ app.Widget = class T extends app.UIComponent {
 	    this.http && (await Get (this));
 	    this.init && (await this.init(op));
 	    this.repeat.init && !op.repeat?.init && setTimeout(this.Init, 1000*60*this.repeat.init, op);
+	    this.status.init = app.Const.Status.Done;
 	    this.threads.Init = 0;
 	    this.Update(op);
 	    } catch (e) { this.Error(e, 'Init', 1) } }
@@ -150,12 +150,6 @@ app.Widget = class T extends app.UIComponent {
 	}
 	//
 	get Update () {
-		const Dispatch = ()=> {
-			if (this.status == app.Const.Status.Done) return;
-	        this.status = app.Const.Status.Done;
-	        dispatchEvent(new Event( app.Const.Event (this.id) ));
-	    };
-	    //
     	return async (op = {})=>{
     	if (this.threads.Update) {
     		clearTimeout (this.threads.i_Update);
@@ -163,14 +157,22 @@ app.Widget = class T extends app.UIComponent {
     	}
     	this.threads.Update = 1;
     	try {
-	    // why to check even when just repeating update (without init)? - bcs the dependee uses the dependency's data, which might be 🚧
-	    // 	i.e. 🛞 & 🪵
-	    if (this.threads.Init || !this.#ResolveDependency ('init') || !this.#ResolveDependency ('update')) return (this.threads.Update = 0); // 🗒️: no need for 'setTimeout..', bcs the dependency will trigger this
+	    // Why using status, instead of thread? Bcs: 🪵 dispatch 🕯️. Than 📒 fail (bcs _Init is before locking threads)
+	    if (this.status?.init != app.Const.Status.Done 
+	    		// why to check even when just repeating update (without init)? - bcs the dependee uses the dependency's data, which might be 🚧
+	    		// 	i.e. 🛞 & 🪵
+	    		|| !this.#ResolveDependency ('init') || !this.#ResolveDependency ('update')) {
+			return (this.threads.Update = 0); // 🗒️: no need for 'setTimeout..', bcs the dependency will trigger this
+	    }
 	    $(this.sid).removeClass("error");
 	    let i_update
 	    this.repeat.update && !op.repeat?.update && (i_update = setTimeout(this.Update, 1000*60*this.repeat.update, op));
 	    this.update && (await this.update(op) == app.Const.Status.NoRepeat) && clearTimeout(i_update);
-	    Dispatch ();
+		// dispatch
+		if (this.status.update != app.Const.Status.Done) {
+	        this.status.update = app.Const.Status.Done;
+	        dispatchEvent(new Event( app.Const.Event (this.id) ));
+	    }
 	    this.threads.Update = 0;
 	    } catch (e) { this.Error(e, 'Update', 1) } }
 	}

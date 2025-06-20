@@ -11,17 +11,22 @@ const wdgt = new $app.Service ('🖌️', {
 wdgt.Init = ()=> {
 	ShowHide ();
 	
-    new MutationObserver(()=> {
-			if (isNaN (rearrange)) return;
+    (wdgt.data = new MutationObserver (ms=> {
+    	ms.forEach (m=> {
+    		if (isNaN (rearrange) || m.type != 'childList' || !m.removedNodes.length) return;
 			rearrange = 0;
 			wdgt.Update ();
-		}).observe($(`#${$app.Const.Name}`)[0], { childList: true });
+		})})
+	).observe ($(`#${$app.Const.Name}`)[0], { childList: true });
 }
 
 //
 wdgt.Update = ()=> {
 	if (!isNaN (rearrange) && rearrange !== 0 && Date.now () - rearrange < 30*60*1000) return;
-	if ($app.Vars['🌃'] =='true') return (rearrange = 0);
+	if ($app.Vars['🌃'] =='true') {
+		if (!isNaN (rearrange)) rearrange = 0;
+		return;
+	}
 	if (!screen.orientation.type.includes('landscape')) return setTimeout (()=> wdgt.Update (), 10*1000);
 	clearTimeout (i_rearrange);
 	i_rearrange = setTimeout (Rearrange, (rearrange === 0 ? 5 : 60)*1000);
