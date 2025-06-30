@@ -10,14 +10,20 @@ const wdgt = new $app.Service ('🖌️', {
 //
 wdgt.Init = ()=> {
 	ShowHide ();
-	
-    (wdgt.data = new MutationObserver (ms=> {
-    	ms.forEach (m=> {
-    		if (isNaN (rearrange) || m.type != 'childList' || !m.removedNodes.length) return;
-			rearrange = 0;
-			wdgt.Update ();
-		})})
-	).observe ($(`#${$app.Const.Name}`)[0], { childList: true });
+	Observer ();
+}
+
+//
+let observer;
+function Observer () {
+	(wdgt.data = new MutationObserver (ms=> {
+	 	ms.forEach (m=> {
+	 		if (isNaN (rearrange) || m.type != 'childList' || !m.removedNodes.length) return;
+	 		rearrange = 0;
+	 		observer = 1;
+	 		wdgt.Update ();
+		})
+	})).observe ($(`#${$app.Const.Name}`)[0], { childList: true });
 }
 
 //
@@ -49,7 +55,12 @@ function Rearrange () {
 			wdgt.Update ();
 		}, 5*1000);
 	rearrange_thread = Date.now ();
-		
+	
+	if (observer) {
+		observer = 0;
+		ShowHide (); 
+	}
+	
 	// create array 'sub' of sub widgets,
 	// and array 'a' of only main widgets
 	for (const [k, w] of Object.entries($app.Widgets)) {
