@@ -192,6 +192,16 @@ function ShowHide () {
 }
 
 //
+function Focus () {
+	if (isNaN (rearrange)) return;
+	setTimeout (()=> {
+		rearrange = 0;
+		wdgt.Update ()
+	}, 1000);
+}
+
+//
 window.addEventListener('orientationchange', ()=> setTimeout(ShowHide, 250));
+addEventListener('focus', Focus);
 
 })(); 

@@ -23,11 +23,11 @@ wdgt.Update = Inactive;
 
 //
 function WS () {
-	const ws = new WebSocket(`ws://${location.host}`);
+	const ws = new WebSocket(`ws://${location.host}`); // Not a comment. It's for url validaty. Arbitrary 'a.com' will also fail.
 
 	setTimeout (()=> { if (ws.readyState != 1) wdgt.Reset (ws) }, 5000);
 	
-	ws.addEventListener("message", (ev) => {
+	ws.addEventListener("message", ev=> {
 	  Dispatch (decodeURIComponent (ev.data));
 	});
 	
@@ -43,7 +43,8 @@ function Dispatch (v) {
 	let t = v [1]; 
 	v = v [0];
 	
-	if (v?.startsWith ($app.Const.Var ())) {
+	if (v == 'newclient' ) Close ()
+	else if (v?.startsWith ($app.Const.Var ())) {
 		const a = v.replace ($app.Const.Var (), '').split ('=');
 		$app.Vars [a[0]] = a[1]; 
 	}
@@ -66,14 +67,19 @@ wdgt.Send = n=> window ['🐵'].Notification (n);
 
 //
 function Inactive () {
-	window ['🐵'].GetTabs (async (ts)=> { 
+	window ['🐵'].GetTabs (ts=> { 
 		// is there any newer tab?
 		if ( ! Object.values (ts)?.find (e=> e.id > tab_id) ) return;
-		// close
-		await window ['🐵'].SaveTab ({id: null});
-		$app.Widgets ['🔔'].Info (`${wdgt.id}.Inactive: ${$(":focus").length}`);
-		window ['🐵'].Close ();
+		Close ();
 	})
+}
+
+//
+async function Close () {
+	try {
+	await window ['🐵'].SaveTab ({id: null});
+	$app.Widgets ['🔔'].Info (`${wdgt.id}.Inactive: ${$(":focus").length}`);
+	} finally { window ['🐵'].Close () }
 }
 
 //

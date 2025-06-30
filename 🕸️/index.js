@@ -15,6 +15,7 @@ const c_nm = '/node_modules', c_nmp = `${process.env.HOME}${c_nm}/`,
 
 //
 wss.on ('connection', function(ws) {
+	Emit (`newclient&t=${Date.now ()}`);
 	clients.set(ws);
 //console.log('client +', clients.size);
 	
