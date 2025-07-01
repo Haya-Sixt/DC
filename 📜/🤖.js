@@ -66,12 +66,11 @@ wdgt.Send = n=> window ['🐵'].Notification (n);
 
 
 //
-function Inactive () {
-	window ['🐵'].GetTabs (ts=> { 
-		// is there any newer tab?
-		if ( ! Object.values (ts)?.find (e=> e.id > tab_id) ) return;
-		Close ();
-	})
+async function Inactive () {
+	const ts = await window ['🐵'].GetTabs ();
+	// is there any newer tab?
+	if ( ! Object.values (ts)?.find (e=> e.id > tab_id) ) return;
+	Close ();
 }
 
 //
@@ -84,36 +83,36 @@ async function Close () {
 
 //
 function Maintenence () {
-  const d = new Date(), h = d.getHours(), m = d.getMinutes(), s = d.getSeconds(), secondsUntilEndOfDate = (24*60*60) - (h*60*60) - (m*60) - s;
-  setTimeout (Reload, secondsUntilEndOfDate*1000);
-  Focus ();
+	const d = new Date(), h = d.getHours(), m = d.getMinutes(), s = d.getSeconds(), secondsUntilEndOfDate = (24*60*60) - (h*60*60) - (m*60) - s;
+	setTimeout (Reload, secondsUntilEndOfDate*1000);
+	Focus ();
 }
 
 // Reload (New day)
 const date = new Date().getDate();
 function Reload () {
-  if (date != new Date().getDate()) location.reload ();
+	if (date != new Date().getDate()) location.reload ();
 }
 
 //
 let focus = (typeof document.hidden !== undefined && !document.hidden);
 function Focus (ev) {
-  focus = ev?.type == 'blur' ? false : true;
-  if (!focus) return;
-  Reload ();
-  Send ();
+	focus = ev?.type == 'blur' ? false : true;
+	if (!focus) return;
+	Reload ();
+	Send ();
 }
 
 // Fullscreen 
 function Send (steps = 2) {
-  if (document.fullscreenElement) return;
-  wdgt.Send (`${wdgt.id}.full screen`);
-  if (steps--) setTimeout (Send, 3000, steps);
+	if (document.fullscreenElement) return;
+	wdgt.Send (`${wdgt.id}.full screen`);
+	if (steps--) setTimeout (Send, 3000, steps);
 }
 
 // 🤖 has responded
 function Receive () {
-  document.querySelector("body").requestFullscreen();
+	document.querySelector("body").requestFullscreen();
 }
 
 
