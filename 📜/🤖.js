@@ -105,7 +105,7 @@ function Focus (ev) {
 
 // Fullscreen 
 function Send (steps = 2) {
-	if (document.fullscreenElement) return;
+	if (document.fullscreenElement || !focus) return;
 	wdgt.Send (`${wdgt.id}.full screen`);
 	if (steps--) setTimeout (Send, 10000, steps);
 }
