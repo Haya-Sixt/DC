@@ -8,23 +8,7 @@ const wdgt = new $app.Service ('🖌️', {
 });
 
 //
-wdgt.Init = ()=> {
-	ShowHide ();
-	Observer ();
-}
-
-//
-let observer;
-function Observer () {
-	(wdgt.data = new MutationObserver (ms=> {
-	 	ms.forEach (m=> {
-	 		if (isNaN (rearrange) || m.type != 'childList' || !m.removedNodes.length) return;
-	 		rearrange = 0;
-	 		observer = 1;
-	 		wdgt.Update ();
-		})
-	})).observe ($(`#${$app.Const.Name}`)[0], { childList: true });
-}
+wdgt.Init = ShowHide;
 
 //
 wdgt.Update = ()=> {
@@ -38,9 +22,6 @@ wdgt.Update = ()=> {
 	i_rearrange = setTimeout (Rearrange, (rearrange === 0 ? 5 : 60)*1000);
 }
 
-
-// 
-wdgt.Rearrange = Rearrange // for debugging 
 //
 let rearrange, i_rearrange, rearrange_thread;
 function Rearrange () {
@@ -210,6 +191,22 @@ function Focus () {
 		wdgt.Update ()
 	}, 1000);
 }
+
+//
+let observer;
+(wdgt.data = new MutationObserver (ms=> ms.forEach (m=> {
+	if (isNaN (rearrange) || m.type != 'childList' || !m.removedNodes.length) return;
+	rearrange = 0;
+	observer = 1;
+	wdgt.Update ();
+}))).observe ($(`#${$app.Const.Name}`)[0], { childList: true });
+
+// 
+document.addEventListener('fullscreenchange', () => {
+	if (!document.fullscreenElement || !isNaN (rearrange)) return;
+	rearrange = 0;
+	wdgt.Update ();
+});
 
 //
 window.addEventListener('orientationchange', ()=> setTimeout(ShowHide, 250));

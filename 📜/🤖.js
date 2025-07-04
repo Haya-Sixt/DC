@@ -6,7 +6,7 @@ const wdgt = new $app.Service ('🤖', {
 		repeat: 10,
 	}),
 	c_tag = `${$app.Const.Name}.${wdgt.id}`,
-	tab_id = Date.now ();
+	tab_id = Date.now (), c_newclient = 'newclient';
 
 
 //
@@ -27,12 +27,17 @@ function WS () {
 
 	setTimeout (()=> { if (ws.readyState != 1) wdgt.Reset (ws) }, 5000);
 	
+	ws.onopen = function(event) {
+        ws.send(`${c_newclient}&t=${tab_id}`);
+    };
+     
 	ws.addEventListener("message", ev=> {
-	  Dispatch (decodeURIComponent (ev.data));
+		if (ev.data instanceof Blob) event.data.text().then(Dispatch)
+		else Dispatch (decodeURIComponent (ev.data));
 	});
 	
 	ws.addEventListener("disconnect", () => {
-	  wdgt.Reset ("disconnect");
+		wdgt.Reset ("disconnect");
 	});
 }
 
@@ -43,7 +48,7 @@ function Dispatch (v) {
 	let t = v [1]; 
 	v = v [0];
 	
-	if (v == 'newclient' ) Close ()
+	if (v == c_newclient) t !=tab_id && Close ()
 	else if (v?.startsWith ($app.Const.Var ())) {
 		const a = v.replace ($app.Const.Var (), '').split ('=');
 		$app.Vars [a[0]] = a[1]; 
