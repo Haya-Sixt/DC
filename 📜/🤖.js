@@ -107,7 +107,7 @@ function Focus (ev) {
 function Send (steps = 2) {
 	if (document.fullscreenElement) return;
 	wdgt.Send (`${wdgt.id}.full screen`);
-	if (steps--) setTimeout (Send, 3000, steps);
+	if (steps--) setTimeout (Send, 10000, steps);
 }
 
 // 🤖 has responded
