@@ -26,6 +26,19 @@ wss.on ('connection', function(ws) {
 //
 app.use (express.static (c_base));
 
+app.get (`/exit`, (req, res) => {
+	res.writeHead (200, { 'Content-Type': 'text/html;charset=utf-8' });
+	res.end ("👌");
+	server.close(() => {
+	    console.log('Server closed. Port released.');
+	    process.exit(0);
+    });
+});
+
+app.get('/favicon.ico', (req, res) => {
+	res.sendFile(`${c_base}/🖼️${req.url}`);
+}); 
+
 app.get (`${c_ws}{*any}`, (req, res) => { // i.e.  🖥️ » 🤖 (ActionBlock) : Get http(!)://localhost:8181/DC/🤖/{lv=i_🤖}&t={system_time}
 	Emit (req.url.replace(c_ws, '')); 
 	res.writeHead (200, { 'Content-Type': 'text/html;charset=utf-8' });
@@ -44,17 +57,15 @@ app.get (`${c_ls}{*any}`, (req, res) => {
 	res.end (JSON.stringify (f));
 });
 
-app.get('/favicon.ico', (req, res) => {
-	res.sendFile(`${c_base}/🖼️${req.url}`);
-});
-
-app.get(`${c_nm}{*any}`, (req, res) => {
-	res.sendFile(`${process.env.HOME}${req.url}`);
-});
+//app.get(`${c_nm}{*any}`, (req, res) => {
+//	res.sendFile(`${process.env.HOME}${req.url}`);
+//});
 
 app.all(`{*any}`, (req, res) => {
 	res.sendFile(`${c_base}${req.url}`);
 });
 
 // 🕸️
-server.listen (port);
+server.listen(port, () => {
+  console.log(`Express server running on port ${port}`);
+});
