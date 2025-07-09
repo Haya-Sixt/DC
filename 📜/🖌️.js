@@ -11,32 +11,40 @@ const wdgt = new $app.Service ('🖌️', {
 wdgt.Init = ShowHide;
 
 //
+let i_update, night;
 wdgt.Update = ()=> {
-	if (!isNaN (rearrange) && rearrange !== 0 && Date.now () - rearrange < 30*60*1000) return;
-	if ($app.Vars['🌃'] =='true') {
-		if (!isNaN (rearrange)) rearrange = 0;
-		return;
-	}
-	if (!screen.orientation.type.includes('landscape')) return setTimeout (()=> wdgt.Update (), 10*1000);
-	clearTimeout (i_rearrange);
-	i_rearrange = setTimeout (Rearrange, (rearrange === 0 ? 5 : 60)*1000);
+	clearTimeout (i_update);
+	i_update = setTimeout (()=> {
+		if (typeof night != 'undefined' && night != $app.Vars['🌃']) Rearrange ()
+		else setTimeout (Rearrange, 60*1000, 1);
+		night = $app.Vars['🌃'];
+	}, 10000);
 }
 
 //
 let rearrange, i_rearrange, rearrange_thread;
-function Rearrange () {
+function Rearrange (scheduled, validated) {
+	if (scheduled !==1 && isNaN (rearrange)) return;
+	if (!validated) {
+		clearTimeout (i_rearrange);
+		return i_rearrange = setTimeout (()=> {
+			if ( (scheduled !==1 || Date.now () - (rearrange??0) > 30*60*1000)
+					&& $app.Vars['🌃'] =='false' 
+					&& screen.orientation.type.includes('landscape')
+					&& document.fullscreenElement
+					&& $app.Widgets ['🤖']?.data?.focus
+					&& Date.now () - (rearrange_thread??0) > 5*1000) {
+				rearrange_thread = Date.now ();
+				Rearrange (scheduled, 1);
+			}
+		}, 10000);
+	}
 	const CmpH = (a, b)=> a.height - b.height, 
 		EQ = (a, b)=> Math.abs (a-b) < 5,
 		NF = v=> Number (parseFloat (v).toFixed (2)),
 		P = (v, hw)=> NF (v * 100 / (hw ? $(`#${$app.Const.Col.W}`).height() : $(`#${$app.Const.Col.W}`).width())),
 		a = [], sub = {}, col = [];
-	
-	if (!isNaN (rearrange_thread) && Date.now () - rearrange_thread < 5*1000) return setTimeout (()=> {
-			rearrange = 0; 
-			wdgt.Update ();
-		}, 5*1000);
-	rearrange_thread = Date.now ();
-	
+		
 	if (observer) {
 		observer = 0;
 		ShowHide (); 
@@ -69,7 +77,7 @@ function Rearrange () {
 			a[i].top = sub[e.id].reduce((a, e)=> Math.min(a, e.top), e.top);
 		}
 	});
-//console.log (a)
+console.log (a)
 	// group by height. 
 	a.forEach ((e, i, a)=> {
 		const cx = col.findIndex (c=> EQ (c.height, e.height));
@@ -107,12 +115,12 @@ function Rearrange () {
 	});
 	
 	const css = { start: '<style> @media (min-device-width: 730px) {', end: '}</style>', E: e=> `${e.sid} { top:${e.top}%; left:${e.left}%; }`, a: [], };
-//console.log (row.a[0])
+console.log (row.a[0])
 	Switch (css, row.a[0]);
     
 	$(wdgt.sid).html (`${css.start}${css.a.reduce ((a, e)=> `${a}${css.E (e)}`, '')}${css.end}`);
 	rearrange = Date.now ();
-	rearrange_thread = 0;
+	rearrange_thread = null;
 }
 
 //
@@ -181,35 +189,14 @@ function ShowHide () {
 		if (Participant (w, e[0])) e.removeClass (wdgt.id)
 		else e.addClass (wdgt.id);
 	}
-}
+} 
 
-//
-function Focus () {
-	if (isNaN (rearrange)) return;
-	setTimeout (()=> {
-		rearrange = 0;
-		wdgt.Update ()
-	}, 1000);
-}
 
 //
 let observer;
-(wdgt.data = new MutationObserver (ms=> ms.forEach (m=> {
-	if (isNaN (rearrange) || m.type != 'childList' || !m.removedNodes.length) return;
-	rearrange = 0;
-	observer = 1;
-	wdgt.Update ();
-}))).observe ($(`#${$app.Const.Name}`)[0], { childList: true });
-
-// 
-document.addEventListener('fullscreenchange', () => {
-	if (!document.fullscreenElement || !isNaN (rearrange)) return;
-	rearrange = 0;
-	wdgt.Update ();
-});
-
-//
-window.addEventListener('orientationchange', ()=> setTimeout(ShowHide, 250));
-addEventListener('focus', Focus);
+(wdgt.data = new MutationObserver (ms=> ms.forEach (m=> m.type == 'childList' && m.removedNodes.length && (observer = 1) && Rearrange ()))).observe ($(`#${$app.Const.Name}`)[0], { childList: true });
+document.addEventListener ('fullscreenchange', Rearrange);
+addEventListener ('focus', Rearrange);
+window.addEventListener ('orientationchange', ()=> setTimeout(ShowHide, 250));
 
 })(); 

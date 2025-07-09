@@ -8,6 +8,7 @@ const wdgt = new $app.Service ('🤖', {
 	c_tag = `${$app.Const.Name}.${wdgt.id}`,
 	tab_id = Date.now (), c_newclient = 'newclient';
 
+wdgt.data = { focus: (typeof document.hidden !== undefined && !document.hidden)};
 
 //
 wdgt.Init = async ()=> {
@@ -20,6 +21,24 @@ wdgt.Init = async ()=> {
 //
 wdgt.Update = Inactive;
 
+//
+wdgt.Send = n=> window ['🐵'].Notification (n);
+
+//
+async function Inactive () {
+	const ts = await window ['🐵'].GetTabs ();
+	// is there any newer tab?
+	if ( ! Object.values (ts)?.find (e=> e.id > tab_id) ) return;
+	Close ();
+}
+
+//
+async function Close () {
+	try {
+	await window ['🐵'].SaveTab ({id: null});
+	$app.Widgets ['🔔'].Info (`${wdgt.id}.Inactive: ${$(":focus").length}`);
+	} finally { window ['🐵'].Close () }
+} 
 
 //
 function WS () {
@@ -65,27 +84,6 @@ function Dispatch (v) {
 	} catch (ex) { wdgt.Error ('Dispatch', ex) }
 }
 
-
-//
-wdgt.Send = n=> window ['🐵'].Notification (n);
-
-
-//
-async function Inactive () {
-	const ts = await window ['🐵'].GetTabs ();
-	// is there any newer tab?
-	if ( ! Object.values (ts)?.find (e=> e.id > tab_id) ) return;
-	Close ();
-}
-
-//
-async function Close () {
-	try {
-	await window ['🐵'].SaveTab ({id: null});
-	$app.Widgets ['🔔'].Info (`${wdgt.id}.Inactive: ${$(":focus").length}`);
-	} finally { window ['🐵'].Close () }
-}
-
 //
 function Maintenence () {
 	const d = new Date(), h = d.getHours(), m = d.getMinutes(), s = d.getSeconds(), secondsUntilEndOfDate = (24*60*60) - (h*60*60) - (m*60) - s;
@@ -100,17 +98,16 @@ function Reload () {
 }
 
 //
-let focus = (typeof document.hidden !== undefined && !document.hidden);
 function Focus (ev) {
-	focus = ev?.type == 'blur' ? false : true;
-	if (!focus) return;
+	wdgt.data.focus = ev?.type == 'blur' ? false : true;
+	if (!wdgt.data.focus) return;
 	Reload ();
 	Send ();
 }
 
 // Fullscreen 
 function Send (steps = 2) {
-	if (document.fullscreenElement || !focus) return;
+	if (document.fullscreenElement || !wdgt.data.focus) return;
 	wdgt.Send (`${wdgt.id}.full screen`);
 	if (steps--) setTimeout (Send, 10000, steps);
 }
