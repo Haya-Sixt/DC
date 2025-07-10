@@ -216,7 +216,7 @@ let data = [], reposition = 1;
 
 //
 wdgt.Update = ()=> {
-	const c = `${wdgt.sid} > div`,
+	const c = `${wdgt.sid} > div`, anchor = $(`#${wdgt ['🖌️'][0]}`),
 		Add = (wk, k, v)=> {
 			const e = $(`${c}[${wk}]`), 
 				vs = v ? `<span>${v}<span>` : '', h = `${k}${vs}`;
@@ -236,11 +236,11 @@ wdgt.Update = ()=> {
 	}
 
 	// 🖌️
-	if (!data.length) return (reposition = 1);
+	if (!data.length) return reposition = 1;
 	if (!reposition) return;
 	reposition = 0; 
-	$(wdgt.sid).css('bottom', $('#🪵').css('bottom'))
-		.css('left', $('#🪵').css('left'));
+	$(wdgt.sid).css('bottom', anchor.css('bottom'))
+		.css('left', anchor.css('left'));
 }
 
 

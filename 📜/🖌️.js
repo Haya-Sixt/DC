@@ -77,7 +77,7 @@ function Rearrange (scheduled, validated) {
 			a[i].top = sub[e.id].reduce((a, e)=> Math.min(a, e.top), e.top);
 		}
 	});
-console.log (a)
+//console.log (a)
 	// group by height. 
 	a.forEach ((e, i, a)=> {
 		const cx = col.findIndex (c=> EQ (c.height, e.height));
@@ -115,9 +115,10 @@ console.log (a)
 	});
 	
 	const css = { start: '<style> @media (min-device-width: 730px) {', end: '}</style>', E: e=> `${e.sid} { top:${e.top}%; left:${e.left}%; }`, a: [], };
-console.log (row.a[0])
+//console.log (row.a[0])
 	Switch (css, row.a[0]);
-    
+	const min = css.a.reduce ((a, e)=> ({t: Math.min (a.t, e.top), l: Math.min (a.l, e.left)}), {t:999, l:999});
+    css.a.forEach (e=>{ e.top -= min.t; e.left -= min.l});
 	$(wdgt.sid).html (`${css.start}${css.a.reduce ((a, e)=> `${a}${css.E (e)}`, '')}${css.end}`);
 	rearrange = Date.now ();
 	rearrange_thread = null;
@@ -130,7 +131,8 @@ function Participant (w, e, rearrange = false) {
 	if ((w instanceof $app.Service)
 			|| (!S ('width') && !S ('top'))
 			|| (rearrange && e.parentNode.id !=$app.Const.Col.W)
-			|| (!rearrange && Number(sm.get ('z-index').toString()) > 100)) {
+			|| (rearrange && !e.checkVisibility({opacityProperty:true,visibilityProperty:true}))
+			|| Number(sm.get ('z-index').toString()) > 100) {
 		return false;
 	}
 	return true;
