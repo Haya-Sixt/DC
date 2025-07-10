@@ -183,7 +183,7 @@ app.Widget = class T extends app.UIComponent {
 	Reset (e='get') {
 	    this.Error(e, 'failed.\nResetting (40s)...');
 	    setTimeout(this.Init, 1000*40);
-	    app.Service['🤖']?.Send (`${this.id}.Reset`);
+	    `${e}`.includes ('Failed to fetch') && app.Service['🤖']?.Send (`${this.id}.Reset`);
 	}
 	Error (e, t, release) {
 		if (release) this.threads[t] = 0;
