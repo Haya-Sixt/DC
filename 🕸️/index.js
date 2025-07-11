@@ -1,6 +1,8 @@
 //console.log (`HOME : ${process.env.HOME}`)
 
-const c_nm = '/node_modules', c_nmp = `${process.env.HOME}${c_nm}/`,
+const c_nm = `/node_modules`, isDroid = __dirname.startsWith ('/'),
+	c_wrks = `${isDroid ? '/\storage/\emulated/\ 0/\' : 'D:\\Workspace\\'}🍏`, // note(win): add '/\' fail
+	c_nmp = `${isDroid ? process.env.HOME : `${c_wrks}/\Node`}${c_nm}/`,
 	express = require(`${c_nmp}express`), 
 	ws = require(`${c_nmp}ws`),
 	http = require('http'),
@@ -9,7 +11,7 @@ const c_nm = '/node_modules', c_nmp = `${process.env.HOME}${c_nm}/`,
 	server = http.createServer(app),
 	wss = new ws.Server ({server: server}),
 	clients = new Map(),
-	c_base = `${__dirname.startsWith ('/') ? '/\storage/\emulated/\ 0' : 'C:/\Workspace'}/\🍏/\🖥️`.replace (' ', ''), 
+	c_base = `${c_wrks}/\🖥️`.replace (' ', ''), 
 	c_ws = `/DC/${encodeURIComponent('🤖')}/`,
 	c_ls = `/ls${encodeURIComponent (' ')}`,
 	Emit = m=> [...clients.keys()].forEach (e => e.send (m));
@@ -58,7 +60,7 @@ app.get (`${c_ls}{*any}`, (req, res) => {
 });
 
 //app.get(`${c_nm}{*any}`, (req, res) => {
-//	res.sendFile(`${process.env.HOME}${req.url}`);
+//	res.sendFile(`${c_nmp.replace(`${c_nm}/`,'')}${req.url}`);
 //});
 
 app.all(`{*any}`, (req, res) => {
