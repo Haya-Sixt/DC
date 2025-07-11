@@ -1,0 +1,5 @@
+D:\Workspace\🍏\Git\git-bash.exe
+
+sh D:/Workspace/🖥️/DC/🕸️/💻/commit.sh 🖥️/DC
+
+sh D:/Workspace/🖥️/DC/🕸️/💻/pull.sh 🖥️/DC

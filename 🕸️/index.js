@@ -1,8 +1,8 @@
 //console.log (`HOME : ${process.env.HOME}`)
 
 const c_nm = `/node_modules`, isDroid = __dirname.startsWith ('/'),
-	c_wrks = `${isDroid ? '/\storage/\emulated/\ 0/\' : 'D:\\Workspace\\'}🍏`, // note(win): add '/\' fail
-	c_nmp = `${isDroid ? process.env.HOME : `${c_wrks}/\Node`}${c_nm}/`,
+	c_wrks = isDroid ? '/\storage/\emulated/\ 0/\🍏' : 'D:\\Workspace',
+	c_nmp = `${isDroid ? process.env.HOME : `${c_wrks}/\🍏/\Node`}${c_nm}/`,
 	express = require(`${c_nmp}express`), 
 	ws = require(`${c_nmp}ws`),
 	http = require('http'),

@@ -1,11 +1,7 @@
 
-# on windows :
+sh commit.sh 🖥️/DC
 
-cd "C:\Data\🍏\🖥️\DC\🕸️"
-node --env-file=win.env "C:\Data\🍏\🖥️\DC\🕸️\index.js"
-
-
-# on android : 
+sh pull.sh 🖥️/DC
 
 node --env-file=/storage/emulated/0/🍏/🖥️/DC/🕸️/android.env /storage/emulated/0/🍏/🖥️/DC/🕸️/index.js
 
@@ -14,4 +10,3 @@ node --env-file=/storage/emulated/0/🍏/🖥️/DC/🕸️/android.env /storage
 # cd ~
 # npm install express
 # npm install ws
-
