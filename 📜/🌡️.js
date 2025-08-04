@@ -219,14 +219,14 @@ wdgt.Update = ()=> {
 	// gradient
 	$("<linearGradient>").appendTo ($("<defs>").appendTo (g)).attr ("id", c_id_lg.slice (1)).attr ("x1","0").attr ("x2","0").attr ("y1","0").attr ("y2","100%");
 	for (let i = 0; i < GredientConverter.maxTemperature(); i++) {
-		$("<stop>").appendTo (c_id_lg).attr ("offset", `${(i+1)/GredientConverter.maxTemperature()*100}%`).attr ("stop-color", GredientConverter.toTemperature(i));
+		$("<stop>").appendTo (c_id_lg).attr ("offset", `${(i+1)/GredientConverter.maxTemperature()*100}%`).attr ("stop-color", GredientConverter.toTemperature(GredientConverter.maxTemperature() - i));
 	}
 	// graph
-	$("<rect>").appendTo (g).attr ("x", paddingW).attr ("width", vb.w - paddingW*2).attr ("y", paddingH).attr ("height", vb.graph.h - paddingH).attr ("fill", `url(${c_id_lg})`).attr ("stroke-width",0);
+	$("<rect>").appendTo (g).attr ("x", paddingW).attr ("width", vb.w - paddingW*2).attr ("y", paddingH / 2).attr ("height", vb.graph.h - paddingH / 2).attr ("fill", `url(${c_id_lg})`).attr ("stroke-width",0);
 	// mark
-	$("<text>").appendTo (g).html ('⚫').attr ("x", vb.w - graphW*1.2).attr ("y", (Math.min (GredientConverter.maxTemperature(), Math.max (0, wdgt.data))+1)/GredientConverter.maxTemperature()*vb.graph.h).attr ("font-size", graphW*4);
+	$("<text>").appendTo (g).html ('⚫').attr ("x", vb.w - graphW*1.2).attr ("y", vb.graph.h - (Math.min (GredientConverter.maxTemperature(), Math.max (0, wdgt.data))+1)/GredientConverter.maxTemperature() * (vb.graph.h - paddingH)).attr ("font-size", graphW*4);
 	// °
-	$("<text>").appendTo (svg).html (wdgt.data).attr ("x", vb.w).attr ("y", vb.graph.h + paddingW).attr ("font-size", fontSize);
+	$("<text>").appendTo (svg).html (wdgt.data).attr ("x", vb.w).attr ("y", vb.graph.h + paddingW * 2).attr ("font-size", fontSize);
 	//
 	$(wdgt.sid).html($(wdgt.sid ).html()); // 🥝🐛?
 	
