@@ -81,7 +81,7 @@
 #🚥, #⏳, #🪵, #⏰ { left:0%; } 
 #🚥, #⏳, #🪵 { width:var(--🖥️-🖌️-🪵w); } 
 #⏰ { width:calc(var(--🖥️-🖌️-🪵w) - var(--🖥️-c-px-cam)); height:var(--🖥️-🖌️-⏰); } 
-#⏰.markIconText { height:calc(var(--🖥️-🖌️-⏰) - 2%); ___left:calc(var(--🖥️-c-px-cam) / 2); }  
+#⏰.markIconText { height:calc(var(--🖥️-🖌️-⏰) - 2%); }  
 #🪵 { top:calc(var(--🖥️-🖌️-00) + var(--🖥️-🖌️-⏰)); height:var(--🖥️-🖌️-🪵h); } 
 #🚥 { bottom:0%; height: var(--🖥️-🖌️-🚥); }
 #🖥️w:not(:has(#🚥:empty)) > #🪵 { height: calc(var(--🖥️-🖌️-🪵h) - var(--🖥️-🖌️-🚥)); } 
@@ -106,7 +106,7 @@
 	#🌡️ g:not(#DimTodayColumn) { opacity: 0.9; } 
 	#🌡️ g.Spline { opacity: 0.3 !important; }
     #💈 g { display: none; }
-	* { background-color: unset !important; text-shadow: none !important; ___text-shadow: 1px 1px 1px rgba(var(--🖥️-c-td-1_rgb),0.839) !important; } } /* 🗒: text-shadow 'unset' isn't working (therefore it's 'none') */
+	* { background-color: unset !important; text-shadow: none !important; } } /* 🗒: text-shadow 'unset' isn't working (therefore it's 'none') */
 }
 
 
@@ -174,7 +174,7 @@ imo { font-size:var(--🖥️-c-px-22); }
 
 /* 🗒️ '100's convention is needed at widget 🖌️ */
 #🔔 {z-index: 102}
-.🛞, #⏳ {z-index: 101}
+#⏳ {z-index: 101}
 
 
 /* Colors:  */

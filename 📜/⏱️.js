@@ -130,7 +130,7 @@ function Current() {
 	if (wdgt.current.length) {
 		let t = wdgt.current[0];
 		if (wdgt.current.length == 2) {
-			const T = t=> `<span style="font-size: 50%">${t}</span>`;
+			const T = t=> `<span style="font-size: 60%">${t}</span>`;
 			t = `${T (wdgt.current[0])},${T (wdgt.current[1])}`;
 		}
 		$(wdgt.sid).html(`<span>${t}</span><span>⏰</span>`);
