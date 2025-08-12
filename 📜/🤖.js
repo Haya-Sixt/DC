@@ -68,6 +68,7 @@ function Dispatch (v) {
 	v = v [0];
 	
 	if (v == c_newclient) t !=tab_id && Close ()
+	else if (v == '🕸️.sh') wdgt.Send (`${v}${t}`)
 	else if (v?.startsWith ($app.Const.Var ())) {
 		const a = v.replace ($app.Const.Var (), '').split ('=');
 		$app.Vars [a[0]] = a[1]; 

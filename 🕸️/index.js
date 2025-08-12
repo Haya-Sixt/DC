@@ -14,6 +14,7 @@ const c_nm = `/node_modules`, isDroid = __dirname.startsWith ('/'),
 	c_base = `${c_wrks}/\🖥️`.replace (' ', ''), 
 	c_ws = `/DC/${encodeURIComponent('🤖')}/`,
 	c_ls = `/ls${encodeURIComponent (' ')}`,
+	Flush = (res, v = "👌")=> { res.writeHead (200, { 'Content-Type': 'text/html;charset=utf-8' }); res.end (v)},
 	Emit = m=> [...clients.keys()].forEach (e => e.send (m));
 
 //
@@ -29,8 +30,7 @@ wss.on ('connection', function(ws) {
 app.use (express.static (c_base));
 
 app.get (`/exit`, (req, res) => {
-	res.writeHead (200, { 'Content-Type': 'text/html;charset=utf-8' });
-	res.end ("👌");
+	Flush (res);
 	server.close(() => {
 	    console.log('Server closed. Port released.');
 	    process.exit(0);
@@ -43,8 +43,7 @@ app.get('/favicon.ico', (req, res) => {
 
 app.get (`${c_ws}{*any}`, (req, res) => { // i.e.  🖥️ » 🤖 (ActionBlock) : Get http(!)://localhost:8181/DC/🤖/{lv=i_🤖}&t={system_time}
 	Emit (req.url.replace(c_ws, '')); 
-	res.writeHead (200, { 'Content-Type': 'text/html;charset=utf-8' });
-	res.end ("👌");
+	Flush (res);
 });
 
 app.get (`${c_ls}{*any}`, (req, res) => {
@@ -55,8 +54,7 @@ app.get (`${c_ls}{*any}`, (req, res) => {
 		}, []),
 		dir = path.join(c_base, decodeURIComponent (req.url.replace (c_ls, ''))),
 		f = fs.existsSync (dir) ? F (dir) : []; 
-	res.writeHead (200, { 'Content-Type': 'text/html;charset=utf-8' });
-	res.end (JSON.stringify (f));
+	Flush (res, JSON.stringify (f));
 });
 
 //app.get(`${c_nm}{*any}`, (req, res) => {
