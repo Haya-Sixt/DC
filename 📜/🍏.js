@@ -14,7 +14,7 @@ const app = {
     Vars : { 
     	Mode: location.hash.replace('#',''),
         '🕯️': 0, '🕯️🕯️': 'false', '🌃': 'false',
-        '📆': '',
+        '📆': '', '🕸️⌚': 0,
     },
     Widgets: [],
     UIComponent: class T {
@@ -99,6 +99,7 @@ app.Widget = class T extends app.UIComponent {
 	    //
     	return async (op = {})=> { // 🗒️ op {manual} aren't in used (🤖->👁️‍🗨️).
 	    try {
+    	clearTimeout (this.i_Reset);
     	if (this.threads.Init) {
     		clearTimeout (this.threads.i_Init);
     		return (this.threads.i_Init = setTimeout (()=> this.Init, 1000, Object.assign (op, {repeat:{init: 1}})));
@@ -181,22 +182,29 @@ app.Widget = class T extends app.UIComponent {
 	}
 	//
 	Reset (e='get') {
-	    this.Error(e, 'failed.\nResetting (40s)...');
-	    setTimeout(this.Init, 1000*40);
-	    `${e}`.includes ('Failed to fetch') && app.Service['🤖']?.Send (`${this.id}.Reset`);
+    	this.i_Reset = setTimeout (this.Init, 1000*40);
+	    if (`${e}`.includes ('Failed to fetch')) {
+	    	if (Date.now() - app.Vars ['🕸️⌚'] > 10000) {
+			    app.Vars ['🕸️⌚'] = Date.now ();
+			    app.Service['🤖']?.Send (`🕸️`)
+		    }
+		    e = ''
+	    }
+	    this.Error(e, 'Retrying (40s)')
 	}
 	Error (e, t, release) {
 		if (release) this.threads[t] = 0;
 		console.error (this.id, t, e);
 		try { if (e.stack) e = decodeURIComponent (e.stack.replace('\n','').match (new RegExp (`.*:[0-9]{1,4}:[0-9]{1,4}\\)`, 'gum'))[0].replace (`/${app.Const.Libs ['📜']}`, '').replace (location.href.split('/').slice(0,-1).join('/'), '')) }
-		catch { 
-	        const a = e.stack.split('\n'); 
+		catch { try {
+			const a = e.stack.split('\n'); 
 	        e = a.filter((s, i)=> i < 1 || i == a.length - 1).join('\n').replaceAll(location.origin, '').replaceAll('<anonymous>', '').replaceAll(`/DC/${app.Const.Libs ['📜']}`, '');
 	        e = decodeURIComponent(decodeURIComponent(e));
 	        if (e.includes(' at XMLHttpRequest')) e = e.slice(0, e.indexOf(' at XMLHttpRequest'));
-	    }
-	    app.Widgets['🔔'].Alert(`${this.id} ${t}: ${e}`);
-	    $(this.sid).text(`${this.id} ${t}: ${e}`).addClass("error");
+	    } finally {} }
+	    if (e) t = `${t}:\n${e}`;
+	    app.Widgets['🔔'].Alert(`${this.id}❗ ${t}`);
+	    $(this.sid).text(`${this.id}❗ ${t}`).addClass("error");
 	}
 } // Widget
 
