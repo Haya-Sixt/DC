@@ -195,10 +195,10 @@ function ShowHide () {
 
 
 //
-let observer;
-(wdgt.data = new MutationObserver (ms=> ms.forEach (m=> m.type == 'childList' && m.removedNodes.length && (observer = 1) && Rearrange ()))).observe ($(`#${$app.Const.Name}`)[0], { childList: true });
-document.addEventListener ('fullscreenchange', Rearrange);
-addEventListener ('focus', Rearrange);
+let observer, i_Launcher, Launcher = ev=> { clearTimeout (i_Launcher); i_Launcher = setTimeout (Rearrange, 2000, ev) }; // for emmx, not 🥝.
+(wdgt.data = new MutationObserver (ms=> ms.forEach (m=> m.type == 'childList' && m.removedNodes.length && (observer = 1) && Launcher ()))).observe ($(`#${$app.Const.Name}`)[0], { childList: true });
+document.addEventListener ('fullscreenchange', Launcher);
+addEventListener ('focus', Launcher);
 window.addEventListener ('orientationchange', ()=> setTimeout(ShowHide, 250));
 
 })(); 
