@@ -110,7 +110,7 @@ let i_clicksend;
 function Click_Send (steps = 2) {
 	if (document.fullscreenElement) return;
 	wdgt.Send (`${wdgt.id}.full screen`);
-	if (steps--) i_clicksend = setTimeout (Send, 10000, steps);
+	if (steps--) i_clicksend = setTimeout (Click_Send, 10000, steps);
 }
 
 // 🤖 has responded
