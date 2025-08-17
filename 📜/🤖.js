@@ -101,7 +101,7 @@ function Reload () {
 //
 function Focus (ev) {
 	wdgt.data.focus = ev?.type == 'blur' ? false : true;
-	if (wdgt.data.focus) Reload () && Send ()
+	if (wdgt.data.focus) Reload () && Click_Send ()
 	else clearTimeout (i_clicksend)
 }
 
