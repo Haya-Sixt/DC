@@ -95,26 +95,26 @@ function Maintenence () {
 // Reload (New day)
 const date = new Date().getDate();
 function Reload () {
-	if (date != new Date().getDate()) location.reload ();
+	return (date != new Date().getDate()) ? location.reload () : true;
 }
 
 //
 function Focus (ev) {
 	wdgt.data.focus = ev?.type == 'blur' ? false : true;
-	if (!wdgt.data.focus) return;
-	Reload ();
-	Send ();
+	if (wdgt.data.focus) Reload () && Send ()
+	else clearTimeout (i_clicksend)
 }
 
-// Fullscreen 
-function Send (steps = 2) {
-	if (document.fullscreenElement || !wdgt.data.focus) return;
+// 
+let i_clicksend;
+function Click_Send (steps = 2) {
+	if (document.fullscreenElement) return;
 	wdgt.Send (`${wdgt.id}.full screen`);
-	if (steps--) setTimeout (Send, 10000, steps);
+	if (steps--) i_clicksend = setTimeout (Send, 10000, steps);
 }
 
 // 🤖 has responded
-function Receive () {
+function Click_Receive () {
 	document.querySelector("body").requestFullscreen();
 }
 
@@ -123,7 +123,7 @@ function Receive () {
 addEventListener('focus', Focus); 
 addEventListener('blur', Focus);
 window.addEventListener('orientationchange', Focus);
-document.addEventListener ('click', Receive);
+document.addEventListener ('click', Click_Receive);
 
 })();
 
