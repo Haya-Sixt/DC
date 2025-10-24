@@ -325,7 +325,7 @@ class Helpers {
 
         //
         function Get (p = prop) {
-            return getComputedStyle($('html')[0]).getPropertyValue(decodeURIComponent(p)).trim();
+            return ($('html').css(decodeURIComponent(p))??"").trim();
         }
 
         //

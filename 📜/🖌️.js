@@ -126,13 +126,13 @@ function Rearrange (scheduled, validated) {
 
 //
 function Participant (w, e, rearrange = false) {
-	const S = p=> e.computedStyleMap().get (p).toString().includes ('%'), 
-		br = e.getBoundingClientRect(), sm = e.computedStyleMap();
+	const S = p=> ($(e).css(p)??"").includes ('%'), 
+		br = e.getBoundingClientRect();
 	if ((w instanceof $app.Service)
 			|| (!S ('width') && !S ('top'))
 			|| (rearrange && e.parentNode.id !=$app.Const.Col.W)
 			|| (rearrange && !e.checkVisibility({opacityProperty:true,visibilityProperty:true}))
-			|| Number(sm.get ('z-index').toString()) > 100) {
+			|| Number(($(e).css('z-index')??"")) > 100) {
 		return false;
 	}
 	return true;
