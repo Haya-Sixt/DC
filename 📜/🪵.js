@@ -61,7 +61,7 @@ function ProggressBar (c_ender) {
 		aw = [], ae = [];
 	for (const e of wdgt.Entries(now)) {
 		e.log.includes(c_ender) && ae.push (e.log.split(c_ender)[1].split(' ')[0]);
-		if (!e.log.includes("[") || ae.find (ee=> e.log.includes (ee.log)) ) continue;
+		if (!e.log.includes("[") || ae.find (ee=> e.log.includes (ee)) ) continue;
 		let endsAt = e.startedAt, duration = 0;
 		duration = e.log.substring(e.log.indexOf("[")+1, e.log.indexOf("]"));
 		const t = e.log.replace(`[${duration}]`, '');
