@@ -260,7 +260,7 @@ function Init () {
 	
 	//
 	async function Resources () {
-	    [app.Const.Name,'⏳'].forEach(e=> { const link = document.createElement('link'); link.rel = 'stylesheet'; link.type = 'text/css'; link.href = `🖌️/${e}.css`; document.head.appendChild(link); } ); 
+	    [app.Const.Name,'⏳'].forEach(e=> { const link = document.createElement('link'); link.rel = 'stylesheet'; link.type = 'text/css'; link.href = `🖌️/${e}.css`; document.head.appendChild(link); } );
 	    const a = [];
 	    (await (await fetch (`/ls DC/${app.Const.Libs ['📜']}`)).json()).forEach ((e)=> { e = e.slice (e.indexOf ('/DC/') + 4); if (document.head.querySelector (`script[src$="${e}"]`) ) return; const script = document.createElement('script'); a.push (new Promise ((resolve)=> { script.onload = ()=> resolve(1) })); script.type = 'text/javascript'; script.src = e; document.head.appendChild(script); } ); 
 		Promise.all (a).then (Ready);
@@ -269,8 +269,35 @@ function Init () {
 	//
 	async function Ready  () {
 		await Helpers.WaitFor (()=> window ['🐵'].Ready);
-		for (const [k, w] of Object.entries(app.Widgets)) w.Init ();
+		MediaQueries ();
+	    for (const [k, w] of Object.entries(app.Widgets)) w.Init ();
 	}
+	
+	// Sass
+	function MediaQueries() {
+		const rootStyles = getComputedStyle(document.documentElement);
+		for (const sheet of document.styleSheets) {
+			try {
+			for (let i = 0; i < sheet.cssRules.length; i++) {
+				const rule = sheet.cssRules[i];
+				if (!(rule instanceof CSSMediaRule)) continue;
+				let condition = rule.conditionText;
+				const matches = condition.match(/var\((--[^)]+)\)/g);
+				if (!matches) continue;
+				let newCondition = condition;
+				for (const match of matches) {
+					const varName = match.slice(4, -1); // remove "var(" and ")"
+					const value = rootStyles.getPropertyValue(varName).trim();
+					if (value) newCondition = newCondition.replace(match, value);
+				}
+				if (newCondition == condition) continue;
+				const cssText = rule.cssText.replace(condition, newCondition);
+				sheet.deleteRule(i);
+				sheet.insertRule(cssText, i);
+			}} catch (e) { console.warn("Cannot access stylesheet:", sheet.href, e) } // CORS
+		}
+	}
+
 } // Init
 
 //

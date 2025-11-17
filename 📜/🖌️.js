@@ -8,7 +8,9 @@ const wdgt = new $app.Service ('🖌️', {
 });
 
 //
-wdgt.Init = ShowHide;
+wdgt.Init = () => {
+	ShowHide ();
+}
 
 //
 let i_update, night;
@@ -20,6 +22,31 @@ wdgt.Update = ()=> {
 		night = $app.Vars['🌃'];
 	}, 10000);
 }
+
+
+//
+function ShowHide () {
+	for (const [k, w] of Object.entries($app.Widgets)) {
+		if (w instanceof $app.Service) continue;
+		const e = $(w.sid);
+		if (Participant (w, e[0])) e.removeClass (wdgt.id)
+		else e.addClass (wdgt.id);
+	}
+}  
+
+//
+function Participant (w, e, rearrange = false) {
+	const S = p=> !'0px,auto'.includes ($(e).css(p)??""), br = e.getBoundingClientRect();
+	if ((w instanceof $app.Service)
+			|| (!S ('left') && !S ('top'))
+			|| (rearrange && e.parentNode.id !=$app.Const.Col.W)
+			|| (rearrange && !e.checkVisibility({opacityProperty:true,visibilityProperty:true}))
+			|| Number(($(e).css('z-index')??"")) > 100) {
+		return false;
+	}
+	return true;
+}
+
 
 //
 let rearrange, i_rearrange, rearrange_thread;
@@ -114,7 +141,7 @@ function Rearrange (scheduled, validated) {
 		}
 	});
 	
-	const css = { start: '<style> @media (min-device-width: 730px) {', end: '}</style>', E: e=> `${e.sid} { top:${e.top}%; left:${e.left}%; }`, a: [], };
+	const css = { start: `<style> @media (min-device-width: ${Helpers.Css ('--🖥️-c-mdw')} {`, end: '}</style>', E: e=> `${e.sid} { top:${e.top}%; left:${e.left}%; }`, a: [], };
 //console.log (row.a[0])
 	Switch (css, row.a[0]);
 	const min = css.a.reduce ((a, e)=> ({t: Math.min (a.t, e.top), l: Math.min (a.l, e.left)}), {t:999, l:999});
@@ -125,30 +152,14 @@ function Rearrange (scheduled, validated) {
 }
 
 //
-function Participant (w, e, rearrange = false) {
-	const S = p=> ($(e).css(p)??"").includes ('%'), 
-		br = e.getBoundingClientRect();
-	if ((w instanceof $app.Service)
-			|| (!S ('width') && !S ('top'))
-			|| (rearrange && e.parentNode.id !=$app.Const.Col.W)
-			|| (rearrange && !e.checkVisibility({opacityProperty:true,visibilityProperty:true}))
-			|| Number(($(e).css('z-index')??"")) > 100) {
-		return false;
-	}
-	return true;
-}
-
-//
 function Switch (css, e, h = 0, w = 0) {
 	const NF = v=> Number (parseFloat (v).toFixed (2)),
 		CmpL = (a, b)=> a.left - b.left, 
 		CmpT = (a, b)=> a.top - b.top,
 		A = e=> e[wdgt.id] ?? e.a,
 		CSS = e=> {
-			//e.h = h; e.w = w
 			e.top = NF (h + e.top + (e.dy ?? 0));
 			e.left = NF (w + e.left + (e.dx ?? 0));
-			//window ['🐵'].AddStyle (`@media (min-device-width: 730px) { ${e.sid} { top:${e.top}%; left:${e.left}%; __zoom:0.5; __height:${e.height-1}%; __width:${e.width-1}%; } }`);
 			css.a.push (e);
 		},
 		a = A(e);
@@ -181,17 +192,7 @@ function Switch (css, e, h = 0, w = 0) {
 	
 	// set css
 	a.forEach (e=> !A(e) && CSS (e));
-} 
-
-//
-function ShowHide () {
-	for (const [k, w] of Object.entries($app.Widgets)) {
-		if (w instanceof $app.Service) continue;
-		const e = $(w.sid);
-		if (Participant (w, e[0])) e.removeClass (wdgt.id)
-		else e.addClass (wdgt.id);
-	}
-} 
+}
 
 
 //
