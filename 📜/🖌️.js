@@ -36,10 +36,11 @@ function ShowHide () {
 
 //
 function Participant (w, e, rearrange = false) {
-	const S = p=> !'0px,auto'.includes ($(e).css(p)??""), br = e.getBoundingClientRect();
+	const S = p=> $(e).css(p) === "-999px",
+		br = e.getBoundingClientRect(), colW = e.parentNode.id == $app.Const.Col.W;
 	if ((w instanceof $app.Service)
-			|| (!S ('left') && !S ('top'))
-			|| (rearrange && e.parentNode.id !=$app.Const.Col.W)
+			|| (colW && S ('left') && S ('top'))
+			|| (rearrange && !colW)
 			|| (rearrange && !e.checkVisibility({opacityProperty:true,visibilityProperty:true}))
 			|| Number(($(e).css('z-index')??"")) > 100) {
 		return false;
