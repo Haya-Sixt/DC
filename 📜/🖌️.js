@@ -1,10 +1,12 @@
 //
 (()=>{
 
+const DEBUG = false ? 10 : 1;
+
 // screen saver
 const wdgt = new $app.Service ('🖌️', {
 	dependency: { var: ['🌃',] },
-	repeat: 60,
+	repeat: 6*DEBUG,
 });
 
 //
@@ -18,9 +20,9 @@ wdgt.Update = ()=> {
 	clearTimeout (i_update);
 	i_update = setTimeout (()=> {
 		if (typeof night != 'undefined' && night != $app.Vars['🌃']) Rearrange ()
-		else setTimeout (Rearrange, 60*1000, 1);
+		else setTimeout (Rearrange, 6*DEBUG*1000, 1);
 		night = $app.Vars['🌃'];
-	}, 10000);
+	}, 1000*DEBUG);
 }
 
 
@@ -56,10 +58,10 @@ function Rearrange (scheduled, validated) {
 	if (!validated) {
 		clearTimeout (i_rearrange);
 		return i_rearrange = setTimeout (()=> {
-			if ( (scheduled !==1 || Date.now () - (rearrange??0) > 30*60*1000)
+			if ( (scheduled !==1 || Date.now () - (rearrange??0) > 3*DEBUG*6*DEBUG*1000)
 					&& $app.Vars['🌃'] =='false' 
 					&& screen.orientation.type.includes('landscape')
-					&& document.fullscreenElement
+					&& (document.fullscreenElement || DEBUG > 1)
 					&& $app.Widgets ['🤖']?.data?.focus
 					&& Date.now () - (rearrange_thread??0) > 5*1000) {
 				rearrange_thread = Date.now ();
@@ -142,12 +144,12 @@ function Rearrange (scheduled, validated) {
 		}
 	});
 	
-	const css = { start: `<style> @media (min-device-width: ${Helpers.Css ('--🖥️-c-mdw')} {`, end: '}</style>', E: e=> `${e.sid} { top:${e.top}%; left:${e.left}%; }`, a: [], };
+	const css = { start: `<style> @media (min-device-width: ${Helpers.Css ('--🖥️-c-mdw')}) {`, end: '}</style>', E: e=> `${e.sid} { top:${e.top}%; left:${e.left}%; }`, a: [], };
 //console.log (row.a[0])
 	Switch (css, row.a[0]);
 	const min = css.a.reduce ((a, e)=> ({t: Math.min (a.t, e.top), l: Math.min (a.l, e.left)}), {t:999, l:999});
     css.a.forEach (e=>{ e.top -= min.t; e.left -= min.l});
-	$(wdgt.sid).html (`${css.start}${css.a.reduce ((a, e)=> `${a}${css.E (e)}`, '')}${css.end}`);
+	$(wdgt.sid).html (`${css.start}${css.a.reduce ((a, e)=> `${a}#${$app.Const.Col.W}>${css.E (e)}`, '')}${css.end}`);
 	rearrange = Date.now ();
 	rearrange_thread = null;
 }
