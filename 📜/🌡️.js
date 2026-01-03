@@ -5,7 +5,7 @@
 // Forecast
 const wdgt = new $app.Widget('🌡️', {
 	http: true, 
-	// repeat️: been initiated by '$app.Service ('🤖')'
+	// repeat️: initiated by '$app.Service ('🤖')'
 });
 	
 let chart, splineBuilder, columnBuilder, axisY_max = -100, axisY_min = 100;
@@ -97,8 +97,9 @@ class Chart {
 		const ct = this.ct, axisY = ct.axisY, axisX = ct.axisX, d_main = ct.data.find ((e)=> e.type == 'Spline'), 
 			vb = {w: 460, get h() {return 290}, get d() {return vb.h/10}, get cw() {return vb.w/(d_main.dataPoints.length*2)}, get icons () {return {h: 1.5*vb.d}}, get graph () {return {h: 7.5*vb.d}}, get axisX () {return {h: vb.d}}},
 			svg = ct.svg = $('<svg>').attr ("xmlns", "http://www.w3.org/2000/svg").attr ("viewBox", `0 0 ${vb.w} ${vb.h}`).attr ("style", "display: block; width: 100%; height: 100%;"),
-			G = (c)=> $('<g>').appendTo (svg).addClass (c),
-			X = (i)=> { return (i*2+1)*vb.cw },
+			rtl = 1 ? -1 : 1, // also css ".🌡️overlay linear-gradient to left"
+			G = c=> $('<g>').appendTo (svg).addClass (c),
+			X = i=> (rtl == -1 ? vb.w : 0) + rtl*(i*2+1)*vb.cw, 
 			Lable = (g, l, i, size, y, dx)=> l && $("<text>").appendTo (g).html (l).attr ("x", X(i) + (size/2)).attr ("y", y).attr ("font-size", size).attr ("dx", dx ? dx : 0);
 		
 		Icons (d_main);
@@ -125,18 +126,18 @@ class Chart {
 			Path = (mn)=> $("<path>").appendTo (g).attr ("d", dm [mn]).attr ("fill",`url(#${LG(mn)})`).attr ("stroke-width", 0), 
 			Stop = (i, mn)=> $("<stop>").appendTo (LG (mn, 1)).attr ("offset", `${X(i)/vb.w*100}%`).attr ("stop-color", GredientConverter.toTemperature(dp[i].y[mn])),
 			Y = (deg, ltr)=> { return  vb.icons.h + vb.graph.h - (deg - axisY.minimum)/(axisY.maximum - axisY.minimum)*vb.graph.h + ltr*strokeW/2},
-			D = (i, mn, ltr = -1, m)=> m === 1 ? `M ${vb.cw} ${Y(dp[0].y[mn], ltr)}${D (i, mn, ltr, 2)}` : ` S ${X(i) + (!m ? ltr*vb.cw : 0)} ${Y(dp[i].y[mn], ltr)} ${X(i) + (m === 2 ? vb.cw/-2 : 0)} ${Y(dp[i].y[mn], ltr)}`;
+			D = (i, mn, ltr = -rtl, m)=> m === 1 ? `M ${vb.cw} ${Y(dp[0].y[mn], ltr)}${D (i, mn, ltr, 2)}` : ` S ${X(i) + (!m ? ltr*vb.cw : 0)} ${Y(dp[i].y[mn], ltr)} ${X(i) + (m === 2 ? vb.cw/-2 : 0)} ${Y(dp[i].y[mn], ltr)}`;
 		
-		// 
+		//
 		for (let i = 0; i < dp.length; i++)
 			for (let j = 0; j < 2; j++) {
-				!i && dm.push (D(i, j, 1, 1));
-				dm [j] += D (i, j);
-				Stop (i, j);
+				!i && dm.push (D(i, j, rtl, 1));
+				dm [j] += (!i && rtl == -1) ? D (i, j, rtl, -1) : D (i, j); // todo
+				Stop ((rtl == -1 ? dp.length-1 : 0) + rtl*i, j);
 			}
 		for (let i = dp.length - 1; i >= 0; i--)
 			for (let j = 0; j < 2; j++) {
-				dm [j] += D (i, j, 1);
+				dm [j] += D (i, j, rtl);
 				!i && Path (j);
 			}
 			
@@ -187,7 +188,7 @@ class Chart {
 	
 	// 
 	function DimTodayColumn () {
-		$("<rect>").appendTo (G ('DimTodayColumn')).attr ("x", vb.cw*2).attr ("width", vb.cw*2).attr ("height", vb.h).attr ("rx", 5).attr ("opacity", 0.3).attr ("fill",`white`).attr ("stroke-width",0);
+		$("<rect>").appendTo (G ('DimTodayColumn')).attr ("x", vb.cw*(rtl==-1 ? 6 : 2)).attr ("width", vb.cw*2).attr ("height", vb.h).attr ("rx", 5).attr ("opacity", 0.3).attr ("fill",`white`).attr ("stroke-width",0);
 	} 
 	
 	} // Render

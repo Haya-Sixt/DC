@@ -50,7 +50,7 @@
 :is(#👁️‍🗨️:not(:empty), #👁️‍🗨️ > div):before { background-position-y: -6rem; background-image: var(--🖥️-👁️‍🗨️ ); content: ""; position: absolute; height: 100%; background-repeat: no-repeat; }
 #👁️‍🗨️:not(:empty):before { background-size: 20rem 38rem; width: 3.4rem; background-position-x: -0.2rem; filter: invert(1) sepia(1) brightness(0.4); } 
 #👁️‍🗨️ > div:before { width: 3.5rem; right: -2.5rem; background-size: 15rem 38rem; filter: invert(1) brightness(0.2); background-position-x: 100%; }
-.🌡️overlay { background-image: linear-gradient(to right, var(--🖥️-c-b-1), rgba(var(--🖥️-c-b-1_rgb), 0.8), rgba(var(--🖥️-c-b-1_rgb), 0.8), rgba(var(--🖥️-c-b-1_rgb), 0.8), rgba(var(--🖥️-c-b-1_rgb), 0.7), rgba(var(--🖥️-c-b-1_rgb), 0.7), rgba(var(--🖥️-c-b-1_rgb), 0.7), rgba(var(--🖥️-c-b-1_rgb), 0.8) 24.69%, rgba(var(--🖥️-c-b-1_rgb), 0) 24.7%, transparent 24.71%, transparent 41.79%, rgba(var(--🖥️-c-b-1_rgb), 0.4) 41.8%, rgba(var(--🖥️-c-b-1_rgb), 0.3) 41.81%, rgba(var(--🖥️-c-b-1_rgb), 0.3), rgba(var(--🖥️-c-b-1_rgb), 0.3), rgba(var(--🖥️-c-b-1_rgb), 0.3), rgba(var(--🖥️-c-b-1_rgb), 0.4), rgba(var(--🖥️-c-b-1_rgb), 0.4), rgba(var(--🖥️-c-b-1_rgb), 0.5), rgba(var(--🖥️-c-b-1_rgb), 0.6), rgba(var(--🖥️-c-b-1_rgb), 0.7), rgba(var(--🖥️-c-b-1_rgb), 0.8)); }  
+.🌡️overlay { background-image: linear-gradient(to left, var(--🖥️-c-b-1), rgba(var(--🖥️-c-b-1_rgb), 0.8), rgba(var(--🖥️-c-b-1_rgb), 0.8), rgba(var(--🖥️-c-b-1_rgb), 0.8), rgba(var(--🖥️-c-b-1_rgb), 0.7), rgba(var(--🖥️-c-b-1_rgb), 0.7), rgba(var(--🖥️-c-b-1_rgb), 0.7), rgba(var(--🖥️-c-b-1_rgb), 0.8) 24.69%, rgba(var(--🖥️-c-b-1_rgb), 0) 24.7%, transparent 24.71%, transparent 41.79%, rgba(var(--🖥️-c-b-1_rgb), 0.4) 41.8%, rgba(var(--🖥️-c-b-1_rgb), 0.3) 41.81%, rgba(var(--🖥️-c-b-1_rgb), 0.3), rgba(var(--🖥️-c-b-1_rgb), 0.3), rgba(var(--🖥️-c-b-1_rgb), 0.3), rgba(var(--🖥️-c-b-1_rgb), 0.4), rgba(var(--🖥️-c-b-1_rgb), 0.4), rgba(var(--🖥️-c-b-1_rgb), 0.5), rgba(var(--🖥️-c-b-1_rgb), 0.6), rgba(var(--🖥️-c-b-1_rgb), 0.7), rgba(var(--🖥️-c-b-1_rgb), 0.8)); }  
 .🌃Hide { visibility: hidden; }
 .🌃Dim { filter: opacity(0.035); }
 
@@ -123,7 +123,7 @@
 #📅👈 { font-size: var(--🖥️-c-px-20); } 
 #⏰ { border-radius: var(--🖥️-c-px-20); border: var(--🖥️-c-px-1) solid var(--🖥️-c-b-2); padding:0 var(--🖥️-c-px-6) 0 var(--🖥️-c-px-6); }
 #⏰ span { position: relative; top: calc(-1 * var(--🖥️-c-px-21) / 14); } 
-.🌡️overlay { background-image: linear-gradient(to right, var(--🖥️-c-b-1), rgba(var(--🖥️-c-b-1_rgb), 0.8), rgba(var(--🖥️-c-b-1_rgb), 0.8), rgba(var(--🖥️-c-b-1_rgb), 0.8), rgba(var(--🖥️-c-b-1_rgb), 0.7), rgba(var(--🖥️-c-b-1_rgb), 0.7), rgba(var(--🖥️-c-b-1_rgb), 0.7), rgba(var(--🖥️-c-b-1_rgb), 0.8) 19.99%, rgba(var(--🖥️-c-b-1_rgb), 0) 20%, transparent 20.01%, transparent 39.99%, rgba(var(--🖥️-c-b-1_rgb), 0.4) 40%, rgba(var(--🖥️-c-b-1_rgb), 0.3) 40.01%, rgba(var(--🖥️-c-b-1_rgb), 0.3), rgba(var(--🖥️-c-b-1_rgb), 0.3), rgba(var(--🖥️-c-b-1_rgb), 0.3), rgba(var(--🖥️-c-b-1_rgb), 0.4), rgba(var(--🖥️-c-b-1_rgb), 0.4), rgba(var(--🖥️-c-b-1_rgb), 0.5), rgba(var(--🖥️-c-b-1_rgb), 0.6), rgba(var(--🖥️-c-b-1_rgb), 0.7), rgba(var(--🖥️-c-b-1_rgb), 0.8)); }  
+.🌡️overlay { background-image: linear-gradient(to left, var(--🖥️-c-b-1), rgba(var(--🖥️-c-b-1_rgb), 0.8), rgba(var(--🖥️-c-b-1_rgb), 0.8), rgba(var(--🖥️-c-b-1_rgb), 0.8), rgba(var(--🖥️-c-b-1_rgb), 0.7), rgba(var(--🖥️-c-b-1_rgb), 0.7), rgba(var(--🖥️-c-b-1_rgb), 0.7), rgba(var(--🖥️-c-b-1_rgb), 0.8) 19.99%, rgba(var(--🖥️-c-b-1_rgb), 0) 20%, transparent 20.01%, transparent 39.99%, rgba(var(--🖥️-c-b-1_rgb), 0.4) 40%, rgba(var(--🖥️-c-b-1_rgb), 0.3) 40.01%, rgba(var(--🖥️-c-b-1_rgb), 0.3), rgba(var(--🖥️-c-b-1_rgb), 0.3), rgba(var(--🖥️-c-b-1_rgb), 0.3), rgba(var(--🖥️-c-b-1_rgb), 0.4), rgba(var(--🖥️-c-b-1_rgb), 0.4), rgba(var(--🖥️-c-b-1_rgb), 0.5), rgba(var(--🖥️-c-b-1_rgb), 0.6), rgba(var(--🖥️-c-b-1_rgb), 0.7), rgba(var(--🖥️-c-b-1_rgb), 0.8)); }  
 #🔔, #🚥, #⏳, #🖥️ > :not(:is(#🖥️w,#🖥️s)) { display: none; }
 
 #🖥️w > #📆, #🖥️w > #📅👈 { top:5%; }
@@ -160,7 +160,14 @@ imo { font-size:var(--🖥️-c-px-22); }
 #🗓️ div.omer span{ filter: brightness(65%);} 
 #🗓️ td.tdCurrentHeb div.omer { font-size:var(--🖥️-c-px-14); } 
 #📆 { direction:ltr; } 
-.📆val, #🪵, .🛞 { text-align:left; } 
+.📆val, #🪵, .🛞 { text-align:left; }
+___#🌡️ { transform: scaleX(-1); }
+___#🌡️ text {
+  ___fill: red;
+  ___transform: scaleX(-1); 
+  ___transform-origin: 10%;
+  ___transform: rotateY(180deg);
+}
 .dafYomi { overflow: hidden; margin: 4% 0 0 0; } 
 #🌡️ .Spline text, #💈 text { fill: var(--🖥️-c-ts-2); }
 #🌡️ .AxisX { fill: var(--🖥️-c-t-2); }
