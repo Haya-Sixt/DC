@@ -104,6 +104,9 @@ return uw;
 })();
 
 
+// 🗺️
+// console.cloud.google.com/apis/credentials?project=...
+sessionStorage.setItem("🗺️", "AIzaSyBNb4RWDxs____sA2qQ8sj0Xmz1M_u1bIV2CW0");
+
 
 $app.$dc.uw.Ready = true;
-
