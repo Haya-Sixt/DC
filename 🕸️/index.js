@@ -1,4 +1,8 @@
 //console.log (`HOME : ${process.env.HOME}`)
+if (process.env.TITLE) {
+  process.title = process.env.TITLE;
+  console.log("Running as:", process.title);
+}
 
 const c_nm = `/node_modules`, isDroid = __dirname.startsWith ('/'),
 	c_wrks = isDroid ? '/\storage/\emulated/\ 0/\🍏' : 'D:\\Workspace',
