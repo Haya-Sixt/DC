@@ -22,7 +22,7 @@
 // ==/UserScript==
 
 (()=> {
-alert('via script');
+//alert('via script');
 console.log ("GM_info.script", GM_info.script);
 console.log ("GM.setClipboard",GM.setClipboard);
 console.log ("GM.notification",GM.notification);
@@ -104,9 +104,12 @@ return uw;
 })();
 
 
+
 // 🗺️
 // console.cloud.google.com/apis/credentials?project=...
-sessionStorage.setItem("🗺️", "AIzaSyBNb4RWDxs____sA2qQ8sj0Xmz1M_u1bIV2CW0");
+sessionStorage.setItem("🗺️", "AIzaSyBNb4RWDxssA2qQ8sj0Xmz1M_u1bIV2CW0");
+
 
 
 $app.$dc.uw.Ready = true;
+
